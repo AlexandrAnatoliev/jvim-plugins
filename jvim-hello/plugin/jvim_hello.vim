@@ -1,14 +1,14 @@
 " Упрощенная версия Java плагина
-if exists("g:loaded_java_vim_hello")
+if exists("g:loaded_jvim_hello")
     finish
 endif
-let g:loaded_java_vim_hello = 1
+let g:loaded_jvim_hello = 1
 
-command! -nargs=0 JavaVimHello call s:RunJavaVimHello()
+command! -nargs=0 JvimHello call s:RunJvimHello()
 
-function! s:RunJavaVimHello()
+function! s:RunJvimHello()
     " Запускаем Java программу и получаем результат
-    let result = system('java -cp ~/.vim/pack/my-plugins/start/java-vim-hello/java/ JavaVimHello')
+    let result = system('java -cp ~/.vim/pack/my-plugins/start/jvim-hello/java/ JvimHello')
     " Проверяем ошибки
     if v:shell_error != 0
         echo "Ошибка: " . result
