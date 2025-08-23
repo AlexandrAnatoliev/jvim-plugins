@@ -146,7 +146,7 @@ javac JvimEcho.java
 * Скомпилированный файл JvimEcho.class в указанной директории
 
 <div align="center">
-  <h4>Требования</h4>
+  <h4>Совместимость</h4>
 </div>
  
 * Vim 7.0 и выше
