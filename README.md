@@ -174,7 +174,7 @@ javac JvimExamlePlugin.java
 </div>
 
 Если плагин не работает, 
-проверьте работу Java файла вручную в термаинале:
+проверьте работу Java файла вручную в терминале:
 
 ```
 cd ~/.vim/pack/my-plugins/start/jvim-example-plugin/java
