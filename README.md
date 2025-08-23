@@ -1,5 +1,97 @@
 <div align="center">
 
+  <a id="english"></a>
+  <h1>Simple Vim Plugins In Java</h1>
+  <p>Created for educational purposes to test interaction
+  between Vim and Java</p>
+
+  [![EN](https:r/img.shields.io/badge/English-🇬🇧-blue)](#english)
+  [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
+  ![Version 0.1.0](https://img.shields.io/badge/Version-0.1.0-orange.svg)
+  ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
+  ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
+  ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
+
+</div>
+
+<div align="center">
+  <h4>Installation</h4>
+</div>
+ 
+* Save the plugin folder `jvim-example-plugin/` 
+to `~/.vim/pack/my-plugins/start/`:
+```
+~/.vim/
+└── pack/
+    └── my-plugins/
+        └── start/
+            └── jvim-example-plugin/
+                ├── plugin/
+                │   └── jvim_example_plugin.vim
+                └── java/
+                    └── JvimExamlePlugin.java
+```
+
+* Compile the Java file:
+```
+cd ~/.vim/pack/my-plugins/start/java/
+javac JvimExamlePlugin.java
+```
+
+* Reload Vim or execute the command:
+
+```
+:source ~/.vim/pack/my-plugins/start/jvim-example-plugin/plugin/jvim_example_plugin.vim
+```
+
+<div align="center">
+  <h4>Plugin List</h4>
+</div>
+ 
+ * [vim-hello-plugin](vim-hello-plugin/plugin/hello.vim)
+
+Simple Hello plugin for testing Vim interaction.
+Enter command: `Hello` and Vim will respond on command line:
+`hello vim`
+
+ * [jvim-hello](jvim-hello/README.md)
+
+Designed to test interaction between Vim and Java.
+On command: `:JvimHello` Vim will respond on command line:
+`hello java vim`
+
+ * [jvim-echo](jvim-echo/README.md)
+
+Designed to test interaction between Vim and Java.
+On command: `:Jvim Hello!!!` Vim will respond on command line:
+`Hello!!!`
+
+<div align="center">
+  <h4>Requirements</h4>
+</div>
+ 
+* Java installed
+* Compilled JvimExamplePlugin.class file in the specified directory. 
+
+<div align="center">
+  <h4>Compatibility</h4>
+</div>
+ 
+* Vim 7.0 and above
+* Java 8 and above
+
+<div align="center">
+  <h4>Debugging</h4>
+</div>
+
+If the plugin doesn't work, test the Java file manually in terminal:
+
+```
+cd ~/.vim/pack/my-plugins/start/jvim-example-plugin/java
+java JvimExamplePlugin
+```
+<div align="center">
+
   <a id="russian"></a>
   <h1>Простые плагины для Vim на языке Java</h1>
   <p>Пишу их учебных целях для проверки взаимодействия Vim и Java</p>
