@@ -67,6 +67,13 @@ Designed to test interaction between Vim and Java.
 On command: `:Jvim Hello!!!` Vim will respond on command line:
 `Hello!!!`
 
+* [jvim-timer](jvim-timer/README.md)
+
+Simple plugin for measuring Vim working time.
+Designed for self-monitoring and productivity.
+
+Displays Vim running time after finishing work and closing Vim.
+
 <div align="center">
   <h4>Requirements</h4>
 </div>
@@ -155,6 +162,13 @@ javac JvimExamlePlugin.java
 Нужен для проверки взаимодействия Vim и Java
 На команду: `:Jvim Hello!!!` Vim ответит в командной строке: `Hello!!!`
 
+* [jvim-timer](jvim-timer/README.md)
+
+Простой плагин для измерения времени работы Vim.
+Нужен для самоконтроля и производительности.
+
+По окончании работы и закрытия Vim выводит время работы Vim.
+
 <div align="center">
   <h4>Требования</h4>
 </div>
@@ -180,3 +194,4 @@ javac JvimExamlePlugin.java
 cd ~/.vim/pack/my-plugins/start/jvim-example-plugin/java
 java JvimExamplePlugin
 ```
+
