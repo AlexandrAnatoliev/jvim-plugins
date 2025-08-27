@@ -1,22 +1,30 @@
 import java.io.*;
 import java.time.*;
 
+/**
+* JvimTimer - Utility for measuring vim working time 
+* 
+* Class reads Vim start time from a temporary file, 
+* calculates running duration, outputs the result 
+* and deletes the temporary file 
+*
+* @version 0.1.0
+* @autor AlexandrAnatoliev
+*/
 public class JvimTimer {
   public static void main(String[] args) {
     try {
-      // Читаем время старта из файла
-      BufferedReader reader = new BufferedReader(new FileReader("/tmp/vim_start_time.txt"));
+      BufferedReader reader = 
+        new BufferedReader(new FileReader("/tmp/vim_start_time.txt"));
       long startTime = Long.parseLong(reader.readLine());
       reader.close();
             
-      // Вычисляем время работы
       long duration = System.currentTimeMillis() - startTime;
       double seconds = duration / 1000.0;
             
-      // Выводим результат
-      System.out.println("Время работы Vim: " + String.format("%.1f", seconds) + " секунд");
+      System.out.println("Время работы Vim: " 
+                          + String.format("%.1f", seconds) + " сек");
             
-      // Удаляем временный файл
       new File("/tmp/vim_start_time.txt").delete();
             
     } catch (Exception e) {
