@@ -6,7 +6,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.1.0](https://img.shields.io/badge/Version-0.1.0-orange.svg)
+  ![Version 0.1.1](https://img.shields.io/badge/Version-0.1.0-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -28,8 +28,9 @@
             └── jvim-timer/
                 ├── plugin/
                 │   └── jvim_timer.vim
-                └── java/
-                    └── JvimTimer.java
+                ├── java/
+                │   └── JvimTimer.java
+                └── data/
 ```
 
 * Compile the Java file:
@@ -56,7 +57,7 @@ $ vim example.md
 * After finishing work and closing Vim, 
 the following will be displayed:
 ```
-$ Время работы Vim: 310,4 секунд
+$ Время работы Vim: ... ч ... мин ... сек
 ```
 
 <div align="center">
@@ -81,7 +82,7 @@ $ Время работы Vim: 310,4 секунд
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.1.0](https://img.shields.io/badge/Version-0.1.0-orange.svg)
+  ![Version 0.1.1](https://img.shields.io/badge/Version-0.1.0-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -102,8 +103,9 @@ $ Время работы Vim: 310,4 секунд
             └── jvim-timer/
                 ├── plugin/
                 │   └── jvim_timer.vim
-                └── java/
-                    └── JvimTimer.java
+                ├── java/
+                │   └── JvimTimer.java
+                └── data/
 ```
 
 * Скомпилировать Java файл:
@@ -129,7 +131,7 @@ $ vim example.md
 
 * По окончании работы и закрытия Vim будет выведено:
 ```
-$ Время работы Vim: 310,4 секунд
+$ Время работы Vim: ... ч ... мин ... сек
 ```
 
 <div align="center">
