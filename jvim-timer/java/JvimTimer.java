@@ -20,10 +20,10 @@ public class JvimTimer {
       reader.close();
             
       long duration = System.currentTimeMillis() - startTime;
-      double seconds = duration / 1000.0;
+      long seconds = duration / 1000;
             
       System.out.println("Время работы Vim: " 
-                          + String.format("%.1f", seconds) + " сек");
+                          + String.format("%d", seconds) + " сек");
             
       new File("/tmp/vim_start_time.txt").delete();
             
