@@ -80,7 +80,6 @@ $ Время работы Vim: ... ч ... мин ... сек
 ```mermaid
 classDiagram
   direction LR
-  title "jvim-timer class call structure"
   
   class JvimTimer {
     +start()
@@ -180,7 +179,6 @@ $ Время работы Vim: ... ч ... мин ... сек
 ```mermaid
 classDiagram
   direction LR
-  title "jvim-timer class call structure"
   
   class JvimTimer {
     +start()
