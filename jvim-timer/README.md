@@ -74,6 +74,33 @@ $ Время работы Vim: ... ч ... мин ... сек
 * Java 8 and above
 
 <div align="center">
+  <h4>jvim-timer class call structure</h4>
+</div>
+
+```mermaid
+classDiagram
+  direction LR
+  title "jvim-timer class call structure"
+  
+  class JvimTimer {
+    +start()
+    +stop()
+  }
+
+  class jvim_timer.vim {
+    +StartTimer()
+    +StopTimer()
+  }
+
+  class /tmp/jvim_start_time.txt {
+    +Long startTime
+  }
+
+  jvim_timer.vim --|> JvimTimer : calls
+  JvimTimer --|> /tmp/jvim_start_time.txt : reads/writes
+```
+
+<div align="center">
 
   <a id="russian"></a>
   <h1>Простой плагин для измерения времени работы Vim</h1>
@@ -145,3 +172,30 @@ $ Время работы Vim: ... ч ... мин ... сек
  
 * Vim 7.0 и выше
 * Java 8 и выше
+
+<div align="center">
+  <h4>Структура вызовов классов</h4>
+</div>
+
+```mermaid
+classDiagram
+  direction LR
+  title "jvim-timer class call structure"
+  
+  class JvimTimer {
+    +start()
+    +stop()
+  }
+
+  class jvim_timer.vim {
+    +StartTimer()
+    +StopTimer()
+  }
+
+  class /tmp/jvim_start_time.txt {
+    +Long startTime
+  }
+
+  jvim_timer.vim --|> JvimTimer : calls
+  JvimTimer --|> /tmp/jvim_start_time.txt : reads/writes
+```
