@@ -6,7 +6,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.1.1](https://img.shields.io/badge/Version-0.1.1-orange.svg)
+  ![Version 0.1.2](https://img.shields.io/badge/Version-0.1.2-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -28,9 +28,8 @@
             └── jvim-timer/
                 ├── plugin/
                 │   └── jvim_timer.vim
-                ├── java/
-                │   └── JvimTimer.java
-                └── data/
+                └── java/
+                    └── JvimTimer.java
 ```
 
 * Compile the Java file:
@@ -82,7 +81,7 @@ $ Время работы Vim: ... ч ... мин ... сек
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.1.1](https://img.shields.io/badge/Version-0.1.1-orange.svg)
+  ![Version 0.1.2](https://img.shields.io/badge/Version-0.1.2-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -103,9 +102,8 @@ $ Время работы Vim: ... ч ... мин ... сек
             └── jvim-timer/
                 ├── plugin/
                 │   └── jvim_timer.vim
-                ├── java/
-                │   └── JvimTimer.java
-                └── data/
+                └── java/
+                    └── JvimTimer.java
 ```
 
 * Скомпилировать Java файл:
