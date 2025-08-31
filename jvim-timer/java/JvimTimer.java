@@ -8,15 +8,36 @@ import java.time.*;
 * calculates running duration, outputs the result 
 * and deletes the temporary file 
 *
-* @version 0.1.1 29.08.2025
+* @version 0.1.2 31.08.2025
 * @autor AlexandrAnatoliev
 */
 public class JvimTimer {
   public static void main(String[] args) {
+    System.out.printf("Run JavaTimer %s\n", 
+      args.length > 0 ? args[0] : "no args");
+    if (args.length > 0 && "start".equals(args[0])) {
+      start();
+    } else {
+      stop();
+    }
+  }
+
+  public static void start() {
+    try {
+      FileWriter writer = new FileWriter("/tmp/jvim_start_time.txt");
+      Long startTime = System.currentTimeMillis();
+      writer.write(startTime.toString());
+      writer.close();
+
+    } catch (Exception e) {
+        System.out.println("Ошибка записи: " + e.getMessage());
+    }
+  }
+
+  public static void stop() {
     try {
       BufferedReader reader = 
-        new BufferedReader(new FileReader(System.getenv("HOME") + 
-        "/.vim/pack/my-plugins/start/jvim-timer/data/vim_start_time.txt"));
+        new BufferedReader(new FileReader("/tmp/jvim_start_time.txt"));
       long startTime = Long.parseLong(reader.readLine());
       reader.close();
             
@@ -28,8 +49,7 @@ public class JvimTimer {
       System.out.printf("Время работы Vim: %d ч %d мин %d сек",
                         hours, minutes, seconds);
             
-      new File(System.getenv("HOME") +
-      "/.vim/pack/my-plugins/start/jvim-timer/data/vim_start_time.txt")
+      new File("/tmp/jvim_start_time.txt")
       .delete();
             
     } catch (Exception e) {
