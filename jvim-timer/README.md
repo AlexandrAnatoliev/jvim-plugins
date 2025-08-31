@@ -91,12 +91,12 @@ classDiagram
     +StopTimer()
   }
 
-  class /tmp/jvim_start_time.txt {
+  class vim_start_time.txt {
     +Long startTime
   }
 
   jvim_timer.vim --|> JvimTimer : calls
-  JvimTimer --|> /tmp/jvim_start_time.txt : reads/writes
+  JvimTimer --|> jvim_start_time.txt : reads/writes
 ```
 
 <div align="center">
@@ -190,10 +190,10 @@ classDiagram
     +StopTimer()
   }
 
-  class /tmp/jvim_start_time.txt {
+  class jvim_start_time.txt {
     +Long startTime
   }
 
   jvim_timer.vim --|> JvimTimer : calls
-  JvimTimer --|> /tmp/jvim_start_time.txt : reads/writes
+  JvimTimer --|> jvim_start_time.txt : reads/writes
 ```
