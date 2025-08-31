@@ -91,7 +91,7 @@ classDiagram
     +StopTimer()
   }
 
-  class vim_start_time.txt {
+  class jvim_start_time.txt {
     +Long startTime
   }
 
