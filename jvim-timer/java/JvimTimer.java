@@ -6,15 +6,24 @@ import java.time.*;
 * 
 * Class reads Vim start time from a temporary file, 
 * calculates running duration, outputs the result 
-* and deletes the temporary file 
+* and deletes the temporary file. 
 *
-* @version 0.1.2 31.08.2025
-* @autor AlexandrAnatoliev
+* Usage:
+*   java JvimTimer start  - records start time
+*   java JvimTimer stop   - calculates and displays duration
+*
+* @version  0.1.2 
+* @since    31.08.2025
+* @author   AlexandrAnatoliev
 */
 public class JvimTimer {
+
+  /** Main method that handles command line arguments
+  *
+  * @param  args command line arguments - use "start" to begin timing
+  *
+  */
   public static void main(String[] args) {
-    System.out.printf("Run JavaTimer %s\n", 
-      args.length > 0 ? args[0] : "no args");
     if (args.length > 0 && "start".equals(args[0])) {
       start();
     } else {
@@ -22,6 +31,9 @@ public class JvimTimer {
     }
   }
 
+  /**
+  * Records the current time as start time in temporary file
+  */
   public static void start() {
     try {
       FileWriter writer = new FileWriter("/tmp/jvim_start_time.txt");
@@ -34,10 +46,15 @@ public class JvimTimer {
     }
   }
 
+  /**
+  * Reads start time, calculates duration, displays result
+  * and cleans up temporary file
+  */
   public static void stop() {
     try {
       BufferedReader reader = 
         new BufferedReader(new FileReader("/tmp/jvim_start_time.txt"));
+
       long startTime = Long.parseLong(reader.readLine());
       reader.close();
             
@@ -46,7 +63,7 @@ public class JvimTimer {
       long minutes = (duration % 3600000) / 60000;
       long seconds = (duration % 60000) / 1000;
             
-      System.out.printf("Время работы Vim: %d ч %d мин %d сек",
+      System.out.printf("Время работы Vim: %d ч %d мин %d сек\n",
                         hours, minutes, seconds);
             
       new File("/tmp/jvim_start_time.txt")
