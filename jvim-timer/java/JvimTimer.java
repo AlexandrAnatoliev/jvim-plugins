@@ -6,17 +6,55 @@ import java.time.*;
 * 
 * Class reads Vim start time from a temporary file, 
 * calculates running duration, outputs the result 
-* and deletes the temporary file 
+* and deletes the temporary file. 
 *
-* @version 0.1.1 29.08.2025
-* @autor AlexandrAnatoliev
+* Usage:
+*   java JvimTimer start  - records start time
+*   java JvimTimer stop   - calculates and displays duration
+*
+* @version  0.1.2 
+* @since    31.08.2025
+* @author   AlexandrAnatoliev
 */
 public class JvimTimer {
+
+  /** Main method that handles command line arguments
+  *
+  * @param  args command line arguments - use "start" to begin timing
+  *
+  */
   public static void main(String[] args) {
+    if (args.length > 0 && "start".equals(args[0])) {
+      start();
+    } else {
+      stop();
+    }
+  }
+
+  /**
+  * Records the current time as start time in temporary file
+  */
+  public static void start() {
+    try {
+      FileWriter writer = new FileWriter("/tmp/jvim_start_time.txt");
+      Long startTime = System.currentTimeMillis();
+      writer.write(startTime.toString());
+      writer.close();
+
+    } catch (Exception e) {
+        System.out.println("Ошибка записи: " + e.getMessage());
+    }
+  }
+
+  /**
+  * Reads start time, calculates duration, displays result
+  * and cleans up temporary file
+  */
+  public static void stop() {
     try {
       BufferedReader reader = 
-        new BufferedReader(new FileReader(System.getenv("HOME") + 
-        "/.vim/pack/my-plugins/start/jvim-timer/data/vim_start_time.txt"));
+        new BufferedReader(new FileReader("/tmp/jvim_start_time.txt"));
+
       long startTime = Long.parseLong(reader.readLine());
       reader.close();
             
@@ -25,11 +63,10 @@ public class JvimTimer {
       long minutes = (duration % 3600000) / 60000;
       long seconds = (duration % 60000) / 1000;
             
-      System.out.printf("Время работы Vim: %d ч %d мин %d сек",
+      System.out.printf("Время работы Vim: %d ч %d мин %d сек\n",
                         hours, minutes, seconds);
             
-      new File(System.getenv("HOME") +
-      "/.vim/pack/my-plugins/start/jvim-timer/data/vim_start_time.txt")
+      new File("/tmp/jvim_start_time.txt")
       .delete();
             
     } catch (Exception e) {
