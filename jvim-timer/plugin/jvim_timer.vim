@@ -3,7 +3,7 @@
 " Description: Simple Vim work time measurement plugin 
 " Autor: AlexandAnatoliev
 " Version: 0.1.2
-" Last Modified: 29.08.2025
+" Last Modified: 31.08.2025
 " ==================================================================
 
 " Automatic timer start on Vim enter and stop on Vim leave
@@ -12,7 +12,8 @@ autocmd VimLeave * call StopTimer()
 
 " ------------------------------------------------------------------  
 " Function: StartTimer()
-" Description: Function to save start time to file
+" Description: Function to record the current time 
+" as start time in temporary file
 " Parameters: None
 " Returns: None
 " ------------------------------------------------------------------  
@@ -22,7 +23,8 @@ endfunction
 
 " ------------------------------------------------------------------  
 " Function: StopTimer()
-" Description: Function to start JavaTimer
+" Description: Function to read start time, calculates duration, 
+" displays result and cleans up temporary file
 " Parameters: None
 " Returns: None
 " ------------------------------------------------------------------  
