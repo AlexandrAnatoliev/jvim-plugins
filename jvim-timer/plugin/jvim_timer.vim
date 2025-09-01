@@ -2,8 +2,8 @@
 " File: jvim_timer.vim
 " Description: Simple Vim work time measurement plugin 
 " Autor: AlexandAnatoliev
-" Version: 0.1.2
-" Last Modified: 31.08.2025
+" Version: 0.1.3
+" Last Modified: 01.09.2025
 " ==================================================================
 
 " Automatic timer start on Vim enter and stop on Vim leave

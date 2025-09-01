@@ -1,5 +1,7 @@
 import java.io.*;
 import java.time.*;
+import java.nio.file.*;
+import java.nio.file.attribute.*;
 
 /**
 * JvimTimer - Utility for measuring vim working time 
@@ -12,8 +14,8 @@ import java.time.*;
 *   java JvimTimer start  - records start time
 *   java JvimTimer stop   - calculates and displays duration
 *
-* @version  0.1.2 
-* @since    31.08.2025
+* @version  0.1.3 
+* @since    01.09.2025
 * @author   AlexandrAnatoliev
 */
 public class JvimTimer {
@@ -35,6 +37,11 @@ public class JvimTimer {
   * Records the current time as start time in temporary file
   */
   public static void start() {
+    String homeDir = System.getProperty("user.home");
+    
+    checkFileDate(homeDir + 
+      "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt");
+
     try {
       FileWriter writer = new FileWriter("/tmp/jvim_start_time.txt");
       Long startTime = System.currentTimeMillis();
@@ -45,6 +52,43 @@ public class JvimTimer {
         System.out.println("Ошибка записи: " + e.getMessage());
     }
   }
+
+  /**
+  * Check the creation date of daily time file
+  * and resents the counter if date doesn't match current date
+  * 
+  * @param pathToFile - path to daily time file
+  */
+  public static void checkFileDate(String pathToFile) {
+    File file = new File(pathToFile);
+
+    try {
+      if(!file.exists()) {
+        FileWriter writer = new FileWriter(pathToFile);
+        writer.write("0");
+        writer.close();
+        return;
+      }
+
+      BasicFileAttributes attrs = Files.readAttributes(
+        file.toPath(), BasicFileAttributes.class);
+
+      LocalDate fileDate = attrs.creationTime().toInstant()
+        .atZone(ZoneId.systemDefault()).toLocalDate();
+
+      LocalDate today = LocalDate.now();
+
+      if(!fileDate.equals(today)) {
+        FileWriter writer = new FileWriter(pathToFile);
+        writer.write("0");
+        writer.close();
+      }
+
+      } catch (Exception e) {
+          System.out.println("Ошибка проверки файла: " 
+            + e.getMessage());
+      }
+    }
 
   /**
   * Reads start time, calculates duration, displays result
@@ -63,14 +107,63 @@ public class JvimTimer {
       long minutes = (duration % 3600000) / 60000;
       long seconds = (duration % 60000) / 1000;
             
-      System.out.printf("Время работы Vim: %d ч %d мин %d сек\n",
+      System.out.println("\n");
+      System.out.println("  =====================================");
+      System.out.println("            Время работы Vim:           ");
+      System.out.println("  -------------------------------------");
+      System.out.printf( "  - за сеанс: %2d ч %2d мин %2d сек\n",
                         hours, minutes, seconds);
             
       new File("/tmp/jvim_start_time.txt")
       .delete();
+
+      String homeDir = System.getProperty("user.home");
+    
+      printDayTime(duration, homeDir + 
+        "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt");
             
     } catch (Exception e) {
         System.out.println("Ошибка таймера: " + e.getMessage());
     }
   }
+
+  /**
+  * Updates and displays total working time for current day
+  *
+  * @param duration - current session duration
+  * @param pathToFile - path to daily time storage file
+  */
+  public static void printDayTime(long duration, String pathToFile) {
+    try {
+      File file = new File(pathToFile);
+
+      if(!file.exists()) {
+        FileWriter writer = new FileWriter(pathToFile);
+        writer.write("0");
+        writer.close();
+      }
+
+      BufferedReader reader = 
+        new BufferedReader(new FileReader(pathToFile));
+
+      Long dayTime = Long.parseLong(reader.readLine()) + duration;
+      reader.close();
+
+      FileWriter writer = new FileWriter(pathToFile);
+      writer.write(dayTime.toString());
+      writer.close();
+      
+      long hours = dayTime / 3600000;
+      long minutes = (dayTime % 3600000) / 60000;
+      long seconds = (dayTime % 60000) / 1000;
+            
+      System.out.printf( "  - за день:  %2d ч %2d мин %2d сек\n",
+                        hours, minutes, seconds);
+      System.out.println("  =====================================");
+      
+    } catch (Exception e) {
+        System.out.println("Ошибка вывода дневного времени: " 
+          + e.getMessage());
+    }
+  }  
 }
