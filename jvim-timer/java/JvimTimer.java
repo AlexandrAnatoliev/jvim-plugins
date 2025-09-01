@@ -101,14 +101,53 @@ public class JvimTimer {
       long minutes = (duration % 3600000) / 60000;
       long seconds = (duration % 60000) / 1000;
             
-      System.out.printf("Время работы Vim: %d ч %d мин %d сек\n",
+      System.out.println("Время работы Vim:");
+      System.out.printf("- за сеанс: %d ч %d мин %d сек\n",
                         hours, minutes, seconds);
             
       new File("/tmp/jvim_start_time.txt")
       .delete();
+
+      String homeDir = System.getProperty("user.home");
+    
+      printDayTime(duration, homeDir + 
+        "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt");
             
     } catch (Exception e) {
         System.out.println("Ошибка таймера: " + e.getMessage());
     }
   }
+
+  public static void printDayTime(long duration, String pathToFile) {
+    try {
+      File file = new File(pathToFile);
+
+      if(!file.exists()) {
+        FileWriter writer = new FileWriter(pathToFile);
+        writer.write("0");
+        writer.close();
+      }
+
+      BufferedReader reader = 
+        new BufferedReader(new FileReader(pathToFile));
+
+      Long dayTime = Long.parseLong(reader.readLine()) + duration;
+      reader.close();
+
+      FileWriter writer = new FileWriter(pathToFile);
+      writer.write(dayTime.toString());
+      writer.close();
+      
+      long hours = dayTime / 3600000;
+      long minutes = (dayTime % 3600000) / 60000;
+      long seconds = (dayTime % 60000) / 1000;
+            
+      System.out.printf("- за день: %d ч %d мин %d сек\n",
+                        hours, minutes, seconds);
+      
+    } catch (Exception e) {
+        System.out.println("Ошибка вывода дневного времени: " 
+          + e.getMessage());
+    }
+  }  
 }
