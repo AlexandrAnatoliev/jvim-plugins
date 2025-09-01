@@ -101,8 +101,11 @@ public class JvimTimer {
       long minutes = (duration % 3600000) / 60000;
       long seconds = (duration % 60000) / 1000;
             
-      System.out.println("Время работы Vim:");
-      System.out.printf("- за сеанс: %d ч %d мин %d сек\n",
+      System.out.println("\n");
+      System.out.println("  =====================================");
+      System.out.println("            Время работы Vim:           ");
+      System.out.println("  -------------------------------------");
+      System.out.printf( "  - за сеанс: %2d ч %2d мин %2d сек\n",
                         hours, minutes, seconds);
             
       new File("/tmp/jvim_start_time.txt")
@@ -142,8 +145,9 @@ public class JvimTimer {
       long minutes = (dayTime % 3600000) / 60000;
       long seconds = (dayTime % 60000) / 1000;
             
-      System.out.printf("- за день: %d ч %d мин %d сек\n",
+      System.out.printf( "  - за день:  %2d ч %2d мин %2d сек\n",
                         hours, minutes, seconds);
+      System.out.println("  =====================================");
       
     } catch (Exception e) {
         System.out.println("Ошибка вывода дневного времени: " 
