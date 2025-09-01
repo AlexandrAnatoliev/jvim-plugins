@@ -37,6 +37,11 @@ public class JvimTimer {
   * Records the current time as start time in temporary file
   */
   public static void start() {
+    String homeDir = System.getProperty("user.home");
+    
+    checkFileDate(homeDir + 
+      "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt");
+
     try {
       FileWriter writer = new FileWriter("/tmp/jvim_start_time.txt");
       Long startTime = System.currentTimeMillis();
