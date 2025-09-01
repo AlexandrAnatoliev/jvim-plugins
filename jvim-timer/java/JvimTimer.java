@@ -53,6 +53,12 @@ public class JvimTimer {
     }
   }
 
+  /**
+  * Check the creation date of daily time file
+  * and resents the counter if date doesn't match current date
+  * 
+  * @param pathToFile - path to daily time file
+  */
   public static void checkFileDate(String pathToFile) {
     File file = new File(pathToFile);
 
@@ -121,6 +127,12 @@ public class JvimTimer {
     }
   }
 
+  /**
+  * Updates and displays total working time for current day
+  *
+  * @param duration - current session duration
+  * @param pathToFile - path to daily time storage file
+  */
   public static void printDayTime(long duration, String pathToFile) {
     try {
       File file = new File(pathToFile);
