@@ -1,5 +1,7 @@
 import java.io.*;
 import java.time.*;
+import java.nio.file.*;
+import java.nio.file.attribute.*;
 
 /**
 * JvimTimer - Utility for measuring vim working time 
@@ -12,8 +14,8 @@ import java.time.*;
 *   java JvimTimer start  - records start time
 *   java JvimTimer stop   - calculates and displays duration
 *
-* @version  0.1.2 
-* @since    31.08.2025
+* @version  0.1.3 
+* @since    01.09.2025
 * @author   AlexandrAnatoliev
 */
 public class JvimTimer {
@@ -45,6 +47,37 @@ public class JvimTimer {
         System.out.println("Ошибка записи: " + e.getMessage());
     }
   }
+
+  public static void checkFileDate(String pathToFile) {
+    File file = new File(pathToFile);
+
+    try {
+      if(!file.exists()) {
+        FileWriter writer = new FileWriter(pathToFile);
+        writer.write("0");
+        writer.close();
+        return;
+      }
+
+      BasicFileAttributes attrs = Files.readAttributes(
+        file.toPath(), BasicFileAttributes.class);
+
+      LocalDate fileDate = attrs.creationTime().toInstant()
+        .atZone(ZoneId.systemDefault()).toLocalDate();
+
+      LocalDate today = LocalDate.now();
+
+      if(!fileDate.equals(today)) {
+        FileWriter writer = new FileWriter(pathToFile);
+        writer.write("0");
+        writer.close();
+      }
+
+      } catch (Exception e) {
+          System.out.println("Ошибка проверки файла: " 
+            + e.getMessage());
+      }
+    }
 
   /**
   * Reads start time, calculates duration, displays result
