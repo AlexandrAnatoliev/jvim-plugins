@@ -51,18 +51,18 @@ javac JvimTimer.java
 
 * Use Vim to edit a file:
 ```
+$ vim example.md
+```
+
+* After finishing work and closing Vim, 
+the following will be displayed:
+```
   =====================================
             Время работы Vim:           
   -------------------------------------
   - за сеанс:  0 ч  0 мин  2 сек
   - за день:   0 ч 50 мин  3 сек
   =====================================
-```
-
-* After finishing work and closing Vim, 
-the following will be displayed:
-```
-$ Время работы Vim: ... ч ... мин ... сек
 ```
 
 <div align="center">
