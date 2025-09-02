@@ -73,6 +73,11 @@ Designed for self-monitoring and productivity.
 
 Displays Vim running time after finishing work and closing Vim.
 
+* [vim-autocomplete](vim-autocomplete/README.md)
+
+Simple Vim autocomplete plugin with hint.
+Designed for self-monitoring and productivity.
+
 <div align="center">
   <h4>Requirements</h4>
 </div>
@@ -166,6 +171,11 @@ javac JvimExamlePlugin.java
 Нужен для самоконтроля и производительности.
 
 По окончании работы и закрытия Vim выводит время работы Vim.
+
+* [vim-autocomplete](vim-autocomplete/README.md)
+
+Простой Vim плагин для автодополнения с меню подсказки.
+Нужен для производительности.
 
 <div align="center">
   <h4>Требования</h4>
