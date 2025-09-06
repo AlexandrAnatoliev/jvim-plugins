@@ -6,7 +6,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.1.3](https://img.shields.io/badge/Version-0.1.3-orange.svg)
+  ![Version 0.1.4](https://img.shields.io/badge/Version-0.1.4-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -29,14 +29,15 @@
                 ├── plugin/
                 │   └── jvim_timer.vim
                 ├── java/
-                │   └── JvimTimer.java
+                │   ├── JvimTimer.java
+                │   └── Session.java
                 └── data
 ```
 
 * Compile the Java file:
 ```
 cd ~/.vim/pack/my-plugins/start/jvim-timer/java/
-javac JvimTimer.java
+javac JvimTimer.java Session.java
 ```
 
 * Reload Vim or execute the command:
@@ -99,6 +100,15 @@ classDiagram
     +printDayTime(long duration, String pathToFile)
   }
 
+  class Session {
+    - pathToFile: String
+    + Session(pathToFile: String)
+    + getSessionTime(): long
+    + writeToFile(value: Long): void
+    + readFromFile(): long
+    + deleteFile(): void
+  }
+
   class jvim_start_time.txt {
     +Long startTime
   }
@@ -108,7 +118,8 @@ classDiagram
   }
 
   jvim_timer.vim --|> JvimTimer : calls
-  JvimTimer --|> jvim_start_time.txt : reads/writes
+  JvimTimer --|> Session : calls
+  Session --|> jvim_start_time.txt : reads/writes
   JvimTimer --|> jvim_day_time.txt : reads/writes
 ```
 
@@ -120,7 +131,7 @@ classDiagram
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.1.3](https://img.shields.io/badge/Version-0.1.3-orange.svg)
+  ![Version 0.1.4](https://img.shields.io/badge/Version-0.1.4-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -142,14 +153,15 @@ classDiagram
                 ├── plugin/
                 │   └── jvim_timer.vim
                 ├── java/
-                │   └── JvimTimer.java
+                │   ├── JvimTimer.java
+                │   └── Session.java
                 └── data
 ```
 
-* Скомпилировать Java файл:
+* Скомпилировать Java файлы:
 ```
 cd ~/.vim/pack/my-plugins/start/jvim-timer/java/
-javac JvimTimer.java
+javac JvimTimer.java Session.java
 ```
 
 * Перезагрузить Vim или выполнить команду:
@@ -211,6 +223,15 @@ classDiagram
     +printDayTime(long duration, String pathToFile)
   }
 
+  class Session {
+    - pathToFile: String
+    + Session(pathToFile: String)
+    + getSessionTime(): long
+    + writeToFile(value: Long): void
+    + readFromFile(): long
+    + deleteFile(): void
+  }
+
   class jvim_start_time.txt {
     +Long startTime
   }
@@ -220,6 +241,7 @@ classDiagram
   }
 
   jvim_timer.vim --|> JvimTimer : calls
-  JvimTimer --|> jvim_start_time.txt : reads/writes
+  JvimTimer --|> Session : calls
+  Session --|> jvim_start_time.txt : reads/writes
   JvimTimer --|> jvim_day_time.txt : reads/writes
 ```
