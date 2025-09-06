@@ -89,15 +89,15 @@ classDiagram
   direction LR
   
   class jvim_timer.vim {
-    +StartTimer()
-    +StopTimer()
+    + StartTimer()
+    + StopTimer()
   }
 
   class JvimTimer {
-    +start()
-    +stop()
-    +checkFileDate(String pathToFile)
-    +printDayTime(long duration, String pathToFile)
+    + start(): void
+    + stop(): void
+    + checkFileDate(pathToFile: String): void
+    + printDayTime(duration: long, pathToFile: String): void
   }
 
   class Session {
@@ -110,11 +110,11 @@ classDiagram
   }
 
   class jvim_start_time.txt {
-    +Long startTime
+    + startTime: String 
   }
 
   class jvim_day_time.txt {
-    +Long dayTime
+    + dayTime: String
   }
 
   jvim_timer.vim --|> JvimTimer : calls
@@ -212,15 +212,15 @@ classDiagram
   direction LR
   
   class jvim_timer.vim {
-    +StartTimer()
-    +StopTimer()
+    + StartTimer()
+    + StopTimer()
   }
 
   class JvimTimer {
-    +start()
-    +stop()
-    +checkFileDate(String pathToFile)
-    +printDayTime(long duration, String pathToFile)
+    + start(): void
+    + stop(): void
+    + checkFileDate(pathToFile: String): void
+    + printDayTime(duration: long, pathToFile: String): void
   }
 
   class Session {
@@ -233,11 +233,11 @@ classDiagram
   }
 
   class jvim_start_time.txt {
-    +Long startTime
+    + startTime: String 
   }
 
   class jvim_day_time.txt {
-    +Long dayTime
+    + dayTime: String
   }
 
   jvim_timer.vim --|> JvimTimer : calls
