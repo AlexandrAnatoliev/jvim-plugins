@@ -4,15 +4,15 @@ import java.nio.file.*;
 import java.nio.file.attribute.*;
 
 /**
-* JvimTimer - Utility for measuring vim working time 
+* JvimTimer - Utility for measuring Vim working time 
 * 
-* Class reads Vim start time from a temporary file, 
-* calculates running duration, outputs the result 
-* and deletes the temporary file. 
+* The class manages Vim session by storing start time in a temporary file, 
+* calculating session duration, displaying the result 
+* and maintaining daily totals. 
 *
 * Usage:
-*   java JvimTimer start  - records start time
-*   java JvimTimer stop   - calculates and displays duration
+*   java JvimTimer start  - records start time in session file
+*   java JvimTimer stop   - calculates and displays session duration
 *
 * @version  0.1.4 
 * @since    06.09.2025
@@ -23,6 +23,7 @@ public class JvimTimer {
   /** Main method that handles command line arguments
   *
   * @param  args command line arguments - use "start" to begin timing
+  *         any other value to stop and display duration
   *
   */
   public static void main(String[] args) {
@@ -35,12 +36,14 @@ public class JvimTimer {
 
   /**
   * Records the current time as start time in temporary file
+  * and checks daily time file for date consistency
   */
   public static void start() {
     String homeDir = System.getProperty("user.home");
     
     Session vimSession = new Session(homeDir +
       "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_session_time.txt");
+
     vimSession.writeToFile(System.currentTimeMillis() / 1000);
     
     checkFileDate(homeDir + 
@@ -48,8 +51,8 @@ public class JvimTimer {
   }
 
   /**
-  * Check the creation date of daily time file
-  * and resents the counter if date doesn't match current date
+  * Check the creation date of daily time file and resents the counter
+  * if file date doesn't match current date
   * 
   * @param pathToFile - path to daily time file
   */
@@ -85,8 +88,8 @@ public class JvimTimer {
     }
 
   /**
-  * Reads start time, calculates duration, displays result
-  * and cleans up temporary file
+  * Reads start time from session file, calculates duration, 
+  * displays result and cleans up temporary session file
   */
   public static void stop() {
     try {
@@ -120,7 +123,7 @@ public class JvimTimer {
   /**
   * Updates and displays total working time for current day
   *
-  * @param duration - current session duration
+  * @param duration - current session duration in seconds
   * @param pathToFile - path to daily time storage file
   */
   public static void printDayTime(long duration, String pathToFile) {
