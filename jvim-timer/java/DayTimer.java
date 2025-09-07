@@ -6,6 +6,10 @@ import java.nio.file.attribute.*;
 /**
 * DayTimer - class for measuring Vim daily working time 
 * 
+* Handles daily time tracking operations including 
+* file existence check, date validation, 
+* and time value storage / retrieval 
+*
 * @version  0.1.5 
 * @since    07.09.2025
 * @author   AlexandrAnatoliev
@@ -14,27 +18,40 @@ public class DayTimer {
   private String pathToFile;
 
   /** 
-  * Session class constructor
+  * Constructs a DayTimer instance with specified file path
   *
-  * @param  pathToFile - path to temporary file for store of value
+  * @param  pathToFile - path to temporary file for storing time values
   */
   DayTimer(String pathToFile) {
     this.pathToFile = pathToFile;
   }
 
+  /**
+  * Checks if temporary file does not exist
+  *
+  * @return true if file does not exists
+  *         false if file exists
+  * @throws Exception if file does not exists
+  */
   public boolean fileIsNotExist() {
     File file = new File(pathToFile);
 
     try {
       return !file.exists();
     } catch (Exception e) {
-        System.out.println("Ошибка проверки файла: " 
+        System.out.println("Ошибка проверки наличия файла: " 
             + e.getMessage());
     }
  
     return false;
   }
 
+  /**
+  * Retrieves the creation date of the file
+  *
+  * @return LocalDate representing file creation time
+  * @throws Exception if unexpected error 
+  */
   public LocalDate getFileDate() {
     File file = new File(pathToFile);
 
@@ -48,7 +65,7 @@ public class DayTimer {
       return fileDate;
       
     } catch (Exception e) {
-        System.out.println("Ошибка проверки файла: " 
+        System.out.println("Ошибка проверки даты создания файла: " 
             + e.getMessage());
     }
 
@@ -58,7 +75,8 @@ public class DayTimer {
   /**
   * Writes time value to temporary file 
   *
-  * @param  varue - tlme value to write
+  * @param  value - tlme value in seconds to write to file
+  * @throws Exception if unexpected error 
   */
   void writeToFile(Long value) {
     try {
@@ -75,7 +93,9 @@ public class DayTimer {
   /**
   * Reads time value from temporary file 
   *
-  * @return tlme value from file, or 0 in case of error 
+  * @return time value from file in seconds, i
+  * or 0 if file does not exist or contains invalid data
+  * @throws Exception if unexpected error 
   */
   long readFromFile() {
     try {
