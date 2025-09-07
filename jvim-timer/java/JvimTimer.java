@@ -46,8 +46,22 @@ public class JvimTimer {
 
     vimSession.writeToFile(System.currentTimeMillis() / 1000);
     
-    checkFileDate(homeDir + 
-      "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt");
+    String pathToDayTime = homeDir +
+      "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt";
+
+    DayTimer dayTimer = new DayTimer(pathToDayTime);
+    LocalDate today = LocalDate.now();
+    
+    if(dayTimer.fileIsNotExist() || 
+      !dayTimer.getFileDate().equals(today)) {
+        dayTimer.writeToFile(0L);
+    }
+
+    return;
+
+
+//     checkFileDate(homeDir + 
+//       "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt");
   }
 
   /**
