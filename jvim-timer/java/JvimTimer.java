@@ -14,8 +14,8 @@ import java.nio.file.attribute.*;
 *   java JvimTimer start  - records start time in session file
 *   java JvimTimer stop   - calculates and displays session duration
 *
-* @version  0.1.4 
-* @since    06.09.2025
+* @version  0.1.5 
+* @since    07.09.2025
 * @author   AlexandrAnatoliev
 */
 public class JvimTimer {
@@ -117,17 +117,40 @@ public class JvimTimer {
       long minutes = (duration % 3600) / 60;
       long seconds = duration % 60;
 
+
+
+      String pathToDayTime = homeDir +
+      "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt";
+
+      DayTimer dayTimer = new DayTimer(pathToDayTime);
+
+      if(dayTimer.fileIsNotExist()) {
+        dayTimer.writeToFile(0L);
+      }
+
+      long dayTime = dayTimer.readFromFile() + duration;
+
+      dayTimer.writeToFile(dayTime);
+
+      long dayHours = dayTime / 3600;
+      long dayMinutes = (dayTime % 3600) / 60;
+      long daySeconds = dayTime % 60;
+            
+
       System.out.println("\n");
       System.out.println("  =====================================");
       System.out.println("            Время работы Vim:           ");
       System.out.println("  -------------------------------------");
       System.out.printf( "  - за сеанс: %2d ч %2d мин %2d сек\n",
                         hours, minutes, seconds);
+      System.out.printf( "  - за день:  %2d ч %2d мин %2d сек\n",
+                       dayHours, dayMinutes, daySeconds);
+      System.out.println("  =====================================");
             
       vimSession.deleteFile();
 
-      printDayTime(duration, homeDir + 
-        "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt");
+//       printDayTime(duration, homeDir + 
+//         "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt");
             
     } catch (Exception e) {
         System.out.println("Ошибка таймера: " + e.getMessage());

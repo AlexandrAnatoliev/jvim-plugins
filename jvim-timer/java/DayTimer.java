@@ -71,4 +71,25 @@ public class DayTimer {
         System.out.println("Ошибка записи: " + e.getMessage());
     }
   }
+
+  /**
+  * Reads time value from temporary file 
+  *
+  * @return tlme value from file, or 0 in case of error 
+  */
+  long readFromFile() {
+    try {
+      BufferedReader reader = new BufferedReader(
+                          new FileReader(this.pathToFile));
+      long value = Long.parseLong(reader.readLine());
+
+      reader.close();
+
+      return value;
+
+    } catch (Exception e) {
+        System.out.println("Ошибка чтения: " + e.getMessage());
+    }
+    return 0;
+  }
 } 
