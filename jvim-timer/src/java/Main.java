@@ -4,21 +4,21 @@ import java.nio.file.*;
 import java.nio.file.attribute.*;
 
 /**
-* JvimTimer - Utility for measuring Vim working time 
+* Utility for measuring Vim working time 
 * 
 * The class manages Vim session by storing start time in a temporary file, 
 * calculating session duration, displaying the result 
 * and maintaining daily totals. 
 *
 * Usage:
-*   java JvimTimer start  - records start time in session file
-*   java JvimTimer stop   - calculates and displays session duration
+*   java Main start  - records start time in session file
+*   java Main stop   - calculates and displays session duration
 *
-* @version  0.1.5 
-* @since    07.09.2025
+* @version  0.1.6 
+* @since    08.09.2025
 * @author   AlexandrAnatoliev
 */
-public class JvimTimer {
+public class Main {
   private static final String SESSION_FILE_PATH = 
     "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_session_time.txt";
   private static final String DAY_FILE_PATH = 
@@ -46,9 +46,9 @@ public class JvimTimer {
     String homeDir = System.getProperty("user.home");
     String pathToDayTime = homeDir + DAY_FILE_PATH;
     
-    Session vimSession = new Session(homeDir + SESSION_FILE_PATH);
+    SessionTimer sessionTimer = new SessionTimer(homeDir + SESSION_FILE_PATH);
 
-    vimSession.writeToFile(System.currentTimeMillis() / 1000);
+    sessionTimer.writeToFile(System.currentTimeMillis() / 1000);
     
     DayTimer dayTimer = new DayTimer(pathToDayTime);
     LocalDate today = LocalDate.now();
@@ -69,9 +69,9 @@ public class JvimTimer {
     String homeDir = System.getProperty("user.home");
     String pathToDayTime = homeDir + DAY_FILE_PATH;
 
-    Session vimSession = new Session(homeDir + SESSION_FILE_PATH);
+    SessionTimer sessionTimer = new SessionTimer(homeDir + SESSION_FILE_PATH);
             
-    long duration = vimSession.getSessionTime(); 
+    long duration = sessionTimer.getSessionTime(); 
 
     DayTimer dayTimer = new DayTimer(pathToDayTime);
 
@@ -83,9 +83,9 @@ public class JvimTimer {
 
     dayTimer.writeToFile(dayTime);
 
-    long hours = duration / 3600;
-    long minutes = (duration % 3600) / 60;
-    long seconds = duration % 60;
+    long sessionHours = duration / 3600;
+    long sessionMinutes = (duration % 3600) / 60;
+    long sessionSeconds = duration % 60;
 
     long dayHours = dayTime / 3600;
     long dayMinutes = (dayTime % 3600) / 60;
@@ -96,11 +96,11 @@ public class JvimTimer {
     System.out.println("            Время работы Vim:           ");
     System.out.println("  -------------------------------------");
     System.out.printf( "  - за сеанс: %2d ч %2d мин %2d сек\n",
-                            hours, minutes, seconds);
+                            sessionHours, sessionMinutes, sessionSeconds);
     System.out.printf( "  - за день:  %2d ч %2d мин %2d сек\n",
                             dayHours, dayMinutes, daySeconds);
     System.out.println("  =====================================");
             
-    vimSession.deleteFile();
+    sessionTimer.deleteFile();
   }
 }

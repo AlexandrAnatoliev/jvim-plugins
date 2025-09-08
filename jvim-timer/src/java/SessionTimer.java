@@ -1,24 +1,24 @@
 import java.io.*;
 
 /**
-* Session - class for measuring Vim session working time 
+* SessionTimer - class for measuring Vim session working time 
 * 
 * The class provides methods for reading start time from temporary file, 
 * calculates running duration, and managing the temporary file. 
 *
-* @version  0.1.4 
-* @since    06.09.2025
+* @version  0.1.6 
+* @since    08.09.2025
 * @author   AlexandrAnatoliev
 */
-public class Session {
+public class SessionTimer {
   private String pathToFile;
 
   /** 
-  * Session class constructor
+  * SessionTimer class constructor
   *
   * @param  pathToFile - path to temporary file for store of value
   */
-  Session(String pathToFile) {
+  SessionTimer(String pathToFile) {
     this.pathToFile = pathToFile;
   }
   

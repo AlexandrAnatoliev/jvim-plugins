@@ -2,7 +2,7 @@
 " File: jvim_timer.vim
 " Description: Simple Vim work time measurement plugin 
 " Autor: AlexandAnatoliev
-" Version: 0.1.4
+" Version: 0.1.6
 " Last Modified: 01.09.2025
 " ==================================================================
 
@@ -18,7 +18,7 @@ autocmd VimLeave * call StopTimer()
 " Returns: None
 " ------------------------------------------------------------------  
 function! StartTimer()
-    silent !java -cp ~/.vim/pack/my-plugins/start/jvim-timer/java/ JvimTimer start 
+  silent !java -cp ~/.vim/pack/my-plugins/start/jvim-timer/bin/ Main start 
 endfunction
 
 " ------------------------------------------------------------------  
@@ -29,5 +29,5 @@ endfunction
 " Returns: None
 " ------------------------------------------------------------------  
 function! StopTimer()
-    silent !java -cp ~/.vim/pack/my-plugins/start/jvim-timer/java/ JvimTimer stop &
+  silent !java -cp ~/.vim/pack/my-plugins/start/jvim-timer/bin/ Main stop &
 endfunction
