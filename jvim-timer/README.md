@@ -6,7 +6,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.1.5](https://img.shields.io/badge/Version-0.1.5-orange.svg)
+  ![Version 0.1.6](https://img.shields.io/badge/Version-0.1.6-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -26,19 +26,21 @@
     └── my-plugins/
         └── start/
             └── jvim-timer/
+                ├── bin/
+                ├── data/
                 ├── plugin/
                 │   └── jvim_timer.vim
-                ├── java/
-                │   ├── JvimTimer.java
-                │   ├── Session.java
-                │   └── DayTimer.java
-                └── data
+                └── src/
+                    └── java/
+                       ├── DayTimer.java
+                       ├── JvimTimer.java
+                       └── Session.java
 ```
 
 * Compile the Java file:
 ```
-cd ~/.vim/pack/my-plugins/start/jvim-timer/java/
-javac *
+cd ~/.vim/pack/my-plugins/start/jvim-timer/
+javac -d bin/ src/java/*
 ```
 
 * Reload Vim or execute the command:
@@ -72,7 +74,7 @@ the following will be displayed:
 </div>
  
 * Installed Java
-* Compiled JvimTimer.class in the specified directory
+* Compiled .class files in the specified directory
 
 <div align="center">
   <h4>Compatibility</h4>
@@ -144,7 +146,7 @@ classDiagram
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.1.5](https://img.shields.io/badge/Version-0.1.5-orange.svg)
+  ![Version 0.1.6](https://img.shields.io/badge/Version-0.1.6-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -163,19 +165,21 @@ classDiagram
     └── my-plugins/
         └── start/
             └── jvim-timer/
+                ├── bin/
+                ├── data/
                 ├── plugin/
                 │   └── jvim_timer.vim
-                ├── java/
-                │   ├── JvimTimer.java
-                │   ├── Session.java
-                │   └── DayTimer.java
-                └── data
+                └── src/
+                    └── java/
+                       ├── DayTimer.java
+                       ├── JvimTimer.java
+                       └── Session.java
 ```
 
 * Скомпилировать Java файлы:
 ```
-cd ~/.vim/pack/my-plugins/start/jvim-timer/java/
-javac *
+cd ~/.vim/pack/my-plugins/start/jvim-timer/
+javac -d bin/ src/java/*
 ```
 
 * Перезагрузить Vim или выполнить команду:
@@ -208,7 +212,7 @@ $ vim example.md
 </div>
  
 * Установленная Java
-* Скомпилированный файл JvimTimer.class в указанной директории
+* Скомпилированные .class файлы в указанной директории
 
 <div align="center">
   <h4>Совместимость</h4>
