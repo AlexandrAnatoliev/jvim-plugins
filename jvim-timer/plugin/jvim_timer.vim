@@ -18,7 +18,7 @@ autocmd VimLeave * call StopTimer()
 " Returns: None
 " ------------------------------------------------------------------  
 function! StartTimer()
-  silent !java -cp ~/.vim/pack/my-plugins/start/jvim-timer/bin/ JvimTimer start 
+  silent !java -cp ~/.vim/pack/my-plugins/start/jvim-timer/bin/ Main start 
 endfunction
 
 " ------------------------------------------------------------------  
@@ -29,5 +29,5 @@ endfunction
 " Returns: None
 " ------------------------------------------------------------------  
 function! StopTimer()
-    silent !java -cp ~/.vim/pack/my-plugins/start/jvim-timer/bin/ JvimTimer stop &
+  silent !java -cp ~/.vim/pack/my-plugins/start/jvim-timer/bin/ Main stop &
 endfunction

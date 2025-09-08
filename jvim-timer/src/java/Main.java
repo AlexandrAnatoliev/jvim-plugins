@@ -4,21 +4,21 @@ import java.nio.file.*;
 import java.nio.file.attribute.*;
 
 /**
-* JvimTimer - Utility for measuring Vim working time 
+* Utility for measuring Vim working time 
 * 
 * The class manages Vim session by storing start time in a temporary file, 
 * calculating session duration, displaying the result 
 * and maintaining daily totals. 
 *
 * Usage:
-*   java JvimTimer start  - records start time in session file
-*   java JvimTimer stop   - calculates and displays session duration
+*   java Main start  - records start time in session file
+*   java Main stop   - calculates and displays session duration
 *
-* @version  0.1.5 
-* @since    07.09.2025
+* @version  0.1.6 
+* @since    08.09.2025
 * @author   AlexandrAnatoliev
 */
-public class JvimTimer {
+public class Main {
   private static final String SESSION_FILE_PATH = 
     "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_session_time.txt";
   private static final String DAY_FILE_PATH = 

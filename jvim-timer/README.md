@@ -33,8 +33,8 @@
                 └── src/
                     └── java/
                        ├── DayTimer.java
-                       ├── JvimTimer.java
-                       └── Session.java
+                       ├── Main.java
+                       └── SessionTimer.java
 ```
 
 * Compile the Java file:
@@ -96,7 +96,7 @@ classDiagram
     + StopTimer()
   }
 
-  class JvimTimer {
+  class Main {
     - SESSION_FILE_PATH: String 
       = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_session_time.txt"
     - DAY_FILE_PATH: String 
@@ -105,9 +105,9 @@ classDiagram
     + stop(): void
   }
 
-  class Session {
+  class SessionTimer {
     - pathToFile: String
-    + Session(pathToFile: String)
+    + SessionTimer(pathToFile: String)
     + getSessionTime(): long
     + writeToFile(value: Long): void
     + readFromFile(): long
@@ -131,10 +131,10 @@ classDiagram
     + dayTime: String
   }
 
-  jvim_timer.vim --|> JvimTimer : calls
-  JvimTimer --|> Session : calls
-  JvimTimer --|> DayTimer : calls
-  Session --|> jvim_start_time.txt : reads/writes
+  jvim_timer.vim --|> Main : calls
+  Main --|> SessionTimer : calls
+  Main --|> DayTimer : calls
+  SessionTimer --|> jvim_start_time.txt : reads/writes
   DayTimer --|> jvim_day_time.txt : reads/writes
 ```
 
@@ -172,8 +172,8 @@ classDiagram
                 └── src/
                     └── java/
                        ├── DayTimer.java
-                       ├── JvimTimer.java
-                       └── Session.java
+                       ├── Main.java
+                       └── SessionTimer.java
 ```
 
 * Скомпилировать Java файлы:
@@ -234,7 +234,7 @@ classDiagram
     + StopTimer()
   }
 
-  class JvimTimer {
+  class Main {
     - SESSION_FILE_PATH: String 
       = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_session_time.txt"
     - DAY_FILE_PATH: String 
@@ -243,9 +243,9 @@ classDiagram
     + stop(): void
   }
 
-  class Session {
+  class SessionTimer {
     - pathToFile: String
-    + Session(pathToFile: String)
+    + SessionTimer(pathToFile: String)
     + getSessionTime(): long
     + writeToFile(value: Long): void
     + readFromFile(): long
@@ -269,9 +269,9 @@ classDiagram
     + dayTime: String
   }
 
-  jvim_timer.vim --|> JvimTimer : calls
-  JvimTimer --|> Session : calls
-  JvimTimer --|> DayTimer : calls
-  Session --|> jvim_start_time.txt : reads/writes
+  jvim_timer.vim --|> Main : calls
+  Main --|> SessionTimer : calls
+  Main --|> DayTimer : calls
+  SessionTimer --|> jvim_start_time.txt : reads/writes
   DayTimer --|> jvim_day_time.txt : reads/writes
 ```
