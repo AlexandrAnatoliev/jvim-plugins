@@ -46,9 +46,9 @@ public class Main {
     String homeDir = System.getProperty("user.home");
     String pathToDayTime = homeDir + DAY_FILE_PATH;
     
-    SessionTimer vimSession = new SessionTimer(homeDir + SESSION_FILE_PATH);
+    SessionTimer sessionTimer = new SessionTimer(homeDir + SESSION_FILE_PATH);
 
-    vimSession.writeToFile(System.currentTimeMillis() / 1000);
+    sessionTimer.writeToFile(System.currentTimeMillis() / 1000);
     
     DayTimer dayTimer = new DayTimer(pathToDayTime);
     LocalDate today = LocalDate.now();
@@ -69,9 +69,9 @@ public class Main {
     String homeDir = System.getProperty("user.home");
     String pathToDayTime = homeDir + DAY_FILE_PATH;
 
-    SessionTimer vimSession = new SessionTimer(homeDir + SESSION_FILE_PATH);
+    SessionTimer sessionTimer = new SessionTimer(homeDir + SESSION_FILE_PATH);
             
-    long duration = vimSession.getSessionTime(); 
+    long duration = sessionTimer.getSessionTime(); 
 
     DayTimer dayTimer = new DayTimer(pathToDayTime);
 
@@ -83,9 +83,9 @@ public class Main {
 
     dayTimer.writeToFile(dayTime);
 
-    long hours = duration / 3600;
-    long minutes = (duration % 3600) / 60;
-    long seconds = duration % 60;
+    long sessionHours = duration / 3600;
+    long sessionMinutes = (duration % 3600) / 60;
+    long sessionSeconds = duration % 60;
 
     long dayHours = dayTime / 3600;
     long dayMinutes = (dayTime % 3600) / 60;
@@ -96,11 +96,11 @@ public class Main {
     System.out.println("            Время работы Vim:           ");
     System.out.println("  -------------------------------------");
     System.out.printf( "  - за сеанс: %2d ч %2d мин %2d сек\n",
-                            hours, minutes, seconds);
+                            sessionHours, sessionMinutes, sessionSeconds);
     System.out.printf( "  - за день:  %2d ч %2d мин %2d сек\n",
                             dayHours, dayMinutes, daySeconds);
     System.out.println("  =====================================");
             
-    vimSession.deleteFile();
+    sessionTimer.deleteFile();
   }
 }
