@@ -46,7 +46,7 @@ public class JvimTimer {
     String homeDir = System.getProperty("user.home");
     String pathToDayTime = homeDir + DAY_FILE_PATH;
     
-    Session vimSession = new Session(homeDir + SESSION_FILE_PATH);
+    SessionTimer vimSession = new SessionTimer(homeDir + SESSION_FILE_PATH);
 
     vimSession.writeToFile(System.currentTimeMillis() / 1000);
     
@@ -69,7 +69,7 @@ public class JvimTimer {
     String homeDir = System.getProperty("user.home");
     String pathToDayTime = homeDir + DAY_FILE_PATH;
 
-    Session vimSession = new Session(homeDir + SESSION_FILE_PATH);
+    SessionTimer vimSession = new SessionTimer(homeDir + SESSION_FILE_PATH);
             
     long duration = vimSession.getSessionTime(); 
 
