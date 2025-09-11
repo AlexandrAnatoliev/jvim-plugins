@@ -1,5 +1,20 @@
+" ==================================================================
+" File: test_jvim_timer.vim
+" Description: Test suite for verifying jvim_timer.vim script
+" Author: AlexandAnatoliev
+" Version: 0.1.7
+" Last Modified: 11.09.2025
+" ==================================================================
+
 let s:java_cmd = 'java -cp ' . expand('~/.vim/pack/my-plugins/start/jvim-timer/bin/') . ' Main'
 
+" ------------------------------------------------------------------  
+" Function:     TestStartTimer()
+" Description:  Tests timer start and session file creation
+" Parameters:   None
+" Returns:      1 - test passed
+"               0 - test failed
+" ------------------------------------------------------------------  
 function! TestStartTimer() abort
   if !isdirectory('data')
     call mkdir('data, 'p')
@@ -33,6 +48,13 @@ function! TestStartTimer() abort
   return 1
 endfunction
 
+" ------------------------------------------------------------------  
+" Function:     TestStopTimer()
+" Description:  Tests timer stop and daily file update
+" Parameters:   None
+" Returns:      1 - test passed
+"               0 - test failed
+" ------------------------------------------------------------------  
 function! TestStopTimer() abort
   let output = system(s:java_cmd . ' stop')
 
@@ -54,6 +76,10 @@ function! TestStopTimer() abort
   return 1
 endfunction
 
+" ------------------------------------------------------------------  
+" Block:        Main test execution flow
+" Description:  Runs test series and displays results
+" ------------------------------------------------------------------  
 echo "Running jvim_timer tests ..."
 let start_result = TestStartTimer()
 sleep 2
