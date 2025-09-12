@@ -6,7 +6,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.1.6](https://img.shields.io/badge/Version-0.1.6-orange.svg)
+  ![Version 0.1.7](https://img.shields.io/badge/Version-0.1.7-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -27,14 +27,21 @@
         └── start/
             └── jvim-timer/
                 ├── bin/
+                │   ├── DayTimer.class
+                │   ├── Main.java.class
+                │   └── SessionTimer.class
                 ├── data/
+                │   ├── jvim_day_time.txt
+                │   └── jvim_session_time.txt
                 ├── plugin/
                 │   └── jvim_timer.vim
-                └── src/
-                    └── java/
-                       ├── DayTimer.java
-                       ├── Main.java
-                       └── SessionTimer.java
+                ├── src/
+                │   └── java/
+                │      ├── DayTimer.java
+                │      ├── Main.java
+                │      └── SessionTimer.java
+                └── test/
+                       └── test_jvim_timer.vim
 ```
 
 * Compile the Java file:
@@ -48,6 +55,22 @@ javac -d bin/ src/java/*
 ```
 :source ~/.vim/pack/my-plugins/start/jvim-timer/plugin/jvim_timer.vim
 ```
+
+<div align="center">
+  <h4>Testing</h4>
+</div>
+
+* Running tests:
+```
+cd ~/.vim/pack/my-plugins/start/jvim-timer
+vim -u NONE -S test/test_jvim_timer.vim
+```
+
+The script includes comprehensive error handling:
+* checking for the existence of data/ directory
+* checking file access permission
+* handling external command execution errors
+* detailed error logging
 
 <div align="center">
   <h4>Usage</h4>
@@ -96,6 +119,11 @@ classDiagram
     + StopTimer()
   }
 
+  class test_jvim_timer.vim {
+    + TestStartTimer()
+    + TestStopTimer()
+  }
+
   class Main {
     - SESSION_FILE_PATH: String 
       = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_session_time.txt"
@@ -136,6 +164,9 @@ classDiagram
   Main --|> DayTimer : calls
   SessionTimer --|> jvim_start_time.txt : reads/writes
   DayTimer --|> jvim_day_time.txt : reads/writes
+  test_jvim_timer.vim --|> Main : calls
+  test_jvim_timer.vim --|> jvim_start_time.txt : reads/writes
+  test_jvim_timer.vim --|> jvim_day_time.txt : reads/writes
 ```
 
 <div align="center">
@@ -146,7 +177,7 @@ classDiagram
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.1.6](https://img.shields.io/badge/Version-0.1.6-orange.svg)
+  ![Version 0.1.7](https://img.shields.io/badge/Version-0.1.7-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -166,14 +197,21 @@ classDiagram
         └── start/
             └── jvim-timer/
                 ├── bin/
+                │   ├── DayTimer.class
+                │   ├── Main.java.class
+                │   └── SessionTimer.class
                 ├── data/
+                │   ├── jvim_day_time.txt
+                │   └── jvim_session_time.txt
                 ├── plugin/
                 │   └── jvim_timer.vim
-                └── src/
-                    └── java/
-                       ├── DayTimer.java
-                       ├── Main.java
-                       └── SessionTimer.java
+                ├── src/
+                │   └── java/
+                │      ├── DayTimer.java
+                │      ├── Main.java
+                │      └── SessionTimer.java
+                └── test/
+                       └── test_jvim_timer.vim
 ```
 
 * Скомпилировать Java файлы:
@@ -187,6 +225,22 @@ javac -d bin/ src/java/*
 ```
 :source ~/.vim/pack/my-plugins/start/jvim-timer/plugin/jvim_timer.vim
 ```
+
+<div align="center">
+  <h4>Тестирование</h4>
+</div>
+
+* Запуск тестов:
+```
+cd ~/.vim/pack/my-plugins/start/jvim-timer
+vim -u NONE -S test/test_jvim_timer.vim
+```
+
+Скрипт включает комплексную обработку ошибок:
+* проверка существования директории data/
+* проверка прав доступа к файлам
+* обработка ошибок выполнения внешних команд
+* детальное логирование при ошибках
 
 <div align="center">
   <h4>Использование</h4>
@@ -234,6 +288,11 @@ classDiagram
     + StopTimer()
   }
 
+  class test_jvim_timer.vim {
+    + TestStartTimer()
+    + TestStopTimer()
+  }
+
   class Main {
     - SESSION_FILE_PATH: String 
       = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_session_time.txt"
@@ -274,4 +333,7 @@ classDiagram
   Main --|> DayTimer : calls
   SessionTimer --|> jvim_start_time.txt : reads/writes
   DayTimer --|> jvim_day_time.txt : reads/writes
+  test_jvim_timer.vim --|> Main : calls
+  test_jvim_timer.vim --|> jvim_start_time.txt : reads/writes
+  test_jvim_timer.vim --|> jvim_day_time.txt : reads/writes
 ```
