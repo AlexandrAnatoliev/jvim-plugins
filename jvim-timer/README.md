@@ -119,11 +119,6 @@ classDiagram
     + StopTimer()
   }
 
-  class test_jvim_timer.vim {
-    + TestStartTimer()
-    + TestStopTimer()
-  }
-
   class Main {
     - SESSION_FILE_PATH: String 
       = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_session_time.txt"
@@ -164,6 +159,34 @@ classDiagram
   Main --|> DayTimer : calls
   SessionTimer --|> jvim_start_time.txt : reads/writes
   DayTimer --|> jvim_day_time.txt : reads/writes
+```
+
+```mermaid
+classDiagram
+  direction LR
+
+  class test_jvim_timer.vim {
+    + TestStartTimer()
+    + TestStopTimer()
+  }
+
+  class Main {
+    - SESSION_FILE_PATH: String 
+      = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_session_time.txt"
+    - DAY_FILE_PATH: String 
+      = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt"
+    + start(): void
+    + stop(): void
+  }
+
+  class jvim_start_time.txt {
+    + startTime: String 
+  }
+
+  class jvim_day_time.txt {
+    + dayTime: String
+  }
+
   test_jvim_timer.vim --|> Main : calls
   test_jvim_timer.vim --|> jvim_start_time.txt : reads/writes
   test_jvim_timer.vim --|> jvim_day_time.txt : reads/writes
@@ -288,11 +311,6 @@ classDiagram
     + StopTimer()
   }
 
-  class test_jvim_timer.vim {
-    + TestStartTimer()
-    + TestStopTimer()
-  }
-
   class Main {
     - SESSION_FILE_PATH: String 
       = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_session_time.txt"
@@ -333,6 +351,34 @@ classDiagram
   Main --|> DayTimer : calls
   SessionTimer --|> jvim_start_time.txt : reads/writes
   DayTimer --|> jvim_day_time.txt : reads/writes
+```
+
+```mermaid
+classDiagram
+  direction LR
+
+  class test_jvim_timer.vim {
+    + TestStartTimer()
+    + TestStopTimer()
+  }
+
+  class Main {
+    - SESSION_FILE_PATH: String 
+      = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_session_time.txt"
+    - DAY_FILE_PATH: String 
+      = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt"
+    + start(): void
+    + stop(): void
+  }
+
+  class jvim_start_time.txt {
+    + startTime: String 
+  }
+
+  class jvim_day_time.txt {
+    + dayTime: String
+  }
+
   test_jvim_timer.vim --|> Main : calls
   test_jvim_timer.vim --|> jvim_start_time.txt : reads/writes
   test_jvim_timer.vim --|> jvim_day_time.txt : reads/writes
