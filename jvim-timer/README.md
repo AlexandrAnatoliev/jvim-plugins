@@ -6,7 +6,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.1.7](https://img.shields.io/badge/Version-0.1.7-orange.svg)
+  ![Version 0.1.8](https://img.shields.io/badge/Version-0.1.8-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -27,19 +27,24 @@
         └── start/
             └── jvim-timer/
                 ├── bin/
-                │   ├── DayTimer.class
-                │   ├── Main.java.class
-                │   └── SessionTimer.class
+                │   ├── main/
+                │   │   ├── DayTimer.class
+                │   │   ├── Main.java.class
+                │   │   └── SessionTimer.class
+                │   └── test/
                 ├── data/
                 │   ├── jvim_day_time.txt
                 │   └── jvim_session_time.txt
                 ├── plugin/
                 │   └── jvim_timer.vim
                 ├── src/
-                │   └── java/
-                │      ├── DayTimer.java
-                │      ├── Main.java
-                │      └── SessionTimer.java
+                │   ├── main/
+                │   │   └── java/
+                │   │       ├── DayTimer.java
+                │   │       ├── Main.java
+                │   │       └── SessionTimer.java
+                │   └── test/
+                │       └── java/
                 └── test/
                        └── test_jvim_timer.vim
 ```
@@ -47,7 +52,7 @@
 * Compile the Java file:
 ```
 cd ~/.vim/pack/my-plugins/start/jvim-timer/
-javac -d bin/ src/java/*
+javac -d bin/main/ src/main/java/*
 ```
 
 * Reload Vim or execute the command:
@@ -200,7 +205,7 @@ classDiagram
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.1.7](https://img.shields.io/badge/Version-0.1.7-orange.svg)
+  ![Version 0.1.8](https://img.shields.io/badge/Version-0.1.8-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -220,19 +225,24 @@ classDiagram
         └── start/
             └── jvim-timer/
                 ├── bin/
-                │   ├── DayTimer.class
-                │   ├── Main.java.class
-                │   └── SessionTimer.class
+                │   ├── main/
+                │   │   ├── DayTimer.class
+                │   │   ├── Main.java.class
+                │   │   └── SessionTimer.class
+                │   └── test/
                 ├── data/
                 │   ├── jvim_day_time.txt
                 │   └── jvim_session_time.txt
                 ├── plugin/
                 │   └── jvim_timer.vim
                 ├── src/
-                │   └── java/
-                │      ├── DayTimer.java
-                │      ├── Main.java
-                │      └── SessionTimer.java
+                │   ├── main/
+                │   │   └── java/
+                │   │       ├── DayTimer.java
+                │   │       ├── Main.java
+                │   │       └── SessionTimer.java
+                │   └── test/
+                │       └── java/
                 └── test/
                        └── test_jvim_timer.vim
 ```
@@ -240,7 +250,7 @@ classDiagram
 * Скомпилировать Java файлы:
 ```
 cd ~/.vim/pack/my-plugins/start/jvim-timer/
-javac -d bin/ src/java/*
+javac -d bin/main/ src/main/java/*
 ```
 
 * Перезагрузить Vim или выполнить команду:
