@@ -2,11 +2,11 @@
 " File: test_jvim_timer.vim
 " Description: Test suite for verifying jvim_timer.vim script
 " Author: AlexandAnatoliev
-" Version: 0.1.7
-" Last Modified: 11.09.2025
+" Version: 0.1.8
+" Last Modified: 16.09.2025
 " ==================================================================
 
-let s:java_cmd = 'java -cp ' . expand('~/.vim/pack/my-plugins/start/jvim-timer/bin/') . ' Main'
+let s:java_cmd = 'java -cp ' . expand('~/.vim/pack/my-plugins/start/jvim-timer/bin/main/') . ' Main'
 
 " ------------------------------------------------------------------  
 " Function:     TestStartTimer()
