@@ -23,6 +23,21 @@ public class DayTimerTest {
   void testFileIsNotExistWhenFileDoesNotExist() {
     assertTrue(dayTimer.fileIsNotExist());
   }
+
+  @Test
+  void testFileIsNotExistWhenFileExists() throws IOException {
+    Files.createFile(Paths.get(TEST_FILE_PATH));
+    assertFalse(dayTimer.fileIsNotExist());
+  }
+
+  @Test
+  void testGetFileDateWhenFileExists() throws IOException {
+    Files.createFile(Paths.get(TEST_FILE_PATH));
+    LocalDate expectedDate = LocalDate.now();
+    LocalDate actualDate = dayTimer.getFileDate();
+
+    assertEquals(expectedDate, actualDate);
+  }
 }
 
 // jvim-timer$ java -cp "/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-co
