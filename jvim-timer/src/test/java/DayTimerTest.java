@@ -69,6 +69,15 @@ public class DayTimerTest {
     Long actualValue = dayTimer.readFromFile();
     assertEquals(0L, actualValue);
   }
+
+  @Test
+  void testWriteToFileOverwritesPreviousContent() {
+    dayTimer.writeToFile(100L);
+    dayTimer.writeToFile(200L);
+
+    Long actualValue = dayTimer.readFromFile();
+    assertEquals(200L, actualValue);
+  }
 }
 
 // jvim-timer$ java -cp "/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-co
