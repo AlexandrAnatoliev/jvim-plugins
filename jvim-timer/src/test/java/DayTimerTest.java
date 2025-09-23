@@ -61,6 +61,14 @@ public class DayTimerTest {
     Long actualValue = dayTimer.readFromFile();
     assertEquals(0L, actualValue);
   }
+
+  @Test
+  void testReadFromFileWithInvalidData() throws IOException {
+    Files.write(Paths.get(TEST_FILE_PATH), "Invalid_data".getBytes());
+
+    Long actualValue = dayTimer.readFromFile();
+    assertEquals(0L, actualValue);
+  }
 }
 
 // jvim-timer$ java -cp "/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-co
