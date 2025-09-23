@@ -38,6 +38,54 @@ public class DayTimerTest {
 
     assertEquals(expectedDate, actualDate);
   }
+
+  @Test
+  void testGetFileDateWhenFileDoesNotExist() {
+    LocalDate expectedDate = LocalDate.now();
+    LocalDate actualDate = dayTimer.getFileDate();
+
+    assertEquals(expectedDate, actualDate);
+  }
+
+  @Test
+  void testWriteToFileAndReadFromFile() {
+    Long expectedValue = 12345L;
+    dayTimer.writeToFile(expectedValue);
+
+    Long actualValue = dayTimer.readFromFile();
+    assertEquals(expectedValue, actualValue);
+  }
+
+  @Test
+  void testReadFromFileWhenFileDoesNotExist() {
+    Long actualValue = dayTimer.readFromFile();
+    assertEquals(0L, actualValue);
+  }
+
+  @Test
+  void testReadFromFileWithInvalidData() throws IOException {
+    Files.write(Paths.get(TEST_FILE_PATH), "Invalid_data".getBytes());
+
+    Long actualValue = dayTimer.readFromFile();
+    assertEquals(0L, actualValue);
+  }
+
+  @Test
+  void testWriteToFileOverwritesPreviousContent() {
+    dayTimer.writeToFile(100L);
+    dayTimer.writeToFile(200L);
+
+    Long actualValue = dayTimer.readFromFile();
+    assertEquals(200L, actualValue);
+  }
+
+  @Test
+  void testWriteToFileWithNull() {
+    dayTimer.writeToFile(null);
+
+    Long actualValue = dayTimer.readFromFile();
+    assertEquals(0L, actualValue);
+  }
 }
 
 // jvim-timer$ java -cp "/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-co
