@@ -46,6 +46,15 @@ public class DayTimerTest {
 
     assertEquals(expectedDate, actualDate);
   }
+
+  @Test
+  void testReadToFileAndReadFromFile() {
+    Long expectedValue = 12345L;
+    dayTimer.writeToFile(expectedValue);
+
+    Long actualValue = dayTimer.readFromFile();
+    assertEquals(expectedValue, actualValue);
+  }
 }
 
 // jvim-timer$ java -cp "/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-co
