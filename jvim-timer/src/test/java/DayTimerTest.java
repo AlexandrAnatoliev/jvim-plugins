@@ -48,7 +48,7 @@ public class DayTimerTest {
   }
 
   @Test
-  void testReadToFileAndReadFromFile() {
+  void testWriteToFileAndReadFromFile() {
     Long expectedValue = 12345L;
     dayTimer.writeToFile(expectedValue);
 

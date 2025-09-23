@@ -11,7 +11,7 @@ import java.nio.file.attribute.*;
 * and time value storage / retrieval 
 *
 * @version  0.1.9 
-* @since    22.09.2025
+* @since    23.09.2025
 * @author   AlexandrAnatoliev
 */
 public class DayTimer {
@@ -78,7 +78,7 @@ public class DayTimer {
   * @param  value - tlme value in seconds to write to file
   * @throws Exception if unexpected error 
   */
-  void writeToFile(Long value) {
+  public void writeToFile(Long value) {
     try {
       FileWriter writer = new FileWriter(pathToFile);
       writer.write(value.toString());
@@ -97,7 +97,7 @@ public class DayTimer {
   * or 0 if file does not exist or contains invalid data
   * @throws Exception if unexpected error 
   */
-  long readFromFile() {
+  public long readFromFile() {
     try {
       BufferedReader reader = new BufferedReader(
                           new FileReader(this.pathToFile));
