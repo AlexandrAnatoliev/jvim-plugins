@@ -38,6 +38,14 @@ public class DayTimerTest {
 
     assertEquals(expectedDate, actualDate);
   }
+
+  @Test
+  void testGetFileDateWhenFileDoesNotExist() {
+    LocalDate expectedDate = LocalDate.now();
+    LocalDate actualDate = dayTimer.getFileDate();
+
+    assertEquals(expectedDate, actualDate);
+  }
 }
 
 // jvim-timer$ java -cp "/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-co
