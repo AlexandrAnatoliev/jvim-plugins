@@ -6,7 +6,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.1.8](https://img.shields.io/badge/Version-0.1.8-orange.svg)
+  ![Version 0.1.9](https://img.shields.io/badge/Version-0.1.9-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -32,6 +32,7 @@
                 │   │   ├── Main.java.class
                 │   │   └── SessionTimer.class
                 │   └── test/
+                │       └── DayTimerTest.class
                 ├── data/
                 │   ├── jvim_day_time.txt
                 │   └── jvim_session_time.txt
@@ -45,6 +46,7 @@
                 │   │       └── SessionTimer.java
                 │   └── test/
                 │       └── java/
+                │           └── DayTimerTest.java
                 └── test/
                        └── test_jvim_timer.vim
 ```
@@ -67,7 +69,7 @@ javac -d bin/main/ src/main/java/*
 
 * Running tests:
 ```
-cd ~/.vim/pack/my-plugins/start/jvim-timer
+cd ~/.vim/pack/my-plugins/start/jvim-timer/
 vim -u NONE -S test/test_jvim_timer.vim
 ```
 
@@ -76,6 +78,16 @@ The script includes comprehensive error handling:
 * checking file access permission
 * handling external command execution errors
 * detailed error logging
+
+* Compile tests with JUnit dependencies:
+```
+javac -d bin/test/ -cp "bin/main:/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-console-standalone-1.9.1.jar" src/test/java/*.java
+```
+
+* Run all JUnit tests 
+```
+java -cp "bin/main:bin/test:/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-console-standalone-1.9.1.jar" org.junit.platform.console.ConsoleLauncher --scan-classpath --class-path bin/test
+```
 
 <div align="center">
   <h4>Usage</h4>
@@ -166,37 +178,6 @@ classDiagram
   DayTimer --|> jvim_day_time.txt : reads/writes
 ```
 
-```mermaid
-classDiagram
-  direction LR
-
-  class test_jvim_timer.vim {
-    + TestStartTimer()
-    + TestStopTimer()
-  }
-
-  class Main {
-    - SESSION_FILE_PATH: String 
-      = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_session_time.txt"
-    - DAY_FILE_PATH: String 
-      = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt"
-    + start(): void
-    + stop(): void
-  }
-
-  class jvim_start_time.txt {
-    + startTime: String 
-  }
-
-  class jvim_day_time.txt {
-    + dayTime: String
-  }
-
-  test_jvim_timer.vim --|> Main : calls
-  test_jvim_timer.vim --|> jvim_start_time.txt : reads/writes
-  test_jvim_timer.vim --|> jvim_day_time.txt : reads/writes
-```
-
 <div align="center">
 
   <a id="russian"></a>
@@ -205,7 +186,7 @@ classDiagram
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.1.8](https://img.shields.io/badge/Version-0.1.8-orange.svg)
+  ![Version 0.1.9](https://img.shields.io/badge/Version-0.1.9-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -218,6 +199,7 @@ classDiagram
  
 * Сохранить папку с плагином `jvim-timer/` в папку 
 `~/.vim/pack/my-plugins/start/`:
+
 ```
 ~/.vim/
 └── pack/
@@ -230,6 +212,7 @@ classDiagram
                 │   │   ├── Main.java.class
                 │   │   └── SessionTimer.class
                 │   └── test/
+                │       └── DayTimerTest.class
                 ├── data/
                 │   ├── jvim_day_time.txt
                 │   └── jvim_session_time.txt
@@ -243,6 +226,7 @@ classDiagram
                 │   │       └── SessionTimer.java
                 │   └── test/
                 │       └── java/
+                │           └── DayTimerTest.java
                 └── test/
                        └── test_jvim_timer.vim
 ```
@@ -265,7 +249,7 @@ javac -d bin/main/ src/main/java/*
 
 * Запуск тестов:
 ```
-cd ~/.vim/pack/my-plugins/start/jvim-timer
+cd ~/.vim/pack/my-plugins/start/jvim-timer/
 vim -u NONE -S test/test_jvim_timer.vim
 ```
 
@@ -274,6 +258,16 @@ vim -u NONE -S test/test_jvim_timer.vim
 * проверка прав доступа к файлам
 * обработка ошибок выполнения внешних команд
 * детальное логирование при ошибках
+
+* Компиляция тестов с зависимостями JUnit:
+```
+javac -d bin/test/ -cp "bin/main:/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-console-standalone-1.9.1.jar" src/test/java/*.java
+```
+
+* Запуск всех unit-тестов
+```
+java -cp "bin/main:bin/test:/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-console-standalone-1.9.1.jar" org.junit.platform.console.ConsoleLauncher --scan-classpath --class-path bin/test
+```
 
 <div align="center">
   <h4>Использование</h4>
@@ -363,33 +357,3 @@ classDiagram
   DayTimer --|> jvim_day_time.txt : reads/writes
 ```
 
-```mermaid
-classDiagram
-  direction LR
-
-  class test_jvim_timer.vim {
-    + TestStartTimer()
-    + TestStopTimer()
-  }
-
-  class Main {
-    - SESSION_FILE_PATH: String 
-      = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_session_time.txt"
-    - DAY_FILE_PATH: String 
-      = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt"
-    + start(): void
-    + stop(): void
-  }
-
-  class jvim_start_time.txt {
-    + startTime: String 
-  }
-
-  class jvim_day_time.txt {
-    + dayTime: String
-  }
-
-  test_jvim_timer.vim --|> Main : calls
-  test_jvim_timer.vim --|> jvim_start_time.txt : reads/writes
-  test_jvim_timer.vim --|> jvim_day_time.txt : reads/writes
-```
