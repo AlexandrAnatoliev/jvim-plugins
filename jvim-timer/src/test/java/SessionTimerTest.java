@@ -37,6 +37,13 @@ public class SessionTimerTest {
     Files.deleteIfExists(Paths.get(TEST_FILE_PATH));
   }
 
+  /**
+  * Tests getSessionTime() method with valid start time
+  * Verifies that session time calculation is correct
+  *
+  * @throws IOException if file creation fails
+  * @throws InterruptedException if sleep is interrupted
+  */
   @Test
   void testGetSessionTimeWithValidStartTime()
     throws IOException, InterruptedException {
@@ -50,5 +57,15 @@ public class SessionTimerTest {
 
     assertTrue(sessionTime >= 1 && sessionTime <= 2,
         "Session time should be around 1 second");
+  }
+
+  /**
+  * Tests getSessionTime() method when file does not exist
+  * Verifies that method handles missing file gracefully
+  */
+  @Test
+  void testGetSessionTimeWhenFileDoesNotExist() {
+    long sessionTime = sessionTimer.getSessionTime();
+    assertTrue(sessionTime >= 0, "Session time should be non-negative");
   }
 }
