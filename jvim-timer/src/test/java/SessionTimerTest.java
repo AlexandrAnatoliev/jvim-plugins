@@ -118,4 +118,16 @@ public class SessionTimerTest {
     long actualValue = sessionTimer.readFromFile();
     assertEquals(200L, actualValue);
   }
+
+  /**
+  * Tests writeToFile() method with null value 
+  * Verifies that null input is handled without exceptions
+  */
+  @Test
+  void testWriteToFileWithNull() {
+    sessionTimer.writeToFile(null);
+
+    long actualValue = sessionTimer.readFromFile();
+    assertNotNull(actualValue);
+  }
 }
