@@ -105,4 +105,17 @@ public class SessionTimerTest {
     long actualValue = sessionTimer.readFromFile();
     assertEquals(0L, actualValue);
   }
+
+  /**
+  * Tests that writeToFile() method overwrites previous content
+  * Verifies that only the last written value is preserved
+  */
+  @Test
+  void testWriteToFileOverwritesPreviousContent() {
+    sessionTimer.writeToFile(100L);
+    sessionTimer.writeToFile(200L);
+
+    long actualValue = sessionTimer.readFromFile();
+    assertEquals(200L, actualValue);
+  }
 }
