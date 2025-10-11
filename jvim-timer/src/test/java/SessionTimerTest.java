@@ -84,5 +84,12 @@ public class SessionTimerTest {
 
   /**
   * Tests readFromFile() method when file does not exist
+  * Verifies that method returns 0 as default value
   */
+  @Test
+  void testReadFromFileWhenFileDoesNotExist() {
+    long actualValue = sessionTimer.readFromFile();
+    assertEquals(0, actualValue);
+  }
+  
 }
