@@ -68,4 +68,21 @@ public class SessionTimerTest {
     long sessionTime = sessionTimer.getSessionTime();
     assertTrue(sessionTime >= 0, "Session time should be non-negative");
   }
+
+  /**
+  * Tests writeToFile() and readFromFile() methods
+  * Verifies that written value can be successfully read back
+  */
+  @Test
+  void testWriteToFileAndReadFromFile() {
+    long expectedValue = 123456789L;
+    sessionTimer.writeToFile(expectedValue);
+
+    long actualValue = sessionTimer.readFromFile();
+    assertEquals(expectedValue, actualValue);
+  }
+
+  /**
+  * Tests readFromFile() method when file does not exist
+  */
 }
