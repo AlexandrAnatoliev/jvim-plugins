@@ -147,4 +147,12 @@ public class SessionTimerTest {
       "File should be deleted");
   }
 
+  /**
+  * Tests deleteFile() method when file does not exist
+  * Verifies that method handles missing file gracefully
+  */
+  @Test
+  void testDeleteFileWhenFileDoesNotExist() {
+    assertDoesNotThrow(() -> sessionTimer.deleteFile());
+  }
 }
