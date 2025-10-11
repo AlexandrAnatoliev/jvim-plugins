@@ -89,7 +89,20 @@ public class SessionTimerTest {
   @Test
   void testReadFromFileWhenFileDoesNotExist() {
     long actualValue = sessionTimer.readFromFile();
-    assertEquals(0, actualValue);
+    assertEquals(0L, actualValue);
   }
-  
+
+  /**
+  * Tests readFromFile() method with invalid data in file
+  * Verifies that non-numeric data is handled gracefully
+  *
+  * @throws IOException if file writing fails
+  */
+  @Test
+  void testReadFromFileWithInvalidData() throws IOException {
+    Files.write(Paths.get(TEST_FILE_PATH), "Invalid_data".getBytes());
+
+    long actualValue = sessionTimer.readFromFile();
+    assertEquals(0L, actualValue);
+  }
 }
