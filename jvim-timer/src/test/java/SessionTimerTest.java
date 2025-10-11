@@ -130,4 +130,21 @@ public class SessionTimerTest {
     long actualValue = sessionTimer.readFromFile();
     assertNotNull(actualValue);
   }
+
+  /**
+  * Tests deleteFile() method when file exists 
+  * Verifies that file is successfully deleted
+  *
+  * @throws IOException if file creation fails
+  */
+  @Test
+  void testDeleteFileWhenFileExists() throws IOException {
+    Files.createFile(Paths.get(TEST_FILE_PATH));
+
+    sessionTimer.deleteFile();
+
+    assertFalse(Files.exists(Paths.get(TEST_FILE_PATH)),
+      "File should be deleted");
+  }
+
 }
