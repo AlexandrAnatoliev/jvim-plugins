@@ -155,4 +155,45 @@ public class SessionTimerTest {
   void testDeleteFileWhenFileDoesNotExist() {
     assertDoesNotThrow(() -> sessionTimer.deleteFile());
   }
+
+  /**
+  * Tests constructor with file path parameter
+  * Verifies that path is correctly stored
+  */
+  @Test
+  void testConstructorStoresFilePath() {
+    String customPath = "custom_test_file.txt";
+    SessionTimer customTimer = new SessionTimer(customPath);
+
+    try {
+      customTimer.writeToFile(999L);
+      long value = customTimer.readFromFile();
+      assertEquals(999L, value);
+    } finally {
+      new File(customPath).delete();
+    }
+  }
+
+  /**
+  * Tests session time calculation accuracy
+  * Verifies that calculated time matches expected duration
+  *
+  * @throws IOException if file writing fails
+  * @throws InterruptedException if sleep is interrupted
+  */
+  @Test
+  void testSessionTimeCalculationAccuracy() 
+    throws IOException, InterruptedException {
+    
+    long startTime = System.currentTimeMillis() / 1000;
+    sessionTimer.writeToFile(startTime);
+
+    int waitSecunds = 2;
+    Thread.sleep(waitSecunds * 1000);
+
+    long sessionTime = sessionTimer.getSessionTime();
+
+    assertTrue(sessionTime >= waitSecunds && sessionTime <= waitSecunds + 1, 
+        "Session time should be approximately " + waitSecunds + " seconds");
+  }
 }

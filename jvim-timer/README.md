@@ -6,7 +6,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.1.9](https://img.shields.io/badge/Version-0.1.9-orange.svg)
+  ![Version 0.1.10](https://img.shields.io/badge/Version-0.1.10-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -32,7 +32,8 @@
                 │   │   ├── Main.java.class
                 │   │   └── SessionTimer.class
                 │   └── test/
-                │       └── DayTimerTest.class
+                │       ├── DayTimerTest.class
+                │       └── SessionTimerTest.class
                 ├── data/
                 │   ├── jvim_day_time.txt
                 │   └── jvim_session_time.txt
@@ -46,7 +47,8 @@
                 │   │       └── SessionTimer.java
                 │   └── test/
                 │       └── java/
-                │           └── DayTimerTest.java
+                │           ├── DayTimerTest.java
+                │           └── SessionTimerTest.java
                 └── test/
                        └── test_jvim_timer.vim
 ```
@@ -186,7 +188,7 @@ classDiagram
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.1.9](https://img.shields.io/badge/Version-0.1.9-orange.svg)
+  ![Version 0.1.10](https://img.shields.io/badge/Version-0.1.10-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -212,7 +214,8 @@ classDiagram
                 │   │   ├── Main.java.class
                 │   │   └── SessionTimer.class
                 │   └── test/
-                │       └── DayTimerTest.class
+                │       ├── DayTimerTest.class
+                │       └── SessionTimerTest.class
                 ├── data/
                 │   ├── jvim_day_time.txt
                 │   └── jvim_session_time.txt
@@ -226,7 +229,8 @@ classDiagram
                 │   │       └── SessionTimer.java
                 │   └── test/
                 │       └── java/
-                │           └── DayTimerTest.java
+                │           ├── DayTimerTest.java
+                │           └── SessionTimerTest.java
                 └── test/
                        └── test_jvim_timer.vim
 ```
