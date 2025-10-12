@@ -155,4 +155,22 @@ public class SessionTimerTest {
   void testDeleteFileWhenFileDoesNotExist() {
     assertDoesNotThrow(() -> sessionTimer.deleteFile());
   }
+
+  /**
+  * Tests constructor with file path parameter
+  * Verifies that path is correctly stored
+  */
+  @Test
+  void testConstructorStoresFilePath() {
+    String customPath = "custom_test_file.txt";
+    SessionTimer customTimer = new SessionTimer(customPath);
+
+    try {
+      customTimer.writeToFile(999L);
+      long value = customTimer.readFromFile();
+      assertEquals(999L, value);
+    } finally {
+      new File(customPath).delete();
+    }
+  }
 }
