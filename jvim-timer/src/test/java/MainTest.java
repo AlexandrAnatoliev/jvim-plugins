@@ -21,9 +21,7 @@ public class MainTest {
 
   private String originalHome;
   private final PrintStream originalOut = System.out;
-  private final PrintStream originalErr = System.err;
   private ByteArrayOutputStream outputStream;
-  private ByteArrayOutputStream errorStream;
 
   /**
   * Set up test environment before each test method
@@ -39,9 +37,58 @@ public class MainTest {
     System.setProperty("user.home", tempDir.toString());
 
     outputStream = new ByteArrayOutputStream();
-    errorStream = new ByteArrayOutputStream();
     System.setOut(new PrintStream(outputStream));
-    System.setErr(new PrintStream(errorStream));
+  }
+
+  /**
+   * Clean up test environment after each test method
+   * Restores original home directory and System.out
+   */
+  @AfterEach
+  void tearDown() {
+    if (originalHome != null) {
+      System.setProperty("user.home", originalHome);
+    }
+
+    System.setOut(originalOut);
+  }
+
+  /**
+   * Tests main method with "start" argument
+   * Verifies that session file is created when start command is used
+   *
+   * @throws Exception if file operations fails
+   */
+  @Test
+  void testMainWithStartArgument() throws Exception {
+    String[] args = {"start"};
+
+    Main.main(args);
+    File sessionFile = getSessionFile();
+    assertTrue(sessionFile.exists(), 
+        "Session file should be created after start command");
+  }
+
+  /**
+   * Helper method to get the session file path
+   * Constructs the full path to session file in temporary directory
+   * 
+   * @return File object representing the session file 
+   */
+  private File getSessionFile() {
+    String path = tempDir + ".vim/pack/my-plagins/start/jvim-timer/data/jvim_session_time.txt";
+    return new File(path);
+  }
+
+  /**
+   * Helper method to get the day file path
+   * Constructs the full path to day file in temporary directory
+   * 
+   * @return File object representing the day file 
+   */
+  private File getDayFile() {
+    String path = tempDir + ".vim/pack/my-plagins/start/jvim-timer/data/jvim_day_time.txt";
+    return new File(path);
   }
 }
 
