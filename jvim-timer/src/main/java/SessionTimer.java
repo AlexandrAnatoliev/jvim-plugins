@@ -6,13 +6,11 @@ import java.io.*;
 * The class provides methods for reading start time from temporary file, 
 * calculates running duration, and managing the temporary file. 
 *
-* @version  0.1.6 
-* @since    08.09.2025
+* @version  0.1.11 
+* @since    30.10.2025
 * @author   AlexandrAnatoliev
 */
-public class SessionTimer {
-  private String pathToFile;
-
+public class SessionTimer extends Timer {
   /** 
   * SessionTimer class constructor
   *

@@ -10,13 +10,11 @@ import java.nio.file.attribute.*;
 * file existence check, date validation, 
 * and time value storage / retrieval 
 *
-* @version  0.1.9 
-* @since    23.09.2025
+* @version  0.1.11 
+* @since    30.10.2025
 * @author   AlexandrAnatoliev
 */
-public class DayTimer {
-  private String pathToFile;
-
+public class DayTimer extends Timer {
   /** 
   * Constructs a DayTimer instance with specified file path
   *
