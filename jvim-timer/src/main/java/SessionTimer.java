@@ -6,22 +6,20 @@ import java.io.*;
 * The class provides methods for reading start time from temporary file, 
 * calculates running duration, and managing the temporary file. 
 *
-* @version  0.1.6 
-* @since    08.09.2025
+* @version  0.1.11 
+* @since    30.10.2025
 * @author   AlexandrAnatoliev
 */
-public class SessionTimer {
-  private String pathToFile;
-
+public class SessionTimer extends Timer {
   /** 
-  * SessionTimer class constructor
+  * Constructs a SessionTimer instance with specified file path
   *
-  * @param  pathToFile - path to temporary file for store of value
+  * @param  pathToFile - path to temporary file for storing time values
   */
-  SessionTimer(String pathToFile) {
-    this.pathToFile = pathToFile;
+  public SessionTimer(String pathToFile) {
+    super(pathToFile);
   }
-  
+
   /**
   * Reads start time from file  and calculates session duration
   * in seconds
@@ -33,44 +31,6 @@ public class SessionTimer {
     long duration = (System.currentTimeMillis() / 1000) - startTime;
 
     return duration;
-  }
-
-  /**
-  * Writes time value to temporary file 
-  *
-  * @param  varue - tlme value to write
-  */
-  void writeToFile(Long value) {
-    try {
-      FileWriter writer = new FileWriter(pathToFile);
-      writer.write(value.toString());
-      
-      writer.close();
-
-    } catch (Exception e) {
-        System.out.println("Ошибка записи: " + e.getMessage());
-    }
-  }
-
-  /**
-  * Reads time value from temporary file 
-  *
-  * @return tlme value from file, or 0 in case of error 
-  */
-  long readFromFile() {
-    try {
-      BufferedReader reader = new BufferedReader(
-                          new FileReader(this.pathToFile));
-      long value = Long.parseLong(reader.readLine());
-
-      reader.close();
-
-      return value;
-
-    } catch (Exception e) {
-        System.out.println("Ошибка чтения: " + e.getMessage());
-    }
-    return 0;
   }
 
   /**

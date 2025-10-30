@@ -10,20 +10,18 @@ import java.nio.file.attribute.*;
 * file existence check, date validation, 
 * and time value storage / retrieval 
 *
-* @version  0.1.9 
-* @since    23.09.2025
+* @version  0.1.11 
+* @since    30.10.2025
 * @author   AlexandrAnatoliev
 */
-public class DayTimer {
-  private String pathToFile;
-
+public class DayTimer extends Timer {
   /** 
   * Constructs a DayTimer instance with specified file path
   *
   * @param  pathToFile - path to temporary file for storing time values
   */
   public DayTimer(String pathToFile) {
-    this.pathToFile = pathToFile;
+    super(pathToFile);
   }
 
   /**
@@ -70,46 +68,5 @@ public class DayTimer {
     }
 
     return LocalDate.now();
-  }
-  
-  /**
-  * Writes time value to temporary file 
-  *
-  * @param  value - tlme value in seconds to write to file
-  * @throws Exception if unexpected error 
-  */
-  public void writeToFile(Long value) {
-    try {
-      FileWriter writer = new FileWriter(pathToFile);
-      writer.write(value.toString());
-      
-      writer.close();
-
-    } catch (Exception e) {
-        System.out.println("Ошибка записи: " + e.getMessage());
-    }
-  }
-
-  /**
-  * Reads time value from temporary file 
-  *
-  * @return time value from file in seconds, i
-  * or 0 if file does not exist or contains invalid data
-  * @throws Exception if unexpected error 
-  */
-  public long readFromFile() {
-    try {
-      BufferedReader reader = new BufferedReader(
-                          new FileReader(this.pathToFile));
-      long value = Long.parseLong(reader.readLine());
-
-      reader.close();
-
-      return value;
-
-    } catch (Exception e) {
-        System.out.println("Ошибка чтения: " + e.getMessage());
-    }
-    return 0;
   }
 } 
