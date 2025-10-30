@@ -34,23 +34,6 @@ public class SessionTimer extends Timer {
   }
 
   /**
-  * Writes time value to temporary file 
-  *
-  * @param  varue - tlme value to write
-  */
-  void writeToFile(Long value) {
-    try {
-      FileWriter writer = new FileWriter(pathToFile);
-      writer.write(value.toString());
-      
-      writer.close();
-
-    } catch (Exception e) {
-        System.out.println("Ошибка записи: " + e.getMessage());
-    }
-  }
-
-  /**
   * Reads time value from temporary file 
   *
   * @return tlme value from file, or 0 in case of error 

@@ -71,24 +71,6 @@ public class DayTimer extends Timer {
   }
   
   /**
-  * Writes time value to temporary file 
-  *
-  * @param  value - tlme value in seconds to write to file
-  * @throws Exception if unexpected error 
-  */
-  public void writeToFile(Long value) {
-    try {
-      FileWriter writer = new FileWriter(pathToFile);
-      writer.write(value.toString());
-      
-      writer.close();
-
-    } catch (Exception e) {
-        System.out.println("Ошибка записи: " + e.getMessage());
-    }
-  }
-
-  /**
   * Reads time value from temporary file 
   *
   * @return time value from file in seconds, i
