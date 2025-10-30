@@ -153,8 +153,8 @@ classDiagram
     + getFileDate(): LocalDate
   }
 
-  SessionTimer --|> Timer 
-  DayTimer --|> Timer
+  Timer <|-- SessionTimer  
+  Timer <|-- DayTimer
 ```
 <div align="center">
   <h4>jvim-timer class call structure</h4>
@@ -353,8 +353,8 @@ classDiagram
     + getFileDate(): LocalDate
   }
 
-  SessionTimer --|> Timer 
-  DayTimer --|> Timer
+  Timer <|-- SessionTimer  
+  Timer <|-- DayTimer
 ```
 
 <div align="center">
