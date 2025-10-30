@@ -69,27 +69,4 @@ public class DayTimer extends Timer {
 
     return LocalDate.now();
   }
-  
-  /**
-  * Reads time value from temporary file 
-  *
-  * @return time value from file in seconds, i
-  * or 0 if file does not exist or contains invalid data
-  * @throws Exception if unexpected error 
-  */
-  public long readFromFile() {
-    try {
-      BufferedReader reader = new BufferedReader(
-                          new FileReader(this.pathToFile));
-      long value = Long.parseLong(reader.readLine());
-
-      reader.close();
-
-      return value;
-
-    } catch (Exception e) {
-        System.out.println("Ошибка чтения: " + e.getMessage());
-    }
-    return 0;
-  }
 } 
