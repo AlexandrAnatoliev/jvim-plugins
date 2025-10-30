@@ -21,7 +21,7 @@ public class DayTimer extends Timer {
   * @param  pathToFile - path to temporary file for storing time values
   */
   public DayTimer(String pathToFile) {
-    this.pathToFile = pathToFile;
+    super(pathToFile);
   }
 
   /**

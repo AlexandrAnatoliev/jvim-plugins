@@ -12,14 +12,14 @@ import java.io.*;
 */
 public class SessionTimer extends Timer {
   /** 
-  * SessionTimer class constructor
+  * Constructs a SessionTimer instance with specified file path
   *
-  * @param  pathToFile - path to temporary file for store of value
+  * @param  pathToFile - path to temporary file for storing time values
   */
-  SessionTimer(String pathToFile) {
-    this.pathToFile = pathToFile;
+  public SessionTimer(String pathToFile) {
+    super(pathToFile);
   }
-  
+
   /**
   * Reads start time from file  and calculates session duration
   * in seconds
