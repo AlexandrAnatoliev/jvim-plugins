@@ -12,8 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 * @author AlexandrAnatoliev 
 */
 public class TimerTest {
-  private static final String TEST_FILE_PATH = 
-    "test_session_timer.txt";
+  private static final String TEST_FILE_PATH = "test_timer.txt";
   
   private Timer timer;
 
@@ -195,5 +194,26 @@ public class TimerTest {
 
     assertTrue(sessionTime >= waitSecunds && sessionTime <= waitSecunds + 1, 
         "Session time should be approximately " + waitSecunds + " seconds");
+  }
+
+  /**
+  * Tests fileIsNotExist() method when file does not exist
+  * Verifies that method returns true for non-existent file 
+  */
+  @Test
+  void testFileIsNotExistWhenFileDoesNotExist() {
+    assertTrue(timer.fileIsNotExist());
+  }
+
+  @Test
+  /**
+  * Tests fileIsNotExist() method when file exists
+  * Verifies that method returns false for existing file 
+  *
+  * @throws IOException if file creation fails
+  */
+  void testFileIsNotExistWhenFileExists() throws IOException {
+    Files.createFile(Paths.get(TEST_FILE_PATH));
+    assertFalse(timer.fileIsNotExist());
   }
 }
