@@ -14,8 +14,8 @@ import java.nio.file.attribute.*;
 *   java Main start  - records start time in session file
 *   java Main stop   - calculates and displays session duration
 *
-* @version  0.1.6 
-* @since    08.09.2025
+* @version  0.2.0
+* @since    03.10.2025
 * @author   AlexandrAnatoliev
 */
 public class Main {
@@ -23,6 +23,8 @@ public class Main {
     "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_session_time.txt";
   private static final String DAY_FILE_PATH = 
     "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt";
+  private static final String MONTH_FILE_PATH = 
+    "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_month_time.txt";
 
   /** Main method that handles command line arguments
   *
@@ -45,12 +47,13 @@ public class Main {
   public static void start() {
     String homeDir = System.getProperty("user.home");
     String pathToDayTime = homeDir + DAY_FILE_PATH;
+    String pathToMonthTime = homeDir + MONTH_FILE_PATH;
     
     SessionTimer sessionTimer = new SessionTimer(homeDir + SESSION_FILE_PATH);
-
     sessionTimer.writeToFile(System.currentTimeMillis() / 1000);
     
     DayTimer dayTimer = new DayTimer(pathToDayTime);
+    DayTimer monthTimer = new DayTimer(pathToMonthTime);
     LocalDate today = LocalDate.now();
     
     if(dayTimer.fileIsNotExist() || 
@@ -58,6 +61,9 @@ public class Main {
         dayTimer.writeToFile(0L);
     }
 
+    if(monthTimer.fileIsNotExist()) {
+        monthTimer.writeToFile(0L);
+    }
     return;
   }
 
