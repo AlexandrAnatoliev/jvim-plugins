@@ -136,7 +136,7 @@ classDiagram
   
   class Timer {
     - pathToFile: String
-    + SessionTimer(pathToFile: String)
+    + Timer(pathToFile: String)
     + writeToFile(value: Long): void
     + readFromFile(): long
   }
@@ -336,7 +336,7 @@ classDiagram
   
   class Timer {
     - pathToFile: String
-    + SessionTimer(pathToFile: String)
+    + Timer(pathToFile: String)
     + writeToFile(value: Long): void
     + readFromFile(): long
   }
