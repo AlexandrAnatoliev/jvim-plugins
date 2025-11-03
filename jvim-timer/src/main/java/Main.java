@@ -14,7 +14,7 @@ import java.nio.file.attribute.*;
 *   java Main start  - records start time in session file
 *   java Main stop   - calculates and displays session duration
 *
-* @version  0.2.0
+* @version  0.2.1
 * @since    03.10.2025
 * @author   AlexandrAnatoliev
 */
@@ -49,7 +49,7 @@ public class Main {
     String pathToDayTime = homeDir + DAY_FILE_PATH;
     String pathToMonthTime = homeDir + MONTH_FILE_PATH;
     
-    SessionTimer sessionTimer = new SessionTimer(homeDir + SESSION_FILE_PATH);
+    Timer sessionTimer = new Timer(homeDir + SESSION_FILE_PATH);
     sessionTimer.writeToFile(System.currentTimeMillis() / 1000);
     
     DayTimer dayTimer = new DayTimer(pathToDayTime);
@@ -83,7 +83,7 @@ public class Main {
     String pathToDayTime = homeDir + DAY_FILE_PATH;
     String pathToMonthTime = homeDir + MONTH_FILE_PATH;
 
-    SessionTimer sessionTimer = new SessionTimer(homeDir + SESSION_FILE_PATH);
+    Timer sessionTimer = new Timer(homeDir + SESSION_FILE_PATH);
             
     long duration = sessionTimer.getSessionTime(); 
 

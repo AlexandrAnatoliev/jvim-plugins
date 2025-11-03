@@ -6,11 +6,11 @@ import java.io.*;
 * The class provides methods for reading start time from temporary file, 
 * calculates running duration, and managing the temporary file. 
 *
-* @version  0.1.11 
-* @since    30.10.2025
+* @version  0.2.1 
+* @since    03.11.2025
 * @author   AlexandrAnatoliev
 */
-public abstract class Timer {
+public class Timer {
   protected String pathToFile;
 
   /** 
@@ -61,6 +61,26 @@ public abstract class Timer {
         System.out.println("Ошибка чтения: " + e.getMessage());
     }
     return 0;
+  }
+
+  /**
+  * Reads start time from file  and calculates session duration
+  * in seconds
+  *
+  * @return - Vim session duration in seconds
+  */
+  long getSessionTime() {
+    long startTime = readFromFile();
+    long duration = (System.currentTimeMillis() / 1000) - startTime;
+
+    return duration;
+  }
+
+  /**
+  * Deletes temporary file 
+  */
+  void deleteFile() {
+    new File(this.pathToFile).delete();
   }
 }
 
