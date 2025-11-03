@@ -28,7 +28,7 @@ public class Timer {
   /**
   * Writes time value to temporary file 
   *
-  * @param  value - tlme value in seconds to write to file
+  * @param  value - time value in seconds to write to file
   * @throws Exception if unexpected error 
   */
   public void writeToFile(Long value) {

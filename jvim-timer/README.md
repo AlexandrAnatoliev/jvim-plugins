@@ -6,7 +6,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.1.11](https://img.shields.io/badge/Version-0.1.11-orange.svg)
+  ![Version 0.2.3](https://img.shields.io/badge/Version-0.2.3-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -28,24 +28,21 @@
             └── jvim-timer/
                 ├── bin/
                 │   ├── main/
-                │   │   ├── DayTimer.class
                 │   │   ├── Main.java.class
-                │   │   ├── SessionTimer.class
                 │   │   └── Timer.class
                 │   └── test/
                 │       ├── DayTimerTest.class
                 │       └── SessionTimerTest.class
                 ├── data/
                 │   ├── jvim_day_time.txt
+                │   ├── jvim_mouth_time.txt
                 │   └── jvim_session_time.txt
                 ├── plugin/
                 │   └── jvim_timer.vim
                 ├── src/
                 │   ├── main/
                 │   │   └── java/
-                │   │       ├── DayTimer.java
                 │   │       ├── Main.java
-                │   │       ├── SessionTimer.java
                 │   │       └── Timer.java
                 │   └── test/
                 │       └── java/
@@ -105,12 +102,13 @@ $ vim example.md
 * After finishing work and closing Vim, 
 the following will be displayed:
 ```
-  =====================================
+  =========================================
             Время работы Vim:           
-  -------------------------------------
-  - за сеанс:  0 ч  0 мин  2 сек
-  - за день:   0 ч 50 мин  3 сек
-  =====================================
+  -----------------------------------------
+  - за сеанс:             0 ч  0 мин  2 сек
+  - за день:              0 ч 50 мин  3 сек
+  - за месяц (среднее):   0 ч 50 мин  3 сек
+  =========================================
 ```
 
 <div align="center">
@@ -127,35 +125,6 @@ the following will be displayed:
 * Vim 7.0 and above
 * Java 8 and above
 
-<div align="center">
-  <h4>Classes structure</h4>
-</div>
-
-```mermaid
-classDiagram
-  
-  class Timer {
-    - pathToFile: String
-    + Timer(pathToFile: String)
-    + writeToFile(value: Long): void
-    + readFromFile(): long
-  }
-
-  class SessionTimer {
-    + SessionTimer(pathToFile: String)
-    + getSessionTime(): long
-    + deleteFile(): void
-  }
-
-  class DayTimer {
-    + DayTimer(pathToFile: String)
-    + fileIsNotExist(): boolean
-    + getFileDate(): LocalDate
-  }
-
-  Timer <|-- SessionTimer  
-  Timer <|-- DayTimer
-```
 <div align="center">
   <h4>jvim-timer class call structure</h4>
 </div>
@@ -174,14 +143,21 @@ classDiagram
       = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_session_time.txt"
     - DAY_FILE_PATH: String 
       = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt"
+    - MONTH_FILE_PATH: String  
+      = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_month_time.txt"
     + start(): void
     + stop(): void
   }
 
-  class SessionTimer {
-  }
-
-  class DayTimer {
+  class Timer {
+    - pathToFile: String
+    + Timer(pathToFile: String)
+    + writeToFile(value: Long): void
+    + readFromFile(): long
+    + getSessionTime(): long
+    + deleteFile(): void
+    + fileIsNotExist(): boolean
+    + getFileDate(): LocalDate
   }
 
   class jvim_start_time.txt {
@@ -192,11 +168,15 @@ classDiagram
     + dayTime: String
   }
 
+  class jvim_mouth_time.txt {
+    + mouthTime: String
+  }
+
   jvim_timer.vim --|> Main : calls
-  Main --|> SessionTimer : calls
-  Main --|> DayTimer : calls
-  SessionTimer --|> jvim_start_time.txt : reads/writes
-  DayTimer --|> jvim_day_time.txt : reads/writes
+  Main --|> Timer : calls
+  Timer --|> jvim_start_time.txt : reads/writes
+  Timer --|> jvim_day_time.txt : reads/writes
+  Timer --|> jvim_mouth_time.txt : reads/writes
 ```
 
 <div align="center">
@@ -207,7 +187,7 @@ classDiagram
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.1.11](https://img.shields.io/badge/Version-0.1.11-orange.svg)
+  ![Version 0.2.3](https://img.shields.io/badge/Version-0.2.3-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -229,24 +209,21 @@ classDiagram
             └── jvim-timer/
                 ├── bin/
                 │   ├── main/
-                │   │   ├── DayTimer.class
                 │   │   ├── Main.java.class
-                │   │   ├── SessionTimer.class
                 │   │   └── Timer.class
                 │   └── test/
                 │       ├── DayTimerTest.class
                 │       └── SessionTimerTest.class
                 ├── data/
                 │   ├── jvim_day_time.txt
+                │   ├── jvim_mouth_time.txt
                 │   └── jvim_session_time.txt
                 ├── plugin/
                 │   └── jvim_timer.vim
                 ├── src/
                 │   ├── main/
                 │   │   └── java/
-                │   │       ├── DayTimer.java
                 │   │       ├── Main.java
-                │   │       ├── SessionTimer.java
                 │   │       └── Timer.java
                 │   └── test/
                 │       └── java/
@@ -305,12 +282,13 @@ $ vim example.md
 
 * По окончании работы и закрытия Vim будет выведено:
 ```
-  =====================================
+  =========================================
             Время работы Vim:           
-  -------------------------------------
-  - за сеанс:  0 ч  0 мин  2 сек
-  - за день:   0 ч 50 мин  3 сек
-  =====================================
+  -----------------------------------------
+  - за сеанс:             0 ч  0 мин  2 сек
+  - за день:              0 ч 50 мин  3 сек
+  - за месяц (среднее):   0 ч 50 мин  3 сек
+  =========================================
 ```
 
 <div align="center">
@@ -326,36 +304,6 @@ $ vim example.md
  
 * Vim 7.0 и выше
 * Java 8 и выше
-
-<div align="center">
-  <h4>Структура классов</h4>
-</div>
-
-```mermaid
-classDiagram
-  
-  class Timer {
-    - pathToFile: String
-    + Timer(pathToFile: String)
-    + writeToFile(value: Long): void
-    + readFromFile(): long
-  }
-
-  class SessionTimer {
-    + SessionTimer(pathToFile: String)
-    + getSessionTime(): long
-    + deleteFile(): void
-  }
-
-  class DayTimer {
-    + DayTimer(pathToFile: String)
-    + fileIsNotExist(): boolean
-    + getFileDate(): LocalDate
-  }
-
-  Timer <|-- SessionTimer  
-  Timer <|-- DayTimer
-```
 
 <div align="center">
   <h4>Структура вызовов классов</h4>
@@ -375,14 +323,21 @@ classDiagram
       = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_session_time.txt"
     - DAY_FILE_PATH: String 
       = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt"
+    - MONTH_FILE_PATH: String  
+      = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_month_time.txt"
     + start(): void
     + stop(): void
   }
 
-  class SessionTimer {
-  }
-
-  class DayTimer {
+  class Timer {
+    - pathToFile: String
+    + Timer(pathToFile: String)
+    + writeToFile(value: Long): void
+    + readFromFile(): long
+    + getSessionTime(): long
+    + deleteFile(): void
+    + fileIsNotExist(): boolean
+    + getFileDate(): LocalDate
   }
 
   class jvim_start_time.txt {
@@ -393,10 +348,14 @@ classDiagram
     + dayTime: String
   }
 
+  class jvim_mouth_time.txt {
+    + mouthTime: String
+  }
+
   jvim_timer.vim --|> Main : calls
-  Main --|> SessionTimer : calls
-  Main --|> DayTimer : calls
-  SessionTimer --|> jvim_start_time.txt : reads/writes
-  DayTimer --|> jvim_day_time.txt : reads/writes
+  Main --|> Timer : calls
+  Timer --|> jvim_start_time.txt : reads/writes
+  Timer --|> jvim_day_time.txt : reads/writes
+  Timer --|> jvim_mouth_time.txt : reads/writes
 ```
 
