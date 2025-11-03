@@ -58,4 +58,14 @@ public class TimerTest {
     assertTrue(sessionTime >= 1 && sessionTime <= 2,
         "Session time should be around 1 second");
   }
+
+  /**
+  * Tests getSessionTime() method when file does not exist
+  * Verifies that method handles missing file gracefully
+  */
+  @Test
+  void testGetSessionTimeWhenFileDoesNotExist() {
+    long sessionTime = timer.getSessionTime();
+    assertTrue(sessionTime >= 0, "Session time should be non-negative");
+  }
 }
