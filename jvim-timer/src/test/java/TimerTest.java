@@ -81,4 +81,119 @@ public class TimerTest {
     long actualValue = timer.readFromFile();
     assertEquals(expectedValue, actualValue);
   }
+
+  /**
+  * Tests readFromFile() method when file does not exist
+  * Verifies that method returns 0 as default value
+  */
+  @Test
+  void testReadFromFileWhenFileDoesNotExist() {
+    long actualValue = timer.readFromFile();
+    assertEquals(0L, actualValue);
+  }
+
+  /**
+  * Tests readFromFile() method with invalid data in file
+  * Verifies that non-numeric data is handled gracefully
+  *
+  * @throws IOException if file writing fails
+  */
+  @Test
+  void testReadFromFileWithInvalidData() throws IOException {
+    Files.write(Paths.get(TEST_FILE_PATH), "Invalid_data".getBytes());
+
+    long actualValue = timer.readFromFile();
+    assertEquals(0L, actualValue);
+  }
+
+  /**
+  * Tests that writeToFile() method overwrites previous content
+  * Verifies that only the last written value is preserved
+  */
+  @Test
+  void testWriteToFileOverwritesPreviousContent() {
+    timer.writeToFile(100L);
+    timer.writeToFile(200L);
+
+    long actualValue = timer.readFromFile();
+    assertEquals(200L, actualValue);
+  }
+
+  /**
+  * Tests writeToFile() method with null value 
+  * Verifies that null input is handled without exceptions
+  */
+  @Test
+  void testWriteToFileWithNull() {
+    timer.writeToFile(null);
+
+    long actualValue = timer.readFromFile();
+    assertNotNull(actualValue);
+  }
+
+  /**
+  * Tests deleteFile() method when file exists 
+  * Verifies that file is successfully deleted
+  *
+  * @throws IOException if file creation fails
+  */
+  @Test
+  void testDeleteFileWhenFileExists() throws IOException {
+    Files.createFile(Paths.get(TEST_FILE_PATH));
+
+    timer.deleteFile();
+
+    assertFalse(Files.exists(Paths.get(TEST_FILE_PATH)),
+      "File should be deleted");
+  }
+
+  /**
+  * Tests deleteFile() method when file does not exist
+  * Verifies that method handles missing file gracefully
+  */
+  @Test
+  void testDeleteFileWhenFileDoesNotExist() {
+    assertDoesNotThrow(() -> timer.deleteFile());
+  }
+
+  /**
+  * Tests constructor with file path parameter
+  * Verifies that path is correctly stored
+  */
+  @Test
+  void testConstructorStoresFilePath() {
+    String customPath = "custom_test_file.txt";
+    Timer customTimer = new Timer(customPath);
+
+    try {
+      customTimer.writeToFile(999L);
+      long value = customTimer.readFromFile();
+      assertEquals(999L, value);
+    } finally {
+      new File(customPath).delete();
+    }
+  }
+
+  /**
+  * Tests session time calculation accuracy
+  * Verifies that calculated time matches expected duration
+  *
+  * @throws IOException if file writing fails
+  * @throws InterruptedException if sleep is interrupted
+  */
+  @Test
+  void testSessionTimeCalculationAccuracy() 
+    throws IOException, InterruptedException {
+    
+    long startTime = System.currentTimeMillis() / 1000;
+    timer.writeToFile(startTime);
+
+    int waitSecunds = 2;
+    Thread.sleep(waitSecunds * 1000);
+
+    long sessionTime = timer.getSessionTime();
+
+    assertTrue(sessionTime >= waitSecunds && sessionTime <= waitSecunds + 1, 
+        "Session time should be approximately " + waitSecunds + " seconds");
+  }
 }
