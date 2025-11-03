@@ -14,7 +14,7 @@ import java.nio.file.attribute.*;
 *   java Main start  - records start time in session file
 *   java Main stop   - calculates and displays session duration
 *
-* @version  0.2.2
+* @version  0.2.5
 * @since    03.10.2025
 * @author   AlexandrAnatoliev
 */
@@ -56,11 +56,6 @@ public class Main {
     Timer monthTimer = new Timer(pathToMonthTime);
     LocalDate today = LocalDate.now();
     
-    if(dayTimer.fileIsNotExist() || 
-      !dayTimer.getFileDate().equals(today)) {
-        dayTimer.writeToFile(0L);
-    }
-
     if(monthTimer.fileIsNotExist()) {
         monthTimer.writeToFile(0L);
     }
@@ -69,6 +64,11 @@ public class Main {
       long monthTime = monthTimer.readFromFile() * 29;
       monthTimer.writeToFile(
           (monthTime + dayTimer.readFromFile()) / 30);     
+    }
+
+    if(dayTimer.fileIsNotExist() || 
+      !dayTimer.getFileDate().equals(today)) {
+        dayTimer.writeToFile(0L);
     }
 
     return;
