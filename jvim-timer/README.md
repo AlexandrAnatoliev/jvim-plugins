@@ -6,7 +6,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.2.3](https://img.shields.io/badge/Version-0.2.3-orange.svg)
+  ![Version 0.2.4](https://img.shields.io/badge/Version-0.2.4-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -31,8 +31,7 @@
                 │   │   ├── Main.java.class
                 │   │   └── Timer.class
                 │   └── test/
-                │       ├── DayTimerTest.class
-                │       └── SessionTimerTest.class
+                │       └── TimerTest.class
                 ├── data/
                 │   ├── jvim_day_time.txt
                 │   ├── jvim_mouth_time.txt
@@ -46,8 +45,7 @@
                 │   │       └── Timer.java
                 │   └── test/
                 │       └── java/
-                │           ├── DayTimerTest.java
-                │           └── SessionTimerTest.java
+                │           └── TimerTest.java
                 └── test/
                        └── test_jvim_timer.vim
 ```
@@ -168,15 +166,15 @@ classDiagram
     + dayTime: String
   }
 
-  class jvim_mouth_time.txt {
-    + mouthTime: String
+  class jvim_month_time.txt {
+    + monthTime: String
   }
 
   jvim_timer.vim --|> Main : calls
   Main --|> Timer : calls
   Timer --|> jvim_start_time.txt : reads/writes
   Timer --|> jvim_day_time.txt : reads/writes
-  Timer --|> jvim_mouth_time.txt : reads/writes
+  Timer --|> jvim_month_time.txt : reads/writes
 ```
 
 <div align="center">
@@ -187,7 +185,7 @@ classDiagram
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.2.3](https://img.shields.io/badge/Version-0.2.3-orange.svg)
+  ![Version 0.2.4](https://img.shields.io/badge/Version-0.2.4-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -212,8 +210,7 @@ classDiagram
                 │   │   ├── Main.java.class
                 │   │   └── Timer.class
                 │   └── test/
-                │       ├── DayTimerTest.class
-                │       └── SessionTimerTest.class
+                │       └── TimerTest.class
                 ├── data/
                 │   ├── jvim_day_time.txt
                 │   ├── jvim_mouth_time.txt
@@ -227,8 +224,7 @@ classDiagram
                 │   │       └── Timer.java
                 │   └── test/
                 │       └── java/
-                │           ├── DayTimerTest.java
-                │           └── SessionTimerTest.java
+                │           └── TimerTest.java
                 └── test/
                        └── test_jvim_timer.vim
 ```
@@ -348,14 +344,13 @@ classDiagram
     + dayTime: String
   }
 
-  class jvim_mouth_time.txt {
-    + mouthTime: String
+  class jvim_month_time.txt {
+    + monthTime: String
   }
 
   jvim_timer.vim --|> Main : calls
   Main --|> Timer : calls
   Timer --|> jvim_start_time.txt : reads/writes
   Timer --|> jvim_day_time.txt : reads/writes
-  Timer --|> jvim_mouth_time.txt : reads/writes
+  Timer --|> jvim_month_time.txt : reads/writes
 ```
-
