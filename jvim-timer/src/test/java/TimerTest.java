@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.*;
 import java.io.*;
 import java.nio.file.*;
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -215,5 +217,32 @@ public class TimerTest {
   void testFileIsNotExistWhenFileExists() throws IOException {
     Files.createFile(Paths.get(TEST_FILE_PATH));
     assertFalse(timer.fileIsNotExist());
+  }
+
+  /**
+  * Tests getFileDate() method when file exists
+  * Verifies that creation date matches current date
+  *
+  * @throws IOException if file creation fails
+  */
+  @Test
+  void testGetFileDateWhenFileExists() throws IOException {
+    Files.createFile(Paths.get(TEST_FILE_PATH));
+    LocalDate expectedDate = LocalDate.now();
+    LocalDate actualDate = timer.getFileDate();
+
+    assertEquals(expectedDate, actualDate);
+  }
+
+  /**
+  * Tests getFileDate() method when file does not exist 
+  * Verifies fallback behavior returns current data
+  */
+  @Test
+  void testGetFileDateWhenFileDoesNotExist() {
+    LocalDate expectedDate = LocalDate.now();
+    LocalDate actualDate = timer.getFileDate();
+
+    assertEquals(expectedDate, actualDate);
   }
 }
