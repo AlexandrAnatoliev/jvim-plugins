@@ -64,6 +64,13 @@ public class Main {
     if(monthTimer.fileIsNotExist()) {
         monthTimer.writeToFile(0L);
     }
+
+    if(!monthTimer.getFileDate().equals(today)) {
+      long monthTime = monthTimer.readFromFile() * 29;
+      monthTimer.writeToFile(
+          (monthTime + dayTimer.readFromFile()) / 30);     
+    }
+
     return;
   }
 
@@ -74,6 +81,7 @@ public class Main {
   public static void stop() {
     String homeDir = System.getProperty("user.home");
     String pathToDayTime = homeDir + DAY_FILE_PATH;
+    String pathToMonthTime = homeDir + MONTH_FILE_PATH;
 
     SessionTimer sessionTimer = new SessionTimer(homeDir + SESSION_FILE_PATH);
             
@@ -89,6 +97,12 @@ public class Main {
 
     dayTimer.writeToFile(dayTime);
 
+    DayTimer monthTimer = new DayTimer(pathToMonthTime);
+    if(monthTimer.fileIsNotExist()) {
+      monthTimer.writeToFile(0L);
+    }
+    long monthTime = monthTimer.readFromFile();
+
     long sessionHours = duration / 3600;
     long sessionMinutes = (duration % 3600) / 60;
     long sessionSeconds = duration % 60;
@@ -96,6 +110,10 @@ public class Main {
     long dayHours = dayTime / 3600;
     long dayMinutes = (dayTime % 3600) / 60;
     long daySeconds = dayTime % 60;
+
+    long monthHours = monthTime / 3600;
+    long monthMinutes = (monthTime % 3600) / 60;
+    long monthSeconds = monthTime % 60;
 
     System.out.println("\n");
     System.out.println("  =====================================");
@@ -105,6 +123,8 @@ public class Main {
                             sessionHours, sessionMinutes, sessionSeconds);
     System.out.printf( "  - за день:  %2d ч %2d мин %2d сек\n",
                             dayHours, dayMinutes, daySeconds);
+    System.out.printf( "  - за день:  %2d ч %2d мин %2d сек\n",
+                            monthHours, monthMinutes, monthSeconds);
     System.out.println("  =====================================");
             
     sessionTimer.deleteFile();
