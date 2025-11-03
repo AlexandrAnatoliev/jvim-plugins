@@ -116,16 +116,16 @@ public class Main {
     long monthSeconds = monthTime % 60;
 
     System.out.println("\n");
-    System.out.println("  =====================================");
-    System.out.println("            Время работы Vim:           ");
-    System.out.println("  -------------------------------------");
-    System.out.printf( "  - за сеанс: %2d ч %2d мин %2d сек\n",
+    System.out.println("  =========================================");
+    System.out.println("            Время работы Vim:              ");
+    System.out.println("  -----------------------------------------");
+    System.out.printf( "  - за сеанс:            %2d ч %2d мин %2d сек\n",
                             sessionHours, sessionMinutes, sessionSeconds);
-    System.out.printf( "  - за день:  %2d ч %2d мин %2d сек\n",
+    System.out.printf( "  - за день:             %2d ч %2d мин %2d сек\n",
                             dayHours, dayMinutes, daySeconds);
-    System.out.printf( "  - за день:  %2d ч %2d мин %2d сек\n",
+    System.out.printf( "  - за месяц (среднее):  %2d ч %2d мин %2d сек\n",
                             monthHours, monthMinutes, monthSeconds);
-    System.out.println("  =====================================");
+    System.out.println("  =========================================");
             
     sessionTimer.deleteFile();
   }
