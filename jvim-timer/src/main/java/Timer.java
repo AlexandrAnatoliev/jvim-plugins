@@ -1,4 +1,7 @@
 import java.io.*;
+import java.time.*;
+import java.nio.file.*;
+import java.nio.file.attribute.*;
 
 /**
 * Timer - class for measuring Vim working time 
@@ -6,7 +9,7 @@ import java.io.*;
 * The class provides methods for reading start time from temporary file, 
 * calculates running duration, and managing the temporary file. 
 *
-* @version  0.2.1 
+* @version  0.2.2 
 * @since    03.11.2025
 * @author   AlexandrAnatoliev
 */
@@ -81,6 +84,52 @@ public class Timer {
   */
   void deleteFile() {
     new File(this.pathToFile).delete();
+  }
+
+  /**
+  * Checks if temporary file does not exist
+  *
+  * @return true if file does not exists
+  *         false if file exists
+  * @throws Exception if file does not exists
+  */
+  public boolean fileIsNotExist() {
+    File file = new File(pathToFile);
+
+    try {
+      return !file.exists();
+    } catch (Exception e) {
+        System.out.println("Ошибка проверки наличия файла: " 
+            + e.getMessage());
+    }
+ 
+    return false;
+  }
+
+  /**
+  * Retrieves the creation date of the file
+  *
+  * @return LocalDate representing file creation time
+  * @throws Exception if unexpected error 
+  */
+  public LocalDate getFileDate() {
+    File file = new File(pathToFile);
+
+    try {
+      BasicFileAttributes attrs = Files.readAttributes(
+        file.toPath(), BasicFileAttributes.class);
+
+      LocalDate fileDate = attrs.creationTime().toInstant()
+        .atZone(ZoneId.systemDefault()).toLocalDate();
+
+      return fileDate;
+      
+    } catch (Exception e) {
+        System.out.println("Ошибка проверки даты создания файла: " 
+            + e.getMessage());
+    }
+
+    return LocalDate.now();
   }
 }
 
