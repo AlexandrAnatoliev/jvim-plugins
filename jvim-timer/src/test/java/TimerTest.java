@@ -1,21 +1,22 @@
 import org.junit.jupiter.api.*;
 import java.io.*;
 import java.nio.file.*;
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
-* Unit tests for SessionTimer class
+* Unit tests for Timer class
 *
 * Tests file operations, session time calculation, and edge cases
 * Uses temporary file that is cleaned up after each test
-* @version 0.1.10
+* @version 0.2.4
 * @author AlexandrAnatoliev 
 */
-public class SessionTimerTest {
-  private static final String TEST_FILE_PATH = 
-    "test_session_timer.txt";
+public class TimerTest {
+  private static final String TEST_FILE_PATH = "test_timer.txt";
   
-  private SessionTimer sessionTimer;
+  private Timer timer;
 
   /**
   * Set up test environment before each test method
@@ -23,7 +24,7 @@ public class SessionTimerTest {
   */
   @BeforeEach
   void setUp() {
-    sessionTimer = new SessionTimer(TEST_FILE_PATH);
+    timer = new Timer(TEST_FILE_PATH);
   }
 
   /**
@@ -49,11 +50,11 @@ public class SessionTimerTest {
     throws IOException, InterruptedException {
 
     long startTime = System.currentTimeMillis() / 1000;
-    sessionTimer.writeToFile(startTime);
+    timer.writeToFile(startTime);
 
     Thread.sleep(1000);
 
-    long sessionTime = sessionTimer.getSessionTime();
+    long sessionTime = timer.getSessionTime();
 
     assertTrue(sessionTime >= 1 && sessionTime <= 2,
         "Session time should be around 1 second");
@@ -65,7 +66,7 @@ public class SessionTimerTest {
   */
   @Test
   void testGetSessionTimeWhenFileDoesNotExist() {
-    long sessionTime = sessionTimer.getSessionTime();
+    long sessionTime = timer.getSessionTime();
     assertTrue(sessionTime >= 0, "Session time should be non-negative");
   }
 
@@ -76,9 +77,9 @@ public class SessionTimerTest {
   @Test
   void testWriteToFileAndReadFromFile() {
     long expectedValue = 123456789L;
-    sessionTimer.writeToFile(expectedValue);
+    timer.writeToFile(expectedValue);
 
-    long actualValue = sessionTimer.readFromFile();
+    long actualValue = timer.readFromFile();
     assertEquals(expectedValue, actualValue);
   }
 
@@ -88,7 +89,7 @@ public class SessionTimerTest {
   */
   @Test
   void testReadFromFileWhenFileDoesNotExist() {
-    long actualValue = sessionTimer.readFromFile();
+    long actualValue = timer.readFromFile();
     assertEquals(0L, actualValue);
   }
 
@@ -102,7 +103,7 @@ public class SessionTimerTest {
   void testReadFromFileWithInvalidData() throws IOException {
     Files.write(Paths.get(TEST_FILE_PATH), "Invalid_data".getBytes());
 
-    long actualValue = sessionTimer.readFromFile();
+    long actualValue = timer.readFromFile();
     assertEquals(0L, actualValue);
   }
 
@@ -112,10 +113,10 @@ public class SessionTimerTest {
   */
   @Test
   void testWriteToFileOverwritesPreviousContent() {
-    sessionTimer.writeToFile(100L);
-    sessionTimer.writeToFile(200L);
+    timer.writeToFile(100L);
+    timer.writeToFile(200L);
 
-    long actualValue = sessionTimer.readFromFile();
+    long actualValue = timer.readFromFile();
     assertEquals(200L, actualValue);
   }
 
@@ -125,9 +126,9 @@ public class SessionTimerTest {
   */
   @Test
   void testWriteToFileWithNull() {
-    sessionTimer.writeToFile(null);
+    timer.writeToFile(null);
 
-    long actualValue = sessionTimer.readFromFile();
+    long actualValue = timer.readFromFile();
     assertNotNull(actualValue);
   }
 
@@ -141,7 +142,7 @@ public class SessionTimerTest {
   void testDeleteFileWhenFileExists() throws IOException {
     Files.createFile(Paths.get(TEST_FILE_PATH));
 
-    sessionTimer.deleteFile();
+    timer.deleteFile();
 
     assertFalse(Files.exists(Paths.get(TEST_FILE_PATH)),
       "File should be deleted");
@@ -153,7 +154,7 @@ public class SessionTimerTest {
   */
   @Test
   void testDeleteFileWhenFileDoesNotExist() {
-    assertDoesNotThrow(() -> sessionTimer.deleteFile());
+    assertDoesNotThrow(() -> timer.deleteFile());
   }
 
   /**
@@ -163,7 +164,7 @@ public class SessionTimerTest {
   @Test
   void testConstructorStoresFilePath() {
     String customPath = "custom_test_file.txt";
-    SessionTimer customTimer = new SessionTimer(customPath);
+    Timer customTimer = new Timer(customPath);
 
     try {
       customTimer.writeToFile(999L);
@@ -186,14 +187,62 @@ public class SessionTimerTest {
     throws IOException, InterruptedException {
     
     long startTime = System.currentTimeMillis() / 1000;
-    sessionTimer.writeToFile(startTime);
+    timer.writeToFile(startTime);
 
     int waitSecunds = 2;
     Thread.sleep(waitSecunds * 1000);
 
-    long sessionTime = sessionTimer.getSessionTime();
+    long sessionTime = timer.getSessionTime();
 
     assertTrue(sessionTime >= waitSecunds && sessionTime <= waitSecunds + 1, 
         "Session time should be approximately " + waitSecunds + " seconds");
+  }
+
+  /**
+  * Tests fileIsNotExist() method when file does not exist
+  * Verifies that method returns true for non-existent file 
+  */
+  @Test
+  void testFileIsNotExistWhenFileDoesNotExist() {
+    assertTrue(timer.fileIsNotExist());
+  }
+
+  @Test
+  /**
+  * Tests fileIsNotExist() method when file exists
+  * Verifies that method returns false for existing file 
+  *
+  * @throws IOException if file creation fails
+  */
+  void testFileIsNotExistWhenFileExists() throws IOException {
+    Files.createFile(Paths.get(TEST_FILE_PATH));
+    assertFalse(timer.fileIsNotExist());
+  }
+
+  /**
+  * Tests getFileDate() method when file exists
+  * Verifies that creation date matches current date
+  *
+  * @throws IOException if file creation fails
+  */
+  @Test
+  void testGetFileDateWhenFileExists() throws IOException {
+    Files.createFile(Paths.get(TEST_FILE_PATH));
+    LocalDate expectedDate = LocalDate.now();
+    LocalDate actualDate = timer.getFileDate();
+
+    assertEquals(expectedDate, actualDate);
+  }
+
+  /**
+  * Tests getFileDate() method when file does not exist 
+  * Verifies fallback behavior returns current data
+  */
+  @Test
+  void testGetFileDateWhenFileDoesNotExist() {
+    LocalDate expectedDate = LocalDate.now();
+    LocalDate actualDate = timer.getFileDate();
+
+    assertEquals(expectedDate, actualDate);
   }
 }

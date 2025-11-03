@@ -14,8 +14,8 @@ import java.nio.file.attribute.*;
 *   java Main start  - records start time in session file
 *   java Main stop   - calculates and displays session duration
 *
-* @version  0.1.6 
-* @since    08.09.2025
+* @version  0.2.2
+* @since    03.10.2025
 * @author   AlexandrAnatoliev
 */
 public class Main {
@@ -23,6 +23,8 @@ public class Main {
     "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_session_time.txt";
   private static final String DAY_FILE_PATH = 
     "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt";
+  private static final String MONTH_FILE_PATH = 
+    "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_month_time.txt";
 
   /** Main method that handles command line arguments
   *
@@ -45,17 +47,28 @@ public class Main {
   public static void start() {
     String homeDir = System.getProperty("user.home");
     String pathToDayTime = homeDir + DAY_FILE_PATH;
+    String pathToMonthTime = homeDir + MONTH_FILE_PATH;
     
-    SessionTimer sessionTimer = new SessionTimer(homeDir + SESSION_FILE_PATH);
-
+    Timer sessionTimer = new Timer(homeDir + SESSION_FILE_PATH);
     sessionTimer.writeToFile(System.currentTimeMillis() / 1000);
     
-    DayTimer dayTimer = new DayTimer(pathToDayTime);
+    Timer dayTimer = new Timer(pathToDayTime);
+    Timer monthTimer = new Timer(pathToMonthTime);
     LocalDate today = LocalDate.now();
     
     if(dayTimer.fileIsNotExist() || 
       !dayTimer.getFileDate().equals(today)) {
         dayTimer.writeToFile(0L);
+    }
+
+    if(monthTimer.fileIsNotExist()) {
+        monthTimer.writeToFile(0L);
+    }
+
+    if(!monthTimer.getFileDate().equals(today)) {
+      long monthTime = monthTimer.readFromFile() * 29;
+      monthTimer.writeToFile(
+          (monthTime + dayTimer.readFromFile()) / 30);     
     }
 
     return;
@@ -68,12 +81,13 @@ public class Main {
   public static void stop() {
     String homeDir = System.getProperty("user.home");
     String pathToDayTime = homeDir + DAY_FILE_PATH;
+    String pathToMonthTime = homeDir + MONTH_FILE_PATH;
 
-    SessionTimer sessionTimer = new SessionTimer(homeDir + SESSION_FILE_PATH);
+    Timer sessionTimer = new Timer(homeDir + SESSION_FILE_PATH);
             
     long duration = sessionTimer.getSessionTime(); 
 
-    DayTimer dayTimer = new DayTimer(pathToDayTime);
+    Timer dayTimer = new Timer(pathToDayTime);
 
     if(dayTimer.fileIsNotExist()) {
       dayTimer.writeToFile(0L);
@@ -83,6 +97,12 @@ public class Main {
 
     dayTimer.writeToFile(dayTime);
 
+    Timer monthTimer = new Timer(pathToMonthTime);
+    if(monthTimer.fileIsNotExist()) {
+      monthTimer.writeToFile(0L);
+    }
+    long monthTime = monthTimer.readFromFile();
+
     long sessionHours = duration / 3600;
     long sessionMinutes = (duration % 3600) / 60;
     long sessionSeconds = duration % 60;
@@ -91,15 +111,21 @@ public class Main {
     long dayMinutes = (dayTime % 3600) / 60;
     long daySeconds = dayTime % 60;
 
+    long monthHours = monthTime / 3600;
+    long monthMinutes = (monthTime % 3600) / 60;
+    long monthSeconds = monthTime % 60;
+
     System.out.println("\n");
-    System.out.println("  =====================================");
-    System.out.println("            Время работы Vim:           ");
-    System.out.println("  -------------------------------------");
-    System.out.printf( "  - за сеанс: %2d ч %2d мин %2d сек\n",
+    System.out.println("  =========================================");
+    System.out.println("            Время работы Vim:              ");
+    System.out.println("  -----------------------------------------");
+    System.out.printf( "  - за сеанс:            %2d ч %2d мин %2d сек\n",
                             sessionHours, sessionMinutes, sessionSeconds);
-    System.out.printf( "  - за день:  %2d ч %2d мин %2d сек\n",
+    System.out.printf( "  - за день:             %2d ч %2d мин %2d сек\n",
                             dayHours, dayMinutes, daySeconds);
-    System.out.println("  =====================================");
+    System.out.printf( "  - за месяц (среднее):  %2d ч %2d мин %2d сек\n",
+                            monthHours, monthMinutes, monthSeconds);
+    System.out.println("  =========================================");
             
     sessionTimer.deleteFile();
   }
