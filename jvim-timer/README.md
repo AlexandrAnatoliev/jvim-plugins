@@ -6,7 +6,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.2.7](https://img.shields.io/badge/Version-0.2.7-orange.svg)
+  ![Version 0.2.8](https://img.shields.io/badge/Version-0.2.8-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -38,16 +38,14 @@
                 │   └── jvim_session_time.txt
                 ├── plugin/
                 │   └── jvim_timer.vim
-                ├── src/
-                │   ├── main/
-                │   │   └── java/
-                │   │       ├── Main.java
-                │   │       └── Timer.java
-                │   └── test/
-                │       └── java/
-                │           └── TimerTest.java
-                └── test/
-                       └── test_jvim_timer.vim
+                └── src/
+                    ├── main/
+                    │   └── java/
+                    │       ├── Main.java
+                    │       └── Timer.java
+                    └── test/
+                        └── java/
+                            └── TimerTest.java
 ```
 
 * Compile the Java file:
@@ -65,18 +63,6 @@ javac -d bin/main/ src/main/java/*
 <div align="center">
   <h4>Testing</h4>
 </div>
-
-* Running tests:
-```
-cd ~/.vim/pack/my-plugins/start/jvim-timer/
-vim -u NONE -S test/test_jvim_timer.vim
-```
-
-The script includes comprehensive error handling:
-* checking for the existence of data/ directory
-* checking file access permission
-* handling external command execution errors
-* detailed error logging
 
 * Compile tests with JUnit dependencies:
 ```
@@ -185,7 +171,7 @@ classDiagram
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.2.7](https://img.shields.io/badge/Version-0.2.7-orange.svg)
+  ![Version 0.2.8](https://img.shields.io/badge/Version-0.2.8-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -217,16 +203,14 @@ classDiagram
                 │   └── jvim_session_time.txt
                 ├── plugin/
                 │   └── jvim_timer.vim
-                ├── src/
-                │   ├── main/
-                │   │   └── java/
-                │   │       ├── Main.java
-                │   │       └── Timer.java
-                │   └── test/
-                │       └── java/
-                │           └── TimerTest.java
-                └── test/
-                       └── test_jvim_timer.vim
+                └── src/
+                    ├── main/
+                    │   └── java/
+                    │       ├── Main.java
+                    │       └── Timer.java
+                    └── test/
+                        └── java/
+                            └── TimerTest.java
 ```
 
 * Скомпилировать Java файлы:
@@ -244,18 +228,6 @@ javac -d bin/main/ src/main/java/*
 <div align="center">
   <h4>Тестирование</h4>
 </div>
-
-* Запуск тестов:
-```
-cd ~/.vim/pack/my-plugins/start/jvim-timer/
-vim -u NONE -S test/test_jvim_timer.vim
-```
-
-Скрипт включает комплексную обработку ошибок:
-* проверка существования директории data/
-* проверка прав доступа к файлам
-* обработка ошибок выполнения внешних команд
-* детальное логирование при ошибках
 
 * Компиляция тестов с зависимостями JUnit:
 ```
