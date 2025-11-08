@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 *
 * Tests file operations, session time calculation, and edge cases
 * Uses temporary file that is cleaned up after each test
-* @version 0.2.4
+* @version 0.2.6
 * @author AlexandrAnatoliev 
 */
 public class TimerTest {
@@ -66,8 +66,9 @@ public class TimerTest {
   */
   @Test
   void testGetSessionTimeWhenFileDoesNotExist() {
+    timer.deleteFile();
     long sessionTime = timer.getSessionTime();
-    assertTrue(sessionTime >= 0, "Session time should be non-negative");
+    assertTrue(sessionTime == 0, "Session time should be zero");
   }
 
   /**
@@ -89,6 +90,7 @@ public class TimerTest {
   */
   @Test
   void testReadFromFileWhenFileDoesNotExist() {
+    timer.deleteFile();
     long actualValue = timer.readFromFile();
     assertEquals(0L, actualValue);
   }
