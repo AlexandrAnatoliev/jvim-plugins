@@ -9,8 +9,8 @@ import java.nio.file.attribute.*;
 * The class provides methods for reading start time from temporary file, 
 * calculates running duration, and managing the temporary file. 
 *
-* @version  0.2.2 
-* @since    03.11.2025
+* @version  0.2.6 
+* @since    08.11.2025
 * @author   AlexandrAnatoliev
 */
 public class Timer {
@@ -74,6 +74,11 @@ public class Timer {
   */
   long getSessionTime() {
     long startTime = readFromFile();
+
+    if(startTime == 0) {
+      return 0;
+    }
+
     long duration = (System.currentTimeMillis() / 1000) - startTime;
 
     return duration;
