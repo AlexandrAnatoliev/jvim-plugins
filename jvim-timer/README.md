@@ -13,10 +13,6 @@
 
 </div>
 
-<div align="center">
-  <h4>Installation</h4>
-</div>
- 
 * Save the plugin folder `jvim-timer/` to the directory  
 `~/.vim/pack/my-plugins/start/`:
 
@@ -38,6 +34,8 @@
                 │   └── jvim_session_time.txt
                 ├── plugin/
                 │   └── jvim_timer.vim
+                ├── scripts/
+                │   └── compile.sh
                 └── src/
                     ├── main/
                     │   └── java/
@@ -48,6 +46,29 @@
                             └── TimerTest.java
 ```
 
+<div align="center">
+  <h4>Script usage</h4>
+</div>
+
+* Navigate to the plugin's root directory:
+```
+cd ~/.vim/pack/my-plugins/start/jvim-timer/
+```
+
+* Make the script executable:
+```
+chmod +x scripts/compile.sh
+```
+
+* Compile Java files:
+```
+./scripts/compile.sh
+```
+
+<div align="center">
+  <h4>Manual installation</h4>
+</div>
+ 
 * Compile the Java file:
 ```
 cd ~/.vim/pack/my-plugins/start/jvim-timer/
@@ -178,10 +199,6 @@ classDiagram
 
 </div>
 
-<div align="center">
-  <h4>Установка</h4>
-</div>
- 
 * Сохранить папку с плагином `jvim-timer/` в папку 
 `~/.vim/pack/my-plugins/start/`:
 
@@ -203,6 +220,8 @@ classDiagram
                 │   └── jvim_session_time.txt
                 ├── plugin/
                 │   └── jvim_timer.vim
+                ├── scripts/
+                │   └── compile.sh
                 └── src/
                     ├── main/
                     │   └── java/
@@ -213,6 +232,29 @@ classDiagram
                             └── TimerTest.java
 ```
 
+<div align="center">
+  <h4>Использование скриптов</h4>
+</div>
+
+* Перейти в корневой каталог плагина:
+```
+cd ~/.vim/pack/my-plugins/start/jvim-timer/
+```
+
+* Сделать скрипт исполняемым:
+```
+chmod +x scripts/compile.sh
+```
+
+* Компиляция Java файлов 
+```
+./scripts/compile.sh
+```
+
+<div align="center">
+  <h4>Установка вручную</h4>
+</div>
+ 
 * Скомпилировать Java файлы:
 ```
 cd ~/.vim/pack/my-plugins/start/jvim-timer/
