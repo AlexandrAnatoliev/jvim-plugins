@@ -1,5 +1,6 @@
 import java.io.*;
 import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.nio.file.*;
 import java.nio.file.attribute.*;
 
@@ -68,9 +69,11 @@ public class Main {
     }
 
     if(!monthTimer.getFileDate().equals(today)) {
-      long monthTime = monthTimer.readFromFile() * 29;
-      monthTimer.writeToFile(
-          (monthTime + dayTimer.readFromFile()) / 30);     
+        long emptyDays = ChronoUnit.DAYS.between(
+                today,monthTimer.getFileDate());
+        long monthTime = monthTimer.readFromFile() * (30 - emptyDays);
+        monthTimer.writeToFile(
+            (monthTime + dayTimer.readFromFile()) / 30);     
     }
 
     if(dayTimer.fileIsNotExist() || 
