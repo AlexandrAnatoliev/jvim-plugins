@@ -1,5 +1,6 @@
 import java.io.*;
 import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.nio.file.*;
 import java.nio.file.attribute.*;
 
@@ -14,8 +15,8 @@ import java.nio.file.attribute.*;
 *   java Main start  - records start time in session file
 *   java Main stop   - calculates and displays session duration
 *
-* @version  0.2.5
-* @since    03.10.2025
+* @version  0.2.9
+* @since    13.11.2025
 * @author   AlexandrAnatoliev
 */
 public class Main {
@@ -50,20 +51,29 @@ public class Main {
     String pathToMonthTime = homeDir + MONTH_FILE_PATH;
     
     Timer sessionTimer = new Timer(homeDir + SESSION_FILE_PATH);
-    sessionTimer.writeToFile(System.currentTimeMillis() / 1000);
-    
     Timer dayTimer = new Timer(pathToDayTime);
     Timer monthTimer = new Timer(pathToMonthTime);
     LocalDate today = LocalDate.now();
+    
+    if(!sessionTimer.fileIsNotExist()) {
+        long pastDuration = sessionTimer.getSessionTime();
+        long dayTime = dayTimer.readFromFile();
+        dayTimer.writeToFile(dayTime + pastDuration);
+    }
+
+    sessionTimer.writeToFile(System.currentTimeMillis() / 1000);
+    
     
     if(monthTimer.fileIsNotExist()) {
         monthTimer.writeToFile(0L);
     }
 
     if(!monthTimer.getFileDate().equals(today)) {
-      long monthTime = monthTimer.readFromFile() * 29;
-      monthTimer.writeToFile(
-          (monthTime + dayTimer.readFromFile()) / 30);     
+        long emptyDays = ChronoUnit.DAYS.between(
+                today,monthTimer.getFileDate());
+        long monthTime = monthTimer.readFromFile() * (30 - emptyDays);
+        monthTimer.writeToFile(
+            (monthTime + dayTimer.readFromFile()) / 30);     
     }
 
     if(dayTimer.fileIsNotExist() || 
