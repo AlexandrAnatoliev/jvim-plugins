@@ -36,7 +36,8 @@
                 │   └── jvim_timer.vim
                 ├── scripts/
                 │   ├── build.sh        
-                │   ├── check_vim.ch
+                │   ├── check_jdk.sh
+                │   ├── check_vim.sh
                 │   └── compile.sh
                 └── src/
                     ├── main/
@@ -69,6 +70,10 @@ This script runs the following scripts:
 * Check if Vim is installed on the system
 ```
 ./scripts/check_vim.sh
+```
+* Check if JDK is installed on the system
+```
+./scripts/check_jdk.sh
 ```
 * Compile Java files:
 ```
@@ -232,7 +237,8 @@ classDiagram
                 │   └── jvim_timer.vim
                 ├── scripts/
                 │   ├── build.sh        
-                │   ├── check_vim.ch
+                │   ├── check_jdk.sh
+                │   ├── check_vim.sh
                 │   └── compile.sh
                 └── src/
                     ├── main/
@@ -268,7 +274,10 @@ chmod +x scripts/*.sh
 ```
 ./scripts/check_vim.sh
 ```
-
+* Проверить, установлен ли JDK в системе
+```
+./scripts/check_jdk.sh
+```
 * Компиляция Java файлов 
 ```
 ./scripts/compile.sh
