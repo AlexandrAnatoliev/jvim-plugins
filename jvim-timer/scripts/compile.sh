@@ -25,6 +25,10 @@
 # Dependencies:
 #   Java Development Kit (JDK) must be installed and javac available
 #   it PATH
+#
+# Version  0.2.10
+# Since    15.11.2025
+# Author   AlexandrAnatoliev
 
 PLUGIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 

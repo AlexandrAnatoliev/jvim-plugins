@@ -35,6 +35,7 @@
                 ├── plugin/
                 │   └── jvim_timer.vim
                 ├── scripts/
+                │   ├── check_vim.ch
                 │   └── compile.sh
                 └── src/
                     ├── main/
@@ -55,9 +56,14 @@
 cd ~/.vim/pack/my-plugins/start/jvim-timer/
 ```
 
-* Make the script executable:
+* Make the scripts executable:
 ```
-chmod +x scripts/compile.sh
+chmod +x scripts/*.sh
+```
+
+* Check if Vim is installed on the system
+```
+./scripts/check_vim.sh
 ```
 
 * Compile Java files:
@@ -221,6 +227,7 @@ classDiagram
                 ├── plugin/
                 │   └── jvim_timer.vim
                 ├── scripts/
+                │   ├── check_vim.ch
                 │   └── compile.sh
                 └── src/
                     ├── main/
@@ -241,9 +248,14 @@ classDiagram
 cd ~/.vim/pack/my-plugins/start/jvim-timer/
 ```
 
-* Сделать скрипт исполняемым:
+* Сделать скрипты исполняемыми:
 ```
-chmod +x scripts/compile.sh
+chmod +x scripts/*.sh
+```
+
+* Проверить, установлен ли Vim в системе
+```
+./scripts/check_vim.sh
 ```
 
 * Компиляция Java файлов 
