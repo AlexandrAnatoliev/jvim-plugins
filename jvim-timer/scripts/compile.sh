@@ -1,23 +1,52 @@
 #!/bin/bash
 
-# Script to compile jvim-timer plugin Java source files
+# jvim-timer Compilation Script
+#
+# Description:
+#   This script compiles Java source files for the jvim-timer plugin.
+#   It automatically detects the plugin directory and compiles all 
+#   .java files from the source directory to the output classes 
+#   directory.
+#   
+# Usage: 
+#   ./compile.sh
+#   ./scripts/compile.sh
+#
+# Directory Structure:
+#   plugin-root/
+#   ├── src/main/java/      # Java source files
+#   ├── bin/main/           # Compiled classes (created automatically)
+#   └── scripts/compile.sh  # This script
+#
+# Exit Codes:
+#   0 - Compilation successful
+#   1 - Source directory not found or compilation failed
+#
+# Dependencies:
+#   Java Development Kit (JDK) must be installed and javac available
+#   it PATH
 
 PLUGIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 if [ ! -d "$PLUGIN_DIR/src/main/java" ]; then
-  echo "Ошибка! Директория с исходными файлами не найдена: $PLUGIN_DIR/src/main/java/"
+  echo "Error! Source directory not found: $PLUGIN_DIR/src/main/java/"
+  echo "Please ensure the project structure is correct"
   exit 1
 fi
 
 mkdir -p "$PLUGIN_DIR/bin/main"
 
-echo "Компиляция Java файлов"
+echo "Compiling Java files..."
 javac -d "$PLUGIN_DIR/bin/main" "$PLUGIN_DIR/src/main/java/"*.java
 
 if [ $? -eq 0 ]; then
-  echo "Компиляция успешно завершена"
-  echo "Скомпилированные классы находятся в: $PLUGIN_DIR/bin/main/"
+  echo "Compilation completed successfully"
+  echo "Compiled classes are located in: $PLUGIN_DIR/bin/main/"
 else
-  echo "Ошибка компиляции"
+  echo "Compilation failed"
+  echo "Please check:"
+  echo "1. Java Development Kit (JDK) is installed"
+  echo "2. Java source files are valid"
+  echo "3. Dependencies are available"
   exit 1
 fi
