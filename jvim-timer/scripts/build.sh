@@ -4,7 +4,7 @@
 #               compiles if available
 #
 # Description:
-#   This script first checks if Vim is installed used check_vim.sh,
+#   This script first checks if Vim, JDK is installed,
 #   and if successful, runs the compile.sh script.
 #   
 # Usage: 
@@ -15,20 +15,22 @@
 #   plugin-root/
 #   └── scripts/
 #       ├── build.sh        # This script
+#       ├── check_jdk.sh 
 #       ├── check_vim.sh  
 #       └── compile.sh  
 #
 # Exit Codes:
-#   0 - Both Vim check and compilation completed successfully
-#   1 - Vim check failed or compilation failed
+#   0 - Vim and JDK check and compilation completed successfully
+#   1 - Vim or JDK check failed or compilation failed
 #
 # Version  0.2.10
-# Since    15.11.2025
+# Since    16.11.2025
 # Author   AlexandrAnatoliev
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 CHECK_VIM_SCRIPT="$SCRIPT_DIR/scripts/check_vim.sh"
+CHECK_JDK_SCRIPT="$SCRIPT_DIR/scripts/check_jdk.sh"
 COMPILE_SCRIPT="$SCRIPT_DIR/scripts/compile.sh"
 
 # Function to check if file exists and is executable
@@ -62,22 +64,38 @@ if "$CHECK_VIM_SCRIPT"; then
     echo "Vim check passed"
 
     echo ""
-    echo "2. Starting compilation..."
+    echo "2. Checking JDK availability..."
     echo ""
-    if ! check_script "$COMPILE_SCRIPT"; then
+    if ! check_script "$CHECK_JDK_SCRIPT"; then
         exit 1
     fi
 
-    if "$COMPILE_SCRIPT"; then
-        echo "Compilation completed successfully"
+    if "$CHECK_JDK_SCRIPT"; then
+        echo "JDK check passed"
+
         echo ""
-        echo "===Build Process Finished==="
+        echo "2. Starting compilation..."
         echo ""
-        exit 0
+        if ! check_script "$COMPILE_SCRIPT"; then
+            exit 1
+        fi
+
+        if "$COMPILE_SCRIPT"; then
+            echo ""
+            echo "===Build Process Finished==="
+            echo ""
+            exit 0
+        else
+            echo "Compilation failed"
+            echo ""
+            echo "===Build Process Failed==="
+            echo ""
+            exit 1
+        fi
     else
-        echo "Compilation failed"
+        echo "JDK check failed - JDK is not installed"
         echo ""
-        echo "===Build Process Failed==="
+        echo "===Build Process Aborted==="
         echo ""
         exit 1
     fi
