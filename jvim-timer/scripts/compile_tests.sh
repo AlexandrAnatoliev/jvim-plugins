@@ -17,7 +17,6 @@
 #   │   └── test/                   # Compiled test classes
 #   ├── src/                        
 #   │   └── test/java/              # Java test source files
-#   ├── bin/test/                   # Compiled test classes
 #   └── scripts/compile_tests.sh    # This script
 #
 # Exit Codes:
