@@ -23,8 +23,8 @@
 #   0 - Vim and JDK check and compilation completed successfully
 #   1 - Vim or JDK check failed or compilation failed
 #
-# Version  0.2.10
-# Since    16.11.2025
+# Version  0.2.11
+# Since    17.11.2025
 # Author   AlexandrAnatoliev
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -74,7 +74,7 @@ if "$CHECK_VIM_SCRIPT"; then
         echo "JDK check passed"
 
         echo ""
-        echo "2. Starting compilation..."
+        echo "3. Starting compilation..."
         echo ""
         if ! check_script "$COMPILE_SCRIPT"; then
             exit 1
