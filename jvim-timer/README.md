@@ -6,7 +6,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.2.10](https://img.shields.io/badge/Version-0.2.10-orange.svg)
+  ![Version 0.2.11](https://img.shields.io/badge/Version-0.2.11-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -35,10 +35,14 @@
                 ├── plugin/
                 │   └── jvim_timer.vim
                 ├── scripts/
-                │   ├── build.sh        
+                │   ├── build.sh
                 │   ├── check_jdk.sh
+                │   ├── check_junit.sh
                 │   ├── check_vim.sh
-                │   └── compile.sh
+                │   ├── compile.sh
+                │   ├── compile_tests.sh
+                │   ├── run_tests.sh
+                │   └── testing.sh
                 └── src/
                     ├── main/
                     │   └── java/
@@ -78,6 +82,25 @@ This script runs the following scripts:
 * Compile Java files:
 ```
 ./scripts/compile.sh
+```
+
+* Run the script for automatic tests compiling and running
+```
+./scripts/testing.sh
+```
+
+This script runs the following scripts:
+* Check if JUnit is installed on the system
+```
+./scripts/check_junit.sh
+```
+* Compile JUnit test classes
+```
+./scripts/compile_tests.sh
+```
+* Run JUnit tests:
+```
+./scripts/run_tests.sh
 ```
 
 <div align="center">
@@ -207,7 +230,7 @@ classDiagram
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.2.10](https://img.shields.io/badge/Version-0.2.10-orange.svg)
+  ![Version 0.2.11](https://img.shields.io/badge/Version-0.2.11-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -236,10 +259,14 @@ classDiagram
                 ├── plugin/
                 │   └── jvim_timer.vim
                 ├── scripts/
-                │   ├── build.sh        
+                │   ├── build.sh
                 │   ├── check_jdk.sh
+                │   ├── check_junit.sh
                 │   ├── check_vim.sh
-                │   └── compile.sh
+                │   ├── compile.sh
+                │   ├── compile_tests.sh
+                │   ├── run_tests.sh
+                │   └── testing.sh
                 └── src/
                     ├── main/
                     │   └── java/
@@ -281,6 +308,24 @@ chmod +x scripts/*.sh
 * Компиляция Java файлов 
 ```
 ./scripts/compile.sh
+```
+* Запустить скрипт для автоматической компиляции и запуска тестов
+```
+./scripts/testing.sh
+```
+
+Этот скрипт запускает следующие скрипты:
+* Проверяет установлен ли JUnit в системе
+```
+./scripts/check_junit.sh
+```
+* Компилирует JUnit классы 
+```
+./scripts/compile_tests.sh
+```
+* Запуск тестов:
+```
+./scripts/run_tests.sh
 ```
 
 <div align="center">
