@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# copy_to_vim - Script to copy jvim_timer plugin to Vim plugin directory
+# copy_to_vim - Script to copy jvim-timer plugin to Vim plugin directory
 #
 # Usage: 
 #   ./copy_to_vim.sh
@@ -22,7 +22,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_ROOT="$(dirname "$SCRIPT_DIR")"
 SOURCE_DIR="$PLUGIN_ROOT"
 
-TARGET_DIR="$HOME/.vim/pack/my-plugins/start/jvim_timer/"
+TARGET_DIR="$HOME/.vim/pack/my-plugins/start/jvim-timer/"
 
 if [ ! -d "$SOURCE_DIR" ]; then
     echo "Error: Directory '$SOURCE_DIR' not found"
