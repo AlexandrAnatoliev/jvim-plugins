@@ -90,6 +90,7 @@ if "$BUILD_SCRIPT"; then
             echo "=========================================="
             echo "===Plugin Installation Process Finished==="
             echo "=========================================="
+            echo ""
             exit 0
         else
             echo "Copying jvim-timer plugin to Vim plugin directory failed"
@@ -102,6 +103,11 @@ if "$BUILD_SCRIPT"; then
         fi
     else
         echo "Testing failed"
+        echo ""
+        echo "Use:" 
+        echo "./install_plugin_without_tesing.sh"
+        echo "./scripts/install_plugin_without_tesing.sh"
+        echo "to install jvim-timer plugin without testing"
         echo ""
         echo "========================================"
         echo "===Plugin Installation Process Aborted==="
