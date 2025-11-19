@@ -32,12 +32,12 @@ cd jvim-plugins/jvim-timer/
 chmod +x scripts/*.sh
 ```
 
-* Install the plugin using the script:
-  - with test execution:
+Install the plugin using the script:
+* with test execution:
 ```
 ./scripts/install_plugin.sh
 ```
-  - without running tests:
+* without running tests:
 ```
 ./scripts/install_plugin_without_testing.sh
 ```
@@ -317,12 +317,12 @@ cd jvim-plugins/jvim-timer/
 chmod +x scripts/*.sh
 ```
 
-* Установить плагин с помощью скрипта:
-  - с запуском тестов:
+Установить плагин с помощью скрипта:
+* с запуском тестов:
 ```
 ./scripts/install_plugin.sh
 ```
-  - без запуска тестов:
+* без запуска тестов:
 ```
 ./scripts/install_plugin_without_testing.sh
 ```
