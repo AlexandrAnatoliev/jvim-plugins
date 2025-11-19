@@ -15,8 +15,8 @@ import java.nio.file.attribute.*;
 *   java Main start  - records start time in session file
 *   java Main stop   - calculates and displays session duration
 *
-* @version  0.2.9
-* @since    13.11.2025
+* @version  0.2.13
+* @since    19.11.2025
 * @author   AlexandrAnatoliev
 */
 public class Main {
@@ -127,13 +127,13 @@ public class Main {
 
     System.out.println("\n");
     System.out.println("  =========================================");
-    System.out.println("            Время работы Vim:              ");
+    System.out.println("                Vim uptime:                ");
     System.out.println("  -----------------------------------------");
-    System.out.printf( "  - за сеанс:            %2d ч %2d мин %2d сек\n",
+    System.out.printf( "  - per session:        %2d h %2d min %2d sec\n",
                             sessionHours, sessionMinutes, sessionSeconds);
-    System.out.printf( "  - за день:             %2d ч %2d мин %2d сек\n",
+    System.out.printf( "  - per day:            %2d h %2d min %2d sec\n",
                             dayHours, dayMinutes, daySeconds);
-    System.out.printf( "  - за месяц (среднее):  %2d ч %2d мин %2d сек\n",
+    System.out.printf( "  - average per month:  %2d h %2d min %2d sec\n",
                             monthHours, monthMinutes, monthSeconds);
     System.out.println("  =========================================");
             

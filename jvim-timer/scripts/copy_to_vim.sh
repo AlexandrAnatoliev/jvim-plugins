@@ -14,8 +14,8 @@
 #   0 - jvim-timer plugin successfully installed
 #   1 - Source directory not found or error copying plugin
 #
-# Version  0.2.12
-# Since    18.11.2025
+# Version  0.2.13
+# Since    19.11.2025
 # Author   AlexandrAnatoliev
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
