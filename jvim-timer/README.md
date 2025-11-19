@@ -6,7 +6,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.2.12](https://img.shields.io/badge/Version-0.2.12-orange.svg)
+  ![Version 0.2.13](https://img.shields.io/badge/Version-0.2.13-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -32,12 +32,12 @@ cd jvim-plugins/jvim-timer/
 chmod +x scripts/*.sh
 ```
 
-* Install the plugin using the script:
-  - with test execution:
+Install the plugin using the script:
+* with test execution:
 ```
 ./scripts/install_plugin.sh
 ```
-  - without running tests:
+* without running tests:
 ```
 ./scripts/install_plugin_without_testing.sh
 ```
@@ -72,7 +72,7 @@ folder and creates the following file structure:
                 │       └── TimerTest.class
                 ├── data/
                 │   ├── jvim_day_time.txt
-                │   ├── jvim_mouth_time.txt
+                │   ├── jvim_month_time.txt
                 │   └── jvim_session_time.txt
                 ├── plugin/
                 │   └── jvim_timer.vim
@@ -291,7 +291,7 @@ classDiagram
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.2.12](https://img.shields.io/badge/Version-0.2.12-orange.svg)
+  ![Version 0.2.13](https://img.shields.io/badge/Version-0.2.13-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -317,12 +317,12 @@ cd jvim-plugins/jvim-timer/
 chmod +x scripts/*.sh
 ```
 
-* Установить плагин с помощью скрипта:
-  - с запуском тестов:
+Установить плагин с помощью скрипта:
+* с запуском тестов:
 ```
 ./scripts/install_plugin.sh
 ```
-  - без запуска тестов:
+* без запуска тестов:
 ```
 ./scripts/install_plugin_without_testing.sh
 ```
@@ -357,7 +357,7 @@ rm -r ~/.vim/pack/my-plugins/start/jvim-timer/
                 │       └── TimerTest.class
                 ├── data/
                 │   ├── jvim_day_time.txt
-                │   ├── jvim_mouth_time.txt
+                │   ├── jvim_month_time.txt
                 │   └── jvim_session_time.txt
                 ├── plugin/
                 │   └── jvim_timer.vim

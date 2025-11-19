@@ -14,15 +14,15 @@
 #   0 - jvim-timer plugin successfully installed
 #   1 - Source directory not found or error copying plugin
 #
-# Version  0.2.12
-# Since    18.11.2025
+# Version  0.2.13
+# Since    19.11.2025
 # Author   AlexandrAnatoliev
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_ROOT="$(dirname "$SCRIPT_DIR")"
 SOURCE_DIR="$PLUGIN_ROOT"
 
-TARGET_DIR="$HOME/.vim/pack/my-plugins/start/jvim-timer/"
+TARGET_DIR="$HOME/.vim/pack/my-plugins/start/"
 
 if [ ! -d "$SOURCE_DIR" ]; then
     echo "Error: Directory '$SOURCE_DIR' not found"
@@ -30,7 +30,7 @@ if [ ! -d "$SOURCE_DIR" ]; then
     exit 1
 fi
 
-mkdir -p "$HOME/.vim/pack/my-plugins/start/"
+mkdir -p "$HOME/.vim/pack/my-plugins/start/jvim-timer/data/"
 
 echo "Copying $SOURCE_DIR to $TARGET_DIR..."
 cp -r "$SOURCE_DIR" "$TARGET_DIR"
