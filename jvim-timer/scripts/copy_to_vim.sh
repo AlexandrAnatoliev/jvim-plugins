@@ -30,7 +30,7 @@ if [ ! -d "$SOURCE_DIR" ]; then
     exit 1
 fi
 
-mkdir -p "$HOME/.vim/pack/my-plugins/start/"
+mkdir -p "$HOME/.vim/pack/my-plugins/start/jvim-timer/data/"
 
 echo "Copying $SOURCE_DIR to $TARGET_DIR..."
 cp -r "$SOURCE_DIR" "$TARGET_DIR"
