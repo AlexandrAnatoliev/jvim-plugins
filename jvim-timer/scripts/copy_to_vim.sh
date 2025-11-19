@@ -22,7 +22,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_ROOT="$(dirname "$SCRIPT_DIR")"
 SOURCE_DIR="$PLUGIN_ROOT"
 
-TARGET_DIR="$HOME/.vim/pack/my-plugins/start/jvim-timer/"
+TARGET_DIR="$HOME/.vim/pack/my-plugins/start/"
 
 if [ ! -d "$SOURCE_DIR" ]; then
     echo "Error: Directory '$SOURCE_DIR' not found"
