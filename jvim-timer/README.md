@@ -6,7 +6,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.2.13](https://img.shields.io/badge/Version-0.2.13-orange.svg)
+  ![Version 0.2.14](https://img.shields.io/badge/Version-0.2.14-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -209,7 +209,7 @@ $ vim example.md
   -----------------------------------------
   - per session:         0 h  0 min  8 sec
   - per day:             0 h 19 min 59 sec
-  - average per month:   0 h 57 min 14 sec
+  <span style="color:green">- average per month:   0 h 57 min 14 sec</span>
   =========================================
 ```
 
@@ -291,7 +291,7 @@ classDiagram
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.2.13](https://img.shields.io/badge/Version-0.2.13-orange.svg)
+  ![Version 0.2.14](https://img.shields.io/badge/Version-0.2.14-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
