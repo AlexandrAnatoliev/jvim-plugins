@@ -215,6 +215,11 @@ $ vim example.md
 ```diff
 + Hello World
 ```
+<span style="color:green">Hello World</span>
+<font color="green">Hello World</font>
+```
+<span style="color:green">Hello World</span>
+```
 
 <div align="center">
   <h4>Requirements</h4>
