@@ -73,7 +73,8 @@ folder and creates the following file structure:
                 ├── data/
                 │   ├── jvim_day_time.txt
                 │   ├── jvim_month_time.txt
-                │   └── jvim_session_time.txt
+                │   ├── jvim_session_time.txt
+                │   └── jvim_yesterday_time.txt
                 ├── plugin/
                 │   └── jvim_timer.vim
                 ├── scripts/
@@ -212,14 +213,8 @@ $ vim example.md
   - average per month:   0 h 57 min 14 sec
   =========================================
 ```
-```diff
-+ Hello World
-```
-<span style="color:green">Hello World</span>
-<font color="green">Hello World</font>
-```
-<span style="color:green">Hello World</span>
-```
+The program output will be green if the runtime is greater then average, 
+otherwise red.
 
 <div align="center">
   <h4>Requirements</h4>
@@ -257,6 +252,8 @@ classDiagram
       = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt"
     - MONTH_FILE_PATH: String  
       = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_month_time.txt"
+    - YESTERDAY_FILE_PATH: String 
+      = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_yesterday_time.txt";
     + start(): void
     + stop(): void
   }
@@ -284,11 +281,16 @@ classDiagram
     + monthTime: String
   }
 
+  class jvim_yesterday_time.txt {
+    + yesterdayTime: String
+  }
+
   jvim_timer.vim --|> Main : calls
   Main --|> Timer : calls
   Timer --|> jvim_start_time.txt : reads/writes
   Timer --|> jvim_day_time.txt : reads/writes
   Timer --|> jvim_month_time.txt : reads/writes
+  Timer --|> jvim_yesterday_time.txt : reads/writes
 ```
 
 <div align="center">
@@ -366,7 +368,8 @@ rm -r ~/.vim/pack/my-plugins/start/jvim-timer/
                 ├── data/
                 │   ├── jvim_day_time.txt
                 │   ├── jvim_month_time.txt
-                │   └── jvim_session_time.txt
+                │   ├── jvim_session_time.txt
+                │   └── jvim_yesterday_time.txt
                 ├── plugin/
                 │   └── jvim_timer.vim
                 ├── scripts/
@@ -505,6 +508,8 @@ $ vim example.md
   - average per month:   0 h 57 min 14 sec
   =========================================
 ```
+Вывод программы будет зеленым цветом, если время работы будет больше
+  среднего, иначе - красным.
 
 <div align="center">
   <h4>Требования</h4>
@@ -542,6 +547,8 @@ classDiagram
       = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt"
     - MONTH_FILE_PATH: String  
       = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_month_time.txt"
+    - YESTERDAY_FILE_PATH: String 
+      = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_yesterday_time.txt";
     + start(): void
     + stop(): void
   }
@@ -569,9 +576,14 @@ classDiagram
     + monthTime: String
   }
 
+  class jvim_yesterday_time.txt {
+    + yesterdayTime: String
+  }
+
   jvim_timer.vim --|> Main : calls
   Main --|> Timer : calls
   Timer --|> jvim_start_time.txt : reads/writes
   Timer --|> jvim_day_time.txt : reads/writes
   Timer --|> jvim_month_time.txt : reads/writes
+  Timer --|> jvim_yesterday_time.txt : reads/writes
 ```
