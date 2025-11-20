@@ -203,15 +203,18 @@ $ vim example.md
 ```
 
 * After closing Vim, you will see:
-<div>
+```
   =========================================
                 Vim uptime:
   -----------------------------------------
   - per session:         0 h  0 min  8 sec
   - per day:             0 h 19 min 59 sec
-  <span style="color:green">- average per month:   0 h 57 min 14 sec</span>
+  - average per month:   0 h 57 min 14 sec
   =========================================
-</div>
+```
+```diff
++ Hello World
+```
 
 <div align="center">
   <h4>Requirements</h4>
