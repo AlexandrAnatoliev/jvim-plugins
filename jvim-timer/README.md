@@ -184,6 +184,11 @@ javac -d bin/main/ src/main/java/*
   <h4>Testing</h4>
 </div>
 
+* Check the path to JUnit using command: 
+```
+dpkg -L junit5
+```
+
 * Building tests with JUnit dependencies:
 ```
 javac -d bin/test/ -cp "bin/main:/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-console-standalone-1.9.1.jar" src/test/java/*.java
@@ -478,6 +483,11 @@ javac -d bin/main/ src/main/java/*
 <div align="center">
   <h4>Тестирование</h4>
 </div>
+
+* Проверьте путь до классов JUnit командой: 
+```
+dpkg -L junit5
+```
 
 * Компиляция тестов с зависимостями JUnit:
 ```
