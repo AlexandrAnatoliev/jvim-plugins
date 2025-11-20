@@ -15,8 +15,8 @@ import java.nio.file.attribute.*;
 *   java Main start  - records start time in session file
 *   java Main stop   - calculates and displays session duration
 *
-* @version  0.2.13
-* @since    19.11.2025
+* @version  0.2.14
+* @since    20.11.2025
 * @author   AlexandrAnatoliev
 */
 public class Main {
@@ -26,6 +26,8 @@ public class Main {
     "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt";
   private static final String MONTH_FILE_PATH = 
     "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_month_time.txt";
+  private static final String YESTERDAY_FILE_PATH = 
+    "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_yesterday_time.txt";
 
   /** Main method that handles command line arguments
   *
@@ -49,10 +51,12 @@ public class Main {
     String homeDir = System.getProperty("user.home");
     String pathToDayTime = homeDir + DAY_FILE_PATH;
     String pathToMonthTime = homeDir + MONTH_FILE_PATH;
+    String pathToYesterdayTime = homeDir + YESTERDAY_FILE_PATH;
     
     Timer sessionTimer = new Timer(homeDir + SESSION_FILE_PATH);
     Timer dayTimer = new Timer(pathToDayTime);
     Timer monthTimer = new Timer(pathToMonthTime);
+    Timer yesterdayTimer = new Timer(pathToYesterdayTime);
     LocalDate today = LocalDate.now();
     
     if(!sessionTimer.fileIsNotExist()) {
@@ -62,13 +66,19 @@ public class Main {
     }
 
     sessionTimer.writeToFile(System.currentTimeMillis() / 1000);
-    
+
+    if(yesterdayTimer.fileIsNotExist()) {
+        yesterdayTimer.writeToFile(0L);
+    }
     
     if(monthTimer.fileIsNotExist()) {
         monthTimer.writeToFile(0L);
     }
 
     if(!monthTimer.getFileDate().equals(today)) {
+        long yesterdayTime = monthTimer.readFromFile();
+        yesterdayTimer.writeToFile(yesterdayTime);
+
         long emptyDays = ChronoUnit.DAYS.between(
                 today,monthTimer.getFileDate());
         long monthTime = monthTimer.readFromFile() * (30 - emptyDays);
@@ -92,12 +102,14 @@ public class Main {
     String homeDir = System.getProperty("user.home");
     String pathToDayTime = homeDir + DAY_FILE_PATH;
     String pathToMonthTime = homeDir + MONTH_FILE_PATH;
+    String pathToYesterdayTime = homeDir + YESTERDAY_FILE_PATH;
 
     Timer sessionTimer = new Timer(homeDir + SESSION_FILE_PATH);
+    Timer dayTimer = new Timer(pathToDayTime);
+    Timer monthTimer = new Timer(pathToMonthTime);
+    Timer yesterdayTimer = new Timer(pathToYesterdayTime);
             
     long duration = sessionTimer.getSessionTime(); 
-
-    Timer dayTimer = new Timer(pathToDayTime);
 
     if(dayTimer.fileIsNotExist()) {
       dayTimer.writeToFile(0L);
@@ -107,11 +119,12 @@ public class Main {
 
     dayTimer.writeToFile(dayTime);
 
-    Timer monthTimer = new Timer(pathToMonthTime);
     if(monthTimer.fileIsNotExist()) {
       monthTimer.writeToFile(0L);
     }
     long monthTime = monthTimer.readFromFile();
+
+    long yesterdayTime = yesterdayTimer.readFromFile();
 
     long sessionHours = duration / 3600;
     long sessionMinutes = (duration % 3600) / 60;
@@ -133,8 +146,17 @@ public class Main {
                             sessionHours, sessionMinutes, sessionSeconds);
     System.out.printf( "  - per day:            %2d h %2d min %2d sec\n",
                             dayHours, dayMinutes, daySeconds);
-    System.out.printf( "  - average per month:  %2d h %2d min %2d sec\n",
+    if(monthTime > yesterdayTime || dayTime > yesterdayTime) {
+        System.out.printf( 
+             "\u001B[32m  - average per month:  %2d h %2d min %2d sec\u001B[0m\n",
                             monthHours, monthMinutes, monthSeconds);
+    }
+    else {
+        System.out.printf( 
+             "\u001B[31m  - average per month:  %2d h %2d min %2d sec\u001B[0m\n",
+                            monthHours, monthMinutes, monthSeconds);
+    }
+
     System.out.println("  =========================================");
             
     sessionTimer.deleteFile();

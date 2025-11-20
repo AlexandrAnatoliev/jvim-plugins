@@ -25,8 +25,8 @@
 #   it PATH
 #   JUnit 5  must be installed 
 #
-# Version  0.2.11
-# Since    17.11.2025
+# Version  0.2.14
+# Since    20.11.2025
 # Author   AlexandrAnatoliev
 
 MAIN_BIN_DIR="bin/main"
@@ -46,11 +46,13 @@ fi
 
 if [ ! -f "$JUNIT_API_JAR" ]; then
     echo "Error: JUnit API JAR file not found: $JUNIT_API_JAR"
+    echo "Check the path to JUnit using command: 'dpkg -L junit5'"
     exit 1
 fi
 
 if [ ! -f "$JUNIT_STANDALONE_JAR" ]; then
     echo "Error: JUnit Standalone JAR file not found: $JUNIT_STANDALONE_JAR"
+    echo "Check the path to JUnit using command: 'dpkg -L junit5'"
     exit 1
 fi
 

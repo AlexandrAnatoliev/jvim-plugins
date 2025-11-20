@@ -6,7 +6,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.2.13](https://img.shields.io/badge/Version-0.2.13-orange.svg)
+  ![Version 0.2.14](https://img.shields.io/badge/Version-0.2.14-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -73,7 +73,8 @@ folder and creates the following file structure:
                 ├── data/
                 │   ├── jvim_day_time.txt
                 │   ├── jvim_month_time.txt
-                │   └── jvim_session_time.txt
+                │   ├── jvim_session_time.txt
+                │   └── jvim_yesterday_time.txt
                 ├── plugin/
                 │   └── jvim_timer.vim
                 ├── scripts/
@@ -183,6 +184,11 @@ javac -d bin/main/ src/main/java/*
   <h4>Testing</h4>
 </div>
 
+* Check the path to JUnit using command: 
+```
+dpkg -L junit5
+```
+
 * Building tests with JUnit dependencies:
 ```
 javac -d bin/test/ -cp "bin/main:/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-console-standalone-1.9.1.jar" src/test/java/*.java
@@ -212,6 +218,8 @@ $ vim example.md
   - average per month:   0 h 57 min 14 sec
   =========================================
 ```
+The program output will be green if the runtime is greater then average, 
+otherwise red.
 
 <div align="center">
   <h4>Requirements</h4>
@@ -249,6 +257,8 @@ classDiagram
       = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt"
     - MONTH_FILE_PATH: String  
       = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_month_time.txt"
+    - YESTERDAY_FILE_PATH: String 
+      = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_yesterday_time.txt";
     + start(): void
     + stop(): void
   }
@@ -276,11 +286,16 @@ classDiagram
     + monthTime: String
   }
 
+  class jvim_yesterday_time.txt {
+    + yesterdayTime: String
+  }
+
   jvim_timer.vim --|> Main : calls
   Main --|> Timer : calls
   Timer --|> jvim_start_time.txt : reads/writes
   Timer --|> jvim_day_time.txt : reads/writes
   Timer --|> jvim_month_time.txt : reads/writes
+  Timer --|> jvim_yesterday_time.txt : reads/writes
 ```
 
 <div align="center">
@@ -291,7 +306,7 @@ classDiagram
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.2.13](https://img.shields.io/badge/Version-0.2.13-orange.svg)
+  ![Version 0.2.14](https://img.shields.io/badge/Version-0.2.14-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -358,7 +373,8 @@ rm -r ~/.vim/pack/my-plugins/start/jvim-timer/
                 ├── data/
                 │   ├── jvim_day_time.txt
                 │   ├── jvim_month_time.txt
-                │   └── jvim_session_time.txt
+                │   ├── jvim_session_time.txt
+                │   └── jvim_yesterday_time.txt
                 ├── plugin/
                 │   └── jvim_timer.vim
                 ├── scripts/
@@ -468,6 +484,11 @@ javac -d bin/main/ src/main/java/*
   <h4>Тестирование</h4>
 </div>
 
+* Проверьте путь до классов JUnit командой: 
+```
+dpkg -L junit5
+```
+
 * Компиляция тестов с зависимостями JUnit:
 ```
 javac -d bin/test/ -cp "bin/main:/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-console-standalone-1.9.1.jar" src/test/java/*.java
@@ -497,6 +518,8 @@ $ vim example.md
   - average per month:   0 h 57 min 14 sec
   =========================================
 ```
+Вывод программы будет зеленым цветом, если время работы будет больше
+  среднего, иначе - красным.
 
 <div align="center">
   <h4>Требования</h4>
@@ -534,6 +557,8 @@ classDiagram
       = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt"
     - MONTH_FILE_PATH: String  
       = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_month_time.txt"
+    - YESTERDAY_FILE_PATH: String 
+      = "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_yesterday_time.txt";
     + start(): void
     + stop(): void
   }
@@ -561,9 +586,14 @@ classDiagram
     + monthTime: String
   }
 
+  class jvim_yesterday_time.txt {
+    + yesterdayTime: String
+  }
+
   jvim_timer.vim --|> Main : calls
   Main --|> Timer : calls
   Timer --|> jvim_start_time.txt : reads/writes
   Timer --|> jvim_day_time.txt : reads/writes
   Timer --|> jvim_month_time.txt : reads/writes
+  Timer --|> jvim_yesterday_time.txt : reads/writes
 ```
