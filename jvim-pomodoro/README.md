@@ -44,12 +44,12 @@ folder and creates the following file structure:
 
 ```
 jvim-pomodoro
-.
 ├── bin
 │  ├── main
 │  │  ├── Main.class
 │  │  └── PomodoroTimer.class
 │  └── test
+│     └── PomodoroTimerTest.class
 ├── data
 │  └── monitor.txt
 ├── plugin
@@ -62,6 +62,7 @@ jvim-pomodoro
    │     └── PomodoroTimer.java
    └── test
       └── java
+         └── PomodoroTimerTest.java
 ```
 
 <div align="center">
@@ -86,6 +87,25 @@ javac -d bin/main/ src/main/java/*
 * Reload Vim or run the command:
 ```
 :source ~/.vim/pack/my-plugins/start/jvim-timer/plugin/jvim_timer.vim
+```
+
+<div align="center">
+  <h4>Testing</h4>
+</div>
+
+* Check the path to JUnit using command: 
+```
+dpkg -L junit5
+```
+
+* Building tests with JUnit dependencies:
+```
+javac -d bin/test/ -cp "bin/main:/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-console-standalone-1.9.1.jar" src/test/java/*.java
+```
+
+* Running all unit tests
+```
+java -cp "bin/main:bin/test:/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-console-standalone-1.9.1.jar" org.junit.platform.console.ConsoleLauncher --scan-classpath --class-path bin/test
 ```
 
 <div align="center">
@@ -201,12 +221,12 @@ rm -r ~/.vim/pack/my-plugins/start/jvim-pomodoro/
 
 ```
 jvim-pomodoro
-.
 ├── bin
 │  ├── main
 │  │  ├── Main.class
 │  │  └── PomodoroTimer.class
 │  └── test
+│     └── PomodoroTimerTest.class
 ├── data
 │  └── monitor.txt
 ├── plugin
@@ -219,6 +239,7 @@ jvim-pomodoro
    │     └── PomodoroTimer.java
    └── test
       └── java
+         └── PomodoroTimerTest.java
 ```
 
 <div align="center">
@@ -243,6 +264,25 @@ javac -d bin/main/ src/main/java/*
 * Перезагрузить Vim или выполнить команду:
 ```
 :source ~/.vim/pack/my-plugins/start/jvim-timer/plugin/jvim_timer.vim
+```
+
+<div align="center">
+  <h4>Тестирование</h4>
+</div>
+
+* Проверьте путь до классов JUnit командой: 
+```
+dpkg -L junit5
+```
+
+* Компиляция тестов с зависимостями JUnit:
+```
+javac -d bin/test/ -cp "bin/main:/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-console-standalone-1.9.1.jar" src/test/java/*.java
+```
+
+* Запуск всех unit-тестов
+```
+java -cp "bin/main:bin/test:/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-console-standalone-1.9.1.jar" org.junit.platform.console.ConsoleLauncher --scan-classpath --class-path bin/test
 ```
 
 <div align="center">

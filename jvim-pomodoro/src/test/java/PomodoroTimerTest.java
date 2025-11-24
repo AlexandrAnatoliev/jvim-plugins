@@ -174,7 +174,52 @@ public class PomodoroTimerTest {
         assertFalse(timerThread.isAlive());
     }
       
+    /**
+    * Test with very long command string
+    * Verifies handling of long input strings
+    *
+    * @throws IOException if file reading fails
+    */
+    @Test
+    void testWriteVeryLongCommand() throws IOException {
+        String longCommand = "A".repeat(10000);
+        pomodoroTimer.writeCommand(longCommand);
+        String content = Files.readString(Paths.get(TEST_FILE_PATH));
+        assertEquals(longCommand, content);
+    }
 
+    /**
+    * Test null command handling
+    * Verifies that null commands are handled gracefully
+    */
+    @Test
+    void testWriteNullCommand() {
+        assertDoesNotThrow(() -> pomodoroTimer.writeCommand(null));
+        assertTrue(Files.exists(Paths.get(TEST_FILE_PATH)));
+    }
+
+    /**
+    * Test multiple timer instance
+    * Verifies that multiple timers don't interfere with each other
+    *
+    * @throws IOException if file reading fails
+    */
+    @Test
+    void testMultipleTimers() throws IOException {
+        String file1 = "test1.txt";
+        String file2 = "test2.txt";
+        PomodoroTimer timer1 = new PomodoroTimer(file1, "command1", 0L);
+        PomodoroTimer timer2 = new PomodoroTimer(file2, "command2", 0L);
+        try {
+            timer1.writeCommand("command1");
+            timer2.writeCommand("command2");
+            assertEquals("command1", Files.readString(Paths.get(file1)));
+            assertEquals("command2", Files.readString(Paths.get(file2)));
+        } finally {
+            Files.deleteIfExists(Paths.get(file1));
+            Files.deleteIfExists(Paths.get(file2));
+        }
+    }
 }
 
 
