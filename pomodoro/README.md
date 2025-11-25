@@ -171,7 +171,7 @@ classDiagram
   pomodoro.vim --|> Main : calls
   Main --|> PomodoroTimer : calls
   PomodoroTimer --|> monitor.txt : writes
-  pomodoro.vim --|> monitor.txt : reads
+  pomodoro.vim <|-- monitor.txt : reads
 ```
 
 <div align="center">
@@ -347,5 +347,5 @@ classDiagram
   pomodoro.vim --|> Main : calls
   Main --|> PomodoroTimer : calls
   PomodoroTimer --|> monitor.txt : writes
-  pomodoro.vim --|> monitor.txt : reads
+  pomodoro.vim <|-- monitor.txt : reads
 ```
