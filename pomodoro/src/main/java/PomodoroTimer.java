@@ -3,8 +3,8 @@ import java.io.*;
 /**
 * The class to launch a timer and write a command to a temporary file. 
 *
-* @version  0.6.1
-* @since    23.11.2025
+* @version  0.6.3
+* @since    25.11.2025
 * @author   AlexandrAnatoliev
 */
 public class PomodoroTimer {

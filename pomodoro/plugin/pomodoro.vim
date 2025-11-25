@@ -1,9 +1,9 @@
 " ==================================================================
-" File: jvim_pomodoro.vim
+" File: pomodoro.vim
 " Description: Vim pomodoro plugin for work time self-management 
 " Author: AlexandAnatoliev
-" Version: 0.6.1
-" Last Modified: 23.11.2025
+" Version: 0.6.3
+" Last Modified: 25.11.2025
 " ==================================================================
 
 " Automatic timer start on Vim enter and stop on Vim leave
@@ -17,7 +17,7 @@ autocmd VimLeave * call StopPomodoroTimer()
 " Returns: None
 " ------------------------------------------------------------------  
 function! StartPomodoroTimer()
-  silent !java -cp ~/.vim/pack/my-plugins/start/jvim-pomodoro/bin/main/ Main start &
+  silent !java -cp ~/.vim/pack/my-plugins/start/pomodoro/bin/main/ Main start &
   call StartFileMonitor()
 endfunction
 
@@ -28,13 +28,13 @@ endfunction
 " Returns: None
 " ------------------------------------------------------------------  
 function! StopPomodoroTimer()
-  silent !java -cp ~/.vim/pack/my-plugins/start/jvim-pomodoro/bin/main/ Main stop &
+  silent !java -cp ~/.vim/pack/my-plugins/start/pomodoro/bin/main/ Main stop &
 endfunction
 
 " ------------------------------------------------------------------  
 " Simple file monitor for executing Vim commands
 " ------------------------------------------------------------------  
-let s:monitor_file = expand('~/.vim/pack/my-plugins/start/jvim-pomodoro/data/monitor.txt')
+let s:monitor_file = expand('~/.vim/pack/my-plugins/start/pomodoro/data/monitor.txt')
 let s:last_content = ''
 
 " ------------------------------------------------------------------  

@@ -23,7 +23,7 @@ git clone https://github.com/AlexandrAnatoliev/jvim-plugins
 
 * Navigate to the plugin's root repository:
 ```
-cd jvim-plugins/jvim-pomodoro/
+cd jvim-plugins/pomodoro/
 ```
 
 <div align="center">
@@ -32,7 +32,7 @@ cd jvim-plugins/jvim-pomodoro/
 
 * To uninstall the plugin, delete its folder:
 ```
-rm -r ~/.vim/pack/my-plugins/start/jvim-pomodoro/
+rm -r ~/.vim/pack/my-plugins/start/pomodoro/
 ```
 
 <div align="center">
@@ -43,7 +43,7 @@ rm -r ~/.vim/pack/my-plugins/start/jvim-pomodoro/
 folder and creates the following file structure:
 
 ```
-jvim-pomodoro
+pomodoro
 ├── bin
 │  ├── main
 │  │  ├── Main.class
@@ -53,7 +53,7 @@ jvim-pomodoro
 ├── data
 │  └── monitor.txt
 ├── plugin
-│  └── jvim_pomodoro.vim
+│  └── pomodoro.vim
 ├── README.md
 └── src
    ├── main
@@ -71,12 +71,12 @@ jvim-pomodoro
 
 * Copy the plugin to the  `.vim/` folder:
 ```
-cp -r jvim-pomodoro/ ~/.vim/pack/my-plugins/start/
+cp -r pomodoro/ ~/.vim/pack/my-plugins/start/
 ```
 
 * Navigate to the plugin's root directory:
 ```
-cd ~/.vim/pack/my-plugins/start/jvim-pomodoro/
+cd ~/.vim/pack/my-plugins/start/pomodoro/
 ```
 
 * Compile Java files:
@@ -86,7 +86,7 @@ javac -d bin/main/ src/main/java/*
 
 * Reload Vim or run the command:
 ```
-:source ~/.vim/pack/my-plugins/start/jvim-timer/plugin/jvim_timer.vim
+:source ~/.vim/pack/my-plugins/start/pomodoro/plugin/pomodoro.vim
 ```
 
 <div align="center">
@@ -142,16 +142,15 @@ that it's time to take a break.
 
 ```mermaid
 classDiagram
-  direction LR
   
-  class jvim_pomodoro.vim {
+  class pomodoro.vim {
     + StartTimer()
     + StopTimer()
   }
 
   class Main {
     - PATH_TO_MONITOR: String
-      = "/.vim/pack/my-plugins/start/jvim-pomodoro/data/monitor.txt";
+      = "/.vim/pack/my-plugins/start/pomodoro/data/monitor.txt";
     + start(): void
     + stop(): void
   }
@@ -169,10 +168,10 @@ classDiagram
     + command: String 
   }
 
-  jvim_pomodoro.vim --|> Main : calls
+  pomodoro.vim --|> Main : calls
   Main --|> PomodoroTimer : calls
   PomodoroTimer --|> monitor.txt : writes
-  jvim_pomodoro.vim --|> monitor.txt : reads
+  pomodoro.vim --|> monitor.txt : reads
 ```
 
 <div align="center">
@@ -200,7 +199,7 @@ git clone https://github.com/AlexandrAnatoliev/jvim-plugins
 
 * Перейти в корневой каталог плагина:
 ```
-cd jvim-plugins/jvim-pomodoro/
+cd jvim-plugins/pomodoro/
 ```
 
 <div align="center">
@@ -209,7 +208,7 @@ cd jvim-plugins/jvim-pomodoro/
 
 * Чтобы удалить плагин, удалите директорию с плагином:
 ```
-rm -r ~/.vim/pack/my-plugins/start/jvim-pomodoro/
+rm -r ~/.vim/pack/my-plugins/start/pomodoro/
 ```
 
 <div align="center">
@@ -220,7 +219,7 @@ rm -r ~/.vim/pack/my-plugins/start/jvim-pomodoro/
 и образует следующую файловую структуру:
 
 ```
-jvim-pomodoro
+pomodoro
 ├── bin
 │  ├── main
 │  │  ├── Main.class
@@ -230,7 +229,7 @@ jvim-pomodoro
 ├── data
 │  └── monitor.txt
 ├── plugin
-│  └── jvim_pomodoro.vim
+│  └── pomodoro.vim
 ├── README.md
 └── src
    ├── main
@@ -248,12 +247,12 @@ jvim-pomodoro
 
 * Скопировать плагин в .vim/ директорию:
 ```
-cp -r jvim-pomodoro/ ~/.vim/pack/my-plugins/start/
+cp -r pomodoro/ ~/.vim/pack/my-plugins/start/
 ```
 
 * Перейти в корневой каталог плагина:
 ```
-cd ~/.vim/pack/my-plugins/start/jvim-pomodoro/
+cd ~/.vim/pack/my-plugins/start/pomodoro/
 ```
 
 * Скомпилировать Java файлы:
@@ -263,7 +262,7 @@ javac -d bin/main/ src/main/java/*
 
 * Перезагрузить Vim или выполнить команду:
 ```
-:source ~/.vim/pack/my-plugins/start/jvim-timer/plugin/jvim_timer.vim
+:source ~/.vim/pack/my-plugins/start/pomodoro/plugin/pomodoro.vim
 ```
 
 <div align="center">
@@ -294,7 +293,7 @@ java -cp "bin/main:bin/test:/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/sh
 $ vim example.md
 ```
 
-* Через 25 минут цветовая схема Vim измениться, чтобы напомнить Вам,
+* Через 25 минут цветовая схема Vim изменится, чтобы напомнить Вам,
 что необходимо отдохнуть.
 
 <div align="center">
@@ -319,16 +318,15 @@ $ vim example.md
 
 ```mermaid
 classDiagram
-  direction LR
   
-  class jvim_pomodoro.vim {
+  class pomodoro.vim {
     + StartTimer()
     + StopTimer()
   }
 
   class Main {
     - PATH_TO_MONITOR: String
-      = "/.vim/pack/my-plugins/start/jvim-pomodoro/data/monitor.txt";
+      = "/.vim/pack/my-plugins/start/pomodoro/data/monitor.txt";
     + start(): void
     + stop(): void
   }
@@ -346,8 +344,8 @@ classDiagram
     + command: String 
   }
 
-  jvim_pomodoro.vim --|> Main : calls
+  pomodoro.vim --|> Main : calls
   Main --|> PomodoroTimer : calls
   PomodoroTimer --|> monitor.txt : writes
-  jvim_pomodoro.vim --|> monitor.txt : reads
+  pomodoro.vim --|> monitor.txt : reads
 ```
