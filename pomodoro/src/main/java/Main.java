@@ -8,19 +8,19 @@
 * Usage:
 *   java Main start  -  the information is erased from temporary file, 
 *                       and the timer starts.
-*   java Main stop   -  the informaton is erased from temporary file
+*   java Main stop   -  the information is erased from temporary file
 *
-* @version  0.6.1
-* @since    23.11.2025
+* @version  0.6.3
+* @since    25.11.2025
 * @author   AlexandrAnatoliev
 */
 public class Main {
       private static final String PATH_TO_MONITOR = 
-            "/.vim/pack/my-plugins/start/jvim-pomodoro/data/monitor.txt";
+            "/.vim/pack/my-plugins/start/pomodoro/data/monitor.txt";
     /** Main method that handles command line arguments
     *
     * @param  args command line arguments - use "start" to start timer     
-    *         any other value to stop and erase informaton from temporary file
+    *         any other value to stop and erase information from temporary file
     *
     */
     public static void main(String[] args) {
@@ -32,7 +32,7 @@ public class Main {
     }
 
     /**
-    * Erases old informaton from temporary file, and starts the timer .
+    * Erases old information from temporary file, and starts the timer .
     */
     public static void start() {
         String homeDir = System.getProperty("user.home");
@@ -43,7 +43,7 @@ public class Main {
     }
 
     /**
-    * Erases old informaton from temporary file
+    * Erases old information from temporary file
     */
     public static void stop() {
         String homeDir = System.getProperty("user.home");
