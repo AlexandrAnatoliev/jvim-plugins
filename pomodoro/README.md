@@ -151,8 +151,8 @@ classDiagram
   class Main {
     - PATH_TO_MONITOR: String
       = "/.vim/pack/my-plugins/start/pomodoro/data/monitor.txt";
-    + start(): void
-    + stop(): void
+    + start() void
+    + stop() void
   }
 
   class PomodoroTimer {
@@ -327,8 +327,8 @@ classDiagram
   class Main {
     - PATH_TO_MONITOR: String
       = "/.vim/pack/my-plugins/start/pomodoro/data/monitor.txt";
-    + start(): void
-    + stop(): void
+    + start() void
+    + stop() void
   }
 
   class PomodoroTimer {
