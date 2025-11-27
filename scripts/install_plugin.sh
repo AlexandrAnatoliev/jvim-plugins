@@ -11,7 +11,8 @@
 #   plugin directory
 #   
 # Usage: 
-#   ./scripts/install_plugin.sh
+#   ./scripts/install_plugin.sh [plugin]
+#   ./scripts/install_plugin.sh [plugin] --no-test
 #
 # Directory Structure:
 #   jvim-plugins/
@@ -28,7 +29,7 @@
 #       directory is failed
 #
 # Version  0.6.4
-# Since    26.11.2025
+# Since    27.11.2025
 # Author   AlexandrAnatoliev
 
 RED='\u001B[31m'
@@ -43,6 +44,7 @@ if [ $# -eq 0 ]; then
 fi
 
 PLUGIN_DIR="$1"
+PLUGIN_FLAG="$2"
 BUILD_SCRIPT="scripts/build.sh"
 TESTING_SCRIPT="scripts/build_and_run_tests.sh"
 COPY_TO_VIM_SCRIPT="scripts/copy_plugin_to_vim.sh"
@@ -77,47 +79,32 @@ fi
 
 if "$BUILD_SCRIPT" "$PLUGIN_DIR"; then
     echo -e "${GREEN}Plugin main Java classes builded${NC}"
-
+else
+    echo -e "${RED}Build plugin main Java classes failed"
     echo ""
-    echo "Run tests..."
+    echo -e "${RED}=========================================${NC}"
+    echo -e "${RED}===Plugin Installation Process Aborted===${NC}"
+    echo -e "${RED}=========================================${NC}"
+    echo ""
+    exit 1
+fi
 
-    if ! check_script "$TESTING_SCRIPT"; then
-        exit 1
-    fi
+echo ""
+echo "Run tests..."
 
+if ! check_script "$TESTING_SCRIPT"; then
+    exit 1
+fi
+
+if [ ! "$PLUGIN_FLAG" == "--no-test" ]; then
     if "$TESTING_SCRIPT" "$PLUGIN_DIR"; then
         echo -e "${GREEN}All tests passed${NC}"
-
-        echo "" 
-        echo "Start copying jvim-timer plugin to Vim plugin directory..."
-        echo ""
-        if ! check_script "$COPY_TO_VIM_SCRIPT"; then
-            exit 1
-        fi
-
-        if "$COPY_TO_VIM_SCRIPT" "$PLUGIN_DIR"; then
-            echo ""
-            echo -e "${GREEN}==========================================${NC}"
-            echo -e "${GREEN}===Plugin Installation Process Finished===${NC}"
-            echo -e "${GREEN}==========================================${NC}"
-            echo ""
-            exit 0
-        else
-            echo -e "${RED}Copying jvim-timer plugin to Vim plugin directory failed${NC}"
-            echo ""
-            echo -e "${RED}========================================${NC}"
-            echo -e "${RED}===Plugin Installation Process Failed===${NC}"
-            echo -e "${RED}========================================${NC}"
-            echo ""
-            exit 1
-        fi
     else
         echo -e "${RED}Testing failed${NC}"
         echo ""
         echo "Use:" 
-        echo "./install_plugin_without_tesing.sh"
-        echo "./scripts/install_plugin_without_tesing.sh"
-        echo "to install jvim-timer plugin without testing"
+        echo "./scripts/install_plugin.sh ${PLUGIN_DIR} --no-test"
+        echo "to install ${PLUGIN_DIR} plugin without testing"
         echo ""
         echo -e "${RED}=========================================${NC}"
         echo -e "${RED}===Plugin Installation Process Aborted===${NC}"
@@ -125,12 +112,29 @@ if "$BUILD_SCRIPT" "$PLUGIN_DIR"; then
         echo ""
         exit 1
     fi
-else
-    echo -e "${RED}Build plugin main Java classes failed"
+fi
+
+echo "" 
+echo "Start copying jvim-timer plugin to Vim plugin directory..."
+echo ""
+
+if ! check_script "$COPY_TO_VIM_SCRIPT"; then
+    exit 1
+fi
+
+if "$COPY_TO_VIM_SCRIPT" "$PLUGIN_DIR"; then
     echo ""
-    echo -e "${RED}=========================================${NC}"
-    echo -e "${RED}===Plugin Installation Process Aborted===${NC}"
-    echo -e "${RED}=========================================${NC}"
+    echo -e "${GREEN}==========================================${NC}"
+    echo -e "${GREEN}===Plugin Installation Process Finished===${NC}"
+    echo -e "${GREEN}==========================================${NC}"
+    echo ""
+    exit 0
+else
+    echo -e "${RED}Copying jvim-timer plugin to Vim plugin directory failed${NC}"
+    echo ""
+    echo -e "${RED}========================================${NC}"
+    echo -e "${RED}===Plugin Installation Process Failed===${NC}"
+    echo -e "${RED}========================================${NC}"
     echo ""
     exit 1
 fi
