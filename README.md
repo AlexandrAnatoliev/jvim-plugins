@@ -20,7 +20,7 @@
 ---
 
 <div align="center">
-  <h2>Plugin installation</h2>
+  <h2>Plugin Installation</h2>
 </div>
 
 * Clone the plugins repository:
@@ -66,7 +66,7 @@ Install the plugin using the script:
 ---
 
 <div align="center">
-  <h2>Plugin uninstallation</h2>
+  <h2>Plugin Uninstallation</h2>
 </div>
 
 * To uninstall the plugin using the script:
@@ -77,7 +77,7 @@ Install the plugin using the script:
 ---
 
 <div align="center">
-  <h2>Files structure</h2>
+  <h2>Files Structure</h2>
 </div>
 
 ```
@@ -101,17 +101,16 @@ jvim-plugins
 ---
 
 <div align="center">
-  <h2>Script usage</h2>
+  <h2>Script Usage</h2>
 </div>
 
-The `install_plugin.sh [plugin]` script runs the scripts sequentially:
-* `build.sh [plugin]` - building plugin Java files;
-* `build_and_run_tests.sh [plugin]` - running JUnit tests;
+The `install_plugin.sh [plugin]` script runs the following scripts sequentially:
+* `build.sh [plugin]` - builds plugin Java files;
+* `build_and_run_tests.sh [plugin]` - runns JUnit tests;
 * `copy_plugin_to_vim.sh [plugin]` - copies the build plugin to the appropriate 
 Vim directory;
 
-The `install_plugin.sh [plugin] --no-test` script runs the scripts 
-sequentially without testing:
+The `install_plugin.sh [plugin] --no-test` script runs without testing:
 * `build.sh [plugin]`
 * `copy_plugin_to_vim.sh [plugin]`
 
@@ -120,18 +119,18 @@ sequentially without testing:
 ./scripts/build.sh [plugin]
 ```
 
-This script runs the scripts listed below:
-* Check if Vim is installed on the system
+This script runs:
+* Checks if Vim is installed
 ```
 ./scripts/check_vim.sh
 ```
 
-* Check if JDK is installed on the system
+* Checks if JDK is installed
 ```
 ./scripts/check_jdk.sh
 ```
 
-* Compiling Java files 
+* Compiles Java files 
 ```
 ./scripts/compile.sh [plugin]
 ```
@@ -141,18 +140,18 @@ This script runs the scripts listed below:
 ./scripts/build_and_run_tests.sh [plugin]
 ```
 
-This script runs the scripts listed below:
-* Check if JUnit is installed on the system
+This script runs:
+* Checks if JUnit is installed
 ```
 ./scripts/check_junit.sh
 ```
 
-* Compiling JUnit classes 
+* Compiles JUnit classes 
 ```
 ./scripts/compile_tests.sh [plugin]
 ```
 
-* Run tests:
+* Runs tests:
 ```
 ./scripts/run_tests.sh [plugin]
 ```
@@ -169,15 +168,14 @@ This script runs the scripts listed below:
 
 [pomodoro](pomodoro/README.md) - Simple Vim pomodoro plugin.
 
-Use Vim to edit the file and after 25 minutes it will change Vim's color scheme 
-to remind you that it's time to take a break.
+Use Vim to edit files, and after 25 minutes it will change Vim's color scheme 
+to remind you to take a break.
 Designed for self-monitoring and productivity.
 
 <div align="center">
   <h4>Plugin installation</h4>
 </div>
 
-Install the plugin using the script:
 * with test execution:
 ```
 ./scripts/install_plugin.sh pomodoro
@@ -192,7 +190,6 @@ Install the plugin using the script:
   <h4>Plugin uninstallation</h4>
 </div>
 
-* To uninstall the plugin using the script:
 ```
 ./scripts/uninstall_plugin.sh pomodoro
 ```
