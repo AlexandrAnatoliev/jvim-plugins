@@ -28,7 +28,7 @@
 git clone https://github.com/AlexandrAnatoliev/jvim-plugins 
 ```
 
-* Navigate to the root repository:
+* Navigate to the root:
 ```
 cd jvim-plugins/
 ```
@@ -106,7 +106,7 @@ jvim-plugins
 
 The `install_plugin.sh [plugin]` script runs the following scripts sequentially:
 * `build.sh [plugin]` - builds plugin Java files;
-* `build_and_run_tests.sh [plugin]` - runns JUnit tests;
+* `build_and_run_tests.sh [plugin]` - runs JUnit tests;
 * `copy_plugin_to_vim.sh [plugin]` - copies the build plugin to the appropriate 
 Vim directory;
 
@@ -202,7 +202,6 @@ Designed for self-monitoring and productivity.
  
 * Java installed
 * Vim installed
-* .class files built into designated folder
 * JUnit 5 installed (optional)
 
 ---
@@ -231,90 +230,202 @@ Designed for self-monitoring and productivity.
 
 </div>
 
+  > **Author:** Alexandr Anatoliev
+
+  > **GitHub:** [AlexandrAnatoliev](https://github.com/AlexandrAnatoliev)
+
+---
+
 <div align="center">
-  <h4>Установка</h4>
+  <h2>Установка</h2>
 </div>
- 
-* Сохранить папку с плагином `jvim-example-plugin/` 
-в папку `~/.vim/pack/my-plugins/start/`:
+
+* Клонируйте репозиторий:
+```
+git clone https://github.com/AlexandrAnatoliev/jvim-plugins 
+```
+
+* Перейдите в корневую директорию:
+```
+cd jvim-plugins/
+```
+
+* Сделайте скрипты исполняемыми:
+```
+chmod +x scripts/*.sh
+```
+
+Установите плагин с помощью скрипта:
+* с выполнением тестов:
+```
+./scripts/install_plugin.sh [plugin]
+```
+* без запуска тестов:
+```
+./scripts/install_plugin.sh [plugin] --no-test
+```
+
+* При установке плагин помещается в соответствующую директорию Vim. 
 ```
 ~/.vim/
 └── pack/
     └── my-plugins/
         └── start/
             └── jvim-example-plugin/
-                ├── plugin/
-                │   └── jvim_example_plugin.vim
-                └── java/
-                    └── JvimExamlePlugin.java
 ```
 
-* Скомпилировать Java файл:
-```
-cd ~/.vim/pack/my-plugins/start/java/
-javac JvimExamlePlugin.java
-```
-
-* Перезагрузить Vim или выполнить команду:
+* Перезагрузите Vim или выполните команду:
 
 ```
 :source ~/.vim/pack/my-plugins/start/jvim-example-plugin/plugin/jvim_example_plugin.vim
 ```
 
+---
+
 <div align="center">
-  <h4>Список плагинов</h4>
+  <h2>Удаление плагина</h2>
+</div>
+
+* Для удаления плагина используйте скрипт:
+```
+./scripts/uninstall_plugin.sh [plugin]
+```
+
+---
+
+<div align="center">
+  <h2>Структура файлов</h2>
+</div>
+
+```
+jvim-plugins 
+├── pomodoro
+├── README.md
+└── scripts
+    ├── build.sh
+    ├── build_and_run_tests.sh
+    ├── check_jdk.sh
+    ├── check_junit.sh
+    ├── check_vim.sh
+    ├── compile.sh
+    ├── compile_tests.sh
+    ├── copy_plugin_to_vim.sh
+    ├── install_plugin.sh
+    ├── run_tests.sh
+    └── uninstall_plugin.sh
+```
+ 
+---
+
+<div align="center">
+  <h2>Использование скриптов</h2>
+</div>
+
+Скрипт `install_plugin.sh [plugin]` выполняет следующие скрипты последовательно:
+* `build.sh [plugin]` - сборка Java файлов плагина;
+* `build_and_run_tests.sh [plugin]` - сборка и запуск JUnit тестов;
+* `copy_plugin_to_vim.sh [plugin]` - копирование собранного плагина в 
+соответствующую директорию Vim.
+
+Скрипт `install_plugin.sh [plugin] --no-test` выполняется без тестирования:
+* `build.sh [plugin]`
+* `copy_plugin_to_vim.sh [plugin]`
+
+* Запустите скрипт для автоматической сборки плагина:
+```
+./scripts/build.sh [plugin]
+```
+
+Этот скрипт выполняет:
+* Проверяет установлен ли Vim
+```
+./scripts/check_vim.sh
+```
+
+* Проверяет установлен ли JDK
+```
+./scripts/check_jdk.sh
+```
+
+* Компилирует Java файлы
+```
+./scripts/compile.sh [plugin]
+```
+
+* Запустите скрипт для автоматической компиляции и выполнения тестов
+```
+./scripts/build_and_run_tests.sh [plugin]
+```
+
+Этот скрипт выполняет:
+* Проверяет установлен ли JUnit
+```
+./scripts/check_junit.sh
+```
+
+* Компилирует JUnit классы
+```
+./scripts/compile_tests.sh [plugin]
+```
+
+* Запускает тесты:
+```
+./scripts/run_tests.sh [plugin]
+```
+
+---
+
+<div align="center">
+  <h2>Список плагинов</h2>
 </div>
  
- * [vim-hello-plugin](vim-hello-plugin/plugin/hello.vim)
+<div align="center">
+  <h3>Pomodoro плагин</h3>
+</div>
 
-Простой плагин Hello для проверки взаимодействия Vim.
-Введите команду: `Hello` и Vim ответит к командной строке `hello vim`
+[pomodoro](pomodoro/README.md) - Простой Pomodoro плагин для Vim.
 
- * [jvim-hello](jvim-hello/README.md)
-
-Нужен для проверки взаимодействия Vim и Java
-На команду: `:JvimHello` Vim ответит в командной строке: `hello java vim`
-
- * [jvim-echo](jvim-echo/README.md)
-
-Нужен для проверки взаимодействия Vim и Java
-На команду: `:Jvim Hello!!!` Vim ответит в командной строке: `Hello!!!`
-
-* [jvim-timer](jvim-timer/README.md)
-
-Простой плагин для измерения времени работы Vim.
-Нужен для самоконтроля и производительности.
-
-По окончании работы и закрытия Vim выводит время работы Vim.
-
-* [vim-autocomplete](vim-autocomplete/README.md)
-
-Простой Vim плагин для автодополнения с меню подсказки.
-Нужен для производительности.
+Используйте Vim для редактирования файлов и через 25 минут он изменит цветовую
+схему Vim, чтобы напомнить вам о необходимости сделать перерыв. Разработан для 
+самоконтороля и эффективности.
 
 <div align="center">
-  <h4>Требования</h4>
+  <h4>Установка</h4>
+</div>
+
+* с выполнением тестов:
+```
+./scripts/install_plugin.sh pomodoro
+```
+
+* без запуска тестов:
+```
+./scripts/install_plugin.sh pomodoro --no-test
+```
+
+<div align="center">
+  <h4>Удаление плагина</h4>
+</div>
+
+```
+./scripts/uninstall_plugin.sh pomodoro
+```
+
+---
+
+<div align="center">
+  <h2>Требования</h2>
 </div>
  
 * Установленная Java
-* Скомпилированный файл JvimExamplePlugin.class в указанной директории
+* Установленный Vim
+* Установленный JUnit (опционально)
+
+---
 
 <div align="center">
-  <h4>Совместимость</h4>
+  <h2>Совместимость</h2>
 </div>
  
 * Vim 7.0 и выше
 * Java 8 и выше
-
-<div align="center">
-  <h4>Дебаг</h4>
-</div>
-
-Если плагин не работает, 
-проверьте работу Java файла вручную в терминале:
-
-```
-cd ~/.vim/pack/my-plugins/start/jvim-example-plugin/java
-java JvimExamplePlugin
-```
-
