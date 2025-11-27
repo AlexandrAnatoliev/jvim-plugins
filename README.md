@@ -14,6 +14,7 @@
 </div>
 
   > **Author:** Alexandr Anatoliev
+
   > **GitHub:** [AlexandrAnatoliev](https://github.com/AlexandrAnatoliev)
 
 ---
@@ -175,11 +176,13 @@ Designed for self-monitoring and productivity.
 <div align="center">
   <h4>Plugin installation</h4>
 </div>
+
 Install the plugin using the script:
 * with test execution:
 ```
 ./scripts/install_plugin.sh pomodoro
 ```
+
 * without running tests:
 ```
 ./scripts/install_plugin.sh pomodoro --no-test
@@ -191,7 +194,7 @@ Install the plugin using the script:
 
 * To uninstall the plugin using the script:
 ```
-./scripts/uninstall_plugin.sh [plugin]
+./scripts/uninstall_plugin.sh pomodoro
 ```
 
 ---
