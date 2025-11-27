@@ -2,6 +2,8 @@
 
   <a id="english"></a>
   <h1>Simple Vim Plugins In Java</h1>
+  <p>Created for educational purposes to test interaction
+  between Vim and Java</p>
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
@@ -9,13 +11,9 @@
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
-
-  <p>Created for educational purposes to test interaction
-  between Vim and Java</p>
 </div>
 
   > **Author:** Alexandr Anatoliev
-
   > **GitHub:** [AlexandrAnatoliev](https://github.com/AlexandrAnatoliev)
 
 ---
