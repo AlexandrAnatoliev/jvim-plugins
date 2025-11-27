@@ -2,9 +2,6 @@
 
   <a id="english"></a>
   <h1>Simple Vim Plugins In Java</h1>
-  <p>Created for educational purposes to test interaction
-  between Vim and Java</p>
-
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
@@ -13,30 +10,52 @@
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
 
+  <p>Created for educational purposes to test interaction
+  between Vim and Java</p>
 </div>
 
+  > **Author:** Alexandr Anatoliev
+
+  > **GitHub:** [AlexandrAnatoliev](https://github.com/AlexandrAnatoliev)
+
+---
+
 <div align="center">
-  <h4>Installation</h4>
+  <h2>Plugin installation</h2>
 </div>
- 
-* Save the plugin folder `jvim-example-plugin/` 
-to `~/.vim/pack/my-plugins/start/`:
+
+* Clone the plugins repository:
+```
+git clone https://github.com/AlexandrAnatoliev/jvim-plugins 
+```
+
+* Navigate to the root repository:
+```
+cd jvim-plugins/
+```
+
+* Make the scripts executable:
+```
+chmod +x scripts/*.sh
+```
+
+Install the plugin using the script:
+* with test execution:
+```
+./scripts/install_plugin.sh [plugin]
+```
+* without running tests:
+```
+./scripts/install_plugin.sh [plugin] --no-test
+```
+
+* When installing a plugin, it is installed in appropriate Vim directory. 
 ```
 ~/.vim/
 └── pack/
     └── my-plugins/
         └── start/
             └── jvim-example-plugin/
-                ├── plugin/
-                │   └── jvim_example_plugin.vim
-                └── java/
-                    └── JvimExamlePlugin.java
-```
-
-* Compile the Java file:
-```
-cd ~/.vim/pack/my-plugins/start/java/
-javac JvimExamlePlugin.java
 ```
 
 * Reload Vim or execute the command:
@@ -45,64 +64,160 @@ javac JvimExamlePlugin.java
 :source ~/.vim/pack/my-plugins/start/jvim-example-plugin/plugin/jvim_example_plugin.vim
 ```
 
+---
+
 <div align="center">
-  <h4>Plugin List</h4>
+  <h2>Plugin uninstallation</h2>
+</div>
+
+* To uninstall the plugin using the script:
+```
+./scripts/uninstall_plugin.sh [plugin]
+```
+
+---
+
+<div align="center">
+  <h2>Files structure</h2>
+</div>
+
+```
+jvim-plugins 
+├── pomodoro
+├── README.md
+└── scripts
+    ├── build.sh
+    ├── build_and_run_tests.sh
+    ├── check_jdk.sh
+    ├── check_junit.sh
+    ├── check_vim.sh
+    ├── compile.sh
+    ├── compile_tests.sh
+    ├── copy_plugin_to_vim.sh
+    ├── install_plugin.sh
+    ├── run_tests.sh
+    └── uninstall_plugin.sh
+```
+ 
+---
+
+<div align="center">
+  <h2>Script usage</h2>
+</div>
+
+The `install_plugin.sh [plugin]` script runs the scripts sequentially:
+* `build.sh [plugin]` - building plugin Java files;
+* `build_and_run_tests.sh [plugin]` - running JUnit tests;
+* `copy_plugin_to_vim.sh [plugin]` - copies the build plugin to the appropriate 
+Vim directory;
+
+The `install_plugin.sh [plugin] --no-test` script runs the scripts 
+sequentially without testing:
+* `build.sh [plugin]`
+* `copy_plugin_to_vim.sh [plugin]`
+
+* Run the script for automatic plugin build:
+```
+./scripts/build.sh [plugin]
+```
+
+This script runs the scripts listed below:
+* Check if Vim is installed on the system
+```
+./scripts/check_vim.sh
+```
+
+* Check if JDK is installed on the system
+```
+./scripts/check_jdk.sh
+```
+
+* Compiling Java files 
+```
+./scripts/compile.sh [plugin]
+```
+
+* Run the script for automatic compilation and test execution
+```
+./scripts/build_and_run_tests.sh [plugin]
+```
+
+This script runs the scripts listed below:
+* Check if JUnit is installed on the system
+```
+./scripts/check_junit.sh
+```
+
+* Compiling JUnit classes 
+```
+./scripts/compile_tests.sh [plugin]
+```
+
+* Run tests:
+```
+./scripts/run_tests.sh [plugin]
+```
+
+---
+
+<div align="center">
+  <h2>Plugin List</h2>
 </div>
  
- * [vim-hello-plugin](vim-hello-plugin/plugin/hello.vim)
+<div align="center">
+  <h3>Pomodoro Plugin</h3>
+</div>
 
-Simple Hello plugin for testing Vim interaction.
-Enter command: `Hello` and Vim will respond on command line:
-`hello vim`
+[pomodoro](pomodoro/README.md) - Simple Vim pomodoro plugin.
 
- * [jvim-hello](jvim-hello/README.md)
-
-Designed to test interaction between Vim and Java.
-On command: `:JvimHello` Vim will respond on command line:
-`hello java vim`
-
- * [jvim-echo](jvim-echo/README.md)
-
-Designed to test interaction between Vim and Java.
-On command: `:Jvim Hello!!!` Vim will respond on command line:
-`Hello!!!`
-
-* [jvim-timer](jvim-timer/README.md)
-
-Simple plugin for measuring Vim working time.
-Designed for self-monitoring and productivity.
-
-Displays Vim running time after finishing work and closing Vim.
-
-* [vim-autocomplete](vim-autocomplete/README.md)
-
-Simple Vim autocomplete plugin with hint.
+Use Vim to edit the file and after 25 minutes it will change Vim's color scheme 
+to remind you that it's time to take a break.
 Designed for self-monitoring and productivity.
 
 <div align="center">
-  <h4>Requirements</h4>
+  <h4>Plugin installation</h4>
+</div>
+Install the plugin using the script:
+* with test execution:
+```
+./scripts/install_plugin.sh pomodoro
+```
+* without running tests:
+```
+./scripts/install_plugin.sh pomodoro --no-test
+```
+
+<div align="center">
+  <h4>Plugin uninstallation</h4>
+</div>
+
+* To uninstall the plugin using the script:
+```
+./scripts/uninstall_plugin.sh [plugin]
+```
+
+---
+
+<div align="center">
+  <h2>Requirements</h2>
 </div>
  
 * Java installed
-* Compilled JvimExamplePlugin.class file in the specified directory. 
+* Vim installed
+* .class files built into designated folder
+* JUnit 5 installed (optional)
+
+---
 
 <div align="center">
-  <h4>Compatibility</h4>
+  <h2>Compatibility</h2>
 </div>
  
 * Vim 7.0 and above
 * Java 8 and above
 
-<div align="center">
-  <h4>Debugging</h4>
-</div>
+---
 
-If the plugin doesn't work, test the Java file manually in terminal:
-
-```
-cd ~/.vim/pack/my-plugins/start/jvim-example-plugin/java
-java JvimExamplePlugin
-```
 <div align="center">
 
   <a id="russian"></a>
