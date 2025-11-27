@@ -114,7 +114,7 @@ The `install_plugin.sh [plugin] --no-test` script runs without testing:
 * `build.sh [plugin]`
 * `copy_plugin_to_vim.sh [plugin]`
 
-* Run the script for automatic plugin build:
+Script for automatic plugin build:
 ```
 ./scripts/build.sh [plugin]
 ```
@@ -135,7 +135,7 @@ This script runs:
 ./scripts/compile.sh [plugin]
 ```
 
-* Run the script for automatic compilation and test execution
+Script for automatic compilation and test execution
 ```
 ./scripts/build_and_run_tests.sh [plugin]
 ```
@@ -331,7 +331,7 @@ jvim-plugins
 * `build.sh [plugin]`
 * `copy_plugin_to_vim.sh [plugin]`
 
-* Запустите скрипт для автоматической сборки плагина:
+Скрипт для автоматической сборки плагина:
 ```
 ./scripts/build.sh [plugin]
 ```
@@ -352,7 +352,7 @@ jvim-plugins
 ./scripts/compile.sh [plugin]
 ```
 
-* Запустите скрипт для автоматической компиляции и выполнения тестов
+Скрипт для автоматической компиляции и выполнения тестов
 ```
 ./scripts/build_and_run_tests.sh [plugin]
 ```
