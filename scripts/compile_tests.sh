@@ -28,11 +28,16 @@
 #   JUnit 5  must be installed 
 #
 # Version  0.6.4
-# Since    26.11.2025
+# Since    27.11.2025
 # Author   AlexandrAnatoliev
 
+RED='\u001B[31m'
+YELLOW='\u001B[33m'
+GREEN='\u001B[32m'
+NC='\u001B[0m'
+
 if [ $# -eq 0 ]; then
-    echo "Error: no arguments"
+    echo "ERROR: no arguments"
     echo "Example: ./scripts/run_tests.sh pomodoro"
     exit 1
 fi
@@ -46,17 +51,17 @@ JUNIT_API_JAR="/usr/share/java/junit-jupiter-api-5.10.1.jar"
 JUNIT_STANDALONE_JAR="/usr/share/java/junit-platform-console-standalone-1.9.1.jar"
 
 if [ ! -d "$SRC_DIR" ]; then
-    echo "Error: Test source directory '$SRC_DIR' does not exist"
+    echo -e "${RED}ERROR: Test source directory '$SRC_DIR' does not exist${NC}"
     exit 1
 fi
 
 if [ ! -f "$JUNIT_API_JAR" ]; then
-    echo "Error: JUnit API JAR file not found: $JUNIT_API_JAR"
+    echo -e "${RED}ERROR: JUnit API JAR file not found: $JUNIT_API_JAR ${NC}"
     exit 1
 fi
 
 if [ ! -f "$JUNIT_STANDALONE_JAR" ]; then
-    echo "Error: JUnit Standalone JAR file not found: $JUNIT_STANDALONE_JAR"
+    echo -e "${RED}ERROR: JUnit Standalone JAR file not found: $JUNIT_STANDALONE_JAR ${NC}"
     exit 1
 fi
 
@@ -67,10 +72,10 @@ echo "Compiling tests from $SRC_DIR to $BIN_DIR..."
 javac -d "$BIN_DIR" -cp "$MAIN_BIN_DIR:$JUNIT_API_JAR:$JUNIT_STANDALONE_JAR" "$SRC_DIR"/*.java
 
 if [ $? -eq 0 ]; then
-    echo "Test compilation completed successfully"
+    echo -e "${GREEN}Test compilation completed successfully${NC}"
+    echo ""
 else
-    echo "Error during test compilation"
+    echo -e "${RED}ERROR during test compilation${NC}"
+    echo ""
     exit 1
 fi
-
-

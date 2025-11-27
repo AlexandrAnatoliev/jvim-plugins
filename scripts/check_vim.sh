@@ -20,15 +20,20 @@
 #   1 - Vim is not installed
 #
 # Version  0.6.4
-# Since    25.11.2025
+# Since    27.11.2025
 # Author   AlexandrAnatoliev
+
+RED='\u001B[31m'
+YELLOW='\u001B[33m'
+GREEN='\u001B[32m'
+NC='\u001B[0m'
 
 if command -v vim &> /dev/null; then
     echo "Vim is installed"
     echo "Version: $(vim --version | head -n 1)"
     exit 0
 else
-    echo "Vim is not installed"
+    echo -e "${RED}ERROR: Vim is not installed${NC}"
     echo "To install, run: sudo apt install vim"
     exit 1
 fi

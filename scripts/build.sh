@@ -32,9 +32,14 @@
 # Since    26.11.2025
 # Author   AlexandrAnatoliev
 
+RED='\u001B[31m'
+YELLOW='\u001B[33m'
+GREEN='\u001B[32m'
+NC='\u001B[0m'
+
 if [ $# -eq 0 ]; then
-    echo "Error: no arguments"
-    echo "Example: ./build.sh pomodoro"
+    echo -e "${RED}ERROR: no arguments${NC}"
+    echo "Example: ./scripts/build.sh pomodoro"
     exit 1
 fi
 
@@ -47,14 +52,14 @@ COMPILE_SCRIPT="scripts/compile.sh"
 # Function to check if file exists and is executable
 check_script() {
     if [ ! -f "$1" ]; then
-        echo "Error: Script not found: $1"
+        echo -e "${RED}ERROR: Script not found: $1 ${NC}"
         return 1
     fi
     if [ ! -x "$1" ]; then
-        echo "Warning: Script is not executable: $1"
+        echo -e "${YELLOW}Warning: Script is not executable: $1 ${NC}"
         echo "Attempting to make it executable..."
         chmod +x "$1" || {
-            echo "Error: Failed to make script executable: $1"
+            echo -e "${RED}ERROR: Failed to make script executable: $1 ${NC}"
             return 1
         }
     fi
@@ -72,7 +77,7 @@ if ! check_script "$CHECK_VIM_SCRIPT"; then
 fi
 
 if "$CHECK_VIM_SCRIPT"; then
-    echo "Vim check passed"
+    echo -e "${GREEN}Vim check passed${NC}"
 
     echo ""
     echo "2. Checking JDK availability..."
@@ -82,7 +87,7 @@ if "$CHECK_VIM_SCRIPT"; then
     fi
 
     if "$CHECK_JDK_SCRIPT"; then
-        echo "JDK check passed"
+        echo -e "${GREEN}JDK check passed${NC}"
 
         echo ""
         echo "3. Starting compilation..."
@@ -97,23 +102,23 @@ if "$CHECK_VIM_SCRIPT"; then
             echo ""
             exit 0
         else
-            echo "Compilation failed"
+            echo -e "${RED}Compilation failed${NC}"
             echo ""
-            echo "===Build Process Failed==="
+            echo -e "${RED}===Build Process Failed===${NC}"
             echo ""
             exit 1
         fi
     else
-        echo "JDK check failed - JDK is not installed"
+        echo -e "${RED}JDK check failed - JDK is not installed${NC}"
         echo ""
-        echo "===Build Process Aborted==="
+        echo -e "${RED}===Build Process Aborted===${NC}"
         echo ""
         exit 1
     fi
 else
-    echo "Vim check failed - Vim is not installed"
+    echo -e "${RED}Vim check failed - Vim is not installed${NC}"
     echo ""
-    echo "===Build Process Aborted==="
+    echo -e "${RED}===Build Process Aborted===${NC}"
     echo ""
     exit 1
 fi

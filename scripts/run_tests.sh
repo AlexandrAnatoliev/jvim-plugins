@@ -26,11 +26,16 @@
 #   JUnit 5  must be installed 
 #
 # Version  0.6.4
-# Since    26.11.2025
+# Since    27.11.2025
 # Author   AlexandrAnatoliev
 
+RED='\u001B[31m'
+YELLOW='\u001B[33m'
+GREEN='\u001B[32m'
+NC='\u001B[0m'
+
 if [ $# -eq 0 ]; then
-    echo "Error: no arguments"
+    echo -e "${RED}ERROR: no arguments${NC}"
     echo "Example: ./scripts/run_tests.sh pomodoro"
     exit 1
 fi
@@ -43,23 +48,23 @@ JUNIT_API_JAR="/usr/share/java/junit-jupiter-api-5.10.1.jar"
 JUNIT_STANDALONE_JAR="/usr/share/java/junit-platform-console-standalone-1.9.1.jar"
 
 if [ ! -d "$MAIN_BIN_DIR" ]; then
-    echo "Error: Main binary directory '$MAIN_BIN_DIR' does not exist"
+    echo -e "${RED}ERROR: Main binary directory '$MAIN_BIN_DIR' does not exist${NC}"
     exit 1
 fi
 
 if [ ! -d "$TEST_BIN_DIR" ]; then
-    echo "Error: Test binary directory '$TEST_BIN_DIR' does not exist"
+    echo -e "${RED}ERROR: Test binary directory '$TEST_BIN_DIR' does not exist${NC}"
     exit 1
 fi
 
 if [ ! -f "$JUNIT_API_JAR" ]; then
-    echo "Error: JUnit API JAR file not found: $JUNIT_API_JAR"
+    echo -e "${RED}ERROR: JUnit API JAR file not found: $JUNIT_API_JAR ${NC}"
     echo "Check the path to JUnit using command: 'dpkg -L junit5'"
     exit 1
 fi
 
 if [ ! -f "$JUNIT_STANDALONE_JAR" ]; then
-    echo "Error: JUnit Standalone JAR file not found: $JUNIT_STANDALONE_JAR"
+    echo -e "${RED}ERROR: JUnit Standalone JAR file not found: $JUNIT_STANDALONE_JAR ${NC}"
     echo "Check the path to JUnit using command: 'dpkg -L junit5'"
     exit 1
 fi
@@ -73,8 +78,8 @@ java -cp "$CLASSPATH" org.junit.platform.console.ConsoleLauncher --scan-classpat
 echo "--------------------------------------------"
 
 if [ $? -eq 0 ]; then
-    echo "All tests passed successfully"
+    echo -e "${GREEN}All tests passed successfully${NC}"
 else
-    echo "Some tests failed"
+    echo -e "${RED}Some tests failed${NC}"
     exit 1
 fi

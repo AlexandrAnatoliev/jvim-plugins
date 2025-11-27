@@ -20,8 +20,13 @@
 #   1 - JUnit is not installed
 #
 # Version  0.6.4
-# Since    26.11.2025
+# Since    27.11.2025
 # Author   AlexandrAnatoliev
+
+RED='\u001B[31m'
+YELLOW='\u001B[33m'
+GREEN='\u001B[32m'
+NC='\u001B[0m'
 
 if dpkg -l | grep -q -E "junit|junit5"; then
     echo "JUnit is installed via apt"
@@ -33,6 +38,6 @@ if find /usr -name "*junit*" -type f 2>/dev/null | head -1 | grep -q .; then
     exit 0
 fi
 
-echo "JUnit is not found"
+echo -3 "${YELLOW}WARNING: JUnit is not found${NC}"
 sudo "To install: sudo apt install junit5"
 exit 1

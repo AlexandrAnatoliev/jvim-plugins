@@ -8,7 +8,7 @@
 #   and if successful, runs the tests.
 #   
 # Usage: 
-#   ./scripts/testing.sh
+#   ./scripts/build_and_run_tests.sh
 #
 # Directory Structure:
 #   jvim-plugins/
@@ -27,9 +27,14 @@
 # Since    26.11.2025
 # Author   AlexandrAnatoliev
 
+RED='\u001B[31m'
+YELLOW='\u001B[33m'
+GREEN='\u001B[32m'
+NC='\u001B[0m'
+
 if [ $# -eq 0 ]; then
-    echo "Error: no arguments"
-    echo "Example: ./build_and_run_tests.sh pomodoro"
+    echo -e "${RED}ERROR: no arguments${NC}"
+    echo "Example: ./scripts/build_and_run_tests.sh pomodoro"
     exit 1
 fi
 
@@ -42,14 +47,14 @@ RUN_TESTS_SCRIPT="scripts/run_tests.sh"
 # Function to check if file exists and is executable
 check_script() {
     if [ ! -f "$1" ]; then
-        echo "Error: Script not found: $1"
+        echo -e "${RED}ERROR: Script not found: $1 ${NC}"
         return 1
     fi
     if [ ! -x "$1" ]; then
-        echo "Warning: Script is not executable: $1"
+        echo -e "${YELLOW}Warning: Script is not executable: $1 ${NC}"
         echo "Attempting to make it executable..."
         chmod +x "$1" || {
-            echo "Error: Failed to make script executable: $1"
+            echo -e "${RED}ERROR: Failed to make script executable: $1 ${NC}"
             return 1
         }
     fi
@@ -67,7 +72,7 @@ if ! check_script "$CHECK_JUNIT_SCRIPT"; then
 fi
 
 if "$CHECK_JUNIT_SCRIPT"; then
-    echo "JUnit check passed"
+    echo -e "${GREEN}JUnit check passed${NC}"
 
     echo ""
     echo "2. Compiling JUnit tests..."
@@ -77,7 +82,7 @@ if "$CHECK_JUNIT_SCRIPT"; then
     fi
 
     if "$COMPILE_TESTS_SCRIPT" "$PLUGIN_DIR"; then
-        echo "JUnit tests compiling completed successfully"
+        echo -e "${GREEN}JUnit tests compiling completed successfully${NC}"
 
         echo ""
         echo "3. Run JUnit tests..."
@@ -92,25 +97,25 @@ if "$CHECK_JUNIT_SCRIPT"; then
             echo ""
             exit 0
         else
-            echo "Some tests failed"
+            echo -e "${RED}Some tests failed${NC}"
             echo ""
-            echo "===Testing Process Failed==="
+            echo -e "${RED}===Testing Process Failed===${NC}"
             echo ""
             exit 1
         fi
 
     else
-        echo "JUnit tests compilation failed"
+        echo -e "${RED}JUnit tests compilation failed${NC}"
         echo ""
-        echo "===Testing Process Aborted==="
+        echo -e "${RED}===Testing Process Aborted===${NC}"
         echo ""
         exit 1
     fi
 
 else
-    echo "JUnit check failed - JUnit is not installed"
+    echo -e "${RED}JUnit check failed - JUnit is not installed${NC}"
     echo ""
-    echo "===Testing Process Aborted==="
+    echo -e "${RED}===Testing Process Aborted===${NC}"
     echo ""
     exit 1
 fi

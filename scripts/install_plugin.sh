@@ -31,15 +31,18 @@
 # Since    26.11.2025
 # Author   AlexandrAnatoliev
 
+RED='\u001B[31m'
+YELLOW='\u001B[33m'
+GREEN='\u001B[32m'
+NC='\u001B[0m'
+
 if [ $# -eq 0 ]; then
-    echo "Error: no arguments"
+    echo -e "${RED}ERROR: no arguments${NC}"
     echo "Example: ./scripts/install_plugin.sh pomodoro"
     exit 1
 fi
 
 PLUGIN_DIR="$1"
-# SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-
 BUILD_SCRIPT="scripts/build.sh"
 TESTING_SCRIPT="scripts/build_and_run_tests.sh"
 COPY_TO_VIM_SCRIPT="scripts/copy_plugin_to_vim.sh"
@@ -47,14 +50,14 @@ COPY_TO_VIM_SCRIPT="scripts/copy_plugin_to_vim.sh"
 # Function to check if file exists and is executable
 check_script() {
     if [ ! -f "$1" ]; then
-        echo "Error: Script not found: $1"
+        echo -e "${RED}ERROR: Script not found: $1 ${NC}"
         return 1
     fi
     if [ ! -x "$1" ]; then
-        echo "Warning: Script is not executable: $1"
+        echo -e "${YELLOW}Warning: Script is not executable: $1 ${NC}"
         echo "Attempting to make it executable..."
         chmod +x "$1" || {
-            echo "Error: Failed to make script executable: $1"
+            echo -e "${RED}ERROR: Failed to make script executable: $1 ${NC}"
             return 1
         }
     fi
@@ -73,7 +76,7 @@ if ! check_script "$BUILD_SCRIPT"; then
 fi
 
 if "$BUILD_SCRIPT" "$PLUGIN_DIR"; then
-    echo "Plugin main Java classes builded"
+    echo -e "${GREEN}Plugin main Java classes builded${NC}"
 
     echo ""
     echo "Run tests..."
@@ -83,7 +86,7 @@ if "$BUILD_SCRIPT" "$PLUGIN_DIR"; then
     fi
 
     if "$TESTING_SCRIPT" "$PLUGIN_DIR"; then
-        echo "All tests passed"
+        echo -e "${GREEN}All tests passed${NC}"
 
         echo "" 
         echo "Start copying jvim-timer plugin to Vim plugin directory..."
@@ -94,40 +97,40 @@ if "$BUILD_SCRIPT" "$PLUGIN_DIR"; then
 
         if "$COPY_TO_VIM_SCRIPT" "$PLUGIN_DIR"; then
             echo ""
-            echo "=========================================="
-            echo "===Plugin Installation Process Finished==="
-            echo "=========================================="
+            echo -e "${GREEN}==========================================${NC}"
+            echo -e "${GREEN}===Plugin Installation Process Finished===${NC}"
+            echo -e "${GREEN}==========================================${NC}"
             echo ""
             exit 0
         else
-            echo "Copying jvim-timer plugin to Vim plugin directory failed"
+            echo -e "${RED}Copying jvim-timer plugin to Vim plugin directory failed${NC}"
             echo ""
-            echo "========================================"
-            echo "===Plugin Installation Process Failed==="
-            echo "========================================"
+            echo -e "${RED}========================================${NC}"
+            echo -e "${RED}===Plugin Installation Process Failed===${NC}"
+            echo -e "${RED}========================================${NC}"
             echo ""
             exit 1
         fi
     else
-        echo "Testing failed"
+        echo -e "${RED}Testing failed${NC}"
         echo ""
         echo "Use:" 
         echo "./install_plugin_without_tesing.sh"
         echo "./scripts/install_plugin_without_tesing.sh"
         echo "to install jvim-timer plugin without testing"
         echo ""
-        echo "========================================"
-        echo "===Plugin Installation Process Aborted==="
-        echo "========================================"
+        echo -e "${RED}=========================================${NC}"
+        echo -e "${RED}===Plugin Installation Process Aborted===${NC}"
+        echo -e "${RED}=========================================${NC}"
         echo ""
         exit 1
     fi
 else
-    echo "Build plugin main Java classes failed"
+    echo -e "${RED}Build plugin main Java classes failed"
     echo ""
-    echo "========================================"
-    echo "===Plugin Installation Process Aborted==="
-    echo "========================================"
+    echo -e "${RED}=========================================${NC}"
+    echo -e "${RED}===Plugin Installation Process Aborted===${NC}"
+    echo -e "${RED}=========================================${NC}"
     echo ""
     exit 1
 fi

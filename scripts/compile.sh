@@ -30,11 +30,16 @@
 #   it PATH
 #
 # Version  0.6.4
-# Since    25.11.2025
+# Since    27.11.2025
 # Author   AlexandrAnatoliev
 
+RED='\u001B[31m'
+YELLOW='\u001B[33m'
+GREEN='\u001B[32m'
+NC='\u001B[0m'
+
 if [ $# -eq 0 ]; then
-    echo "Error: no arguments"
+    echo -e "${RED}ERROR: no arguments${NC}"
     echo "Example: ./scripts/compile.sh pomodoro"
     exit 1
 fi
@@ -42,7 +47,7 @@ fi
 PLUGIN_DIR="$1"
 
 if [ ! -d "$PLUGIN_DIR/src/main/java" ]; then
-  echo "Error! Source directory not found: $PLUGIN_DIR/src/main/java/"
+  echo -e "${RED}ERROR! Source directory not found: $PLUGIN_DIR/src/main/java/${NC}"
   echo "Please ensure the project structure is correct"
   exit 1
 fi
@@ -53,10 +58,10 @@ echo "Compiling Java files..."
 javac -d "$PLUGIN_DIR/bin/main" "$PLUGIN_DIR/src/main/java/"*.java
 
 if [ $? -eq 0 ]; then
-  echo "Compilation completed successfully"
   echo "Compiled classes are located in: $PLUGIN_DIR/bin/main/"
+  echo -e "${GREEN}Compilation completed successfully${NC}"
 else
-  echo "Compilation failed"
+  echo -e "${RED}ERROR: Compilation failed${NC}"
   echo "Please check:"
   echo "1. Java Development Kit (JDK) is installed"
   echo "2. Java source files are valid"
