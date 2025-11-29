@@ -73,6 +73,6 @@ function! s:RunShowPomodoroTime()
         echo "Ошибка: " . result
     else
         " Выводим результат
-        echo result
+        echo result 
     endif
 endfunction

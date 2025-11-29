@@ -44,6 +44,7 @@ public class PomodoroTimerTest {
     @AfterEach
     void tearDown() throws IOException {
         Files.deleteIfExists(Paths.get(TEST_MONITOR_PATH));
+        Files.deleteIfExists(Paths.get(TEST_START_TIME_PATH));
     }
 
     /**
@@ -152,7 +153,7 @@ public class PomodoroTimerTest {
     * Verifies that error handling works for invalid paths
     */
     @Test
-    void testWriteToInvalidPath() {
+    void testWriteCommandToInvalidPath() {
     String invalidPath = "non_existent_directory/test.txt";
     PomodoroTimer invalidTimer = new PomodoroTimer(
             invalidPath,
@@ -235,6 +236,151 @@ public class PomodoroTimerTest {
             Files.deleteIfExists(Paths.get(file1));
             Files.deleteIfExists(Paths.get(file2));
         }
+    }
+
+    /**
+    * Test writing time to file 
+    * Verifies that time is correctly written to the file
+    *
+    * @throws IOException if file reading fails
+    */
+    @Test
+    void testWriteTime() throws IOException {
+        long testTime = 5L;
+        pomodoroTimer.writeTime(testTime);
+        long content = Long.parseLong(
+                Files.readString(Paths.get(TEST_START_TIME_PATH)));
+        assertEquals(testTime, content);
+    }
+
+    /**
+    * Test write time overwrite behavior
+    * Verifies that new command overwrites previous content
+    *
+    * @throws IOException if file reading fails
+    */
+    @Test
+    void testWriteTimeOverwrite() throws IOException {
+        long firstTime = 1;
+        long secondTime = 2;
+        pomodoroTimer.writeTime(firstTime);
+        pomodoroTimer.writeTime(secondTime);
+        long content = Long.parseLong(
+                Files.readString(Paths.get(TEST_START_TIME_PATH)));
+        assertEquals(secondTime, content);
+        assertNotEquals(firstTime, content);
+    }
+
+    /**
+    * Test with non-existent directory path
+    * Verifies that error handling works for invalid paths
+    */
+    @Test
+    void testWriteTimeToInvalidPath() {
+    String invalidPath = "non_existent_directory/test.txt";
+    PomodoroTimer invalidTimer = new PomodoroTimer(
+            invalidPath,
+            TEST_START_TIME_PATH,
+            defaultCommand,
+            time);
+    assertDoesNotThrow(() -> invalidTimer.writeTime(123L));
+    }
+
+    /**
+    * Test write null time handling
+    * Verifies that null commands are handled gracefully
+    */
+    @Test
+    void testWriteNullTime() {
+        assertDoesNotThrow(() -> pomodoroTimer.writeTime(null));
+        assertTrue(Files.exists(Paths.get(TEST_START_TIME_PATH)));
+    }
+
+    /**
+    * Tests getCurrentTime method with valid start time
+    * Verifies that session time calculation is correct
+    *
+    * @throws IOException if file creation fails
+    * @throws InterruptedException if sleep is interrupted
+    */
+    @Test
+    void testGetCurrentTimeWithValidStartTime()
+        throws IOException, InterruptedException {
+
+        long startTime = System.currentTimeMillis() / 1000;
+        pomodoroTimer.writeTime(startTime);
+
+        Thread.sleep(1000);
+
+        long currentTime = pomodoroTimer.getCurrentTime();
+
+        assertTrue(currentTime >= 1 && currentTime <= 2,
+            Colors.RED 
+            + "Session time should be around 1 second"
+            + Colors.NOCOLOR);
+    }
+
+    /**
+    * Tests getStartTime method when file does not exist
+    * Verifies that method handles missing file gracefully
+    */
+    @Test
+    void testGetStartTimeWhenFileDoesNotExist() throws IOException {
+        Files.deleteIfExists(Paths.get(TEST_START_TIME_PATH));
+        assertDoesNotThrow(() -> pomodoroTimer.getStartTime());
+    }
+
+    /**
+    * Tests writeTime and getStartTime methods
+    * Verifies that written value can be successfully read back
+    */
+    @Test
+    void testWriteTimeAndGetStartTime() {
+        long expectedValue = 123456789L;
+        pomodoroTimer.writeTime(expectedValue);
+
+        long actualValue = pomodoroTimer.getStartTime();
+        assertEquals(expectedValue, actualValue);
+    }
+
+    /**
+    * Tests getStartTime method with invalid data in file
+    * Verifies that non-numeric data is handled gracefully
+    *
+    * @throws IOException if file writing fails
+    */
+    @Test
+    void testGetStartTimeWithInvalidData() throws IOException {
+        Files.write(Paths.get(TEST_START_TIME_PATH), "Invalid_data".getBytes());
+
+        assertDoesNotThrow(() -> pomodoroTimer.getStartTime());
+    }
+
+    /**
+    * Tests current time calculation accuracy
+    * Verifies that calculated time matches expected duration
+    *
+    * @throws IOException if file writing fails
+    * @throws InterruptedException if sleep is interrupted
+    */
+    @Test
+    void testGetCurrentTimeCalculationAccuracy() 
+        throws IOException, InterruptedException {
+    
+        long startTime = System.currentTimeMillis() / 1000;
+        pomodoroTimer.writeTime(startTime);
+
+        int waitSecunds = 1;
+        Thread.sleep(waitSecunds * 1000);
+
+        long currentTime = pomodoroTimer.getCurrentTime();
+
+        assertTrue(currentTime >= waitSecunds && currentTime <= waitSecunds + 1, 
+                Colors.RED
+                + "Session time should be approximately " 
+                + waitSecunds 
+                + " seconds"
+                + Colors.NOCOLOR);
     }
 }
 
