@@ -315,9 +315,7 @@ public class PomodoroTimerTest {
         long currentTime = pomodoroTimer.getCurrentTime();
 
         assertTrue(currentTime >= 1 && currentTime <= 2,
-            Colors.RED 
-            + "Session time should be around 1 second"
-            + Colors.NOCOLOR);
+                Colors.RED.apply("Session time should be around 1 second"));
     }
 
     /**
@@ -376,11 +374,9 @@ public class PomodoroTimerTest {
         long currentTime = pomodoroTimer.getCurrentTime();
 
         assertTrue(currentTime >= waitSecunds && currentTime <= waitSecunds + 1, 
-                Colors.RED
-                + "Session time should be approximately " 
-                + waitSecunds 
-                + " seconds"
-                + Colors.NOCOLOR);
+                Colors.RED.apply(
+                    "Session time should be approximately " 
+                    + waitSecunds + " seconds"));
     }
 }
 

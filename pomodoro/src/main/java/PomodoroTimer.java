@@ -17,6 +17,7 @@ public class PomodoroTimer {
     * PomodoroTimer class constructor
     *
     * @param  pathToMonitor Path to temporary file for command storage
+    * @param  pathToStartTime Path to file for start time storage
     * @param  defaultCommand Default command to store 
     * @param  time Work time of timer (in minutes)  
     */
@@ -38,59 +39,33 @@ public class PomodoroTimer {
     * @throws Exception if is error writing
     */
     public void writeCommand(String command) {
-        try {
-            FileWriter writer = new FileWriter(pathToMonitor);
+        try (FileWriter writer = new FileWriter(pathToMonitor)) {
             writer.write(command);
-      
-            writer.close();
-
         } catch (Exception e) {
-            System.out.println(
-                    Colors.RED
-                    + "ERROR writing: " 
-                    + e.getMessage()
-                    + Colors.NOCOLOR);
+            System.out.println(Colors.RED.apply(
+                        "ERROR writing: " + e.getMessage()));
         }
     }
 
+    /**
+    * Writes a time to a temporary file
+    * 
+    * @param time Time to write to the file
+    * @throws Exception if is error writing
+    */
     public void writeTime(Long time) {
-        try {
-            FileWriter writer = new FileWriter(pathToStartTime);
+        try (FileWriter writer = new FileWriter(pathToStartTime)){
             writer.write(time.toString());
-      
-            writer.close();
-
         } catch (Exception e) {
-            System.out.println(
-                    Colors.RED
-                    + "ERROR writing: " 
-                    + e.getMessage()
-                    + Colors.NOCOLOR);
+            System.out.println(Colors.RED.apply(
+                        "ERROR writing: " + e.getMessage()));
         }
-    }
-
-    public long getStartTime() {
-        try {
-            BufferedReader reader = new BufferedReader(
-                    new FileReader(this.pathToStartTime));
-            long value = Long.parseLong(reader.readLine());
-            reader.close();
-            return value;
-
-        } catch (Exception e) {
-            System.out.println(
-                    Colors.RED
-                    + "ERROR reading: " 
-                    + e.getMessage()
-                    + Colors.NOCOLOR);
-        }
-        return 0;
     }
 
     /**
     * Starts a timer and then writes a command to a temporary file
     * 
-    * @throws InterruptedException if timer is interrupted
+    * @throws InterruptedException If timer is interrupted
     */
     public void startTimer() {
         try {
@@ -99,18 +74,41 @@ public class PomodoroTimer {
             Thread.sleep(60000 * time);
             writeCommand(defaultCommand);
         } catch (InterruptedException e) {
-            System.out.println(
-                    Colors.RED
-                    +"ERROR: Timer interrupted"
-                    + Colors.NOCOLOR);
+            System.out.println(Colors.RED.apply(
+                        "ERROR: Timer interrupted"));
         }
     }
 
+    /**
+    * Read a start time from a temporary file
+    * 
+    * @throws Exception If is error reading or invalid data in file
+    * @return Start time, or -1 if error
+    */
+    public long getStartTime() {
+        try (BufferedReader reader = new BufferedReader(
+                    new FileReader(this.pathToStartTime))) {
+            String line = reader.readLine();
+            if (line != null) {
+                return Long.parseLong(line);
+            }
+        } catch (Exception e) {
+            System.out.println(Colors.RED.apply(
+                        "ERROR reading: " + e.getMessage()));
+        }
+        return -1;
+    }
+
+    /**
+    * Calculate elapsed time since start
+    * 
+    * @return Elapsed time in seconds, or -1 
+    */
     public long getCurrentTime() {
         long startTime = getStartTime();
-        if (startTime == 0) {
-            return 0;
+        if (startTime == -1) {
+            return -1;
         }
-        return System.currentTimeMillis() / 1000 - startTime; // in seconds
+        return System.currentTimeMillis() / 1000 - startTime; 
     }
 }

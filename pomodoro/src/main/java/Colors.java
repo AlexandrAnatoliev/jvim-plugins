@@ -1,5 +1,5 @@
 /**
-* Enum representation supported ANCI color codes for console output.
+* Enum representation supported ANSI color codes for console output.
 *
 * @version  0.6.5
 * @since    29.11.2025
@@ -10,7 +10,7 @@
     GREEN("\u001B[32m"),
     YELLOW("\u001B[33m"),
     /** Reset ANCI color code */
-    NOCOLOR("\u001B[0m");
+    RESET("\u001B[0m");
 
     private final String code;
 
@@ -21,5 +21,12 @@
     @Override
     public String toString() {
         return code;
+    }
+
+    /** 
+    * Convenience method to colorize text
+    */
+    public String apply(String text) {
+        return this + text + RESET;
     }
  }
