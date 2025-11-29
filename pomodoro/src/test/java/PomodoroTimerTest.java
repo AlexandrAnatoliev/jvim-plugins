@@ -9,13 +9,14 @@ import static org.junit.jupiter.api.Assertions.*;
 *
 * Tests file operations, and edge cases
 * Uses temporary file that is cleaned up after each test
-* @version  0.6.2
-* @since    24.11.2025
+* @version  0.6.5
+* @since    29.11.2025
 * @author   AlexandrAnatoliev 
 */
 
 public class PomodoroTimerTest {
-    private static final String TEST_FILE_PATH = "test_timer.txt";
+    private static final String TEST_MONITOR_PATH = "test_monitor.txt";
+    private static final String TEST_START_TIME_PATH = "test_start_time.txt";
     protected String defaultCommand = "test";
     protected long time = 1L;                
   
@@ -28,7 +29,8 @@ public class PomodoroTimerTest {
     @BeforeEach
     void setUp() {
         pomodoroTimer = new PomodoroTimer(
-                TEST_FILE_PATH, 
+                TEST_MONITOR_PATH, 
+                TEST_START_TIME_PATH,
                 defaultCommand, 
                 time);
     }
@@ -41,7 +43,7 @@ public class PomodoroTimerTest {
     */
     @AfterEach
     void tearDown() throws IOException {
-        Files.deleteIfExists(Paths.get(TEST_FILE_PATH));
+        Files.deleteIfExists(Paths.get(TEST_MONITOR_PATH));
     }
 
     /**
@@ -53,7 +55,7 @@ public class PomodoroTimerTest {
     @Test
     void testWriteCommand() throws IOException {
         pomodoroTimer.writeCommand(defaultCommand);
-        String content = Files.readString(Paths.get(TEST_FILE_PATH));
+        String content = Files.readString(Paths.get(TEST_MONITOR_PATH));
         assertEquals(defaultCommand, content);
     }
 
@@ -67,7 +69,7 @@ public class PomodoroTimerTest {
     void testWtriteEmptyCommand() throws IOException {
         String emptyCommand = "";
         pomodoroTimer.writeCommand(emptyCommand);
-        String content = Files.readString(Paths.get(TEST_FILE_PATH));
+        String content = Files.readString(Paths.get(TEST_MONITOR_PATH));
         assertEquals(emptyCommand, content);
     }
 
@@ -81,7 +83,7 @@ public class PomodoroTimerTest {
     void testWriteCommandWithSpecialCharacters() throws IOException {
         String specialCommand = "command with spaces & symbols @#$%";
         pomodoroTimer.writeCommand(specialCommand);
-        String content = Files.readString(Paths.get(TEST_FILE_PATH));
+        String content = Files.readString(Paths.get(TEST_MONITOR_PATH));
         assertEquals(specialCommand, content);
     }
 
@@ -96,13 +98,14 @@ public class PomodoroTimerTest {
     @Test
     void testStartTimer() throws IOException, InterruptedException {
         PomodoroTimer shortTimer = new PomodoroTimer(
-                TEST_FILE_PATH,
+                TEST_MONITOR_PATH,
+                TEST_START_TIME_PATH,
                 defaultCommand,
                 0L);
         Thread timerThread = new Thread(shortTimer::startTimer);
         timerThread.start();
         timerThread.join(2000);
-        String content = Files.readString(Paths.get(TEST_FILE_PATH));
+        String content = Files.readString(Paths.get(TEST_MONITOR_PATH));
         assertEquals(defaultCommand, content);
     }
 
@@ -118,7 +121,7 @@ public class PomodoroTimerTest {
         String secondCommand = "second command";
         pomodoroTimer.writeCommand(firstCommand);
         pomodoroTimer.writeCommand(secondCommand);
-        String content = Files.readString(Paths.get(TEST_FILE_PATH));
+        String content = Files.readString(Paths.get(TEST_MONITOR_PATH));
         assertEquals(secondCommand, content);
         assertNotEquals(firstCommand, content);
     }
@@ -130,13 +133,16 @@ public class PomodoroTimerTest {
     @Test
     void testConstructor() {
         String testPath = "test_path.txt";
+        String testStartTimePath = "test_start_time_path.txt";
         String testCommand = "test_cmd";
         long testTime = 5L;
         PomodoroTimer timer = new PomodoroTimer(
                 testPath, 
+                testStartTimePath,
                 testCommand, 
                 testTime);
         assertEquals(testPath, timer.pathToMonitor);
+        assertEquals(testStartTimePath, timer.pathToStartTime);
         assertEquals(testCommand, timer.defaultCommand);
         assertEquals(testTime, timer.time);
     }
@@ -150,6 +156,7 @@ public class PomodoroTimerTest {
     String invalidPath = "non_existent_directory/test.txt";
     PomodoroTimer invalidTimer = new PomodoroTimer(
             invalidPath,
+            TEST_START_TIME_PATH,
             defaultCommand,
             time);
     assertDoesNotThrow(() -> invalidTimer.writeCommand("test"));
@@ -164,7 +171,8 @@ public class PomodoroTimerTest {
     @Test
     void testTimerInterruption() throws InterruptedException {
         PomodoroTimer longTimer = new PomodoroTimer(
-                TEST_FILE_PATH,
+                TEST_MONITOR_PATH,
+                TEST_START_TIME_PATH,
                 defaultCommand,
                 10L);
         Thread timerThread = new Thread(longTimer::startTimer);
@@ -184,7 +192,7 @@ public class PomodoroTimerTest {
     void testWriteVeryLongCommand() throws IOException {
         String longCommand = "A".repeat(10000);
         pomodoroTimer.writeCommand(longCommand);
-        String content = Files.readString(Paths.get(TEST_FILE_PATH));
+        String content = Files.readString(Paths.get(TEST_MONITOR_PATH));
         assertEquals(longCommand, content);
     }
 
@@ -195,7 +203,7 @@ public class PomodoroTimerTest {
     @Test
     void testWriteNullCommand() {
         assertDoesNotThrow(() -> pomodoroTimer.writeCommand(null));
-        assertTrue(Files.exists(Paths.get(TEST_FILE_PATH)));
+        assertTrue(Files.exists(Paths.get(TEST_MONITOR_PATH)));
     }
 
     /**
@@ -208,8 +216,16 @@ public class PomodoroTimerTest {
     void testMultipleTimers() throws IOException {
         String file1 = "test1.txt";
         String file2 = "test2.txt";
-        PomodoroTimer timer1 = new PomodoroTimer(file1, "command1", 0L);
-        PomodoroTimer timer2 = new PomodoroTimer(file2, "command2", 0L);
+        PomodoroTimer timer1 = new PomodoroTimer(
+                file1, 
+                TEST_START_TIME_PATH,
+                "command1", 
+                0L);
+        PomodoroTimer timer2 = new PomodoroTimer(
+                file2, 
+                TEST_START_TIME_PATH,
+                "command2", 
+                0L);
         try {
             timer1.writeCommand("command1");
             timer2.writeCommand("command2");
