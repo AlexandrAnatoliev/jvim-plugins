@@ -62,3 +62,17 @@ function! SimpleFileMonitor()
         endif
     endif
 endfunction
+
+command! -nargs=0 ShowPomodoroTime call s:RunShowPomodoroTime()
+
+function! s:RunShowPomodoroTime()
+    " Запускаем Java программу и получаем результат
+    let result = system('java -cp ~/.vim/pack/my-plugins/start/pomodoro/bin/main/ Main show_time')
+    " Проверяем ошибки
+    if v:shell_error != 0
+        echo "Ошибка: " . result
+    else
+        " Выводим результат
+        echo result
+    endif
+endfunction
