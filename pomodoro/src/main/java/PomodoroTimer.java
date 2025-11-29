@@ -21,7 +21,10 @@ public class PomodoroTimer {
     * @param  time Work time of timer (in minutes)  
     */
     public PomodoroTimer(
-            String pathToMonitor, String pathToStartTime, String defaultCommand, long time) {
+            String pathToMonitor, 
+            String pathToStartTime, 
+            String defaultCommand, 
+            long time) {
         this.pathToMonitor = pathToMonitor;
         this.pathToStartTime = pathToStartTime;
         this.defaultCommand = defaultCommand;
@@ -42,7 +45,11 @@ public class PomodoroTimer {
             writer.close();
 
         } catch (Exception e) {
-            System.out.println("Error writing: " + e.getMessage());
+            System.out.println(
+                    Colors.RED
+                    + "ERROR writing: " 
+                    + e.getMessage()
+                    + Colors.NOCOLOR);
         }
     }
 
@@ -54,23 +61,28 @@ public class PomodoroTimer {
             writer.close();
 
         } catch (Exception e) {
-            System.out.println("Error writing: " + e.getMessage());
+            System.out.println(
+                    Colors.RED
+                    + "ERROR writing: " 
+                    + e.getMessage()
+                    + Colors.NOCOLOR);
         }
     }
-
 
     public long getStartTime() {
         try {
             BufferedReader reader = new BufferedReader(
                     new FileReader(this.pathToStartTime));
             long value = Long.parseLong(reader.readLine());
-
             reader.close();
-
             return value;
 
         } catch (Exception e) {
-            System.out.println("Ошибка чтения: " + e.getMessage());
+            System.out.println(
+                    Colors.RED
+                    + "ERROR reading: " 
+                    + e.getMessage()
+                    + Colors.NOCOLOR);
         }
         return 0;
     }
@@ -87,7 +99,10 @@ public class PomodoroTimer {
             Thread.sleep(60000 * time);
             writeCommand(defaultCommand);
         } catch (InterruptedException e) {
-            System.out.println("Timer interrupted");
+            System.out.println(
+                    Colors.RED
+                    +"ERROR: Timer interrupted"
+                    + Colors.NOCOLOR);
         }
     }
 

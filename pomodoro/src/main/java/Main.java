@@ -60,7 +60,7 @@ public class Main {
         long sessionHours = currentTime / 3600;
         long sessionMinutes = (currentTime % 3600) / 60;
         long sessionSeconds = currentTime % 60;
-        System.out.printf( "Time per session:   %2d h %2d min %2d sec\n",
+        System.out.printf("Time per session:   %2d h %2d min %2d sec\n",
                 sessionHours, sessionMinutes, sessionSeconds);
     }
 
