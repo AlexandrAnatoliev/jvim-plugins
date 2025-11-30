@@ -56,7 +56,7 @@ public class Main {
               homeDir + PATH_TO_START_TIME, 
               "colorscheme blue", 
               25L);
-        long currentTime = pomodoroTimer.getCurrentTime(); 
+        long currentTime = pomodoroTimer.getElapcedTime(); 
         long sessionHours = currentTime / 3600;
         long sessionMinutes = (currentTime % 3600) / 60;
         long sessionSeconds = currentTime % 60;

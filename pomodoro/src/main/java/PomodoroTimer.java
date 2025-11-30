@@ -104,7 +104,7 @@ public class PomodoroTimer {
     * 
     * @return Elapsed time in seconds, or -1 
     */
-    public long getCurrentTime() {
+    public long getElapcedTime() {
         long startTime = getStartTime();
         if (startTime == -1) {
             return -1;

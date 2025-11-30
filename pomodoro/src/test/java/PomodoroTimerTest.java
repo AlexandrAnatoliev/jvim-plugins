@@ -297,14 +297,14 @@ public class PomodoroTimerTest {
     }
 
     /**
-    * Tests getCurrentTime method with valid start time
+    * Tests getElapcedTime method with valid start time
     * Verifies that session time calculation is correct
     *
     * @throws IOException if file creation fails
     * @throws InterruptedException if sleep is interrupted
     */
     @Test
-    void testGetCurrentTimeWithValidStartTime()
+    void testGetElapsedTimeWithValidStartTime()
         throws IOException, InterruptedException {
 
         long startTime = System.currentTimeMillis() / 1000;
@@ -312,9 +312,9 @@ public class PomodoroTimerTest {
 
         Thread.sleep(1000);
 
-        long currentTime = pomodoroTimer.getCurrentTime();
+        long elapsedTime = pomodoroTimer.getElapcedTime();
 
-        assertTrue(currentTime >= 1 && currentTime <= 2,
+        assertTrue(elapsedTime >= 1 && elapsedTime <= 2,
                 Colors.RED.apply("Session time should be around 1 second"));
     }
 
@@ -355,14 +355,14 @@ public class PomodoroTimerTest {
     }
 
     /**
-    * Tests current time calculation accuracy
+    * Tests elapsed time calculation accuracy
     * Verifies that calculated time matches expected duration
     *
     * @throws IOException if file writing fails
     * @throws InterruptedException if sleep is interrupted
     */
     @Test
-    void testGetCurrentTimeCalculationAccuracy() 
+    void testGetElapsedTimeCalculationAccuracy() 
         throws IOException, InterruptedException {
     
         long startTime = System.currentTimeMillis() / 1000;
@@ -371,9 +371,9 @@ public class PomodoroTimerTest {
         int waitSecunds = 1;
         Thread.sleep(waitSecunds * 1000);
 
-        long currentTime = pomodoroTimer.getCurrentTime();
+        long elapsedTime = pomodoroTimer.getElapcedTime();
 
-        assertTrue(currentTime >= waitSecunds && currentTime <= waitSecunds + 1, 
+        assertTrue(elapsedTime >= waitSecunds && elapsedTime <= waitSecunds + 1, 
                 Colors.RED.apply(
                     "Session time should be approximately " 
                     + waitSecunds + " seconds"));
