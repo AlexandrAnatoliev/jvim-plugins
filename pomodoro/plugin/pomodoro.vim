@@ -65,14 +65,17 @@ endfunction
 
 command! -nargs=0 ShowPomodoroTime call s:RunShowPomodoroTime()
 
+" ------------------------------------------------------------------  
+" Function: s:RunShowPomodoroTime()
+" Description: Internal function to execute Pomodoro time display  
+" Parameters: None
+" Returns: None
+" ------------------------------------------------------------------  
 function! s:RunShowPomodoroTime()
-    " Запускаем Java программу и получаем результат
     let result = system('java -cp ~/.vim/pack/my-plugins/start/pomodoro/bin/main/ Main show_time')
-    " Проверяем ошибки
     if v:shell_error != 0
-        echo "Ошибка: " . result
+        echo "ERROR: " . result
     else
-        " Выводим результат
         echo result 
     endif
 endfunction
