@@ -410,7 +410,7 @@ classDiagram
 
   pomodoro.vim --|> Main : calls
   Main --|> PomodoroTimer : calls
-  Colors -- PomodoroTimer : use
+  enum Colors -- PomodoroTimer : use
   PomodoroTimer --|> monitor.txt : writes 
   PomodoroTimer --|> start_time.txt : writes / reads 
   pomodoro.vim <|-- monitor.txt : reads
