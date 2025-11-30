@@ -3,12 +3,13 @@ import java.io.*;
 /**
 * The class to launch a timer and write a command to a temporary file. 
 *
-* @version  0.6.3
-* @since    25.11.2025
+* @version  0.6.5
+* @since    30.11.2025
 * @author   AlexandrAnatoliev
 */
 public class PomodoroTimer {
     protected String pathToMonitor;
+    protected String pathToStartTime;
     protected String defaultCommand;
     protected long time;                
 
@@ -16,11 +17,17 @@ public class PomodoroTimer {
     * PomodoroTimer class constructor
     *
     * @param  pathToMonitor Path to temporary file for command storage
+    * @param  pathToStartTime Path to file for start time storage
     * @param  defaultCommand Default command to store 
     * @param  time Work time of timer (in minutes)  
     */
-    public PomodoroTimer(String pathToMonitor, String defaultCommand, long time) {
+    public PomodoroTimer(
+            String pathToMonitor, 
+            String pathToStartTime, 
+            String defaultCommand, 
+            long time) {
         this.pathToMonitor = pathToMonitor;
+        this.pathToStartTime = pathToStartTime;
         this.defaultCommand = defaultCommand;
         this.time = time;
     }
@@ -29,31 +36,77 @@ public class PomodoroTimer {
     * Writes a command to a temporary file
     * 
     * @param command Command to write to the file
-    * @throws Exception if is error writing
     */
     public void writeCommand(String command) {
-        try {
-            FileWriter writer = new FileWriter(pathToMonitor);
+        try (FileWriter writer = new FileWriter(pathToMonitor)) {
             writer.write(command);
-      
-            writer.close();
-
         } catch (Exception e) {
-            System.out.println("Error writing: " + e.getMessage());
+            System.out.println(Colors.RED.apply(
+                        "ERROR writing: " + e.getMessage()));
+        }
+    }
+
+    /**
+    * Writes a time to a temporary file
+    * 
+    * @param time Time to write to the file
+    */
+    public void writeTime(Long time) {
+        try (FileWriter writer = new FileWriter(pathToStartTime)){
+            writer.write(time.toString());
+        } catch (Exception e) {
+            System.out.println(Colors.RED.apply(
+                        "ERROR writing: " + e.getMessage()));
         }
     }
 
     /**
     * Starts a timer and then writes a command to a temporary file
     * 
-    * @throws InterruptedException if timer is interrupted
+    * @throws InterruptedException If timer is interrupted
     */
     public void startTimer() {
         try {
+            long startTime = System.currentTimeMillis() / 1000; // in seconds
+            writeTime(startTime);
             Thread.sleep(60000 * time);
             writeCommand(defaultCommand);
         } catch (InterruptedException e) {
-            System.out.println("Timer interrupted");
+            System.out.println(Colors.RED.apply(
+                        "ERROR: Timer interrupted"));
         }
+    }
+
+    /**
+    * Read a start time from a temporary file
+    * 
+    * @throws Exception If is error reading or invalid data in file
+    * @return Start time, or -1 if error
+    */
+    public long getStartTime() {
+        try (BufferedReader reader = new BufferedReader(
+                    new FileReader(this.pathToStartTime))) {
+            String line = reader.readLine();
+            if (line != null) {
+                return Long.parseLong(line);
+            }
+        } catch (Exception e) {
+            System.out.println(Colors.RED.apply(
+                        "ERROR reading: " + e.getMessage()));
+        }
+        return -1;
+    }
+
+    /**
+    * Calculate elapsed time since start
+    * 
+    * @return Elapsed time in seconds, or -1 
+    */
+    public long getElapsedTime() {
+        long startTime = getStartTime();
+        if (startTime == -1) {
+            return -1;
+        }
+        return System.currentTimeMillis() / 1000 - startTime; 
     }
 }

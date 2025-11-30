@@ -46,18 +46,21 @@ folder and creates the following file structure:
 pomodoro
 ├── bin
 │  ├── main
+│  │  ├── Colors.class
 │  │  ├── Main.class
 │  │  └── PomodoroTimer.class
 │  └── test
 │     └── PomodoroTimerTest.class
 ├── data
-│  └── monitor.txt
+│  ├── monitor.txt
+│  └── start_time.txt
 ├── plugin
 │  └── pomodoro.vim
 ├── README.md
 └── src
    ├── main
    │  └── java
+   │     ├── Colors.java
    │     ├── Main.java
    │     └── PomodoroTimer.java
    └── test
@@ -95,7 +98,10 @@ javac -d bin/main/ src/main/java/*
 
 * Check the path to JUnit using command: 
 ```
-dpkg -L junit5
+dpkg -L junit5 | grep junit-jupiter-api
+```
+```
+dpkg -L junit5 | grep junit-platform-console-standalone
 ```
 
 * Building tests with JUnit dependencies:
@@ -146,31 +152,58 @@ classDiagram
   class pomodoro.vim {
     + StartTimer()
     + StopTimer()
+    + StartFileMonitor()
+    + SimpleFileMonitor()
+    + RunShowPomodoroTime()
   }
 
   class Main {
     - PATH_TO_MONITOR: String
       = "/.vim/pack/my-plugins/start/pomodoro/data/monitor.txt";
+   - PATH_TO_START_TIME: String 
+      = "/.vim/pack/my-plugins/start/pomodoro/data/start_time.txt";
+    - createPomodoroTimer() PomodoroTimer  
     + start() void
+    + showTime() void
     + stop() void
+  }
+
+  class enum Colors {
+    - RED.code = "\u001B[31m"
+    - GREEN.code = "\u001B[32m"
+    - YELLOW.code = "\u001B[33m"
+    - RESET.code = "\u001B[0m"
+    - Colors(code: String)
+    + toString() String
+    + apply(text: String) String
   }
 
   class PomodoroTimer {
     - pathToMonitor: String
+    - pathToStartTime: String
     - defaultCommand: String
     - time: long
     + PomodoroTimer(pathToMonitor: String, defaultCommand: String, time: long)
     + writeCommand(command: String) void
+    + writeTime(time: Long) void
     + startTimer() void
+    + getStartTime() long
+    + getElapsedTime() long
   }
 
   class monitor.txt {
     + command: String 
   }
 
+  class start_time.txt {
+    + startTime: long 
+  }
+
   pomodoro.vim --|> Main : calls
   Main --|> PomodoroTimer : calls
-  PomodoroTimer --|> monitor.txt : writes
+  enum Colors -- PomodoroTimer : use
+  PomodoroTimer --|> monitor.txt : writes 
+  PomodoroTimer --|> start_time.txt : writes / reads 
   pomodoro.vim <|-- monitor.txt : reads
 ```
 
@@ -222,18 +255,21 @@ rm -r ~/.vim/pack/my-plugins/start/pomodoro/
 pomodoro
 ├── bin
 │  ├── main
+│  │  ├── Colors.class
 │  │  ├── Main.class
 │  │  └── PomodoroTimer.class
 │  └── test
 │     └── PomodoroTimerTest.class
 ├── data
-│  └── monitor.txt
+│  ├── monitor.txt
+│  └── start_time.txt
 ├── plugin
 │  └── pomodoro.vim
 ├── README.md
 └── src
    ├── main
    │  └── java
+   │     ├── Colors.java
    │     ├── Main.java
    │     └── PomodoroTimer.java
    └── test
@@ -271,7 +307,10 @@ javac -d bin/main/ src/main/java/*
 
 * Проверьте путь до классов JUnit командой: 
 ```
-dpkg -L junit5
+dpkg -L junit5 | grep junit-jupiter-api
+```
+```
+dpkg -L junit5 | grep junit-platform-console-standalone
 ```
 
 * Компиляция тестов с зависимостями JUnit:
@@ -322,30 +361,57 @@ classDiagram
   class pomodoro.vim {
     + StartTimer()
     + StopTimer()
+    + StartFileMonitor()
+    + SimpleFileMonitor()
+    + RunShowPomodoroTime()
   }
 
   class Main {
     - PATH_TO_MONITOR: String
       = "/.vim/pack/my-plugins/start/pomodoro/data/monitor.txt";
+   - PATH_TO_START_TIME: String 
+      = "/.vim/pack/my-plugins/start/pomodoro/data/start_time.txt";
+    - createPomodoroTimer() PomodoroTimer  
     + start() void
+    + showTime() void
     + stop() void
+  }
+
+  class enum Colors {
+    - RED.code = "\u001B[31m"
+    - GREEN.code = "\u001B[32m"
+    - YELLOW.code = "\u001B[33m"
+    - RESET.code = "\u001B[0m"
+    - Colors(code: String)
+    + toString() String
+    + apply(text: String) String
   }
 
   class PomodoroTimer {
     - pathToMonitor: String
+    - pathToStartTime: String
     - defaultCommand: String
     - time: long
     + PomodoroTimer(pathToMonitor: String, defaultCommand: String, time: long)
     + writeCommand(command: String) void
+    + writeTime(time: Long) void
     + startTimer() void
+    + getStartTime() long
+    + getElapsedTime() long
   }
 
   class monitor.txt {
     + command: String 
   }
 
+  class start_time.txt {
+    + startTime: long 
+  }
+
   pomodoro.vim --|> Main : calls
   Main --|> PomodoroTimer : calls
-  PomodoroTimer --|> monitor.txt : writes
+  enum Colors -- PomodoroTimer : use
+  PomodoroTimer --|> monitor.txt : writes 
+  PomodoroTimer --|> start_time.txt : writes / reads 
   pomodoro.vim <|-- monitor.txt : reads
 ```
