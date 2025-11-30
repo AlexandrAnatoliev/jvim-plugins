@@ -23,8 +23,8 @@ public class PomodoroTimerTest {
     private PomodoroTimer pomodoroTimer;
 
     /**
-    * Set up test environment before each test method
-    * Creates new PomodoroTimer instance with test file path
+    * Set up test environment before each test method execution.
+    * Creates new PomodoroTimer instance with test file path.
     */
     @BeforeEach
     void setUp() {
@@ -36,8 +36,8 @@ public class PomodoroTimerTest {
     }
 
     /**
-    * Clean up test environment after each test method
-    * Deletes temporary test file if it exists
+    * Clean up test environment after each test method execution.
+    * Deletes temporary test file if it exists.
     *
     * @throws IOException if file deletion fails
     */
@@ -48,10 +48,10 @@ public class PomodoroTimerTest {
     }
 
     /**
-    * Test writing command to file 
-    * Verifies that command is correctly written to the file
+    * Test writing command to file system.
+    * Verifies that command is correctly written to the file.
     *
-    * @throws IOException if file reading fails
+    * @throws IOException if file reading operation fails
     */
     @Test
     void testWriteCommand() throws IOException {
@@ -61,10 +61,10 @@ public class PomodoroTimerTest {
     }
 
     /** 
-    * Test writing empty command to file
-    * Verifies that empty string is handled correctly
+    * Test writing empty command to file system.
+    * Verifies that empty string is handled correctly.
     *
-    * @throws IOException if file reading fails
+    * @throws IOException if file reading operation fails
     */
     @Test
     void testWtriteEmptyCommand() throws IOException {
@@ -75,10 +75,10 @@ public class PomodoroTimerTest {
     }
 
     /**
-    * Test writing command with special characters
-    * Verifies that special characters are handled correctly
+    * Test writing command with special characters and spaces.
+    * Verifies that special characters are handled correctly.
     *
-    * @throws IOException if file reading fails
+    * @throws IOException if file reading operation fails
     */
     @Test
     void testWriteCommandWithSpecialCharacters() throws IOException {
@@ -89,12 +89,12 @@ public class PomodoroTimerTest {
     }
 
     /**
-    * Test timer functionality with short timeout
-    * Verifies that command is written after timer expires
-    * Used short timeout for test execution speed
+    * Test timer functionality with short timeout.
+    * Verifies that command is written after timer expires.
+    * Used short timeout for test execution speed.
     *
-    * @throws IOException if file reading fails
-    * @throws InterruptedException if thread sleep is interrupted
+    * @throws IOException if file reading operation fails
+    * @throws InterruptedException if thread operation is interrupted
     */
     @Test
     void testStartTimer() throws IOException, InterruptedException {
@@ -111,10 +111,10 @@ public class PomodoroTimerTest {
     }
 
     /**
-    * Test file overwrite behavior
-    * Verifies that new command overwrites previous content
+    * Test file overwrite behavior for sequential command writes.
+    * Verifies that new command overwrites previous content.
     *
-    * @throws IOException if file reading fails
+    * @throws IOException if file reading operation fails
     */
     @Test
     void testFileOverwrite() throws IOException {
@@ -128,8 +128,8 @@ public class PomodoroTimerTest {
     }
 
     /**
-    * Test constructor initialization
-    * Verifies that all fields are properly set
+    * Test constructor field initialization.
+    * Verifies that all fields are properly set.
     */
     @Test
     void testConstructor() {
@@ -149,8 +149,8 @@ public class PomodoroTimerTest {
     }
 
     /**
-    * Test with non-existent directory path
-    * Verifies that error handling works for invalid paths
+    * Test with non-existent directory path.
+    * Verifies that error handling works for invalid paths.
     */
     @Test
     void testWriteCommandToInvalidPath() {
@@ -164,8 +164,8 @@ public class PomodoroTimerTest {
     }
 
     /**
-    * Test timer interruption handling
-    * Verifies that interrupted execution is caught and handled
+    * Test timer interruption handling.
+    * Verifies that interrupted execution is caught and handled.
     *
     * @throws InterruptedException if thread operations fail
     */
@@ -239,10 +239,10 @@ public class PomodoroTimerTest {
     }
 
     /**
-    * Test writing time to file 
-    * Verifies that time is correctly written to the file
+    * Test time value writing to file system.
+    * Verifies that time is correctly written to the file.
     *
-    * @throws IOException if file reading fails
+    * @throws IOException if file reading operation fails
     */
     @Test
     void testWriteTime() throws IOException {
@@ -254,10 +254,10 @@ public class PomodoroTimerTest {
     }
 
     /**
-    * Test write time overwrite behavior
-    * Verifies that new command overwrites previous content
+    * Test time file overwrite behavior.
+    * Verifies that new command overwrites previous content.
     *
-    * @throws IOException if file reading fails
+    * @throws IOException If file reading fails
     */
     @Test
     void testWriteTimeOverwrite() throws IOException {
@@ -272,8 +272,8 @@ public class PomodoroTimerTest {
     }
 
     /**
-    * Test with non-existent directory path
-    * Verifies that error handling works for invalid paths
+    * Test time writing to invalid file system.
+    * Verifies that error handling works for invalid paths.
     */
     @Test
     void testWriteTimeToInvalidPath() {
@@ -287,8 +287,8 @@ public class PomodoroTimerTest {
     }
 
     /**
-    * Test write null time handling
-    * Verifies that null commands are handled gracefully
+    * Test null time parameter handling.
+    * Verifies that null commands are handled gracefully.
     */
     @Test
     void testWriteNullTime() {
@@ -297,11 +297,11 @@ public class PomodoroTimerTest {
     }
 
     /**
-    * Tests getElapcedTime method with valid start time
-    * Verifies that session time calculation is correct
+    * Tests getElapsedTime method with valid start time.
+    * Verifies that session time calculation is correct.
     *
-    * @throws IOException if file creation fails
-    * @throws InterruptedException if sleep is interrupted
+    * @throws IOException if file writing fails
+    * @throws InterruptedException if sleep operation is interrupted
     */
     @Test
     void testGetElapsedTimeWithValidStartTime()
@@ -312,15 +312,15 @@ public class PomodoroTimerTest {
 
         Thread.sleep(1000);
 
-        long elapsedTime = pomodoroTimer.getElapcedTime();
+        long elapsedTime = pomodoroTimer.getElapsedTime();
 
         assertTrue(elapsedTime >= 1 && elapsedTime <= 2,
                 Colors.RED.apply("Session time should be around 1 second"));
     }
 
     /**
-    * Tests getStartTime method when file does not exist
-    * Verifies that method handles missing file gracefully
+    * Tests getStartTime method when file does not exist.
+    * Verifies that method handles missing file gracefully.
     */
     @Test
     void testGetStartTimeWhenFileDoesNotExist() throws IOException {
@@ -329,8 +329,8 @@ public class PomodoroTimerTest {
     }
 
     /**
-    * Tests writeTime and getStartTime methods
-    * Verifies that written value can be successfully read back
+    * Tests writeTime and getStartTime methods.
+    * Verifies that written value can be successfully read back.
     */
     @Test
     void testWriteTimeAndGetStartTime() {
@@ -342,7 +342,7 @@ public class PomodoroTimerTest {
     }
 
     /**
-    * Tests getStartTime method with invalid data in file
+    * Tests getStartTime method with invalid data in file.
     * Verifies that non-numeric data is handled gracefully
     *
     * @throws IOException if file writing fails
@@ -355,11 +355,11 @@ public class PomodoroTimerTest {
     }
 
     /**
-    * Tests elapsed time calculation accuracy
-    * Verifies that calculated time matches expected duration
+    * Tests elapsed time calculation accuracy.
+    * Verifies that calculated time matches expected duration.
     *
-    * @throws IOException if file writing fails
-    * @throws InterruptedException if sleep is interrupted
+    * @throws IOException If file writing fails
+    * @throws InterruptedException If sleep operation is interrupted
     */
     @Test
     void testGetElapsedTimeCalculationAccuracy() 
@@ -371,12 +371,50 @@ public class PomodoroTimerTest {
         int waitSecunds = 1;
         Thread.sleep(waitSecunds * 1000);
 
-        long elapsedTime = pomodoroTimer.getElapcedTime();
+        long elapsedTime = pomodoroTimer.getElapsedTime();
 
         assertTrue(elapsedTime >= waitSecunds && elapsedTime <= waitSecunds + 1, 
                 Colors.RED.apply(
                     "Session time should be approximately " 
                     + waitSecunds + " seconds"));
+    }
+
+    /**
+    * Tests normal timer execution with invalid duration.
+    * 
+    * Verifies complete timer life cycle including start time recording,
+    * sleep duration, and command writing upon completion.
+    *
+    * @throws InterruptedException If thread operations are interrupted
+    */
+    @Test
+    void testStartTimerNormalExecution() throws InterruptedException {
+        PomodoroTimer quickTimer = new PomodoroTimer(
+                TEST_MONITOR_PATH,
+                TEST_START_TIME_PATH,
+                defaultCommand,
+                0L);
+
+        quickTimer.startTimer();
+
+        assertTrue(Files.exists(Paths.get(TEST_MONITOR_PATH)));
+    }
+
+    /**
+    * Tests exception handling during timer execution.
+    * 
+    * Verifies that file system errors during system operations are properly
+    * caught and handled without thread termination.
+    */
+    @Test
+    void testStartTimerWriteException() {
+        PomodoroTimer invalidTimer = new PomodoroTimer(
+                "/invalid/path/monitor.txt",
+                TEST_START_TIME_PATH,
+                defaultCommand,
+                0L);
+
+        assertDoesNotThrow(invalidTimer::startTimer);
     }
 }
 

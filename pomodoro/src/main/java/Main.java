@@ -6,12 +6,12 @@
 * reminding you that it's time to take a break.
 *
 * Usage:
-*   java Main start  -  the information is erased from temporary file, 
-*                       and the timer starts.
-*   java Main stop   -  the information is erased from temporary file
+*   java Main start     - erases information from temporary file, and starts timer 
+*   java Main show_time - displays elapsed time of current session 
+*   java Main stop      - erases information from temporary file
 *
 * @version  0.6.5
-* @since    25.11.2025
+* @since    30.11.2025
 * @author   AlexandrAnatoliev
 */
 public class Main {
@@ -19,11 +19,12 @@ public class Main {
             "/.vim/pack/my-plugins/start/pomodoro/data/monitor.txt";
       private static final String PATH_TO_START_TIME = 
             "/.vim/pack/my-plugins/start/pomodoro/data/start_time.txt";
-    /** Main method that handles command line arguments
+    /** Main entry point for the Pomodoro Timer application
     *
-    * @param  args command line arguments - use "start" to start timer     
-    *         any other value to stop and erase information from temporary file
-    *
+    * @param args command line arguments - first argument determines operation mode 
+    *   "start"     to begin new work session     
+    *   "show_time" to display current session duration     
+    *   "stop"      or any other argument to clears session data     
     */
     public static void main(String[] args) {
         if (args.length > 0 && "start".equals(args[0])) {
@@ -36,27 +37,43 @@ public class Main {
     }
 
     /**
-    * Erases old information from temporary file, and starts the timer .
+    * Creates and configures a PomodoroTimer interface with standart settings.
+    *
+    * Uses 25-minute work sessions and "colorscheme blue" command for break
+    * notification. File paths are resolved relative to user's home directory.
+    * 
+    * @return configured PomodoroTimer instance ready for use
+    */
+    private static PomodoroTimer createPomodoroTimer() {
+        String homeDir = System.getProperty("user.home");
+        return new PomodoroTimer(
+                homeDir + PATH_TO_MONITOR, 
+                homeDir + PATH_TO_START_TIME, 
+                "colorscheme blue", 
+                25L);
+    }
+
+    /**
+    * Starts a new Pomodoro work session.
     */
     public static void start() {
-        String homeDir = System.getProperty("user.home");
-        PomodoroTimer pomodoroTimer = new PomodoroTimer(
-              homeDir + PATH_TO_MONITOR, 
-              homeDir + PATH_TO_START_TIME, 
-              "colorscheme blue", 
-              25L);
+        PomodoroTimer pomodoroTimer = createPomodoroTimer();
         pomodoroTimer.writeCommand("");
         pomodoroTimer.startTimer();
     }
 
+    /**
+    * Displays elapsed time of current work session.
+    */
     public static void showTime() {
-        String homeDir = System.getProperty("user.home");
-        PomodoroTimer pomodoroTimer = new PomodoroTimer(
-              homeDir + PATH_TO_MONITOR, 
-              homeDir + PATH_TO_START_TIME, 
-              "colorscheme blue", 
-              25L);
-        long currentTime = pomodoroTimer.getElapcedTime(); 
+        PomodoroTimer pomodoroTimer = createPomodoroTimer();
+        long currentTime = pomodoroTimer.getElapsedTime(); 
+
+        if (currentTime == -1) {
+            System.out.println("No active session found");
+            return;
+        }
+
         long sessionHours = currentTime / 3600;
         long sessionMinutes = (currentTime % 3600) / 60;
         long sessionSeconds = currentTime % 60;
@@ -66,15 +83,10 @@ public class Main {
 
 
     /**
-    * Erases old information from temporary file
+    * Clears information from temporary file
     */
     public static void stop() {
-        String homeDir = System.getProperty("user.home");
-        PomodoroTimer pomodoroTimer = new PomodoroTimer(
-              homeDir + PATH_TO_MONITOR, 
-              homeDir + PATH_TO_START_TIME, 
-              "colorscheme blue", 
-              25L);
+        PomodoroTimer pomodoroTimer = createPomodoroTimer();
         pomodoroTimer.writeCommand("");
     }
 }

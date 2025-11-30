@@ -1,9 +1,9 @@
 " ==================================================================
 " File: pomodoro.vim
 " Description: Vim pomodoro plugin for work time self-management 
-" Author: AlexandAnatoliev
-" Version: 0.6.3
-" Last Modified: 25.11.2025
+" Author: AlexanddAnatoliev
+" Version: 0.6.5
+" Last Modified: 30.11.2025
 " ==================================================================
 
 " Automatic timer start on Vim enter and stop on Vim leave

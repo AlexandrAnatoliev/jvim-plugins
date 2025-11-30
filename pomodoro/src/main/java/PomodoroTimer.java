@@ -4,7 +4,7 @@ import java.io.*;
 * The class to launch a timer and write a command to a temporary file. 
 *
 * @version  0.6.5
-* @since    29.11.2025
+* @since    30.11.2025
 * @author   AlexandrAnatoliev
 */
 public class PomodoroTimer {
@@ -36,7 +36,6 @@ public class PomodoroTimer {
     * Writes a command to a temporary file
     * 
     * @param command Command to write to the file
-    * @throws Exception if is error writing
     */
     public void writeCommand(String command) {
         try (FileWriter writer = new FileWriter(pathToMonitor)) {
@@ -51,7 +50,6 @@ public class PomodoroTimer {
     * Writes a time to a temporary file
     * 
     * @param time Time to write to the file
-    * @throws Exception if is error writing
     */
     public void writeTime(Long time) {
         try (FileWriter writer = new FileWriter(pathToStartTime)){
@@ -104,7 +102,7 @@ public class PomodoroTimer {
     * 
     * @return Elapsed time in seconds, or -1 
     */
-    public long getElapcedTime() {
+    public long getElapsedTime() {
         long startTime = getStartTime();
         if (startTime == -1) {
             return -1;

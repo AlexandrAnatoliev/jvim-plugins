@@ -2,14 +2,14 @@
 * Enum representation supported ANSI color codes for console output.
 *
 * @version  0.6.5
-* @since    29.11.2025
+* @since    30.11.2025
 * @author   AlexandrAnatoliev
 */
  public enum Colors {
     RED("\u001B[31m"),
     GREEN("\u001B[32m"),
     YELLOW("\u001B[33m"),
-    /** Reset ANCI color code */
+    /** Reset ANSI color code */
     RESET("\u001B[0m");
 
     private final String code;
