@@ -10,8 +10,8 @@
 *   java Main show_time - displays elapsed time of current session 
 *   java Main stop      - erases information from temporary file
 *
-* @version  0.6.5
-* @since    30.11.2025
+* @version  0.6.6
+* @since    4.12.2025
 * @author   AlexandrAnatoliev
 */
 public class Main {
@@ -58,8 +58,13 @@ public class Main {
     */
     public static void start() {
         PomodoroTimer pomodoroTimer = createPomodoroTimer();
-        pomodoroTimer.writeCommand("");
-        pomodoroTimer.startTimer();
+        long elapsedTime = pomodoroTimer.getElapsedTime();
+        
+        // start timer if elapsed time more 25 minutes
+        if(elapsedTime > 25 * 60) {
+            pomodoroTimer.writeCommand("");
+            pomodoroTimer.startTimer();
+        }
     }
 
     /**
