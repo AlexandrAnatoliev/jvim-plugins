@@ -25,8 +25,8 @@
 #   it PATH
 #   JUnit 5  must be installed 
 #
-# Version  0.6.4
-# Since    27.11.2025
+# Version  0.6.8
+# Since    7.12.2025
 # Author   AlexandrAnatoliev
 
 RED='\u001B[31m'
@@ -36,7 +36,7 @@ NC='\u001B[0m'
 
 if [ $# -eq 0 ]; then
     echo -e "${RED}ERROR: no arguments${NC}"
-    echo "Example: ./scripts/run_tests.sh pomodoro"
+    echo -e "${YELLOW}Example: ./scripts/run_tests.sh pomodoro${NC}"
     exit 1
 fi
 
@@ -59,13 +59,15 @@ fi
 
 if [ ! -f "$JUNIT_API_JAR" ]; then
     echo -e "${RED}ERROR: JUnit API JAR file not found: $JUNIT_API_JAR ${NC}"
-    echo "Check the path to JUnit using command: 'dpkg -L junit5'"
+    echo -e "${YELLOW}Check the path to JUnit using command:${NC}"
+    echo -e "${YELLOW}dpkg -L junit5 | grep junit-jupiter-api${NC}"
     exit 1
 fi
 
 if [ ! -f "$JUNIT_STANDALONE_JAR" ]; then
     echo -e "${RED}ERROR: JUnit Standalone JAR file not found: $JUNIT_STANDALONE_JAR ${NC}"
-    echo "Check the path to JUnit using command: 'dpkg -L junit5'"
+    echo -e "${YELLOW}Check the path to JUnit using command:${NC}"
+    echo -e "${YELLOW}dpkg -L junit5 | grep junit-platform-console-standalone${NC}"
     exit 1
 fi
 

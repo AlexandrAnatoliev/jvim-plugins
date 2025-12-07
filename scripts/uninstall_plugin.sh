@@ -22,8 +22,8 @@
 #   1 - Plugin is not installed in Vim directory 
 #       No arguments provided
 #
-# Version  0.6.4
-# Since    27.11.2025
+# Version  0.6.8
+# Since    7.12.2025
 # Author   AlexandrAnatoliev
 
 RED='\u001B[31m'
@@ -33,7 +33,7 @@ NC='\u001B[0m'
 
 if [ $# -eq 0 ]; then
     echo -e "${RED}ERROR: no arguments${NC}"
-    echo "Example: ./scripts/uninstall_plugin.sh pomodoro"
+    echo -e "${YELLOW}Example: ./scripts/uninstall_plugin.sh pomodoro${NC}"
     exit 1
 fi
 
@@ -47,7 +47,7 @@ echo "==========================================="
 echo ""
 
 if [ ! -d "${VIM_DIR}" ]; then
-    echo -e "${YELLOW}WARNING: plugin not found: ${VIM_DIR} ${NC}"
+    echo -e "${RED}WARNING: plugin not found: ${VIM_DIR} ${NC}"
     exit 1
 fi
 

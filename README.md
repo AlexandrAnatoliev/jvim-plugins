@@ -7,7 +7,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.6.7](https://img.shields.io/badge/Version-0.6.7-orange.svg)
+  ![Version 0.6.8](https://img.shields.io/badge/Version-0.6.8-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -146,6 +146,14 @@ This script runs:
 ./scripts/check_junit.sh
 ```
 
+* If case or error, check the path to JUnit using command: 
+```
+dpkg -L junit5 | grep junit-jupiter-api
+```
+```
+dpkg -L junit5 | grep junit-platform-console-standalone
+```
+
 * Compiles JUnit classes 
 ```
 ./scripts/compile_tests.sh [plugin]
@@ -223,7 +231,7 @@ Designed for self-monitoring and productivity.
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.6.7](https://img.shields.io/badge/Version-0.6.7-orange.svg)
+  ![Version 0.6.8](https://img.shields.io/badge/Version-0.6.8-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -362,7 +370,13 @@ jvim-plugins
 ```
 ./scripts/check_junit.sh
 ```
-
+* В случае ошибки, проверьте путь до JUnit используя команды:
+```
+dpkg -L junit5 | grep junit-jupiter-api
+```
+```
+dpkg -L junit5 | grep junit-platform-console-standalone
+```
 * Компилирует JUnit классы
 ```
 ./scripts/compile_tests.sh [plugin]

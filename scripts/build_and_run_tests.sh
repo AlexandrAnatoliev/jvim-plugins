@@ -23,8 +23,8 @@
 #   0 - JUnit check, compilation and tests completed successfully
 #   1 - JUnit check or compilation or some tests failed 
 #
-# Version  0.6.4
-# Since    26.11.2025
+# Version  0.6.8
+# Since    7.12.2025
 # Author   AlexandrAnatoliev
 
 RED='\u001B[31m'
@@ -34,7 +34,7 @@ NC='\u001B[0m'
 
 if [ $# -eq 0 ]; then
     echo -e "${RED}ERROR: no arguments${NC}"
-    echo "Example: ./scripts/build_and_run_tests.sh pomodoro"
+    echo -e "${YELLOW}Example: ./scripts/build_and_run_tests.sh pomodoro${NC}"
     exit 1
 fi
 
