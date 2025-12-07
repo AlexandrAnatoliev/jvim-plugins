@@ -15,8 +15,8 @@ import java.nio.file.attribute.*;
 *   java Main start  - records start time in session file
 *   java Main stop   - calculates and displays session duration
 *
-* @version  0.2.14
-* @since    20.11.2025
+* @version  0.6.7
+* @since    7.12.2025
 * @author   AlexandrAnatoliev
 */
 public class Main {

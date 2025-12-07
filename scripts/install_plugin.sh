@@ -28,8 +28,8 @@
 #   1 - Building or testing or copies of plugin to Vim plugin 
 #       directory is failed
 #
-# Version  0.6.4
-# Since    27.11.2025
+# Version  0.6.8
+# Since    7.12.2025
 # Author   AlexandrAnatoliev
 
 RED='\u001B[31m'
@@ -39,7 +39,7 @@ NC='\u001B[0m'
 
 if [ $# -eq 0 ]; then
     echo -e "${RED}ERROR: no arguments${NC}"
-    echo "Example: ./scripts/install_plugin.sh pomodoro"
+    echo -e "${YELLOW}Example: ./scripts/install_plugin.sh pomodoro${NC}"
     exit 1
 fi
 
@@ -102,9 +102,9 @@ if [ ! "$PLUGIN_FLAG" == "--no-test" ]; then
     else
         echo -e "${RED}Testing failed${NC}"
         echo ""
-        echo "Use:" 
-        echo "./scripts/install_plugin.sh ${PLUGIN_DIR} --no-test"
-        echo "to install ${PLUGIN_DIR} plugin without testing"
+        echo -e "${YELLOW}Use:${NC}" 
+        echo -e "${YELLOW}./scripts/install_plugin.sh ${PLUGIN_DIR} --no-test${NC}"
+        echo -e "${YELLOW}to install ${PLUGIN_DIR} plugin without testing${NC}"
         echo ""
         echo -e "${RED}=========================================${NC}"
         echo -e "${RED}===Plugin Installation Process Aborted===${NC}"

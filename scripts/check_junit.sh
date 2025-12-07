@@ -19,8 +19,8 @@
 #   0 - JUnit is installed and available
 #   1 - JUnit is not installed
 #
-# Version  0.6.4
-# Since    27.11.2025
+# Version  0.6.8
+# Since    7.12.2025
 # Author   AlexandrAnatoliev
 
 RED='\u001B[31m'
@@ -38,6 +38,6 @@ if find /usr -name "*junit*" -type f 2>/dev/null | head -1 | grep -q .; then
     exit 0
 fi
 
-echo -3 "${YELLOW}WARNING: JUnit is not found${NC}"
-sudo "To install: sudo apt install junit5"
+echo -e "${RED}WARNING: JUnit is not found${NC}"
+echo -e "${YELLOW}To install: sudo apt install junit5${NC}"
 exit 1

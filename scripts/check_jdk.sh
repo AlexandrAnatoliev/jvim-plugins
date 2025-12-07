@@ -19,8 +19,8 @@
 #   0 - JDK is installed and available
 #   1 - JDK is not installed
 #
-# Version  0.6.4
-# Since    27.11.2025
+# Version  0.6.8
+# Since    7.12.2025
 # Author   AlexandrAnatoliev
 
 RED='\u001B[31m'
@@ -34,6 +34,6 @@ if command -v javac &> /dev/null; then
     exit 0
 else
     echo -e "${RED}JDK is not installed${NC}"
-    echo "To install: sudo apt install default-jdk"
+    echo -e "${YELLOW}To install: sudo apt install default-jdk${NC}"
     exit 
 fi
