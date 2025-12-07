@@ -80,7 +80,7 @@ public class Main {
         yesterdayTimer.writeToFile(yesterdayTime);
 
         long emptyDays = ChronoUnit.DAYS.between(
-                today,monthTimer.getFileDate());
+                monthTimer.getFileDate(), today);
         long monthTime = monthTimer.readFromFile() * (30 - emptyDays);
         monthTimer.writeToFile(
             (monthTime + dayTimer.readFromFile()) / 30);     
