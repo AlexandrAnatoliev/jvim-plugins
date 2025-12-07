@@ -6,7 +6,6 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.2.15](https://img.shields.io/badge/Version-0.2.15-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -186,7 +185,10 @@ javac -d bin/main/ src/main/java/*
 
 * Check the path to JUnit using command: 
 ```
-dpkg -L junit5
+dpkg -L junit5 | grep junit-jupiter-api
+```
+```
+dpkg -L junit5 | grep junit-platform-console-standalone
 ```
 
 * Building tests with JUnit dependencies:
@@ -306,7 +308,6 @@ classDiagram
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.2.15](https://img.shields.io/badge/Version-0.2.15-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -486,7 +487,10 @@ javac -d bin/main/ src/main/java/*
 
 * Проверьте путь до классов JUnit командой: 
 ```
-dpkg -L junit5
+dpkg -L junit5 | grep junit-jupiter-api
+```
+```
+dpkg -L junit5 | grep junit-platform-console-standalone
 ```
 
 * Компиляция тестов с зависимостями JUnit:
