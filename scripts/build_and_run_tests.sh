@@ -8,7 +8,7 @@
 #   and if successful, runs the tests.
 #   
 # Usage: 
-#   ./scripts/build_and_run_tests.sh
+#   ./scripts/build_and_run_tests.sh <plugin-name>
 #
 # Directory Structure:
 #   jvim-plugins/
@@ -23,8 +23,8 @@
 #   0 - JUnit check, compilation and tests completed successfully
 #   1 - JUnit check or compilation or some tests failed 
 #
-# Version  0.6.8
-# Since    7.12.2025
+# Version  0.6.9
+# Since    13.12.2025
 # Author   AlexandrAnatoliev
 
 RED='\u001B[31m'
