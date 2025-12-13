@@ -7,7 +7,7 @@
 #   and directories
 #   
 # Usage: 
-#   ./scripts/compile_tests.sh
+#   ./scripts/compile_tests.sh <plugin-name>
 #
 # Directory Structure:
 #   jvim-plugins/
@@ -24,11 +24,11 @@
 #   1 - Source directory not found or compilation failed
 #
 # Dependencies:
-#   Java Development Kit (JDK)  must be installed and javac available it PATH
+#   Java Development Kit (JDK)  must be installed and javac available in PATH
 #   JUnit 5  must be installed 
 #
-# Version  0.6.8
-# Since    7.12.2025
+# Version  0.6.9
+# Since    13.12.2025
 # Author   AlexandrAnatoliev
 
 RED='\u001B[31m'
@@ -47,8 +47,9 @@ PLUGIN_DIR="$1"
 SRC_DIR="$PLUGIN_DIR/src/test/java"
 BIN_DIR="$PLUGIN_DIR/bin/test"
 MAIN_BIN_DIR="$PLUGIN_DIR/bin/main"
-JUNIT_API_JAR="/usr/share/java/junit-jupiter-api-5.10.1.jar"
-JUNIT_STANDALONE_JAR="/usr/share/java/junit-platform-console-standalone-1.9.1.jar"
+
+JUNIT_API_JAR=$(dpkg -L junit5 | grep -m 1 junit-jupiter-api-)
+JUNIT_STANDALONE_JAR=$(dpkg -L junit5 | grep -m 1 junit-platform-console-standalone-)
 
 if [ ! -d "$SRC_DIR" ]; then
     echo -e "${RED}ERROR: Test source directory '$SRC_DIR' does not exist${NC}"

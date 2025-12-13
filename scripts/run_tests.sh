@@ -6,7 +6,7 @@
 #   This script executes all JUnit 5 tests using ConsoleLauncher
 #   
 # Usage: 
-#   ./scripts/run_tests.sh
+#   ./scripts/run_tests.sh <plugin-name>
 #
 # Directory Structure:
 #   jvim-plugins/
@@ -25,8 +25,8 @@
 #   it PATH
 #   JUnit 5  must be installed 
 #
-# Version  0.6.8
-# Since    7.12.2025
+# Version  0.6.9
+# Since    13.12.2025
 # Author   AlexandrAnatoliev
 
 RED='\u001B[31m'
@@ -44,8 +44,9 @@ PLUGIN_DIR="$1"
 
 MAIN_BIN_DIR="$PLUGIN_DIR/bin/main"
 TEST_BIN_DIR="$PLUGIN_DIR/bin/test"
-JUNIT_API_JAR="/usr/share/java/junit-jupiter-api-5.10.1.jar"
-JUNIT_STANDALONE_JAR="/usr/share/java/junit-platform-console-standalone-1.9.1.jar"
+
+JUNIT_API_JAR=$(dpkg -L junit5 | grep -m 1 junit-jupiter-api-)
+JUNIT_STANDALONE_JAR=$(dpkg -L junit5 | grep -m 1 junit-platform-console-standalone-)
 
 if [ ! -d "$MAIN_BIN_DIR" ]; then
     echo -e "${RED}ERROR: Main binary directory '$MAIN_BIN_DIR' does not exist${NC}"
