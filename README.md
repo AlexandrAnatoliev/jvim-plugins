@@ -17,7 +17,9 @@
 
   > **GitHub:** [AlexandrAnatoliev](https://github.com/AlexandrAnatoliev)
 
+
 ---
+
 
 <div align="center">
   <h2>Plugin Installation</h2>
