@@ -7,7 +7,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.6.14](https://img.shields.io/badge/Version-0.6.14-orange.svg)
+  ![Version 0.6.15](https://img.shields.io/badge/Version-0.6.15-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -17,9 +17,7 @@
 
   > **GitHub:** [AlexandrAnatoliev](https://github.com/AlexandrAnatoliev)
 
-
 ---
-
 
 <div align="center">
   <h2>Plugin Installation</h2>
@@ -183,6 +181,24 @@ to remind you to take a break.
 Designed for self-monitoring and productivity.
 
 <div align="center">
+  <h3>Timer Plugin</h3>
+</div>
+
+[timer](timer/README.md) - Simple Vim Working Time Measurement Plugin.
+
+ After closing Vim, you will see:
+```
+  =========================================
+                Vim uptime:
+  -----------------------------------------
+  - per session:         0 h  0 min  8 sec
+  - per day:             0 h 19 min 59 sec
+  - average per month:   0 h 57 min 14 sec
+  =========================================
+```
+Designed for self-monitoring and productivity.
+
+<div align="center">
   <h4>Plugin installation</h4>
 </div>
 
@@ -233,7 +249,8 @@ Designed for self-monitoring and productivity.
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.6.14](https://img.shields.io/badge/Version-0.6.14-orange.svg)
+  ![Version 0.6.15](https://img.shields.io/badge/Version-0.6.15-orange.svg)
+  ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -404,6 +421,24 @@ dpkg -L junit5 | grep junit-platform-console-standalone
 Используйте Vim для редактирования файлов и через 25 минут он изменит цветовую
 схему Vim, чтобы напомнить вам о необходимости сделать перерыв. Разработан для 
 самоконтороля и эффективности.
+
+<div align="center">
+  <h3>Timer плагин</h3>
+</div>
+
+[timer](timer/README.md) - Простой плагин для измерения времени работы Vim.
+
+По окончании работы и закрытия Vim будет выведено:
+```
+  =========================================
+                Vim uptime:
+  -----------------------------------------
+  - per session:         0 h  0 min  8 sec
+  - per day:             0 h 19 min 59 sec
+  - average per month:   0 h 57 min 14 sec
+  =========================================
+```
+Нужен для самоконтроля и производительности.
 
 <div align="center">
   <h4>Установка</h4>
