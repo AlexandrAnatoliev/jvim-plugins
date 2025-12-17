@@ -15,19 +15,19 @@ import java.nio.file.attribute.*;
 *   java Main start  - records start time in session file
 *   java Main stop   - calculates and displays session duration
 *
-* @version  0.6.7
-* @since    7.12.2025
+* @version  0.6.15
+* @since    17.12.2025
 * @author   AlexandrAnatoliev
 */
 public class Main {
   private static final String SESSION_FILE_PATH = 
-    "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_session_time.txt";
+    "/.vim/pack/my-plugins/start/timer/data/jvim_session_time.txt";
   private static final String DAY_FILE_PATH = 
-    "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_day_time.txt";
+    "/.vim/pack/my-plugins/start/timer/data/jvim_day_time.txt";
   private static final String MONTH_FILE_PATH = 
-    "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_month_time.txt";
+    "/.vim/pack/my-plugins/start/timer/data/jvim_month_time.txt";
   private static final String YESTERDAY_FILE_PATH = 
-    "/.vim/pack/my-plugins/start/jvim-timer/data/jvim_yesterday_time.txt";
+    "/.vim/pack/my-plugins/start/timer/data/jvim_yesterday_time.txt";
 
   /** Main method that handles command line arguments
   *

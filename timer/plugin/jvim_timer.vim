@@ -21,7 +21,7 @@ augroup END
 " Returns: None
 " ------------------------------------------------------------------  
 function! StartTimer()
-    silent !java -cp ~/.vim/pack/my-plugins/start/jvim-timer/bin/main/ Main start 
+    silent !java -cp ~/.vim/pack/my-plugins/start/timer/bin/main/ Main start 
 endfunction
 
 " ------------------------------------------------------------------  
@@ -32,5 +32,5 @@ endfunction
 " Returns: None
 " ------------------------------------------------------------------  
 function! StopTimer()
-    silent !java -cp ~/.vim/pack/my-plugins/start/jvim-timer/bin/main/ Main stop &
+    silent !java -cp ~/.vim/pack/my-plugins/start/timer/bin/main/ Main stop &
 endfunction

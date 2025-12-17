@@ -13,29 +13,6 @@
 </div>
 
 <div align="center">
-  <h4>Plugin installation</h4>
-</div>
-
-* Clone the plugins repository:
-```
-git clone https://github.com/AlexandrAnatoliev/jvim-plugins 
-```
-
-* Navigate to the plugin's root repository:
-```
-cd jvim-plugins/pomodoro/
-```
-
-<div align="center">
-  <h4>Plugin uninstallation</h4>
-</div>
-
-* To uninstall the plugin, delete its folder:
-```
-rm -r ~/.vim/pack/my-plugins/start/pomodoro/
-```
-
-<div align="center">
   <h4>Plugin file structure</h4>
 </div>
 
@@ -90,6 +67,15 @@ javac -d bin/main/ src/main/java/*
 * Reload Vim or run the command:
 ```
 :source ~/.vim/pack/my-plugins/start/pomodoro/plugin/pomodoro.vim
+```
+
+<div align="center">
+  <h4>Plugin uninstallation</h4>
+</div>
+
+* To uninstall the plugin, delete its folder:
+```
+rm -r ~/.vim/pack/my-plugins/start/pomodoro/
 ```
 
 <div align="center">
@@ -222,29 +208,6 @@ classDiagram
 </div>
 
 <div align="center">
-  <h4>Установка плагина</h4>
-</div>
-
-* Клонировать репозиторий с плагинами:
-```
-git clone https://github.com/AlexandrAnatoliev/jvim-plugins 
-```
-
-* Перейти в корневой каталог плагина:
-```
-cd jvim-plugins/pomodoro/
-```
-
-<div align="center">
-  <h4>Удаление плагина</h4>
-</div>
-
-* Чтобы удалить плагин, удалите директорию с плагином:
-```
-rm -r ~/.vim/pack/my-plugins/start/pomodoro/
-```
-
-<div align="center">
   <h4>Файловая структура плагина</h4>
 </div>
 
@@ -299,6 +262,15 @@ javac -d bin/main/ src/main/java/*
 * Перезагрузить Vim или выполнить команду:
 ```
 :source ~/.vim/pack/my-plugins/start/pomodoro/plugin/pomodoro.vim
+```
+
+<div align="center">
+  <h4>Удаление плагина</h4>
+</div>
+
+* Чтобы удалить плагин, удалите директорию с плагином:
+```
+rm -r ~/.vim/pack/my-plugins/start/pomodoro/
 ```
 
 <div align="center">
