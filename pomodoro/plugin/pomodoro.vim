@@ -2,13 +2,16 @@
 " File: pomodoro.vim
 " Description: Vim pomodoro plugin for work time self-management 
 " Author: AlexanddAnatoliev
-" Version: 0.6.5
-" Last Modified: 30.11.2025
+" Version: 0.6.10
+" Last Modified: 17.12.2025
 " ==================================================================
 
 " Automatic timer start on Vim enter and stop on Vim leave
-autocmd VimEnter * call StartPomodoroTimer()
-autocmd VimLeave * call StopPomodoroTimer()
+augroup Pomodoro
+    autocmd!
+    autocmd VimEnter * call StartPomodoroTimer()
+    autocmd VimLeave * call StopPomodoroTimer()
+augroup END
 
 " ------------------------------------------------------------------  
 " Function: StartPomodoroTimer()
@@ -17,8 +20,8 @@ autocmd VimLeave * call StopPomodoroTimer()
 " Returns: None
 " ------------------------------------------------------------------  
 function! StartPomodoroTimer()
-  silent !java -cp ~/.vim/pack/my-plugins/start/pomodoro/bin/main/ Main start &
-  call StartFileMonitor()
+    silent !java -cp ~/.vim/pack/my-plugins/start/pomodoro/bin/main/ Main start &
+    call StartFileMonitor()
 endfunction
 
 " ------------------------------------------------------------------  
@@ -28,7 +31,7 @@ endfunction
 " Returns: None
 " ------------------------------------------------------------------  
 function! StopPomodoroTimer()
-  silent !java -cp ~/.vim/pack/my-plugins/start/pomodoro/bin/main/ Main stop &
+    silent !java -cp ~/.vim/pack/my-plugins/start/pomodoro/bin/main/ Main stop &
 endfunction
 
 " ------------------------------------------------------------------  
@@ -44,7 +47,9 @@ let s:last_content = ''
 " Returns: None
 " ------------------------------------------------------------------  
 function! StartFileMonitor()
-    let s:monitor_timer = timer_start(6000, {-> SimpleFileMonitor()}, {'repeat': -1})
+    if !exists('s:monitor_timer')
+        let s:monitor_timer = timer_start(6000, {-> SimpleFileMonitor()}, {'repeat': -1})
+    endif
 endfunction
 
 " ------------------------------------------------------------------  
