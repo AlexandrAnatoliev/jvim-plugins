@@ -284,20 +284,20 @@ Designed for self-monitoring and productivity.
   your local machine with the command:
 
 ```bash
-git clone https://github.com/<your-username>/JakartaEEWebSite.git
+git clone https://github.com/<your-username>/jvim-plugins.git
 ```
 
 3. Navigate to your project folder:
 
 ```bash
-cd JakartaEEWebSite
+cd jvim-plugins
 ```
 
 4. Add a reference to the original repository for 
   future updates:
 
 ```bash
-git remote add upstream https://github.com/AlexandrAnatoliev/JakartaEEWebSite.git
+git remote add upstream https://github.com/AlexandrAnatoliev/jvim-plugins.git
 ```
 
 (Remember to keep here the original repository URL, 
@@ -314,10 +314,10 @@ git remote -v
 You should now see the origin and upstream 
   remotes listed.
 ``` 
-origin  https://github.com/<your-username>/JakartaEEWebSite.git (fetch)
-origin  https://github.com/<your-username>/JakartaEEWebSite.git (push)
-upstream        https://github.com/AlexandrAnatoliev/JakartaEEWebSite.git (fetch)
-upstream        https://github.com/AlexandrAnatoliev/JakartaEEWebSite.git (push)
+origin  https://github.com/<your-username>/jvim-plugins.git (fetch)
+origin  https://github.com/<your-username>/jvim-plugins.git (push)
+upstream        https://github.com/AlexandrAnatoliev/jvim-plugins.git (fetch)
+upstream        https://github.com/AlexandrAnatoliev/jvim-plugins.git (push)
 ```
 
 6. Pull from the upstream repository 
@@ -380,7 +380,7 @@ Go to your forked repository on GitHub.
 
 - Click the "Compare & pull request" button 
 to proceed to the pull request page of the original 
-JakartaEEWebSite repository.
+jvim-plugins repository.
 
 - Fill in the title and description boxes 
 with details about the problem and 
@@ -445,12 +445,11 @@ or reach out to me at per-1986@list.ru.
 
   <a id="russian"></a>
   <h1>Простые плагины для Vim на языке Java</h1>
-  <p>Пишу их учебных целях для проверки взаимодействия Vim и Java</p>
+  <p>Пишу их в учебных целях для проверки взаимодействия Vim и Java</p>
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
   ![Version 0.6.16](https://img.shields.io/badge/Version-0.6.16-orange.svg)
-  ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -727,20 +726,20 @@ dpkg -L junit5 | grep junit-platform-console-standalone
   компьютере команду:
 
 ```bash
-git clone https://github.com/<your-username>/JakartaEEWebSite.git
+git clone https://github.com/<your-username>/jvim-plugins.git
 ```
 
 3. Перейдите в папку с проектом:
 
 ```bash
-cd JakartaEEWebSite
+cd jvim-plugins
 ```
 
 4. Добавьте ссылку на оригинальный репозиторий
   для будущих обновлений:
 
 ```bash
-git remote add upstream https://github.com/AlexandrAnatoliev/JakartaEEWebSite.git
+git remote add upstream https://github.com/AlexandrAnatoliev/jvim-plugins.git
 ```
 
 (Напомню, здесь должен быть URL оригинального
@@ -757,10 +756,10 @@ git remote -v
 Вы должны увидеть origin и upstream ремоуты:
 
 ``` 
-origin  https://github.com/<your-username>/JakartaEEWebSite.git (fetch)
-origin  https://github.com/<your-username>/JakartaEEWebSite.git (push)
-upstream        https://github.com/AlexandrAnatoliev/JakartaEEWebSite.git (fetch)
-upstream        https://github.com/AlexandrAnatoliev/JakartaEEWebSite.git (push)
+origin  https://github.com/<your-username>/jvim-plugins.git (fetch)
+origin  https://github.com/<your-username>/jvim-plugins.git (push)
+upstream        https://github.com/AlexandrAnatoliev/jvim-plugins.git (fetch)
+upstream        https://github.com/AlexandrAnatoliev/jvim-plugins.git (push)
 ```
 
 6. Выполните pull из upstream репозитория в Вашу
@@ -823,7 +822,7 @@ GitHub, Вы готовы создать pull request.
 
 - Нажмите кнопку "Compare & pull request" и перейдете
 на страницу pull request оригинального репозитория
-проекта JakartaEEWebSite.
+проекта jvim-plugins.
 
 - Заполните поля title и description подробностямм
 о задаче и Вашем ее решении. Вы можете также добавить
