@@ -15,8 +15,8 @@ import java.nio.file.attribute.*;
 *   java Main start  - records start time in session file
 *   java Main stop   - calculates and displays session duration
 *
-* @version  0.6.15
-* @since    17.12.2025
+* @version  0.6.17
+* @since    22.12.2025
 * @author   AlexandrAnatoliev
 */
 public class Main {
@@ -139,21 +139,23 @@ public class Main {
     long monthSeconds = monthTime % 60;
 
     System.out.println("\n");
-    System.out.println("  =========================================");
-    System.out.println("                Vim uptime:                ");
-    System.out.println("  -----------------------------------------");
+    System.out.println("""
+    =========================================
+                 Vim uptime:                
+    -----------------------------------------
+  """);
     System.out.printf( "  - per session:        %2d h %2d min %2d sec\n",
                             sessionHours, sessionMinutes, sessionSeconds);
     System.out.printf( "  - per day:            %2d h %2d min %2d sec\n",
                             dayHours, dayMinutes, daySeconds);
     if(monthTime > yesterdayTime || dayTime > yesterdayTime) {
-        System.out.printf( 
-             "\u001B[32m  - average per month:  %2d h %2d min %2d sec\u001B[0m\n",
+        System.out.printf(Colors.GREEN.apply(
+             "  - average per month:  %2d h %2d min %2d sec\n"),
                             monthHours, monthMinutes, monthSeconds);
     }
     else {
-        System.out.printf( 
-             "\u001B[31m  - average per month:  %2d h %2d min %2d sec\u001B[0m\n",
+        System.out.printf(Colors.RED.apply(
+             "  - average per month:  %2d h %2d min %2d sec\n"),
                             monthHours, monthMinutes, monthSeconds);
     }
 
