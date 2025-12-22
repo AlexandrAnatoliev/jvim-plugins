@@ -7,7 +7,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.6.15](https://img.shields.io/badge/Version-0.6.15-orange.svg)
+  ![Version 0.6.16](https://img.shields.io/badge/Version-0.6.16-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -20,6 +20,21 @@
 ---
 
 <div align="center">
+  <h2>Table of Contents</h2>
+</div>
+
+* [Plugin Installation](#plugin-installation)
+* [Plugin Uninstallation](#plugin-uninstallation)
+* [Files Structure](#files-structure)
+* [Script Usage](#script-usage)
+* [Plugin List](#plugin-list)
+* [Requirements](#requirements)
+* [Compatibility](#compatibility)
+
+---
+
+<div align="center">
+  <a id="plugin-installation"></a>
   <h2>Plugin Installation</h2>
 </div>
 
@@ -66,6 +81,7 @@ Install the plugin using the script:
 ---
 
 <div align="center">
+  <a id="plugin-uninstallation"></a>
   <h2>Plugin Uninstallation</h2>
 </div>
 
@@ -77,6 +93,7 @@ Install the plugin using the script:
 ---
 
 <div align="center">
+  <a id="files-structure"></a>
   <h2>Files Structure</h2>
 </div>
 
@@ -101,6 +118,7 @@ jvim-plugins
 ---
 
 <div align="center">
+  <a id="script-usage"></a>
   <h2>Script Usage</h2>
 </div>
 
@@ -167,6 +185,7 @@ dpkg -L junit5 | grep junit-platform-console-standalone
 ---
 
 <div align="center">
+  <a id="plugin-list"></a>
   <h2>Plugin List</h2>
 </div>
  
@@ -180,6 +199,27 @@ Use Vim to edit files, and after 25 minutes it will change Vim's color scheme
 to remind you to take a break.
 Designed for self-monitoring and productivity.
 
+<div align="center">
+  <h4>Plugin installation</h4>
+</div>
+
+* with test execution:
+```
+./scripts/install_plugin.sh pomodoro
+```
+
+* without running tests:
+```
+./scripts/install_plugin.sh pomodoro --no-test
+```
+
+<div align="center">
+  <h4>Plugin uninstallation</h4>
+</div>
+
+```
+./scripts/uninstall_plugin.sh pomodoro
+```
 <div align="center">
   <h3>Timer Plugin</h3>
 </div>
@@ -204,12 +244,12 @@ Designed for self-monitoring and productivity.
 
 * with test execution:
 ```
-./scripts/install_plugin.sh pomodoro
+./scripts/install_plugin.sh timer
 ```
 
 * without running tests:
 ```
-./scripts/install_plugin.sh pomodoro --no-test
+./scripts/install_plugin.sh timer --no-test
 ```
 
 <div align="center">
@@ -217,12 +257,13 @@ Designed for self-monitoring and productivity.
 </div>
 
 ```
-./scripts/uninstall_plugin.sh pomodoro
+./scripts/uninstall_plugin.sh timer
 ```
 
 ---
 
 <div align="center">
+  <a id="requirements"></a>
   <h2>Requirements</h2>
 </div>
  
@@ -233,6 +274,7 @@ Designed for self-monitoring and productivity.
 ---
 
 <div align="center">
+  <a id="compatibility"></a>
   <h2>Compatibility</h2>
 </div>
  
@@ -249,7 +291,7 @@ Designed for self-monitoring and productivity.
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.6.15](https://img.shields.io/badge/Version-0.6.15-orange.svg)
+  ![Version 0.6.16](https://img.shields.io/badge/Version-0.6.16-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
@@ -264,6 +306,21 @@ Designed for self-monitoring and productivity.
 ---
 
 <div align="center">
+  <h2>Table of Contents</h2>
+</div>
+
+* [Установка](#plugin-installation-ru)
+* [Удаление плагина](#plugin-uninstallation-ru)
+* [Структура файлов](#files-structure-ru)
+* [Использование скриптов](#script-usage-ru)
+* [Список плагинов](#plugin-list-ru)
+* [Требования](#requirements-ru)
+* [Совместимость](#compatibility-ru)
+
+---
+
+<div align="center">
+  <a id="plugin-installation-ru"></a>
   <h2>Установка</h2>
 </div>
 
@@ -310,6 +367,7 @@ chmod +x scripts/*.sh
 ---
 
 <div align="center">
+  <a id="plugin-uninstallation-ru"></a>
   <h2>Удаление плагина</h2>
 </div>
 
@@ -321,6 +379,7 @@ chmod +x scripts/*.sh
 ---
 
 <div align="center">
+  <a id="files-structure-ru"></a>
   <h2>Структура файлов</h2>
 </div>
 
@@ -345,6 +404,7 @@ jvim-plugins
 ---
 
 <div align="center">
+  <a id="script-usage-ru"></a>
   <h2>Использование скриптов</h2>
 </div>
 
@@ -409,6 +469,7 @@ dpkg -L junit5 | grep junit-platform-console-standalone
 ---
 
 <div align="center">
+  <a id="plugin-list-ru"></a>
   <h2>Список плагинов</h2>
 </div>
  
@@ -421,6 +482,28 @@ dpkg -L junit5 | grep junit-platform-console-standalone
 Используйте Vim для редактирования файлов и через 25 минут он изменит цветовую
 схему Vim, чтобы напомнить вам о необходимости сделать перерыв. Разработан для 
 самоконтороля и эффективности.
+
+<div align="center">
+  <h4>Установка</h4>
+</div>
+
+* с выполнением тестов:
+```
+./scripts/install_plugin.sh pomodoro
+```
+
+* без запуска тестов:
+```
+./scripts/install_plugin.sh pomodoro --no-test
+```
+
+<div align="center">
+  <h4>Удаление плагина</h4>
+</div>
+
+```
+./scripts/uninstall_plugin.sh pomodoro
+```
 
 <div align="center">
   <h3>Timer плагин</h3>
@@ -446,12 +529,12 @@ dpkg -L junit5 | grep junit-platform-console-standalone
 
 * с выполнением тестов:
 ```
-./scripts/install_plugin.sh pomodoro
+./scripts/install_plugin.sh timer
 ```
 
 * без запуска тестов:
 ```
-./scripts/install_plugin.sh pomodoro --no-test
+./scripts/install_plugin.sh timer --no-test
 ```
 
 <div align="center">
@@ -459,12 +542,13 @@ dpkg -L junit5 | grep junit-platform-console-standalone
 </div>
 
 ```
-./scripts/uninstall_plugin.sh pomodoro
+./scripts/uninstall_plugin.sh timer
 ```
 
 ---
 
 <div align="center">
+  <a id="requirements-ru"></a>
   <h2>Требования</h2>
 </div>
  
@@ -475,6 +559,7 @@ dpkg -L junit5 | grep junit-platform-console-standalone
 ---
 
 <div align="center">
+  <a id="compatibility-ru"></a>
   <h2>Совместимость</h2>
 </div>
  
