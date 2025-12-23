@@ -25,26 +25,29 @@ folder and creates the following file structure:
     └── my-plugins/
         └── start/
             └── timer/
-                ├── bin/
-                │   ├── main/
+                ├── bin
+                │   ├── main
+                │   │   ├── Colors.class
                 │   │   ├── Main.class
                 │   │   └── Timer.class
-                │   └── test/
+                │   └── test
                 │       └── TimerTest.class
-                ├── data/
+                ├── data
                 │   ├── jvim_day_time.txt
                 │   ├── jvim_month_time.txt
                 │   ├── jvim_session_time.txt
                 │   └── jvim_yesterday_time.txt
-                ├── plugin/
+                ├── plugin
                 │   └── jvim_timer.vim
-                └── src/
-                    ├── main/
-                    │   └── java/
+                ├── README.md
+                └── src
+                    ├── main
+                    │   └── java
+                    │       ├── Colors.java
                     │       ├── Main.java
                     │       └── Timer.java
-                    └── test/
-                        └── java/
+                    └── test
+                        └── java
                             └── TimerTest.java
 ```
 
@@ -167,6 +170,16 @@ classDiagram
     + stop(): void
   }
 
+  class enum Colors {
+    - RED.code = "\u001B[31m"
+    - GREEN.code = "\u001B[32m"
+    - YELLOW.code = "\u001B[33m"
+    - RESET.code = "\u001B[0m"
+    - Colors(code: String)
+    + toString() String
+    + apply(text: String) String
+  }
+
   class Timer {
     - pathToFile: String
     + Timer(pathToFile: String)
@@ -196,6 +209,7 @@ classDiagram
 
   jvim_timer.vim --|> Main : calls
   Main --|> Timer : calls
+  enum Colors -- PomodoroTimer : use
   Timer --|> jvim_start_time.txt : reads/writes
   Timer --|> jvim_day_time.txt : reads/writes
   Timer --|> jvim_month_time.txt : reads/writes
@@ -229,26 +243,29 @@ classDiagram
     └── my-plugins/
         └── start/
             └── timer/
-                ├── bin/
-                │   ├── main/
+                ├── bin
+                │   ├── main
+                │   │   ├── Colors.class
                 │   │   ├── Main.class
                 │   │   └── Timer.class
-                │   └── test/
+                │   └── test
                 │       └── TimerTest.class
-                ├── data/
+                ├── data
                 │   ├── jvim_day_time.txt
                 │   ├── jvim_month_time.txt
                 │   ├── jvim_session_time.txt
                 │   └── jvim_yesterday_time.txt
-                ├── plugin/
+                ├── plugin
                 │   └── jvim_timer.vim
-                └── src/
-                    ├── main/
-                    │   └── java/
+                ├── README.md
+                └── src
+                    ├── main
+                    │   └── java
+                    │       ├── Colors.java
                     │       ├── Main.java
                     │       └── Timer.java
-                    └── test/
-                        └── java/
+                    └── test
+                        └── java
                             └── TimerTest.java
 ```
 
@@ -371,6 +388,16 @@ classDiagram
     + stop(): void
   }
 
+  class enum Colors {
+    - RED.code = "\u001B[31m"
+    - GREEN.code = "\u001B[32m"
+    - YELLOW.code = "\u001B[33m"
+    - RESET.code = "\u001B[0m"
+    - Colors(code: String)
+    + toString() String
+    + apply(text: String) String
+  }
+
   class Timer {
     - pathToFile: String
     + Timer(pathToFile: String)
@@ -400,6 +427,7 @@ classDiagram
 
   jvim_timer.vim --|> Main : calls
   Main --|> Timer : calls
+  enum Colors -- PomodoroTimer : use
   Timer --|> jvim_start_time.txt : reads/writes
   Timer --|> jvim_day_time.txt : reads/writes
   Timer --|> jvim_month_time.txt : reads/writes
