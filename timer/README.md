@@ -209,7 +209,7 @@ classDiagram
 
   jvim_timer.vim --|> Main : calls
   Main --|> Timer : calls
-  enum Colors -- PomodoroTimer : use
+  enum Colors -- Timer : use
   Timer --|> jvim_start_time.txt : reads/writes
   Timer --|> jvim_day_time.txt : reads/writes
   Timer --|> jvim_month_time.txt : reads/writes
@@ -427,7 +427,7 @@ classDiagram
 
   jvim_timer.vim --|> Main : calls
   Main --|> Timer : calls
-  enum Colors -- PomodoroTimer : use
+  enum Colors -- Timer : use
   Timer --|> jvim_start_time.txt : reads/writes
   Timer --|> jvim_day_time.txt : reads/writes
   Timer --|> jvim_month_time.txt : reads/writes
