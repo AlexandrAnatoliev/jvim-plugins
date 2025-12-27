@@ -1,7 +1,7 @@
 " ==================================================================
 " File: pomodoro.vim
 " Description: Vim pomodoro plugin for work time self-management 
-" Author: AlexanddAnatoliev
+" Author: AlexandrAnatoliev
 " Version: 0.6.19
 " Last Modified: 27.12.2025
 " ==================================================================

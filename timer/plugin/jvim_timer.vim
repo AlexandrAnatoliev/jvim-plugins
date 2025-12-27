@@ -1,7 +1,7 @@
 " ==================================================================
 " File: jvim_timer.vim
 " Description: Simple Vim work time measurement plugin 
-" Author: AlexandAnatoliev
+" Author: AlexandrAnatoliev
 " Version: 0.6.19
 " Last Modified: 27.12.2025
 " ==================================================================
