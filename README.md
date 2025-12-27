@@ -65,7 +65,7 @@ Install the plugin using the script:
 ./scripts/install_plugin.sh [plugin] --no-test
 ```
 
-* When installing a plugin, it is installed in appropriate Vim directory. 
+* When installing a plugin, it is installed in the appropriate Vim directory. 
 ```
 ~/.vim/
 └── pack/
@@ -74,7 +74,7 @@ Install the plugin using the script:
             └── jvim-example-plugin/
 ```
 
-* Reload Vim or execute the command:
+* Reload Vim or execute a command:
 
 ```
 :source ~/.vim/pack/my-plugins/start/jvim-example-plugin/plugin/jvim_example_plugin.vim
@@ -134,7 +134,7 @@ The `install_plugin.sh [plugin] --no-test` script runs without testing:
 * `build.sh [plugin]`
 * `copy_plugin_to_vim.sh [plugin]`
 
-Script for automatic plugin build:
+Script for automatic plugin building:
 ```
 ./scripts/build.sh [plugin]
 ```
@@ -166,7 +166,7 @@ This script runs:
 ./scripts/check_junit.sh
 ```
 
-* If case or error, check the path to JUnit using command: 
+* If case of an error, check the path to JUnit using command: 
 ```
 dpkg -L junit5 | grep junit-jupiter-api
 ```
@@ -335,21 +335,21 @@ git switch -c fix-issue
 ```
 
 Now you are ready to start working on the issues!
-Remember every once in a while to pull from the 
-upstream repository to keep your local repository 
+Remember to pull from the upstream repository every once in a while 
+to keep your local repository 
 up to date with the main project.
 
 _Note: I recommend to always create new branch 
-with each Issue you solve! Otherwise the pull 
+with each Issue you solve! Otherwise, the pull 
 requests will get too large and there could be 
-possible merge conflicts._
+merge conflicts._
 
 <div align="center">
   <h4>Submitting Your Changes</h4>
 </div>
 
-Once you've made the necessary changes requested 
-in the problem, you're ready to submit your changes!
+Once you've made the necessary changes to fix the issue, 
+you're ready to submit your changes!
 
 1. Stage your changes with the command:
 
