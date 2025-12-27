@@ -1,18 +1,20 @@
 " ==================================================================
 " File: pomodoro.vim
 " Description: Vim pomodoro plugin for work time self-management 
-" Author: AlexanddAnatoliev
-" Version: 0.6.10
-" Last Modified: 17.12.2025
+" Author: AlexandrAnatoliev
+" Version: 0.6.19
+" Last Modified: 27.12.2025
 " ==================================================================
 
-" Automatic timer start on Vim enter and stop on Vim leave
+" Automatic timer start on Vim enter and stop on Vim leave {{{
 augroup Pomodoro
     autocmd!
     autocmd VimEnter * call StartPomodoroTimer()
     autocmd VimLeave * call StopPomodoroTimer()
 augroup END
+" }}}
 
+" StartPomodoroTimer function {{{
 " ------------------------------------------------------------------  
 " Function: StartPomodoroTimer()
 " Description: Function to start a timer 
@@ -23,7 +25,9 @@ function! StartPomodoroTimer()
     silent !java -cp ~/.vim/pack/my-plugins/start/pomodoro/bin/main/ Main start &
     call StartFileMonitor()
 endfunction
+" }}}
 
+" StopPomodoroTimer function {{{
 " ------------------------------------------------------------------  
 " Function: StopPomodoroTimer()
 " Description: Function to stop a timer 
@@ -33,13 +37,17 @@ endfunction
 function! StopPomodoroTimer()
     silent !java -cp ~/.vim/pack/my-plugins/start/pomodoro/bin/main/ Main stop &
 endfunction
+" }}}
 
 " ------------------------------------------------------------------  
 " Simple file monitor for executing Vim commands
 " ------------------------------------------------------------------  
+" set variables {{{
 let s:monitor_file = expand('~/.vim/pack/my-plugins/start/pomodoro/data/monitor.txt')
 let s:last_content = ''
+" }}}
 
+" StartFileMonitor function {{{
 " ------------------------------------------------------------------  
 " Function: StartFileMonitor()
 " Description: Function to start file monitor  
@@ -51,7 +59,9 @@ function! StartFileMonitor()
         let s:monitor_timer = timer_start(6000, {-> SimpleFileMonitor()}, {'repeat': -1})
     endif
 endfunction
+" }}}
 
+" SimpleFileMonitor function {{{
 " ------------------------------------------------------------------  
 " Function: SimpleFileMonitor()
 " Description: Function to file monitor for executing Vim commands 
@@ -67,9 +77,13 @@ function! SimpleFileMonitor()
         endif
     endif
 endfunction
+" }}}
 
+" command ShowPomodoroTime {{{
 command! -nargs=0 ShowPomodoroTime call s:RunShowPomodoroTime()
+" }}}
 
+" RunShowPomodoroTime function {{{
 " ------------------------------------------------------------------  
 " Function: s:RunShowPomodoroTime()
 " Description: Internal function to execute Pomodoro time display  
@@ -84,3 +98,4 @@ function! s:RunShowPomodoroTime()
         echo result 
     endif
 endfunction
+" }}}
