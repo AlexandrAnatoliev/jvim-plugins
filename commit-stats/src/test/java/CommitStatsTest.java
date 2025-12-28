@@ -78,4 +78,14 @@ public class CommitStatsTest {
                     + e.getMessage());
         }
     }
+
+    /**
+     * Test that method doesn't throw exceptions
+     */ 
+    @Test
+    void testGetLastCommitHashNoExceptions() {
+        assertDoesNotThrow(() -> {
+            String hash = commitStats.getLastCommitHash();
+        });
+    }
 }
