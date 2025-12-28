@@ -13,13 +13,21 @@ public class CommitStats {
      * 
      * @return Last commit hash, or "" if error
      */
-    public String getLastCommitHash() throws Exception {
+    public String getLastCommitHash() {
+        Scanner scanner = null;
         try {
             Process p = Runtime.getRuntime().exec("git rev-parse HEAD");
-            return new Scanner(p.getInputStream()).next();
+            p.waitFor();
+
+            scanner = new Scanner(p.getInputStream());
+            return scanner.hasNext() ? scanner.next() : "";
         } catch (Exception e) {
-            System.out.println("ERROR: get last commit hash + e");
+            System.out.println("ERROR: get last commit hash " + e.getMessage());
             return "";
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+            }
         }
     }
 }
