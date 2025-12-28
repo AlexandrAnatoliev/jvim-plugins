@@ -18,11 +18,12 @@ public class CommitStats {
         try {
             Process p = Runtime.getRuntime().exec("git rev-parse HEAD");
             p.waitFor();
-
             scanner = new Scanner(p.getInputStream());
             return scanner.hasNext() ? scanner.next() : "";
         } catch (Exception e) {
-            System.out.println("ERROR: get last commit hash " + e.getMessage());
+            System.out.println(Colors.RED.apply("[ERROR]") 
+                    + " get last commit hash: " 
+                    + e.getMessage());
             return "";
         } finally {
             if (scanner != null) {
