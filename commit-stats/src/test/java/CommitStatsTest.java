@@ -44,7 +44,7 @@ public class CommitStatsTest {
                 assertNotNull(hash);
                 assertFalse(hash.isEmpty());
                 assertEquals(40, hash.length(), 
-                        "Git hash should be 40 40 chars");
+                        "Git hash should be 40 chars");
                 assertTrue(hash.matches("[0-9a-f]{40}"),
                         "Should be a valid SHA-1 hash");
                 // Not in a git repo, test should return empty string

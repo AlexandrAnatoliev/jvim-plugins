@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  * The class to get git stats 
  *
- * @version  0.7.0
+ * @version  0.7.1
  * @since    28.12.2025
  * @author   AlexandrAnatoliev
  */
@@ -14,21 +14,19 @@ public class CommitStats {
      * @return Last commit hash, or "" if error
      */
     public String getLastCommitHash() {
-        Scanner scanner = null;
+        ProcessBuilder pb = new ProcessBuilder("git", "rev-parse", "HEAD");
         try {
-            Process p = Runtime.getRuntime().exec("git rev-parse HEAD");
+            Process p = pb.start();
             p.waitFor();
-            scanner = new Scanner(p.getInputStream());
-            return scanner.hasNext() ? scanner.next() : "";
+            try (Scanner scanner = new Scanner(p.getInputStream())) {
+
+                return scanner.hasNext() ? scanner.next() : "";
+            }
         } catch (Exception e) {
             System.out.println(Colors.RED.apply("[ERROR]") 
                     + " get last commit hash: " 
                     + e.getMessage());
             return "";
-        } finally {
-            if (scanner != null) {
-                scanner.close();
-            }
         }
     }
 }
