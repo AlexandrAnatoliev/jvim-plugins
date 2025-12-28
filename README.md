@@ -7,7 +7,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.6.19](https://img.shields.io/badge/Version-0.6.19-orange.svg)
+  ![Version 0.6.20](https://img.shields.io/badge/Version-0.6.20-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -305,6 +305,11 @@ git remote add upstream https://github.com/AlexandrAnatoliev/jvim-plugins.git
   needs to be `AlexandrAnatoliev`, not your 
   own username.)
 
+Add a reference to your GitHub repository ("fork"):
+```bash
+git remote add upstream https://github.com/<your-username>/jvim-plugins.git
+```
+
 5. Check the remotes for your local repository:
 
 ```bash
@@ -449,7 +454,7 @@ or reach out to me at per-1986@list.ru.
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.6.19](https://img.shields.io/badge/Version-0.6.19-orange.svg)
+  ![Version 0.6.20](https://img.shields.io/badge/Version-0.6.20-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -640,7 +645,7 @@ dpkg -L junit5 | grep junit-platform-console-standalone
 
 Используйте Vim для редактирования файлов и через 25 минут он изменит цветовую
 схему Vim, чтобы напомнить вам о необходимости сделать перерыв. Разработан для 
-самоконтороля и эффективности.
+самоконтроля и эффективности.
 
 <div align="center">
   <h4>Установка</h4>
@@ -720,7 +725,7 @@ dpkg -L junit5 | grep junit-platform-console-standalone
   Это создаст копию ркпозитория на Вашем GitHub 
   аккаунте.
 
-2.Клонируйте Ваш "форкнутый" репозиторий нажатием
+2.Клонируйте Ваш "форк" репозиторий нажатием
   кнопки "Code". Откроется маленькое окно.
   Скопируйте из него URL и выполните на своем 
   компьютере команду:
@@ -746,6 +751,11 @@ git remote add upstream https://github.com/AlexandrAnatoliev/jvim-plugins.git
 репозитория, а не "форкнутого" Вами, так что
 username в нем должно быть `AlexandrAnatoliev`,
 а не Ваш собственный username.)
+
+Добавьте ссылку на свой GitHub репозиторий ("fork"):
+```bash
+git remote add upstream https://github.com/<your-username>/jvim-plugins.git
+```
 
 5. Проверьте ремоуты для своего репозитория:
 
@@ -785,7 +795,7 @@ git switch -c fix-issue
 _Примечание: Рекомендую всегда создавать новую
 ветвь для каждого issue, который Вы выполняете!
 Иначе pull request будут слишком большими и 
-возможно аозникнут конфликты слияния._
+возможно возникнут конфликты слияния._
 
 <div align="center">
   <h4>Отправка Ваших изменений</h4>
@@ -806,7 +816,7 @@ git add files-that-you-changed
 git commit -m "Fixed issue"
 ```
 
-3. Отправить изменения в Ваш "форкнутый" репозиторий:
+3. Отправить изменения в Ваш "форк" репозиторий:
 
 ```bash
 git push origin fix-issue
