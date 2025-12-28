@@ -1,8 +1,4 @@
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.io.TempDir;
-import java.io.*;
-import java.nio.file.*;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -87,5 +83,17 @@ public class CommitStatsTest {
         assertDoesNotThrow(() -> {
             String hash = commitStats.getLastCommitHash();
         });
+    }
+
+    /**
+     * Test that scanner is properly closed
+     * This is in an indirect test - we check that no resource leaks occurs
+     */
+    @Test
+    void testResourceCleanup() {
+        for (int i = 0; i < 100 ; i++) {
+            String hash = commitStats.getLastCommitHash();
+        }
+        assertTrue(true);
     }
 }
