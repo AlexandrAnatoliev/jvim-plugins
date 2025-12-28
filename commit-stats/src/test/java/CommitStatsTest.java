@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.io.TempDir;
 import java.io.*;
 import java.nio.file.*;
 
@@ -60,6 +61,21 @@ public class CommitStatsTest {
         } catch (Exception e) {
             String hash = commitStats.getLastCommitHash();
             assertEquals("", hash);
+        }
+    }
+
+    /**
+     * Test check is git installed
+     */
+    @Test
+    void testIsGitInstalled() {
+        try {
+            Process p = new ProcessBuilder("git", "--version").start();
+            assertEquals(0, p.waitFor());
+        } catch (Exception e) {
+            System.out.println(Colors.RED.apply("[ERROR]") 
+                    + " testIsGitInstalled: " 
+                    + e.getMessage());
         }
     }
 }
