@@ -7,7 +7,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.7.1](https://img.shields.io/badge/Version-0.7.1-orange.svg)
+  ![Version 0.7.2](https://img.shields.io/badge/Version-0.7.2-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -305,19 +305,15 @@ git remote add upstream https://github.com/AlexandrAnatoliev/jvim-plugins.git
   needs to be `AlexandrAnatoliev`, not your 
   own username.)
 
-Add a reference to your GitHub repository ("fork"):
-```bash
-git remote add upstream https://github.com/<your-username>/jvim-plugins.git
-```
-
 5. Check the remotes for your local repository:
 
 ```bash
 git remote -v
 ```
 
-You should now see the origin and upstream 
+You should now see the origin (added automatically when cloning) and upstream 
   remotes listed.
+
 ``` 
 origin  https://github.com/<your-username>/jvim-plugins.git (fetch)
 origin  https://github.com/<your-username>/jvim-plugins.git (push)
@@ -454,7 +450,7 @@ or reach out to me at per-1986@list.ru.
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.7.1](https://img.shields.io/badge/Version-0.7.1-orange.svg)
+  ![Version 0.7.2](https://img.shields.io/badge/Version-0.7.2-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -752,18 +748,14 @@ git remote add upstream https://github.com/AlexandrAnatoliev/jvim-plugins.git
 username в нем должно быть `AlexandrAnatoliev`,
 а не Ваш собственный username.)
 
-Добавьте ссылку на свой GitHub репозиторий ("fork"):
-```bash
-git remote add upstream https://github.com/<your-username>/jvim-plugins.git
-```
-
 5. Проверьте ремоуты для своего репозитория:
 
 ```bash
 git remote -v
 ```
 
-Вы должны увидеть origin и upstream ремоуты:
+Вы должны увидеть origin (добавляется автоматически при клонировании) 
+и upstream ремоуты:
 
 ``` 
 origin  https://github.com/<your-username>/jvim-plugins.git (fetch)
