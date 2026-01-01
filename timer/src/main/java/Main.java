@@ -15,8 +15,8 @@ import java.nio.file.attribute.*;
 *   java Main start  - records start time in session file
 *   java Main stop   - calculates and displays session duration
 *
-* @version  0.6.17
-* @since    22.12.2025
+* @version  0.7.4
+* @since    01.01.2026
 * @author   AlexandrAnatoliev
 */
 public class Main {
@@ -139,7 +139,7 @@ public class Main {
     long monthSeconds = monthTime % 60;
 
     System.out.println("\n");
-    System.out.println("""
+    System.out.print("""
     =========================================
                  Vim uptime:                
     -----------------------------------------
