@@ -9,6 +9,7 @@ import java.util.Scanner;
  */
 public class CommitStats {
     protected String pathToLastCommitHash;
+    protected String pathToDailyCommits;
 
     /**
      * CommitStats class constructor
@@ -17,8 +18,10 @@ public class CommitStats {
      *                              for last commit hash storage
      */
     public CommitStats(
-            String pathToLastCommitHash) {
+            String pathToLastCommitHash,
+            String pathToDailyCommits) {
         this.pathToLastCommitHash = pathToLastCommitHash;
+        this.pathToDailyCommits = pathToDailyCommits;
             }
 
     /**
@@ -53,7 +56,7 @@ public class CommitStats {
         } catch (Exception e) {
             System.out.println(
                     Colors.RED.apply("[ERROR]")
-                    + " writing: "
+                    + " writing hash: "
                     + e.getMessage());
         }
     }
@@ -73,9 +76,49 @@ public class CommitStats {
         } catch (Exception e) {
             System.out.println(
                     Colors.RED.apply("[ERROR]")
-                    + " reading: "
+                    + " reading hash: "
                     + e.getMessage());
         }
         return "";
+    }
+
+    /**
+     * Writes daily commits value to temporary file 
+     *
+     * @param  value Daily commits value to write to file
+     */
+    public void writeDailyCommitsToFile(Long value) {
+        try {
+            FileWriter writer = new FileWriter(pathToDailyCommits);
+            writer.write(value.toString());
+            writer.close();
+        } catch (Exception e) {
+            System.out.println(
+                    Colors.RED.apply("[ERROR]")
+                    + " writing daily commits: "
+                    + e.getMessage());
+        }
+    }
+
+    /**
+     * Reads daily commits value from temporary file 
+     *
+     * @return  daily commits value from file, 
+     *          or 0 if file does not exist or contains invalid data
+     */
+    public long readDailyCommitsFromFile() {
+        try {
+            BufferedReader reader = new BufferedReader(
+                    new FileReader(this.pathToDailyCommits));
+            long value = Long.parseLong(reader.readLine());
+            reader.close();
+            return value;
+        } catch (Exception e) {
+            System.out.println(
+                    Colors.RED.apply("[ERROR]")
+                    + " reading daily commits: "
+                    + e.getMessage());
+        }
+        return 0;
     }
 }
