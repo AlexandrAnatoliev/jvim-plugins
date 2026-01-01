@@ -19,7 +19,7 @@ public class CommitStats {
     public CommitStats(
             String pathToLastCommitHash) {
         this.pathToLastCommitHash = pathToLastCommitHash;
-    }
+            }
 
     /**
      * Get last commit hash
@@ -45,10 +45,9 @@ public class CommitStats {
     /**
      * Writes hash to a temporary file
      *
-     * 
      * @param hash Hash to write to the file
      */
-    public void writeHash(String hash) {
+    public void writeHashToFile(String hash) {
         try (FileWriter writer = new FileWriter(pathToLastCommitHash)) {
             writer.write(hash);
         } catch (Exception e) {
@@ -57,5 +56,26 @@ public class CommitStats {
                     + " writing: "
                     + e.getMessage());
         }
+    }
+
+    /**
+     * Reads hash value from temporary file 
+     *
+     * @return String Hash value from file 
+     */
+    public String readHashFromFile() {
+        try {
+            BufferedReader reader = new BufferedReader(
+                    new FileReader(this.pathToLastCommitHash));
+            String hash = reader.readLine();
+            reader.close();
+            return hash;
+        } catch (Exception e) {
+            System.out.println(
+                    Colors.RED.apply("[ERROR]")
+                    + " reading: "
+                    + e.getMessage());
+        }
+        return "";
     }
 }
