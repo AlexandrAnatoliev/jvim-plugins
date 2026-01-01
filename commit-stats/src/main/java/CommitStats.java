@@ -3,11 +3,23 @@ import java.util.Scanner;
 /**
  * The class to get git stats 
  *
- * @version  0.7.1
- * @since    28.12.2025
+ * @version  0.7.5
+ * @since    01.01.2026
  * @author   AlexandrAnatoliev
  */
 public class CommitStats {
+    protected String pathToLastCommitHash;
+
+    /**
+     * CommitStats class constructor
+     *
+     * @param  pathToLastCommitHash Path to temporary file 
+     *                              for last commit hash storage
+     */
+    public CommitStats(
+            String pathToLastCommitHash) {
+        this.pathToLastCommitHash = pathToLastCommitHash;
+    }
     /**
      * Get last commit hash
      * 
@@ -19,7 +31,6 @@ public class CommitStats {
             Process p = pb.start();
             p.waitFor();
             try (Scanner scanner = new Scanner(p.getInputStream())) {
-
                 return scanner.hasNext() ? scanner.next() : "";
             }
         } catch (Exception e) {
