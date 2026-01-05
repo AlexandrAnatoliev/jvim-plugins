@@ -12,6 +12,7 @@ public class Main {
         } else if (args.length > 0 && "update".equals(args[0])) {
             update();
         } else {
+            update();
             stop();
         }
     }
