@@ -1,10 +1,11 @@
 import java.util.Scanner;
+import java.io.*;
 
 /**
  * The class to get git stats 
  *
  * @version  0.7.5
- * @since    01.01.2026
+ * @since    05.01.2026
  * @author   AlexandrAnatoliev
  */
 public class CommitStats {
@@ -120,5 +121,26 @@ public class CommitStats {
                     + e.getMessage());
         }
         return 0;
+    }
+
+    /**
+     * Checks if temporary file is exist 
+     * 
+     * @param   pathToFile  Path to temporary file
+     * @return  true        If file is exist
+     *          false       If file is not exist
+     */
+    public boolean fileIsExists(String pathToFile) {
+        String homeDir = System.getProperty("user.home");
+        File file = new File(homeDir + pathToFile);
+        try {
+            return file.exists();
+        } catch (Exception e) {
+            System.out.println(
+                    Colors.RED.apply("[ERROR]")
+                    + " file existing checking: "
+                    + e.getMessage());
+        }
+        return false;
     }
 }
