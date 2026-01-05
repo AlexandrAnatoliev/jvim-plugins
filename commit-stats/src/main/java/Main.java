@@ -5,14 +5,13 @@ public class Main {
         "/.vim/pack/my-plugins/start/commit-stats/data/last_commit_hash.txt";
     private static final String PATH_TO_DAILY_COMMITS = 
         "/.vim/pack/my-plugins/start/commit-stats/data/daily_commits.txt";
-//test commit
+
     public static void main(String[] args) {
         if (args.length > 0 && "start".equals(args[0])) {
             start();
         } else if (args.length > 0 && "update".equals(args[0])) {
             update();
         } else {
-            update();
             stop();
         }
     }
