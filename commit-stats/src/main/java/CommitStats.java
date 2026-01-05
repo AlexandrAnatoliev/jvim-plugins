@@ -154,7 +154,8 @@ public class CommitStats {
      * @return  LocalDate   Representing file creation time
      */
     public LocalDate getFileDate(String pathToFile) {
-        File file = new File(pathToFile);
+        String homeDir = System.getProperty("user.home");
+        File file = new File(homeDir + pathToFile);
         try {
             BasicFileAttributes attrs = Files.readAttributes(
                     file.toPath(), 

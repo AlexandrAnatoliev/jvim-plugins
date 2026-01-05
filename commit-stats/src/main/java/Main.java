@@ -1,3 +1,5 @@
+import java.time.*;
+
 public class Main {
     private static final String PATH_TO_LAST_COMMIT_HASH = 
         "/.vim/pack/my-plugins/start/commit-stats/data/last_commit_hash.txt";
@@ -19,9 +21,16 @@ public class Main {
 
     public static void start() {
         CommitStats commitStats = createCommitStats();
+        LocalDate today = LocalDate.now();
 
-        if (!commitStats.fileIsExists(PATH_TO_DAILY_COMMITS)) {
+        if (!commitStats.fileIsExists(PATH_TO_DAILY_COMMITS)
+                || commitStats.getFileDate(PATH_TO_DAILY_COMMITS)
+                .equals(today)) {
             commitStats.writeDailyCommitsToFile(0L);
+                }
+
+        if (!commitStats.fileIsExists(PATH_TO_LAST_COMMIT_HASH)) {
+            commitStats.writeHashToFile("");
         }
     }
 }
