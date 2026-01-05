@@ -10,6 +10,10 @@ public class Main {
         if (args.length > 0 && "start".equals(args[0])) {
             start();
         }
+
+        else if (args.length > 0 && "update".equals(args[0])) {
+            update();
+        }
     }
 
     private static CommitStats createCommitStats() {
@@ -32,5 +36,18 @@ public class Main {
         if (!commitStats.fileIsExists(PATH_TO_LAST_COMMIT_HASH)) {
             commitStats.writeHashToFile("");
         }
+    }
+
+    public static void update() {
+        CommitStats commitStats = createCommitStats(); 
+        String savedHash = commitStats.readHashFromFile();
+        String lastHash = commitStats.getLastCommitHash();
+
+        if (!lastHash.equals(savedHash)) {
+            long savedDailyCommits = commitStats.readDailyCommitsFromFile();
+            commitStats.writeDailyCommitsToFile(savedDailyCommits + 1L);
+        }
+
+        commitStats.writeHashToFile(lastHash);
     }
 }

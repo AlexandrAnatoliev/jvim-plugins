@@ -10,6 +10,7 @@
 augroup CommitStats
   autocmd!
   autocmd VimEnter * call StartCommitStats()
+  autocmd BufWritePost * call UpdateCommitStats()
 augroup END
 " }}}
 
@@ -22,6 +23,17 @@ augroup END
 " ------------------------------------------------------------------  
 function! StartCommitStats()
   silent !java -cp ~/.vim/pack/my-plugins/start/commit-stats/bin/main/ Main start &
-  echo "start StartCommitStats"
+endfunction
+" }}}
+
+" UpdateCommitStats function {{{
+" ------------------------------------------------------------------  
+" Function: UpdateCommitStats()
+" Description: Function to update a commit stats 
+" Parameters: None
+" Returns: None
+" ------------------------------------------------------------------  
+function! UpdateCommitStats()
+  silent !java -cp ~/.vim/pack/my-plugins/start/commit-stats/bin/main/ Main update &
 endfunction
 " }}}
