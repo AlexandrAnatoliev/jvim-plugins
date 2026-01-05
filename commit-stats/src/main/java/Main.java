@@ -9,9 +9,7 @@ public class Main {
     public static void main(String[] args) {
         if (args.length > 0 && "start".equals(args[0])) {
             start();
-        }
-
-        else if (args.length > 0 && "update".equals(args[0])) {
+        } else if (args.length > 0 && "update".equals(args[0])) {
             update();
         }
     }
@@ -28,7 +26,7 @@ public class Main {
         LocalDate today = LocalDate.now();
 
         if (!commitStats.fileIsExists(PATH_TO_DAILY_COMMITS)
-                || commitStats.getFileDate(PATH_TO_DAILY_COMMITS)
+                || !commitStats.getFileDate(PATH_TO_DAILY_COMMITS)
                 .equals(today)) {
             commitStats.writeDailyCommitsToFile(0L);
                 }
