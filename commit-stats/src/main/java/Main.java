@@ -11,6 +11,8 @@ public class Main {
             start();
         } else if (args.length > 0 && "update".equals(args[0])) {
             update();
+        } else {
+            stop();
         }
     }
 
@@ -47,5 +49,25 @@ public class Main {
         }
 
         commitStats.writeHashToFile(lastHash);
+    }
+
+    public static void stop() {
+        CommitStats commitStats = createCommitStats(); 
+        long savedDailyCommits = commitStats.readDailyCommitsFromFile();
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(150);
+                System.out.print("""
+                          =========================================
+                                         Commit stats:                
+                          -----------------------------------------
+                        """);
+                System.out.println("  - Commits for day: " + savedDailyCommits);
+                System.out.println("  =========================================");
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }).start();
     }
 }

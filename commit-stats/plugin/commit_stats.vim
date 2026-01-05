@@ -11,6 +11,7 @@ augroup CommitStats
   autocmd!
   autocmd VimEnter * call StartCommitStats()
   autocmd BufWritePost * call UpdateCommitStats()
+  autocmd VimLeave * call StopCommitStats()
 augroup END
 " }}}
 
@@ -35,5 +36,17 @@ endfunction
 " ------------------------------------------------------------------  
 function! UpdateCommitStats()
   silent !java -cp ~/.vim/pack/my-plugins/start/commit-stats/bin/main/ Main update &
+endfunction
+" }}}
+
+" StopCommitStats function {{{
+" ------------------------------------------------------------------  
+" Function: StopCommitStats()
+" Description: Function to stop a commit-stats plugin
+" Parameters: None
+" Returns: None
+" ------------------------------------------------------------------  
+function! StopCommitStats()
+  silent !java -cp ~/.vim/pack/my-plugins/start/commit-stats/bin/main/ Main stop &
 endfunction
 " }}}
