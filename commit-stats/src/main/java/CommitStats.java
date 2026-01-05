@@ -1,5 +1,8 @@
 import java.util.Scanner;
 import java.io.*;
+import java.time.*;
+import java.nio.file.*;
+import java.nio.file.attribute.*;
 
 /**
  * The class to get git stats 
@@ -142,5 +145,29 @@ public class CommitStats {
                     + e.getMessage());
         }
         return false;
+    }
+
+    /**
+     * Retrieves the creation date of the file
+     *
+     * @param   pathToFile  Path to temporary file
+     * @return  LocalDate   Representing file creation time
+     */
+    public LocalDate getFileDate(String pathToFile) {
+        File file = new File(pathToFile);
+        try {
+            BasicFileAttributes attrs = Files.readAttributes(
+                    file.toPath(), 
+                    BasicFileAttributes.class);
+            LocalDate fileDate = attrs.creationTime().toInstant()
+                .atZone(ZoneId.systemDefault()).toLocalDate();
+            return fileDate;
+        } catch (Exception e) {
+            System.out.println(
+                    Colors.RED.apply("[ERROR]")
+                    + " get file date checking: "
+                    + e.getMessage());
+        }
+        return LocalDate.now();
     }
 }
