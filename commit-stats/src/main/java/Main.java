@@ -19,5 +19,9 @@ public class Main {
 
     public static void start() {
         CommitStats commitStats = createCommitStats();
+
+        if (!commitStats.fileIsExists(PATH_TO_DAILY_COMMITS)) {
+            commitStats.writeDailyCommitsToFile(0L);
+        }
     }
 }
