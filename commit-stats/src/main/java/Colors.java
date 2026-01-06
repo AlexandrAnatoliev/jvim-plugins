@@ -1,11 +1,11 @@
 /**
-* Enum representation supported ANSI color codes for console output.
-*
-* @version  0.6.5
-* @since    30.11.2025
-* @author   AlexandrAnatoliev
-*/
- public enum Colors {
+ * Enum representation supported ANSI color codes for console output.
+ *
+ * @version  0.7.5
+ * @since    06.01.2026
+ * @author   AlexandrAnatoliev
+ */
+public enum Colors {
     RED("\u001B[31m"),
     GREEN("\u001B[32m"),
     YELLOW("\u001B[33m"),
@@ -24,9 +24,12 @@
     }
 
     /** 
-    * Convenience method to colorize text
-    */
+     * Convenience method to colorize text
+     *
+     * @param   text    The text to colorize
+     * @return  String  Colorized text with reset code appended
+     */
     public String apply(String text) {
         return this + text + RESET;
     }
- }
+}
