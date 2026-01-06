@@ -27,13 +27,13 @@ public class Main {
         CommitStats commitStats = createCommitStats();
         LocalDate today = LocalDate.now();
 
-        if (!commitStats.fileIsExists(PATH_TO_DAILY_COMMITS)
+        if (!commitStats.isFileExists(PATH_TO_DAILY_COMMITS)
                 || !commitStats.getFileDate(PATH_TO_DAILY_COMMITS)
                 .equals(today)) {
             commitStats.writeDailyCommitsToFile(0L);
                 }
 
-        if (!commitStats.fileIsExists(PATH_TO_LAST_COMMIT_HASH)) {
+        if (!commitStats.isFileExists(PATH_TO_LAST_COMMIT_HASH)) {
             commitStats.writeHashToFile("");
         }
     }
@@ -60,7 +60,7 @@ public class Main {
                 Thread.sleep(100);
                 System.out.print("""
                           =========================================
-                                       Commit stats:                
+                                        Commit stats:                
                           -----------------------------------------
                         """);
                 System.out.println("  - Commits for day: " + savedDailyCommits);

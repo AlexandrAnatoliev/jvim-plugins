@@ -92,10 +92,8 @@ public class CommitStats {
      * @param  value Daily commits value to write to file
      */
     public void writeDailyCommitsToFile(Long value) {
-        try {
-            FileWriter writer = new FileWriter(pathToDailyCommits);
+        try (FileWriter writer = new FileWriter(pathToDailyCommits)) {
             writer.write(value.toString());
-            writer.close();
         } catch (Exception e) {
             System.out.println(
                     Colors.RED.apply("[ERROR]")
@@ -111,11 +109,9 @@ public class CommitStats {
      *          or 0 if file does not exist or contains invalid data
      */
     public long readDailyCommitsFromFile() {
-        try {
-            BufferedReader reader = new BufferedReader(
-                    new FileReader(this.pathToDailyCommits));
+        try (BufferedReader reader = new BufferedReader(
+                    new FileReader(this.pathToDailyCommits))) {
             long value = Long.parseLong(reader.readLine());
-            reader.close();
             return value;
         } catch (Exception e) {
             System.out.println(
@@ -133,7 +129,7 @@ public class CommitStats {
      * @return  true        If file is exist
      *          false       If file is not exist
      */
-    public boolean fileIsExists(String pathToFile) {
+    public boolean isFileExists(String pathToFile) {
         String homeDir = System.getProperty("user.home");
         File file = new File(homeDir + pathToFile);
         try {
@@ -169,6 +165,6 @@ public class CommitStats {
                     + " get file date checking: "
                     + e.getMessage());
         }
-        return LocalDate.now();
+        return null;
     }
 }
