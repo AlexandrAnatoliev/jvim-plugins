@@ -6,7 +6,7 @@
 " Last Modified: 05.01.2026
 " ==================================================================
 
-" Automatic timer start on Vim enter and stop on Vim leave {{{
+" Plugin event handlers {{{
 augroup CommitStats
   autocmd!
   autocmd VimEnter * call StartCommitStats()
@@ -23,7 +23,7 @@ augroup END
 " Returns: None
 " ------------------------------------------------------------------  
 function! StartCommitStats()
-  silent !java -cp ~/.vim/pack/my-plugins/start/commit-stats/bin/main/ Main start &
+  silent !java -cp ~/.vim/pack/my-plugins/start/commit-stats/bin/main Main start &
 endfunction
 " }}}
 
@@ -35,7 +35,7 @@ endfunction
 " Returns: None
 " ------------------------------------------------------------------  
 function! UpdateCommitStats()
-  silent !java -cp ~/.vim/pack/my-plugins/start/commit-stats/bin/main/ Main update &
+  silent !java -cp ~/.vim/pack/my-plugins/start/commit-stats/bin/main Main update &
 endfunction
 " }}}
 
@@ -47,6 +47,6 @@ endfunction
 " Returns: None
 " ------------------------------------------------------------------  
 function! StopCommitStats()
-  silent !java -cp ~/.vim/pack/my-plugins/start/commit-stats/bin/main/ Main stop &
+  silent !java -cp ~/.vim/pack/my-plugins/start/commit-stats/bin/main Main stop &
 endfunction
 " }}}
