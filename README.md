@@ -273,7 +273,7 @@ Designed for self-monitoring and productivity.
   =========================================
               Commit stats:
   -----------------------------------------
-  - Commits for day: 0
+  - Commits per day: 0
   =========================================
 ```
 
@@ -317,7 +317,7 @@ Designed for self-monitoring and productivity.
 
 2. Clone your forked repository by clicking the 
   "Code" button. That will open small window.
-  In its you can copy and paste the URL to 
+  In it you can copy and paste the URL to 
   your local machine with the command:
 
 ```bash
@@ -792,10 +792,10 @@ dpkg -L junit5 | grep junit-platform-console-standalone
 
 1. Сделайте "форк" этого репозитория нажатием 
   кнопки "Fork" в правом верхнем углу страницы.
-  Это создаст копию ркпозитория на Вашем GitHub 
+  Это создаст копию репозитория на Вашем GitHub 
   аккаунте.
 
-2.Клонируйте Ваш "форк" репозиторий нажатием
+2. Клонируйте Ваш "форк" репозиторий нажатием
   кнопки "Code". Откроется маленькое окно.
   Скопируйте из него URL и выполните на своем 
   компьютере команду:
@@ -910,8 +910,8 @@ GitHub, Вы готовы создать pull request.
 Поздравляю, Вы сделали свой вклад в мой open source проект!
 
 Можете расслабиться и подождать пока не сделают
-ревью Вашего кода. Если все хорошо, Ваш pull request
-вольют в основную ветку. Если нет, Вам будет 
+ревью Вашего кода. Если все хорошо, Ваш pull 
+будет принят в основную ветку. Если нет, Вам будет 
 предложено внести изменения в Ваш код.
 
 Помните, что нужно подождать ревью Вашего pull 
