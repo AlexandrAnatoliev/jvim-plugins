@@ -92,7 +92,7 @@ public class Main {
 
         new Thread(() -> {
             try {
-                Thread.sleep(100);
+                Thread.sleep(200);
                 System.out.print("""
                           =========================================
                                         Commit stats:                
