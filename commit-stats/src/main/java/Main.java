@@ -1,7 +1,7 @@
 import java.time.*;
 
 /**
- * Vim utility for get commit stats
+ * Vim utility to get commit stats
  * 
  * When ended work with Vim, print value commit per day
  *

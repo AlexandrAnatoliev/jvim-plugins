@@ -1,7 +1,7 @@
 <div align="center">
   <a id="english"></a>
   <h1>Commit stats Vim plugin</h1>
-  <p>Vim utility for get commit stats</p>
+  <p>Vim utility to get commit stats</p>
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
@@ -195,7 +195,7 @@ classDiagram
 <div align="center">
   <a id="russian"></a>
   <h1>Commit stats Vim plugin</h1>
-  <p>Vim утилита для получения статистики коммитов</p>
+  <p>Vim-утилита для получения статистики коммитов</p>
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
@@ -272,7 +272,7 @@ rm -r ~/.vim/pack/my-plugins/start/commit-stats/
   <h4>Тестирование</h4>
 </div>
 
-* Проверьте путь до JUnit используя команду: 
+* Проверьте путь к JUnit используя команду: 
 ```
 dpkg -L junit5 | grep junit-jupiter-api
 ```
@@ -280,7 +280,7 @@ dpkg -L junit5 | grep junit-jupiter-api
 dpkg -L junit5 | grep junit-platform-console-standalone
 ```
 
-* Сборка тестов с зависимостями JUnit:
+* Сборка тестов с зависимостями от JUnit:
 ```
 javac -d bin/test/ -cp "bin/main:/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-console-standalone-1.9.1.jar" src/test/java/*.java
 ```
