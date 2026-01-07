@@ -7,7 +7,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.7.4](https://img.shields.io/badge/Version-0.7.4-orange.svg)
+  ![Version 0.7.5](https://img.shields.io/badge/Version-0.7.5-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -262,6 +262,43 @@ Designed for self-monitoring and productivity.
 ./scripts/uninstall_plugin.sh timer
 ```
 
+<div align="center">
+  <h3>Commit stats Vim plugin</h3>
+</div>
+
+[commit-stats](commit-stats/README.md) - Vim utility to get commit stats.
+
+* After closing Vim, you will see:
+```
+  =========================================
+              Commit stats:
+  -----------------------------------------
+  - Commits per day: 0
+  =========================================
+```
+
+<div align="center">
+  <h4>Plugin installation</h4>
+</div>
+
+* with test execution:
+```
+./scripts/install_plugin.sh commit-stats
+```
+
+* without running tests:
+```
+./scripts/install_plugin.sh commit-stats --no-test
+```
+
+<div align="center">
+  <h4>Plugin uninstallation</h4>
+</div>
+
+```
+./scripts/uninstall_plugin.sh commit-stats
+```
+
 ---
 
 <div align="center">
@@ -280,7 +317,7 @@ Designed for self-monitoring and productivity.
 
 2. Clone your forked repository by clicking the 
   "Code" button. That will open small window.
-  In its you can copy and paste the URL to 
+  In it you can copy and paste the URL to 
   your local machine with the command:
 
 ```bash
@@ -450,7 +487,7 @@ or reach out to me at per-1986@list.ru.
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.7.4](https://img.shields.io/badge/Version-0.7.4-orange.svg)
+  ![Version 0.7.5](https://img.shields.io/badge/Version-0.7.5-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -705,6 +742,43 @@ dpkg -L junit5 | grep junit-platform-console-standalone
 ./scripts/uninstall_plugin.sh timer
 ```
 
+<div align="center">
+  <h3>Commit stats Vim plugin</h3>
+</div>
+
+[commit-stats](commit-stats/README.md) - Vim-утилита для получения статистики коммитов.
+
+* После закрытия Vim, вы увидите:
+```
+  =========================================
+              Commit stats:
+  -----------------------------------------
+  - Commits per day: 0
+  =========================================
+```
+
+<div align="center">
+  <h4>Установка</h4>
+</div>
+
+* с выполнением тестов:
+```
+./scripts/install_plugin.sh commit-stats
+```
+
+* без запуска тестов:
+```
+./scripts/install_plugin.sh commit-stats --no-test
+```
+
+<div align="center">
+  <h4>Удаление плагина</h4>
+</div>
+
+```
+./scripts/uninstall_plugin.sh commit-stats
+```
+
 ---
 
 <div align="center">
@@ -718,10 +792,10 @@ dpkg -L junit5 | grep junit-platform-console-standalone
 
 1. Сделайте "форк" этого репозитория нажатием 
   кнопки "Fork" в правом верхнем углу страницы.
-  Это создаст копию ркпозитория на Вашем GitHub 
+  Это создаст копию репозитория на Вашем GitHub 
   аккаунте.
 
-2.Клонируйте Ваш "форк" репозиторий нажатием
+2. Клонируйте Ваш "форк" репозиторий нажатием
   кнопки "Code". Откроется маленькое окно.
   Скопируйте из него URL и выполните на своем 
   компьютере команду:
@@ -836,8 +910,8 @@ GitHub, Вы готовы создать pull request.
 Поздравляю, Вы сделали свой вклад в мой open source проект!
 
 Можете расслабиться и подождать пока не сделают
-ревью Вашего кода. Если все хорошо, Ваш pull request
-вольют в основную ветку. Если нет, Вам будет 
+ревью Вашего кода. Если все хорошо, Ваш pull 
+будет принят в основную ветку. Если нет, Вам будет 
 предложено внести изменения в Ваш код.
 
 Помните, что нужно подождать ревью Вашего pull 
