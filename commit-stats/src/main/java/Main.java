@@ -95,7 +95,7 @@ public class Main {
                 Thread.sleep(100);
                 System.out.print("""
                           =========================================
-                                    Commit stats:                
+                                        Commit stats:                
                           -----------------------------------------
                         """);
                 System.out.println("  - Commits for day: " + savedDailyCommits);
