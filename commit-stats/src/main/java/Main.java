@@ -98,7 +98,7 @@ public class Main {
                                         Commit stats:                
                           -----------------------------------------
                         """);
-                System.out.println("  - Commits for day: " + savedDailyCommits);
+                System.out.println("  - Commits per day: " + savedDailyCommits);
                 System.out.println("  =========================================");
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();

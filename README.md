@@ -262,6 +262,43 @@ Designed for self-monitoring and productivity.
 ./scripts/uninstall_plugin.sh timer
 ```
 
+<div align="center">
+  <h3>Commit stats Vim plugin</h3>
+</div>
+
+[commit-stats](commit-stats/README.md) - Vim utility to get commit stats.
+
+* After closing Vim, you will see:
+```
+  =========================================
+              Commit stats:
+  -----------------------------------------
+  - Commits for day: 0
+  =========================================
+```
+
+<div align="center">
+  <h4>Plugin installation</h4>
+</div>
+
+* with test execution:
+```
+./scripts/install_plugin.sh commit-stats
+```
+
+* without running tests:
+```
+./scripts/install_plugin.sh commit-stats --no-test
+```
+
+<div align="center">
+  <h4>Plugin uninstallation</h4>
+</div>
+
+```
+./scripts/uninstall_plugin.sh commit-stats
+```
+
 ---
 
 <div align="center">
@@ -703,6 +740,43 @@ dpkg -L junit5 | grep junit-platform-console-standalone
 
 ```
 ./scripts/uninstall_plugin.sh timer
+```
+
+<div align="center">
+  <h3>Commit stats Vim plugin</h3>
+</div>
+
+[commit-stats](commit-stats/README.md) - Vim-утилита для получения статистики коммитов.
+
+* После закрытия Vim, вы увидите:
+```
+  =========================================
+              Commit stats:
+  -----------------------------------------
+  - Commits per day: 0
+  =========================================
+```
+
+<div align="center">
+  <h4>Установка</h4>
+</div>
+
+* с выполнением тестов:
+```
+./scripts/install_plugin.sh commit-stats
+```
+
+* без запуска тестов:
+```
+./scripts/install_plugin.sh commit-stats --no-test
+```
+
+<div align="center">
+  <h4>Удаление плагина</h4>
+</div>
+
+```
+./scripts/uninstall_plugin.sh commit-stats
 ```
 
 ---
