@@ -1,15 +1,19 @@
+import java.io.*;
+import java.nio.file.*;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for CommitStats class
  *
- * @version  0.7.1
- * @since    28.12.2025
+ * @version  0.7.6
+ * @since    10.01.2026
  * @author   AlexandrAnatoliev 
  */
 public class CommitStatsTest {
     private CommitStats commitStats;
+    private static final String TEST_PATH_TO_LAST_COMMIT_HASH = "test_last_commit_hash.txt";
+    private static final String TEST_PATH_TO_DAILY_COMMITS = "test_daily_commits.txt";
 
     /**
      * Set up test environment before each test method execution.
@@ -17,15 +21,19 @@ public class CommitStatsTest {
      */
     @BeforeEach
     void setUp() {
-        commitStats = new CommitStats();
+        commitStats = new CommitStats(
+                TEST_PATH_TO_LAST_COMMIT_HASH,
+                TEST_PATH_TO_DAILY_COMMITS);
     }
 
     /**
      * Clean up test environment after each test method execution.
      */
     @AfterEach
-    void tearDown() {
+    void tearDown() throws IOException {
         commitStats = null;
+        Files.deleteIfExists(Paths.get(TEST_PATH_TO_LAST_COMMIT_HASH));
+        Files.deleteIfExists(Paths.get(TEST_PATH_TO_DAILY_COMMITS));
     }
 
     /**
