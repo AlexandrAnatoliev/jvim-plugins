@@ -104,4 +104,100 @@ public class CommitStatsTest {
         }
         assertTrue(true);
     }
+
+    /**
+     * Test writing hash to file system.
+     * Verifies that hash is correctly written to the file.
+     *
+     * @throws IOException if file writing operation fails
+     */
+    @Test
+    void testWriteHashToFile() throws IOException {
+        String testHash = "0123456789abcdef";
+        commitStats.writeHashToFile(testHash);
+        String content = Files.readString(Paths.get(TEST_PATH_TO_LAST_COMMIT_HASH));
+        assertEquals(testHash, content);
+    }
+
+    /** 
+     * Test writing empty string to file system.
+     * Verifies that empty string is handled correctly.
+     *
+     * @throws IOException if file reading operation fails
+     */
+    @Test
+    void testWriteEmptyString() throws IOException {
+        String emptyString = "";
+        commitStats.writeHashToFile(emptyString);
+        String content = Files.readString(Paths.get(TEST_PATH_TO_LAST_COMMIT_HASH));
+        assertEquals(emptyString, content);
+    }
+
+    /**
+     * Test with non-existent directory path.
+     * Verifies that error handling works for invalid paths.
+     */
+    @Test
+    void testWriteHashToInvalidPath() {
+        String invalidPath = "non_existent_directory/test.txt";
+        CommitStats invalidStats = new CommitStats(
+                invalidPath,
+                TEST_PATH_TO_DAILY_COMMITS);
+        assertDoesNotThrow(() -> invalidStats.writeHashToFile("test"));
+    }
+
+    /**
+     * Test null writing handling
+     * Verifies that null writing are handled gracefully
+     */
+    @Test
+    void testWriteNullToHashFile() {
+        assertDoesNotThrow(() -> commitStats.writeHashToFile(null));
+        assertTrue(Files.exists(Paths.get(TEST_PATH_TO_LAST_COMMIT_HASH)));
+    }
+
+    /**
+     * Test file overwrite behavior for sequential hash writes.
+     * Verifies that new hash overwrites previous content.
+     *
+     * @throws IOException if file reading operation fails
+     */
+    @Test
+    void testHashToFileOverwrite() throws IOException {
+        String firstHash = "test hash 1";
+        String secondHash = "test hash 2";
+        commitStats.writeHashToFile(firstHash);
+        commitStats.writeHashToFile(secondHash);
+        String content = Files.readString(Paths.get(TEST_PATH_TO_LAST_COMMIT_HASH));
+        assertEquals(secondHash, content);
+        assertNotEquals(firstHash, content);
+    }
+
+    /**
+     * Test write and read hash from file system.
+     * Verifies that hash is correctly written and read from the file.
+     *
+     * @throws IOException if file writing or reading operation fails
+     */
+    @Test
+    void testWriteAndReadHash() throws IOException {
+        String testHash = "0123456789abcdef";
+        commitStats.writeHashToFile(testHash);
+        String content = commitStats.readHashFromFile();
+        assertEquals(testHash, content);
+    }
+
+    /**
+     * Test write and read empty string from file system.
+     * Verifies that empty string is correctly written and read from the file.
+     *
+     * @throws IOException if file writing or reading operation fails
+     */
+    @Test
+    void testWriteAndReadEmptyString() throws IOException {
+        String emptyString = "";
+        commitStats.writeHashToFile(emptyString);
+        String content = commitStats.readHashFromFile();
+        assertEquals(emptyString, content);
+    }
 }
