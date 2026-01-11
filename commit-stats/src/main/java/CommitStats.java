@@ -7,8 +7,8 @@ import java.nio.file.attribute.*;
 /**
  * The class to get git stats 
  *
- * @version  0.7.5
- * @since    05.01.2026
+ * @version  0.7.6
+ * @since    11.01.2026
  * @author   AlexandrAnatoliev
  */
 public class CommitStats {
@@ -55,8 +55,9 @@ public class CommitStats {
      * @param hash Hash to write to the file
      */
     public void writeHashToFile(String hash) {
-        try (FileWriter writer = new FileWriter(pathToLastCommitHash)) {
-            writer.write(hash);
+        try {
+            String content = (hash == null) ? "" : hash;
+            Files.writeString(Paths.get(pathToLastCommitHash), content);
         } catch (Exception e) {
             System.out.println(
                     Colors.RED.apply("[ERROR]")
@@ -72,18 +73,14 @@ public class CommitStats {
      */
     public String readHashFromFile() {
         try {
-            BufferedReader reader = new BufferedReader(
-                    new FileReader(this.pathToLastCommitHash));
-            String hash = reader.readLine();
-            reader.close();
-            return hash;
+            return Files.readString(Paths.get(this.pathToLastCommitHash));
         } catch (Exception e) {
             System.out.println(
                     Colors.RED.apply("[ERROR]")
                     + " reading hash: "
                     + e.getMessage());
+            return "";
         }
-        return "";
     }
 
     /**
