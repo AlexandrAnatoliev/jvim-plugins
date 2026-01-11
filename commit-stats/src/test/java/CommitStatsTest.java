@@ -28,6 +28,8 @@ public class CommitStatsTest {
 
     /**
      * Clean up test environment after each test method execution.
+     *
+     * @throws IOException if file operation fails
      */
     @AfterEach
     void tearDown() throws IOException {
@@ -134,7 +136,7 @@ public class CommitStatsTest {
     }
 
     /**
-     * Test with non-existent directory path.
+     * Test write with non-existent directory path.
      * Verifies that error handling works for invalid paths.
      */
     @Test
@@ -199,5 +201,44 @@ public class CommitStatsTest {
         commitStats.writeHashToFile(emptyString);
         String content = commitStats.readHashFromFile();
         assertEquals(emptyString, content);
+    }
+
+    /**
+     * Test read with non-existent directory path.
+     * Verifies that error handling works for invalid paths.
+     */
+    @Test
+    void testReadHashFromInvalidPath() {
+        String invalidPath = "non_existent_directory/test.txt";
+        CommitStats invalidStats = new CommitStats(
+                invalidPath,
+                TEST_PATH_TO_DAILY_COMMITS);
+        assertDoesNotThrow(() -> invalidStats.readHashFromFile());
+    }
+
+    /**
+     * Test empty file reading handling
+     * Verifies that empty file reading are handled gracefully
+     */
+    @Test
+    void testReadEmptyHashFile() {
+        assertDoesNotThrow(() -> {
+            new File(TEST_PATH_TO_LAST_COMMIT_HASH).createNewFile();
+            String result = commitStats.readHashFromFile();
+            assertEquals("", result);
+        });
+    }
+
+    /**
+     * Tests readHashFromFile() method when file does not exist
+     * Verifies that method returns "" as default value
+     *
+     * @throws IOException if file operation fails
+     */
+    @Test
+    void testReadHashFromFileWhenFileDoesNotExist() throws IOException {
+        Files.deleteIfExists(Paths.get(TEST_PATH_TO_LAST_COMMIT_HASH));
+        String actualValue = commitStats.readHashFromFile();
+        assertEquals("", actualValue);
     }
 }
