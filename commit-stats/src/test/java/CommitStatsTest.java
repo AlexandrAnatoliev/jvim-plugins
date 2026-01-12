@@ -2,6 +2,7 @@ import java.io.*;
 import java.nio.file.*;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
+import java.time.LocalDate;
 
 /**
  * Unit tests for CommitStats class
@@ -402,5 +403,37 @@ public class CommitStatsTest {
         testCommitStats.writeHashToFile("hash");
         assertTrue(commitStats.isFileExists(testLastCommitHash));
         Files.deleteIfExists(Paths.get(homeDir + testLastCommitHash));
+    }
+
+    /**
+     * Tests getFileDate() method when file does not exist
+     * Verifies fallback behavior returns null
+     *
+     * @throws IOException if file creation fails
+     */
+    @Test
+    void testGetFileDateWhenFileDoesNotExist() throws IOException {
+        LocalDate actualDate = commitStats.getFileDate(TEST_PATH_TO_LAST_COMMIT_HASH);
+        assertEquals(null, actualDate);
+    }
+
+    /**
+     * Tests getFileDate() method when file exists
+     * Verifies that creation date matches current date
+     *
+     * @throws IOException if file creation fails
+     */
+    @Test
+    void testGetFileDateWhenFileExists() throws IOException {
+        String testLastCommitHash = "/test_last_hash.txt";
+        String testDailyCommits = "/test_daily_commits.txt";
+        String homeDir = System.getProperty("user.home");
+        CommitStats testCommitStats = new CommitStats (
+                homeDir + testLastCommitHash,
+                homeDir + testDailyCommits);
+        testCommitStats.writeHashToFile("hash");
+        LocalDate expectedDate = LocalDate.now();
+        LocalDate actualDate = testCommitStats.getFileDate(testLastCommitHash);
+        assertEquals(expectedDate, actualDate);
     }
 }
