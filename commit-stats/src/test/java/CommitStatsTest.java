@@ -241,4 +241,125 @@ public class CommitStatsTest {
         String actualValue = commitStats.readHashFromFile();
         assertEquals("", actualValue);
     }
+
+    /**
+     * Test writing daily commits value to file system.
+     * Verifies that value is correctly written to the file.
+     *
+     * @throws IOException if file writing operation fails
+     */
+    @Test
+    void testWriteDailyCommitsToFile() throws IOException {
+        Long testValue = 123L;
+        commitStats.writeDailyCommitsToFile(testValue);
+        Long content = Long.parseLong(
+                Files.readString(Paths.get(TEST_PATH_TO_DAILY_COMMITS)));
+        assertEquals(testValue, content);
+    }
+
+    /**
+     * Test write daily commits value with non-existent directory path.
+     * Verifies that error handling works for invalid paths.
+     */
+    @Test
+    void testWriteDailyCommitsToInvalidPath() {
+        String invalidPath = "non_existent_directory/test.txt";
+        CommitStats invalidStats = new CommitStats(
+                TEST_PATH_TO_LAST_COMMIT_HASH,
+                invalidPath);
+        assertDoesNotThrow(() -> invalidStats.writeDailyCommitsToFile(123L));
+    }
+
+    /**
+     * Test null writing handling
+     * Verifies that null writing are handled gracefully
+     */
+    @Test
+    void testWriteNullToDailyCommitsFile() {
+        assertDoesNotThrow(() -> commitStats.writeDailyCommitsToFile(null));
+        assertTrue(Files.exists(Paths.get(TEST_PATH_TO_DAILY_COMMITS)));
+    }
+
+    /**
+     * Test file overwrite behavior for sequential daily commits value writes.
+     * Verifies that new value overwrites previous content.
+     *
+     * @throws IOException if file reading operation fails
+     */
+    @Test
+    void testDailyCommitsFileOverwrite() throws IOException {
+        Long firstValue = 123L;
+        Long secondValue = 1234L;
+        commitStats.writeDailyCommitsToFile(firstValue);
+        commitStats.writeDailyCommitsToFile(secondValue);
+        Long content = Long.parseLong(
+                Files.readString(Paths.get(TEST_PATH_TO_DAILY_COMMITS)));
+        assertEquals(secondValue, content);
+        assertNotEquals(firstValue, content);
+    }
+
+    /**
+     * Test write and read daily commits value from file system.
+     * Verifies that value is correctly written and read from the file.
+     *
+     * @throws IOException if file writing or reading operation fails
+     */
+    @Test
+    void testWriteAndReadDailyCommits() throws IOException {
+        Long testValue = 123L;
+        commitStats.writeDailyCommitsToFile(testValue);
+        Long content = commitStats.readDailyCommitsFromFile();
+        assertEquals(testValue, content);
+    }
+
+    /**
+     * Test read with non-existent directory path.
+     * Verifies that error handling works for invalid paths.
+     */
+    @Test
+    void testReadDailyCommitsFromInvalidPath() {
+        String invalidPath = "non_existent_directory/test.txt";
+        CommitStats invalidStats = new CommitStats(
+                TEST_PATH_TO_LAST_COMMIT_HASH,
+                invalidPath);
+        assertDoesNotThrow(() -> invalidStats.readDailyCommitsFromFile());
+    }
+
+    /**
+     * Test empty file reading handling
+     * Verifies that empty file reading are handled gracefully
+     */
+    @Test
+    void testReadEmptyDailyCommitsFile() {
+        assertDoesNotThrow(() -> {
+            new File(TEST_PATH_TO_DAILY_COMMITS).createNewFile();
+            Long result = commitStats.readDailyCommitsFromFile();
+            assertEquals(0, result);
+        });
+    }
+
+    /**
+     * Tests readDailyCommitsFromFile() method when file does not exist
+     * Verifies that method returns 0 as default value
+     *
+     * @throws IOException if file operation fails
+     */
+    @Test
+    void testReadDailyCommitsFromFileWhenFileDoesNotExist() throws IOException {
+        Files.deleteIfExists(Paths.get(TEST_PATH_TO_DAILY_COMMITS));
+        Long actualValue = commitStats.readDailyCommitsFromFile();
+        assertEquals(0, actualValue);
+    }
+
+    /**
+    * Tests readDailyCommitsFromFile() method with invalid data in file.
+    * Verifies that non-numeric data is handled gracefully
+    *
+    * @throws IOException if file writing fails
+    */
+    @Test
+    void testReadDailyCommitsFromFileWithInvalidData() throws IOException {
+        Files.write(Paths.get(TEST_PATH_TO_DAILY_COMMITS), "Invalid_data".getBytes());
+        assertDoesNotThrow(() -> commitStats.readDailyCommitsFromFile());
+    }
 }
