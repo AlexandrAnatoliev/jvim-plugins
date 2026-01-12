@@ -39,6 +39,21 @@ public class CommitStatsTest {
     }
 
     /**
+     * Test constructor field initialization.
+     * Verifies that all fields are properly set.
+     */
+    @Test
+    void testConstructor() {
+        String testLastCommitHash = "test_last_hash.txt";
+        String testDailyCommits = "test_daily_commits.txt";
+        CommitStats testCommitStats = new CommitStats (
+                testLastCommitHash,
+                testDailyCommits);
+        assertEquals(testLastCommitHash, testCommitStats.pathToLastCommitHash);
+        assertEquals(testDailyCommits, testCommitStats.pathToDailyCommits);
+    }
+
+    /**
      * Test getting last commit hash in git repository
      * This test requires git to be installed and the test to run in git repo
      */
@@ -352,11 +367,11 @@ public class CommitStatsTest {
     }
 
     /**
-    * Tests readDailyCommitsFromFile() method with invalid data in file.
-    * Verifies that non-numeric data is handled gracefully
-    *
-    * @throws IOException if file writing fails
-    */
+     * Tests readDailyCommitsFromFile() method with invalid data in file.
+     * Verifies that non-numeric data is handled gracefully
+     *
+     * @throws IOException if file writing fails
+     */
     @Test
     void testReadDailyCommitsFromFileWithInvalidData() throws IOException {
         Files.write(Paths.get(TEST_PATH_TO_DAILY_COMMITS), "Invalid_data".getBytes());
