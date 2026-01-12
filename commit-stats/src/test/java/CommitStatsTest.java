@@ -377,4 +377,30 @@ public class CommitStatsTest {
         Files.write(Paths.get(TEST_PATH_TO_DAILY_COMMITS), "Invalid_data".getBytes());
         assertDoesNotThrow(() -> commitStats.readDailyCommitsFromFile());
     }
+
+    /**
+     * Tests isFileExists() method when file does not exist
+     * Verifies that method returns false for non-existent file 
+     */
+    @Test
+    void testIsFileExistsWhenFileDoesNotExist() {
+        assertFalse(commitStats.isFileExists(TEST_PATH_TO_LAST_COMMIT_HASH));
+    }
+
+    /**
+     * Tests isFileExists() method when file exists
+     * Verifies that method returns true for existent file 
+     */
+    @Test
+    void testIsFileExistsWhenFileExists() throws IOException {
+        String testLastCommitHash = "/test_last_hash.txt";
+        String testDailyCommits = "/test_daily_commits.txt";
+        String homeDir = System.getProperty("user.home");
+        CommitStats testCommitStats = new CommitStats (
+                homeDir + testLastCommitHash,
+                homeDir + testDailyCommits);
+        testCommitStats.writeHashToFile("hash");
+        assertTrue(commitStats.isFileExists(testLastCommitHash));
+        Files.deleteIfExists(Paths.get(homeDir + testLastCommitHash));
+    }
 }
