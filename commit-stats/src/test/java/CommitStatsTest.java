@@ -172,8 +172,8 @@ public class CommitStatsTest {
                         "Git hash should be 40 chars");
                 assertTrue(hash.matches("[0-9a-f]{40}"),
                         "Should be a valid SHA-1 hash");
-                // Not in a Git repo, test should return empty string
             } else {
+                // Not in a Git repo, test should return empty string
                 String hash = stats.getLastCommitHash();
                 assertEquals("", hash,
                         "Should return empty string when Git is not available");
@@ -189,24 +189,15 @@ public class CommitStatsTest {
     }
 
     @Test
-    @DisplayName("getLastCommitHash doesn't throw exceptions")
+    @DisplayName("getLastCommitHash doesn't throw exceptions and returns a value")
     void testGetLastCommitHashNoExceptions() {
-        assertDoesNotThrow(() -> {
-            String hash = stats.getLastCommitHash();
-        });
+        String hash = assertDoesNotThrow(() -> stats.getLastCommitHash(),
+                "Method should not throw any exceptions");
+        assertNotNull(hash, "Returned value should not be null");
     }
 
     @Test
-    @DisplayName("getLastCommitHash scanner is properly closed")
-    void testResourceCleanup() {
-        for (int i = 0; i < 100 ; i++) {
-            String hash = stats.getLastCommitHash();
-        }
-        assertTrue(true);
-    }
-
-    @Test
-    @DisplayName("writeHashToFile is correctly write a hash to the file")
+    @DisplayName("writeHashToFile correctly writes a hash to the file")
     void testWriteHashToFile() throws IOException {
         String testHash = "0123456789abcdef";
         stats.writeHashToFile(testHash);
@@ -215,7 +206,7 @@ public class CommitStatsTest {
     }
 
     @Test
-    @DisplayName("writeHashToFile is correctly write a empty string to the file")
+    @DisplayName("writeHashToFile correctly writes an empty string to the file")
     void testWriteEmptyString() throws IOException {
         String emptyString = "";
         stats.writeHashToFile(emptyString);
@@ -234,7 +225,7 @@ public class CommitStatsTest {
     }
 
     @Test
-    @DisplayName("writeHashToFile null writing are handled gracefully")
+    @DisplayName("writeHashToFile handles null values gracefully")
     void testWriteNullToHashFile() {
         assertDoesNotThrow(() -> stats.writeHashToFile(null));
         assertTrue(Files.exists(Paths.get(PATH_TO_LAST_COMMIT_HASH)));
@@ -254,7 +245,7 @@ public class CommitStatsTest {
 
     @Test
     @DisplayName("writeHashToFile and readHashFromFile "
-    + " write and read hash correctly from the file")
+    + "write and read hash correctly from the file")
     void testWriteAndReadHash() throws IOException {
         String testHash = "0123456789abcdef";
         stats.writeHashToFile(testHash);
@@ -273,7 +264,7 @@ public class CommitStatsTest {
     }
 
     @Test
-    @DisplayName("The readHashFromFile method error handling works for invalid paths")
+    @DisplayName("readHashFromFile error handling works for invalid paths")
     void testReadHashFromInvalidPath() {
         String invalidPath = "non_existent_directory/test.txt";
         CommitStats invalidStats = new CommitStats(
@@ -283,7 +274,7 @@ public class CommitStatsTest {
     }
 
     @Test
-    @DisplayName("The readHashFromFile method empty file reading are handled gracefully")
+    @DisplayName("readHashFromFile empty file reading are handled gracefully")
     void testReadEmptyHashFile() {
         assertDoesNotThrow(() -> {
             new File(PATH_TO_LAST_COMMIT_HASH).createNewFile();
@@ -293,7 +284,7 @@ public class CommitStatsTest {
     }
 
     @Test
-    @DisplayName("Tests readHashFromFile() method returns empty string "
+    @DisplayName("Tests readHashFromFile() returns empty string "
     + "when file does not exist")
     void testReadHashFromFileWhenFileDoesNotExist() throws IOException {
         Files.deleteIfExists(Paths.get(PATH_TO_LAST_COMMIT_HASH));
@@ -302,7 +293,7 @@ public class CommitStatsTest {
     }
 
     @Test
-    @DisplayName("The writeDailyCommitsToFile write value to the file correctly")
+    @DisplayName("writeDailyCommitsToFile writes value to the file correctly")
     void testWriteDailyCommitsToFile() throws IOException {
         Long testValue = 123L;
         stats.writeDailyCommitsToFile(testValue);
@@ -312,7 +303,7 @@ public class CommitStatsTest {
     }
 
     @Test
-    @DisplayName("The writeDailyCommitsToFile method error handling works for invalid paths")
+    @DisplayName("writeDailyCommitsToFile error handling works for invalid paths")
     void testWriteDailyCommitsToInvalidPath() {
         String invalidPath = "non_existent_directory/test.txt";
         CommitStats invalidStats = new CommitStats(
@@ -322,14 +313,14 @@ public class CommitStatsTest {
     }
 
     @Test
-    @DisplayName("The writeDailyCommitsToFile method null writing are handled gracefully")
+    @DisplayName("writeDailyCommitsToFile handles null values gracefully")
     void testWriteNullToDailyCommitsFile() {
         assertDoesNotThrow(() -> stats.writeDailyCommitsToFile(null));
         assertTrue(Files.exists(Paths.get(PATH_TO_DAILY_COMMITS)));
     }
 
     @Test
-    @DisplayName("The writeDailyCommitsToFile method new value overwrites previous content")
+    @DisplayName("writeDailyCommitsToFile overwrites previous content with new value")
     void testDailyCommitsFileOverwrite() throws IOException {
         Long firstValue = 123L;
         Long secondValue = 1234L;
@@ -342,8 +333,8 @@ public class CommitStatsTest {
     }
 
     @Test
-    @DisplayName("The writeDailyCommitsToFile and readDailyCommitsFromFile methods"
-    + " write and read from the file correctly")
+    @DisplayName("writeDailyCommitsToFile and readDailyCommitsFromFile "
+    + "write and read from the file correctly")
     void testWriteAndReadDailyCommits() throws IOException {
         Long testValue = 123L;
         stats.writeDailyCommitsToFile(testValue);
@@ -352,7 +343,7 @@ public class CommitStatsTest {
     }
 
     @Test
-    @DisplayName("The readDailyCommitsFromFile method error handling works for invalid paths")
+    @DisplayName("readDailyCommitsFromFile error handling works for invalid paths")
     void testReadDailyCommitsFromInvalidPath() {
         String invalidPath = "non_existent_directory/test.txt";
         CommitStats invalidStats = new CommitStats(
@@ -362,7 +353,7 @@ public class CommitStatsTest {
     }
 
     @Test
-    @DisplayName("The readDailyCommitsFromFile method empty file reading are handled gracefully")
+    @DisplayName("readDailyCommitsFromFile empty file reading are handled gracefully")
     void testReadEmptyDailyCommitsFile() {
         assertDoesNotThrow(() -> {
             new File(PATH_TO_DAILY_COMMITS).createNewFile();
@@ -372,7 +363,7 @@ public class CommitStatsTest {
     }
 
     @Test
-    @DisplayName("The readDailyCommitsFromFile method returns 0 as default value")
+    @DisplayName("readDailyCommitsFromFile returns 0 as default value")
     void testReadDailyCommitsFromFileWhenFileDoesNotExist() throws IOException {
         Files.deleteIfExists(Paths.get(PATH_TO_DAILY_COMMITS));
         Long actualValue = stats.readDailyCommitsFromFile();
@@ -380,20 +371,20 @@ public class CommitStatsTest {
     }
 
     @Test
-    @DisplayName("The readDailyCommitsFromFile method non-numeric data is handled gracefully")
+    @DisplayName("readDailyCommitsFromFile non-numeric data is handled gracefully")
     void testReadDailyCommitsFromFileWithInvalidData() throws IOException {
         Files.write(Paths.get(PATH_TO_DAILY_COMMITS), "Invalid_data".getBytes());
         assertDoesNotThrow(() -> stats.readDailyCommitsFromFile());
     }
 
     @Test
-    @DisplayName("The isFileExists method returns false for non-existent file")
+    @DisplayName("isFileExists returns false for non-existent file")
     void testIsFileExistsWhenFileDoesNotExist() {
         assertFalse(stats.isFileExists(PATH_TO_LAST_COMMIT_HASH));
     }
 
     @Test
-    @DisplayName("The isFileExists method returns true for existent file")
+    @DisplayName("isFileExists returns true for existent file")
     void testIsFileExistsWhenFileExists() throws IOException {
         String lastCommitHash = "/last_hash.txt";
         String dailyCommits = "/daily_commits.txt";
@@ -407,14 +398,14 @@ public class CommitStatsTest {
     }
 
     @Test
-    @DisplayName("The getFileDate method return null when file does not exist")
+    @DisplayName("getFileDate return null when file does not exist")
     void testGetFileDateWhenFileDoesNotExist() throws IOException {
         LocalDate actualDate = stats.getFileDate(PATH_TO_LAST_COMMIT_HASH);
         assertEquals(null, actualDate);
     }
 
     @Test
-    @DisplayName("The getFileDate method return file creation data")
+    @DisplayName("getFileDate return file creation data")
     void testGetFileDateWhenFileExists() throws IOException {
         String lastCommitHash = "/last_hash.txt";
         String dailyCommits = "/daily_commits.txt";
