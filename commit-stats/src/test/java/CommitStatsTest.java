@@ -7,8 +7,8 @@ import java.time.LocalDate;
 /**
  * Unit tests for CommitStats class
  *
- * @version  0.7.6
- * @since    12.01.2026
+ * @version  0.7.8
+ * @since    18.01.2026
  * @author   AlexandrAnatoliev 
  */
 public class CommitStatsTest {
@@ -358,7 +358,7 @@ public class CommitStatsTest {
         assertDoesNotThrow(() -> {
             new File(PATH_TO_DAILY_COMMITS).createNewFile();
             Long result = stats.readDailyCommitsFromFile();
-            assertEquals(0, result);
+            assertEquals(0L, (long)result);
         });
     }
 
@@ -367,7 +367,7 @@ public class CommitStatsTest {
     void testReadDailyCommitsFromFileWhenFileDoesNotExist() throws IOException {
         Files.deleteIfExists(Paths.get(PATH_TO_DAILY_COMMITS));
         Long actualValue = stats.readDailyCommitsFromFile();
-        assertEquals(0, actualValue);
+        assertEquals(0L, (long)actualValue);
     }
 
     @Test
