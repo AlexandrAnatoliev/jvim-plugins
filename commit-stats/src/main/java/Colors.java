@@ -1,8 +1,8 @@
 /**
  * Enum representation supported ANSI color codes for console output.
  *
- * @version  0.7.5
- * @since    06.01.2026
+ * @version  0.7.6
+ * @since    12.01.2026
  * @author   AlexandrAnatoliev
  */
 public enum Colors {
@@ -12,7 +12,7 @@ public enum Colors {
     /** Reset ANSI color code */
     RESET("\u001B[0m");
 
-    private final String code;
+    protected final String code;
 
     Colors(String code) {
         this.code = code;
