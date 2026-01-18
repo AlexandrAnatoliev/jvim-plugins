@@ -1,5 +1,4 @@
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.io.TempDir;
 import java.io.*;
 import java.nio.file.*;
 import java.time.LocalDate;
@@ -10,20 +9,21 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Unit tests for CommitStats class
  *
- * @version  0.7.6
+ * @version  0.7.7
  * @since    18.01.2026
  * @author   AlexandrAnatoliev 
  */
 class MainTest {
-    @TempDir
-    Path tempDir;
-
+    private Path tempDir;
     private String originalHome;
     private Path testLastCommitHashPath;
     private Path testDailyCommitsPath;
 
     @BeforeEach
     void setUp() throws Exception {
+        tempDir = Files.createTempDirectory("commit-start-test-");
+        tempDir.toFile().deleteOnExit();
+
         originalHome = System.getProperty("user.home");
         System.setProperty("user.home", tempDir.toString());
 
@@ -35,9 +35,27 @@ class MainTest {
     }
 
     @AfterEach
-    void tearDown() {
+    void tearDown() throws IOException {
         if (originalHome != null) {
             System.setProperty("user.home", originalHome);
+        }
+
+        deleteRecursively(tempDir);
+    }
+
+    /**
+     * Recursive deleting of directory
+     */ 
+    private void deleteRecursively(Path path) throws IOException {
+        if (Files.exists(path)) {
+            if (Files.isDirectory(path)) {
+                try (DirectoryStream<Path> stream = Files.newDirectoryStream(path)) {
+                    for (Path entry : stream) {
+                        deleteRecursively(entry);
+                    }
+                }
+            }
+            Files.delete(path);
         }
     }
 
