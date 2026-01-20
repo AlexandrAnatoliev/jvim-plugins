@@ -25,8 +25,8 @@
 #   it PATH
 #   JUnit 5  must be installed 
 #
-# Version  0.6.9
-# Since    13.12.2025
+# Version  0.7.9
+# Since    20.01.2026
 # Author   AlexandrAnatoliev
 
 RED='\u001B[31m'
@@ -77,12 +77,13 @@ CLASSPATH="$MAIN_BIN_DIR:$TEST_BIN_DIR:$JUNIT_API_JAR:$JUNIT_STANDALONE_JAR"
 
 echo "Running JUnit tests"
 echo "--------------------------------------------"
-java -cp "$CLASSPATH" org.junit.platform.console.ConsoleLauncher --scan-classpath
+OUTPUT=$(java -cp "$CLASSPATH" org.junit.platform.console.ConsoleLauncher --scan-classpath --fail-if-no-tests 2>&1)
+echo "$OUTPUT"
 echo "--------------------------------------------"
 
-if [ $? -eq 0 ]; then
+if [[ $? -eq 0 && "$OUTPUT" =~ "0 tests failed" ]]; then
     echo -e "${GREEN}All tests passed successfully${NC}"
 else
-    echo -e "${RED}Some tests failed${NC}"
+    echo -e "${YELLOW}WARNING: Some tests failed${NC}"
     exit 1
 fi

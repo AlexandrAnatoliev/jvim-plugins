@@ -23,8 +23,8 @@
 #   0 - JUnit check, compilation and tests completed successfully
 #   1 - JUnit check or compilation or some tests failed 
 #
-# Version  0.6.9
-# Since    13.12.2025
+# Version  0.7.9
+# Since    0.01.2026
 # Author   AlexandrAnatoliev
 
 RED='\u001B[31m'
@@ -97,8 +97,6 @@ if "$CHECK_JUNIT_SCRIPT"; then
             echo ""
             exit 0
         else
-            echo -e "${RED}Some tests failed${NC}"
-            echo ""
             echo -e "${RED}===Testing Process Failed===${NC}"
             echo ""
             exit 1
