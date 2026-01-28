@@ -11,15 +11,15 @@ import java.time.*;
  *   java Main update   -   update commit stats 
  *   java Main stop     -   print commit stats
  *
- * @version  0.7.5
- * @since    06.01.2026
+ * @version  0.8.0
+ * @since    28.01.2026
  * @author   AlexandrAnatoliev
  */
 public class Main {
     private static final String PATH_TO_LAST_COMMIT_HASH = 
-        "/.vim/pack/my-plugins/start/commit-stats/data/last_commit_hash.txt";
+        "/.vim/pack/my-plugins/start/vimstat/data/last_commit_hash.txt";
     private static final String PATH_TO_DAILY_COMMITS = 
-        "/.vim/pack/my-plugins/start/commit-stats/data/daily_commits.txt";
+        "/.vim/pack/my-plugins/start/vimstat/data/daily_commits.txt";
 
     /** Main entry point for the Commit Stats application
      *
