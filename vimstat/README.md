@@ -86,6 +86,15 @@ rm -r ~/.vim/pack/my-plugins/start/vimstat/
 ```
 
 <div align="center">
+  <h4>Testing</h4>
+</div>
+
+* Running all unit tests
+```
+mvn test
+```
+
+<div align="center">
   <h4>Using</h4>
 </div>
 
@@ -269,6 +278,16 @@ cp -r commit-stats/ ~/.vim/pack/my-plugins/start/
 ```
 rm -r ~/.vim/pack/my-plugins/start/vimstat/
 ```
+
+<div align="center">
+  <h4>Тестирование</h4>
+</div>
+
+* Запуск всех тестов
+```
+mvn test
+```
+
 
 <div align="center">
   <h4>Использование</h4>
