@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ru.java-practice.jvim-plugins</groupId>
   <artifactId>vimstat</artifactId>
-  <version>0.8.2</version>
+  <version>0.8.3</version>
 
   <properties>
     <maven.compiler.source>21</maven.compiler.source>
@@ -53,6 +53,19 @@
             <include>**/*Test.java</include>
             <include>**/*Tests.java</include>
           </includes>
+        </configuration>
+      </plugin>
+      <!-- плагин для создания манифеста при компиляции jar -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>Main</mainClass>
+            </manifest>
+          </archive>
         </configuration>
       </plugin>
     </plugins>
