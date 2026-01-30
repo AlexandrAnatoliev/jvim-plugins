@@ -2,8 +2,8 @@
 " File: vimstat.vim
 " Description: Vim plugin for work self-management 
 " Author: AlexandrAnatoliev
-" Version: 0.8.0
-" Last Modified: 28.01.2026
+" Version: 0.8.3
+" Last Modified: 30.01.2026
 " ==================================================================
 
 " Plugin event handlers {{{
@@ -23,7 +23,7 @@ augroup END
 " Returns: None
 " ------------------------------------------------------------------  
 function! StartVimStat()
-  silent !java -cp ~/.vim/pack/my-plugins/start/vimstat/target/classes Main start &
+  silent !java -jar ~/.vim/pack/my-plugins/start/vimstat/target/vimstat-0.8.3.jar start &
 endfunction
 " }}}
 
@@ -35,7 +35,7 @@ endfunction
 " Returns: None
 " ------------------------------------------------------------------  
 function! UpdateVimStat()
-  silent !java -cp ~/.vim/pack/my-plugins/start/vimstat/target/classes Main update &
+  silent !java -jar ~/.vim/pack/my-plugins/start/vimstat/target/vimstat-0.8.3.jar update &
 endfunction
 " }}}
 
@@ -47,6 +47,6 @@ endfunction
 " Returns: None
 " ------------------------------------------------------------------  
 function! StopVimStat()
-  silent !java -cp ~/.vim/pack/my-plugins/start/vimstat/target/classes Main stop &
+  silent !java -jar ~/.vim/pack/my-plugins/start/vimstat/target/vimstat-0.8.3.jar stop &
 endfunction
 " }}}
