@@ -31,9 +31,9 @@ GREEN='\u001B[32m'
 NC='\u001B[0m'
 
 if [ $# -eq 0 ]; then
-    echo -e "${RED}[ERROR]${NC} no arguments"
-    echo -e "${YELLOW}[Example]${NC} ./remove.sh vimstat"
-    exit 1
+  echo -e "${RED}[ERROR]${NC} no arguments"
+  echo -e "${YELLOW}[Example]${NC} ./remove.sh vimstat"
+  exit 1
 fi
 
 PLUGIN_DIR="$1"
@@ -46,8 +46,8 @@ echo "==========================================="
 echo ""
 
 if [ ! -d "${VIM_DIR}" ]; then
-    echo -e "${YELLOW}[WARNING]${NC} plugin not found: ${VIM_DIR}"
-    exit 1
+  echo -e "${YELLOW}[WARNING]${NC} plugin not found: ${VIM_DIR}"
+  exit 1
 fi
 
 rm -r "${VIM_DIR}"
