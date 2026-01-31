@@ -31,7 +31,45 @@ GREEN='\u001B[32m'
 NC='\u001B[0m'
 
 if [ $# -eq 0 ]; then
-    echo -e "${RED}[ERROR]${NC} no arguments"
-    echo -e "${YELLOW}[EXAMPLE]${NC} ./install.sh vimstat"
+  echo -e "${RED}[ERROR]${NC} no arguments"
+  echo -e "${YELLOW}[EXAMPLE]${NC} ./install.sh vimstat"
+  exit 1
+fi
+
+PLUGIN_DIR="$1"
+TARGET_DIR="$HOME/.vim/pack/my-plugins/start/"
+
+echo ""
+echo "========================================="
+echo "===Plugin Installation Process Started==="
+echo "========================================="
+echo ""
+
+mvn -f "$PLUGIN_DIR" "package" 
+
+if [ $? -eq 0 ]; then
+  echo "Copying $PLUGIN_DIR to $TARGET_DIR..."
+  cp -r "$PLUGIN_DIR" "$TARGET_DIR"
+  if [ $? -eq 0 ]; then
+    echo "Contents of installed plugin:"
+    find "$TARGET_DIR" -type f | head -20
+    echo -e "${GREEN}jvim-timer plugin successfully installed to: $TARGET_DIR ${NC}"
+
+    echo ""
+    echo -e "${GREEN}==========================================${NC}"
+    echo -e "${GREEN}===Plugin Installation Process Finished===${NC}"
+    echo -e "${GREEN}==========================================${NC}"
+    echo ""
+    exit 0
+  else
+    echo -e "${RED}[ERROR]${NC} copying plugin"
     exit 1
+  fi
+else
+  echo ""
+  echo -e "${RED}========================================${NC}"
+  echo -e "${RED}===Plugin Installation Process Failed===${NC}"
+  echo -e "${RED}========================================${NC}"
+  echo ""
+  exit 1
 fi
