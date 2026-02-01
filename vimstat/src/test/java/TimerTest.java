@@ -51,7 +51,7 @@ public class TimerTest {
     throws IOException, InterruptedException {
 
     long startTime = System.currentTimeMillis() / 1000;
-    timer.writeToFile(startTime);
+    timer.writeLong(startTime);
 
     Thread.sleep(1000);
 
@@ -73,13 +73,13 @@ public class TimerTest {
   }
 
   /**
-  * Tests writeToFile() and readFromFile() methods
+  * Tests writeLong() and readFromFile() methods
   * Verifies that written value can be successfully read back
   */
   @Test
   void testWriteToFileAndReadFromFile() {
     long expectedValue = 123456789L;
-    timer.writeToFile(expectedValue);
+    timer.writeLong(expectedValue);
 
     long actualValue = timer.readFromFile();
     assertEquals(expectedValue, actualValue);
@@ -111,25 +111,25 @@ public class TimerTest {
   }
 
   /**
-  * Tests that writeToFile() method overwrites previous content
+  * Tests that writeLong() method overwrites previous content
   * Verifies that only the last written value is preserved
   */
   @Test
   void testWriteToFileOverwritesPreviousContent() {
-    timer.writeToFile(100L);
-    timer.writeToFile(200L);
+    timer.writeLong(100L);
+    timer.writeLong(200L);
 
     long actualValue = timer.readFromFile();
     assertEquals(200L, actualValue);
   }
 
   /**
-  * Tests writeToFile() method with null value 
+  * Tests writeLong() method with null value 
   * Verifies that null input is handled without exceptions
   */
   @Test
   void testWriteToFileWithNull() {
-    timer.writeToFile(null);
+    timer.writeLong(null);
 
     long actualValue = timer.readFromFile();
     assertNotNull(actualValue);
@@ -170,7 +170,7 @@ public class TimerTest {
     Timer customTimer = new Timer(customPath);
 
     try {
-      customTimer.writeToFile(999L);
+      customTimer.writeLong(999L);
       long value = customTimer.readFromFile();
       assertEquals(999L, value);
     } finally {
@@ -190,7 +190,7 @@ public class TimerTest {
     throws IOException, InterruptedException {
     
     long startTime = System.currentTimeMillis() / 1000;
-    timer.writeToFile(startTime);
+    timer.writeLong(startTime);
 
     int waitSecunds = 2;
     Thread.sleep(waitSecunds * 1000);

@@ -293,39 +293,39 @@ public class CommitStatsTest {
     }
 
     @Test
-    @DisplayName("writeDailyCommitsToFile writes value to the file correctly")
+    @DisplayName("writeLong writes value to the file correctly")
     void testWriteDailyCommitsToFile() throws IOException {
         Long testValue = 123L;
-        stats.writeDailyCommitsToFile(testValue);
+        stats.writeLong(testValue);
         Long content = Long.parseLong(
                 Files.readString(Paths.get(PATH_TO_DAILY_COMMITS)));
         assertEquals(testValue, content);
     }
 
     @Test
-    @DisplayName("writeDailyCommitsToFile error handling works for invalid paths")
+    @DisplayName("writeLong error handling works for invalid paths")
     void testWriteDailyCommitsToInvalidPath() {
         String invalidPath = "non_existent_directory/test.txt";
         CommitStats invalidStats = new CommitStats(
                 PATH_TO_LAST_COMMIT_HASH,
                 invalidPath);
-        assertDoesNotThrow(() -> invalidStats.writeDailyCommitsToFile(123L));
+        assertDoesNotThrow(() -> invalidStats.writeLong(123L));
     }
 
     @Test
-    @DisplayName("writeDailyCommitsToFile handles null values gracefully")
+    @DisplayName("writeLong handles null values gracefully")
     void testWriteNullToDailyCommitsFile() {
-        assertDoesNotThrow(() -> stats.writeDailyCommitsToFile(null));
+        assertDoesNotThrow(() -> stats.writeLong(null));
         assertTrue(Files.exists(Paths.get(PATH_TO_DAILY_COMMITS)));
     }
 
     @Test
-    @DisplayName("writeDailyCommitsToFile overwrites previous content with new value")
+    @DisplayName("writeLong overwrites previous content with new value")
     void testDailyCommitsFileOverwrite() throws IOException {
         Long firstValue = 123L;
         Long secondValue = 1234L;
-        stats.writeDailyCommitsToFile(firstValue);
-        stats.writeDailyCommitsToFile(secondValue);
+        stats.writeLong(firstValue);
+        stats.writeLong(secondValue);
         Long content = Long.parseLong(
                 Files.readString(Paths.get(PATH_TO_DAILY_COMMITS)));
         assertEquals(secondValue, content);
@@ -333,11 +333,11 @@ public class CommitStatsTest {
     }
 
     @Test
-    @DisplayName("writeDailyCommitsToFile and readDailyCommitsFromFile "
+    @DisplayName("writeLong and readDailyCommitsFromFile "
     + "write and read from the file correctly")
     void testWriteAndReadDailyCommits() throws IOException {
         Long testValue = 123L;
-        stats.writeDailyCommitsToFile(testValue);
+        stats.writeLong(testValue);
         Long content = stats.readDailyCommitsFromFile();
         assertEquals(testValue, content);
     }

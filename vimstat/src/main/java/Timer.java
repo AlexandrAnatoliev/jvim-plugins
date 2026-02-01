@@ -25,25 +25,6 @@ public class Timer extends Stats {
     }
 
     /**
-     * Writes time value to temporary file 
-     *
-     * @param  value - time value in seconds to write to file
-     * @throws Exception if unexpected error 
-     */
-    public void writeToFile(Long value) {
-        try {
-            FileWriter writer = new FileWriter(pathToLong);
-            writer.write(value.toString());
-
-            writer.close();
-
-        } catch (Exception e) {
-            System.out.println(Colors.RED.apply(
-                        "ERROR writing: " + e.getMessage()));
-        }
-    }
-
-    /**
      * Reads time value from temporary file 
      *
      * @return time value from file in seconds, 

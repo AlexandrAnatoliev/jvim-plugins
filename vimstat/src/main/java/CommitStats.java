@@ -83,22 +83,6 @@ public class CommitStats extends Stats {
     }
 
     /**
-     * Writes daily commits value to temporary file 
-     *
-     * @param  value Daily commits value to write to file
-     */
-    public void writeDailyCommitsToFile(Long value) {
-        try (FileWriter writer = new FileWriter(pathToLong)) {
-            writer.write(value.toString());
-        } catch (Exception e) {
-            System.out.println(
-                    Colors.RED.apply("[ERROR]")
-                    + " writing daily commits: "
-                    + e.getMessage());
-        }
-    }
-
-    /**
      * Reads daily commits value from temporary file 
      *
      * @return  daily commits value from file, 

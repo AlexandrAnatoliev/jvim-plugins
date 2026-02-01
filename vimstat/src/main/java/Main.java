@@ -69,7 +69,7 @@ public class Main {
 
         if (!commitStats.isFileExists(PATH_TO_DAILY_COMMITS)
                 || !today.equals(commitStats.getFileDate(PATH_TO_DAILY_COMMITS))) {
-            commitStats.writeDailyCommitsToFile(0L);
+            commitStats.writeLong(0L);
                 }
 
         if (!commitStats.isFileExists(PATH_TO_LAST_COMMIT_HASH)) {
@@ -89,32 +89,32 @@ public class Main {
         if(!sessionTimer.fileIsNotExist()) {
             long pastDuration = sessionTimer.getSessionTime();
             long dayTime = dayTimer.readFromFile();
-            dayTimer.writeToFile(dayTime + pastDuration);
+            dayTimer.writeLong(dayTime + pastDuration);
         }
-        sessionTimer.writeToFile(System.currentTimeMillis() / 1000);
+        sessionTimer.writeLong(System.currentTimeMillis() / 1000);
 
         if(yesterdayTimer.fileIsNotExist()) {
-            yesterdayTimer.writeToFile(0L);
+            yesterdayTimer.writeLong(0L);
         }
 
         if(monthTimer.fileIsNotExist()) {
-            monthTimer.writeToFile(0L);
+            monthTimer.writeLong(0L);
         }
 
         if(!monthTimer.getFileDate().equals(today)) {
             long yesterdayTime = monthTimer.readFromFile();
-            yesterdayTimer.writeToFile(yesterdayTime);
+            yesterdayTimer.writeLong(yesterdayTime);
 
             long emptyDays = ChronoUnit.DAYS.between(
                     monthTimer.getFileDate(), today);
             long monthTime = monthTimer.readFromFile() * (30 - emptyDays);
-            monthTimer.writeToFile(
+            monthTimer.writeLong(
                     (monthTime + dayTimer.readFromFile()) / 30);     
         }
 
         if(dayTimer.fileIsNotExist() || 
                 !dayTimer.getFileDate().equals(today)) {
-            dayTimer.writeToFile(0L);
+            dayTimer.writeLong(0L);
                 }
 
         return;
@@ -130,7 +130,7 @@ public class Main {
 
         if (!lastHash.equals(savedHash)) {
             long savedDailyCommits = commitStats.readDailyCommitsFromFile();
-            commitStats.writeDailyCommitsToFile(savedDailyCommits + 1L);
+            commitStats.writeLong(savedDailyCommits + 1L);
         }
 
         commitStats.writeHashToFile(lastHash);
@@ -153,15 +153,15 @@ public class Main {
         long duration = sessionTimer.getSessionTime(); 
 
         if(dayTimer.fileIsNotExist()) {
-            dayTimer.writeToFile(0L);
+            dayTimer.writeLong(0L);
         }
 
         long dayTime = dayTimer.readFromFile() + duration;
 
-        dayTimer.writeToFile(dayTime);
+        dayTimer.writeLong(dayTime);
 
         if(monthTimer.fileIsNotExist()) {
-            monthTimer.writeToFile(0L);
+            monthTimer.writeLong(0L);
         }
         long monthTime = monthTimer.readFromFile();
 
