@@ -10,8 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 *
 * Tests file operations, session time calculation, and edge cases
 * Uses temporary file that is cleaned up after each test
-* @version  0.2.6
-* @since    08.11.2025
+* @version  0.8.7
+* @since    01.12.2026
 * @author   AlexandrAnatoliev 
 */
 public class TimerTest {
@@ -73,7 +73,7 @@ public class TimerTest {
   }
 
   /**
-  * Tests writeLong() and readFromFile() methods
+  * Tests writeLong() and readLong() methods
   * Verifies that written value can be successfully read back
   */
   @Test
@@ -81,23 +81,23 @@ public class TimerTest {
     long expectedValue = 123456789L;
     timer.writeLong(expectedValue);
 
-    long actualValue = timer.readFromFile();
+    long actualValue = timer.readLong();
     assertEquals(expectedValue, actualValue);
   }
 
   /**
-  * Tests readFromFile() method when file does not exist
+  * Tests readLong() method when file does not exist
   * Verifies that method returns 0 as default value
   */
   @Test
   void testReadFromFileWhenFileDoesNotExist() {
     timer.deleteFile();
-    long actualValue = timer.readFromFile();
+    long actualValue = timer.readLong();
     assertEquals(0L, actualValue);
   }
 
   /**
-  * Tests readFromFile() method with invalid data in file
+  * Tests readLong() method with invalid data in file
   * Verifies that non-numeric data is handled gracefully
   *
   * @throws IOException if file writing fails
@@ -106,7 +106,7 @@ public class TimerTest {
   void testReadFromFileWithInvalidData() throws IOException {
     Files.write(Paths.get(TEST_FILE_PATH), "Invalid_data".getBytes());
 
-    long actualValue = timer.readFromFile();
+    long actualValue = timer.readLong();
     assertEquals(0L, actualValue);
   }
 
@@ -119,7 +119,7 @@ public class TimerTest {
     timer.writeLong(100L);
     timer.writeLong(200L);
 
-    long actualValue = timer.readFromFile();
+    long actualValue = timer.readLong();
     assertEquals(200L, actualValue);
   }
 
@@ -131,7 +131,7 @@ public class TimerTest {
   void testWriteToFileWithNull() {
     timer.writeLong(null);
 
-    long actualValue = timer.readFromFile();
+    long actualValue = timer.readLong();
     assertNotNull(actualValue);
   }
 
@@ -171,7 +171,7 @@ public class TimerTest {
 
     try {
       customTimer.writeLong(999L);
-      long value = customTimer.readFromFile();
+      long value = customTimer.readLong();
       assertEquals(999L, value);
     } finally {
       new File(customPath).delete();

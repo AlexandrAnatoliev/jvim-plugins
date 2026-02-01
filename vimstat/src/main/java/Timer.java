@@ -25,37 +25,13 @@ public class Timer extends Stats {
     }
 
     /**
-     * Reads time value from temporary file 
-     *
-     * @return time value from file in seconds, 
-     * or 0 if file does not exist or contains invalid data
-     * @throws Exception if unexpected error 
-     */
-    public long readFromFile() {
-        try {
-            BufferedReader reader = new BufferedReader(
-                    new FileReader(this.pathToLong));
-            long value = Long.parseLong(reader.readLine());
-
-            reader.close();
-
-            return value;
-
-        } catch (Exception e) {
-            System.out.println(Colors.RED.apply(
-                        "ERROR reading: " + e.getMessage()));
-        }
-        return 0;
-    }
-
-    /**
      * Reads start time from file  and calculates session duration
      * in seconds
      *
      * @return - Vim session duration in seconds
      */
     long getSessionTime() {
-        long startTime = readFromFile();
+        long startTime = readLong();
 
         if(startTime == 0) {
             return 0;

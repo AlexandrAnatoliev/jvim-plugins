@@ -12,7 +12,7 @@ import java.time.temporal.ChronoUnit;
  *   java Main update   -   update commit stats 
  *   java Main stop     -   print commit stats
  *
- * @version  0.8.5
+ * @version  0.8.7
  * @since    01.02.2026
  * @author   AlexandrAnatoliev
  */
@@ -88,7 +88,7 @@ public class Main {
 
         if(!sessionTimer.fileIsNotExist()) {
             long pastDuration = sessionTimer.getSessionTime();
-            long dayTime = dayTimer.readFromFile();
+            long dayTime = dayTimer.readLong();
             dayTimer.writeLong(dayTime + pastDuration);
         }
         sessionTimer.writeLong(System.currentTimeMillis() / 1000);
@@ -102,14 +102,14 @@ public class Main {
         }
 
         if(!monthTimer.getFileDate().equals(today)) {
-            long yesterdayTime = monthTimer.readFromFile();
+            long yesterdayTime = monthTimer.readLong();
             yesterdayTimer.writeLong(yesterdayTime);
 
             long emptyDays = ChronoUnit.DAYS.between(
                     monthTimer.getFileDate(), today);
-            long monthTime = monthTimer.readFromFile() * (30 - emptyDays);
+            long monthTime = monthTimer.readLong() * (30 - emptyDays);
             monthTimer.writeLong(
-                    (monthTime + dayTimer.readFromFile()) / 30);     
+                    (monthTime + dayTimer.readLong()) / 30);     
         }
 
         if(dayTimer.fileIsNotExist() || 
@@ -129,7 +129,7 @@ public class Main {
         String lastHash = commitStats.getLastCommitHash();
 
         if (!lastHash.equals(savedHash)) {
-            long savedDailyCommits = commitStats.readDailyCommitsFromFile();
+            long savedDailyCommits = commitStats.readLong();
             commitStats.writeLong(savedDailyCommits + 1L);
         }
 
@@ -156,16 +156,16 @@ public class Main {
             dayTimer.writeLong(0L);
         }
 
-        long dayTime = dayTimer.readFromFile() + duration;
+        long dayTime = dayTimer.readLong() + duration;
 
         dayTimer.writeLong(dayTime);
 
         if(monthTimer.fileIsNotExist()) {
             monthTimer.writeLong(0L);
         }
-        long monthTime = monthTimer.readFromFile();
+        long monthTime = monthTimer.readLong();
 
-        long yesterdayTime = yesterdayTimer.readFromFile();
+        long yesterdayTime = yesterdayTimer.readLong();
 
         long sessionHours = duration / 3600;
         long sessionMinutes = (duration % 3600) / 60;
@@ -206,7 +206,7 @@ public class Main {
 
 
         CommitStats commitStats = createCommitStats(); 
-        long savedDailyCommits = commitStats.readDailyCommitsFromFile();
+        long savedDailyCommits = commitStats.readLong();
 
         new Thread(() -> {
             try {

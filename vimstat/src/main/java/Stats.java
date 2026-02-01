@@ -18,8 +18,29 @@ public abstract class Stats {
         } catch (Exception e) {
             System.out.println(
                     Colors.RED.apply("[ERROR]")
-                    + " writing daily commits: "
+                    + " Writing long: "
                     + e.getMessage());
+        }
+    }
+
+    /**
+     * Reads long value from temporary file 
+     *
+     * @return  long value from file, 
+     *          or 0 if file does not exist or contains invalid data
+     */
+    public long readLong() {
+        try (BufferedReader reader = new BufferedReader(
+                    new FileReader(this.pathToLong))) {
+
+            return Long.parseLong(reader.readLine());
+
+        } catch (Exception e) {
+            System.out.println(
+                    Colors.RED.apply("[ERROR]")
+                    + " Reading long: "
+                    + e.getMessage());
+            return 0;
         }
     }
 }

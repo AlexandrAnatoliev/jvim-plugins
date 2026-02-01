@@ -88,7 +88,7 @@ public class CommitStats extends Stats {
      * @return  daily commits value from file, 
      *          or 0 if file does not exist or contains invalid data
      */
-    public long readDailyCommitsFromFile() {
+    public long readLong() {
         try (BufferedReader reader = new BufferedReader(
                     new FileReader(this.pathToLong))) {
             long value = Long.parseLong(reader.readLine());
