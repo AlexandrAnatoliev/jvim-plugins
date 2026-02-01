@@ -33,35 +33,58 @@ pomodoro
 │  └── start_time.txt
 ├── plugin
 │  └── pomodoro.vim
+├── pom.xml
 ├── README.md
-└── src
-   ├── main
-   │  └── java
-   │     ├── Colors.java
-   │     ├── Main.java
-   │     └── PomodoroTimer.java
-   └── test
-      └── java
-         └── PomodoroTimerTest.java
+├── src
+│  ├── main
+│  │  └── java
+│  │     ├── Colors.java
+│  │     ├── Main.java
+│  │     └── PomodoroTimer.java
+│  └── test
+│     └── java
+│        └── PomodoroTimerTest.java
+└── target
+   ├── classes
+   │  ├── Colors.class
+   │  ├── Main.class
+   │  └── PomodoroTimer.class
+   ├── generated-sources
+   │  └── annotations
+   ├── generated-test-sources
+   │  └── test-annotations
+   ├── maven-archiver
+   │  └── pom.properties
+   ├── maven-status
+   │  └── maven-compiler-plugin
+   │     ├── compile
+   │     │  └── default-compile
+   │     │     ├── createdFiles.lst
+   │     │     └── inputFiles.lst
+   │     └── testCompile
+   │        └── default-testCompile
+   │           ├── createdFiles.lst
+   │           └── inputFiles.lst
+   ├── pomodoro-0.8.6.jar
+   ├── surefire-reports
+   │  ├── PomodoroTimerTest.txt
+   │  └── TEST-PomodoroTimerTest.xml
+   └── test-classes
+      └── PomodoroTimerTest.class
 ```
 
 <div align="center">
   <h4>Manual installation</h4>
 </div>
 
+* Build plugin by Maven
+```
+mvn package
+```
+
 * Copy the plugin to the  `.vim/` folder:
 ```
 cp -r pomodoro/ ~/.vim/pack/my-plugins/start/
-```
-
-* Navigate to the plugin's root directory:
-```
-cd ~/.vim/pack/my-plugins/start/pomodoro/
-```
-
-* Compile Java files:
-```
-javac -d bin/main/ src/main/java/*
 ```
 
 * Reload Vim or run the command:
@@ -82,22 +105,9 @@ rm -r ~/.vim/pack/my-plugins/start/pomodoro/
   <h4>Testing</h4>
 </div>
 
-* Check the path to JUnit using command: 
-```
-dpkg -L junit5 | grep junit-jupiter-api
-```
-```
-dpkg -L junit5 | grep junit-platform-console-standalone
-```
-
-* Building tests with JUnit dependencies:
-```
-javac -d bin/test/ -cp "bin/main:/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-console-standalone-1.9.1.jar" src/test/java/*.java
-```
-
 * Running all unit tests
 ```
-java -cp "bin/main:bin/test:/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-console-standalone-1.9.1.jar" org.junit.platform.console.ConsoleLauncher --scan-classpath --class-path bin/test
+mvn test
 ```
 
 <div align="center">
@@ -118,6 +128,7 @@ that it's time to take a break.
  
 * Java installed
 * Vim installed
+* Maven installed
 * .class files built into designated folder
 * JUnit 5 installed (optional)
 
@@ -127,6 +138,7 @@ that it's time to take a break.
  
 * Vim 7.0 and above
 * Java 8 and above
+* Maven 3 and above
 
 <div align="center">
   <h4>Class call hierarchy</h4>
@@ -196,7 +208,7 @@ classDiagram
 <div align="center">
 
   <a id="russian"></a>
-  <h1>Pomodoro плагин дляVim</h1>
+  <h1>Pomodoro плагин для Vim</h1>
   <p>Нужен для самоконтроля и производительности</p>
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
@@ -216,6 +228,8 @@ classDiagram
 
 ```
 pomodoro
+```
+pomodoro
 ├── bin
 │  ├── main
 │  │  ├── Colors.class
@@ -228,35 +242,59 @@ pomodoro
 │  └── start_time.txt
 ├── plugin
 │  └── pomodoro.vim
+├── pom.xml
 ├── README.md
-└── src
-   ├── main
-   │  └── java
-   │     ├── Colors.java
-   │     ├── Main.java
-   │     └── PomodoroTimer.java
-   └── test
-      └── java
-         └── PomodoroTimerTest.java
+├── src
+│  ├── main
+│  │  └── java
+│  │     ├── Colors.java
+│  │     ├── Main.java
+│  │     └── PomodoroTimer.java
+│  └── test
+│     └── java
+│        └── PomodoroTimerTest.java
+└── target
+   ├── classes
+   │  ├── Colors.class
+   │  ├── Main.class
+   │  └── PomodoroTimer.class
+   ├── generated-sources
+   │  └── annotations
+   ├── generated-test-sources
+   │  └── test-annotations
+   ├── maven-archiver
+   │  └── pom.properties
+   ├── maven-status
+   │  └── maven-compiler-plugin
+   │     ├── compile
+   │     │  └── default-compile
+   │     │     ├── createdFiles.lst
+   │     │     └── inputFiles.lst
+   │     └── testCompile
+   │        └── default-testCompile
+   │           ├── createdFiles.lst
+   │           └── inputFiles.lst
+   ├── pomodoro-0.8.6.jar
+   ├── surefire-reports
+   │  ├── PomodoroTimerTest.txt
+   │  └── TEST-PomodoroTimerTest.xml
+   └── test-classes
+      └── PomodoroTimerTest.class
+```
 ```
 
 <div align="center">
   <h4>Установка вручную</h4>
 </div>
 
+* Соберите плагин с помощью maven:
+```
+mvn package
+```
+
 * Скопировать плагин в .vim/ директорию:
 ```
 cp -r pomodoro/ ~/.vim/pack/my-plugins/start/
-```
-
-* Перейти в корневой каталог плагина:
-```
-cd ~/.vim/pack/my-plugins/start/pomodoro/
-```
-
-* Скомпилировать Java файлы:
-```
-javac -d bin/main/ src/main/java/*
 ```
 
 * Перезагрузить Vim или выполнить команду:
@@ -277,22 +315,9 @@ rm -r ~/.vim/pack/my-plugins/start/pomodoro/
   <h4>Тестирование</h4>
 </div>
 
-* Проверьте путь до классов JUnit командой: 
+* Запуск всех тестов
 ```
-dpkg -L junit5 | grep junit-jupiter-api
-```
-```
-dpkg -L junit5 | grep junit-platform-console-standalone
-```
-
-* Компиляция тестов с зависимостями JUnit:
-```
-javac -d bin/test/ -cp "bin/main:/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-console-standalone-1.9.1.jar" src/test/java/*.java
-```
-
-* Запуск всех unit-тестов
-```
-java -cp "bin/main:bin/test:/usr/share/java/junit-jupiter-api-5.10.1.jar:/usr/share/java/junit-platform-console-standalone-1.9.1.jar" org.junit.platform.console.ConsoleLauncher --scan-classpath --class-path bin/test
+mvn test
 ```
 
 <div align="center">
@@ -313,6 +338,7 @@ $ vim example.md
  
 * Установленная Java
 * Установленный Vim
+* Установленный Maven
 * Установленный JUnit 5 (опционально)
 * Скомпилированные .class файлы в указанной директории
 
@@ -322,6 +348,7 @@ $ vim example.md
  
 * Vim 7.0 и выше
 * Java 8 и выше
+* Maven 3 и выше
 
 <div align="center">
   <h4>Структура вызовов классов</h4>
