@@ -64,11 +64,12 @@ public class Main {
      * Starts a new CommitStats session.
      */
     public static void start() {
+        String homeDir = System.getProperty("user.home");
         CommitStats commitStats = createCommitStats();
         LocalDate today = LocalDate.now();
 
         if (!commitStats.isFileExists(PATH_TO_DAILY_COMMITS)
-                || !today.equals(commitStats.getFileDate(PATH_TO_DAILY_COMMITS))) {
+                || !today.equals(commitStats.getFileDate(homeDir + PATH_TO_DAILY_COMMITS))) {
             commitStats.writeLong(0L);
                 }
 
@@ -76,7 +77,6 @@ public class Main {
             commitStats.writeHashToFile("");
         }
 
-        String homeDir = System.getProperty("user.home");
         String pathToDayTime = homeDir + DAY_FILE_PATH;
         String pathToMonthTime = homeDir + MONTH_FILE_PATH;
         String pathToYesterdayTime = homeDir + YESTERDAY_FILE_PATH;
@@ -101,19 +101,19 @@ public class Main {
             monthTimer.writeLong(0L);
         }
 
-        if(!monthTimer.getFileDate().equals(today)) {
+        if(!monthTimer.getFileDate(pathToMonthTime).equals(today)) {
             long yesterdayTime = monthTimer.readLong();
             yesterdayTimer.writeLong(yesterdayTime);
 
             long emptyDays = ChronoUnit.DAYS.between(
-                    monthTimer.getFileDate(), today);
+                    monthTimer.getFileDate(pathToMonthTime), today);
             long monthTime = monthTimer.readLong() * (30 - emptyDays);
             monthTimer.writeLong(
                     (monthTime + dayTimer.readLong()) / 30);     
         }
 
         if(dayTimer.fileIsNotExist() || 
-                !dayTimer.getFileDate().equals(today)) {
+                !dayTimer.getFileDate(pathToDayTime).equals(today)) {
             dayTimer.writeLong(0L);
                 }
 

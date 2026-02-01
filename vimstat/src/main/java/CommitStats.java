@@ -122,29 +122,4 @@ public class CommitStats extends Stats {
         }
         return false;
     }
-
-    /**
-     * Retrieves the creation date of the file
-     *
-     * @param   pathToFile  Path to temporary file
-     * @return  LocalDate   Representing file creation time
-     */
-    public LocalDate getFileDate(String pathToFile) {
-        String homeDir = System.getProperty("user.home");
-        File file = new File(homeDir + pathToFile);
-        try {
-            BasicFileAttributes attrs = Files.readAttributes(
-                    file.toPath(), 
-                    BasicFileAttributes.class);
-            LocalDate fileDate = attrs.creationTime().toInstant()
-                .atZone(ZoneId.systemDefault()).toLocalDate();
-            return fileDate;
-        } catch (Exception e) {
-            System.out.println(
-                    Colors.RED.apply("[ERROR]")
-                    + " get file date checking: "
-                    + e.getMessage());
-        }
-        return null;
-    }
 }

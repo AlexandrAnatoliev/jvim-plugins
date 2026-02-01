@@ -407,15 +407,9 @@ public class CommitStatsTest {
     @Test
     @DisplayName("getFileDate return file creation data")
     void testGetFileDateWhenFileExists() throws IOException {
-        String lastCommitHash = "/last_hash.txt";
-        String dailyCommits = "/daily_commits.txt";
-        String homeDir = System.getProperty("user.home");
-        CommitStats testCommitStats = new CommitStats (
-                homeDir + lastCommitHash,
-                homeDir + dailyCommits);
-        testCommitStats.writeHashToFile("hash");
+        stats.writeHashToFile("hash");
         LocalDate expectedDate = LocalDate.now();
-        LocalDate actualDate = testCommitStats.getFileDate(lastCommitHash);
+        LocalDate actualDate = stats.getFileDate(PATH_TO_LAST_COMMIT_HASH);
         assertEquals(expectedDate, actualDate);
     }
 }

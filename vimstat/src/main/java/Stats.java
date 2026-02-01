@@ -1,4 +1,7 @@
 import java.io.*;
+import java.time.*;
+import java.nio.file.*;
+import java.nio.file.attribute.*;
 
 public abstract class Stats {
     protected String pathToLong;
@@ -41,6 +44,30 @@ public abstract class Stats {
                     + " Reading long: "
                     + e.getMessage());
             return 0;
+        }
+    }
+
+    /**
+     * Retrieves the creation date of the file
+     *
+     * @param   pathToFile  Path to temporary file
+     * @return  LocalDate   Representing file creation time
+     */
+    public LocalDate getFileDate(String pathToFile) {
+        File file = new File(pathToFile);
+        try {
+            BasicFileAttributes attrs = Files.readAttributes(
+                    file.toPath(), 
+                    BasicFileAttributes.class);
+            LocalDate fileDate = attrs.creationTime().toInstant()
+                .atZone(ZoneId.systemDefault()).toLocalDate();
+            return fileDate;
+        } catch (Exception e) {
+            System.out.println(
+                    Colors.RED.apply("[ERROR]")
+                    + " Get file date checking: "
+                    + e.getMessage());
+            return null;
         }
     }
 }

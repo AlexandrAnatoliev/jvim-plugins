@@ -68,31 +68,5 @@ public class Timer extends Stats {
 
         return false;
     }
-
-    /**
-     * Retrieves the creation date of the file
-     *
-     * @return LocalDate representing file creation time
-     * @throws Exception if unexpected error 
-     */
-    public LocalDate getFileDate() {
-        File file = new File(pathToLong);
-
-        try {
-            BasicFileAttributes attrs = Files.readAttributes(
-                    file.toPath(), BasicFileAttributes.class);
-
-            LocalDate fileDate = attrs.creationTime().toInstant()
-                .atZone(ZoneId.systemDefault()).toLocalDate();
-
-            return fileDate;
-
-        } catch (Exception e) {
-            System.out.println(Colors.RED.apply(
-                        "ERROR get file date checking: " + e.getMessage()));
-        }
-
-        return LocalDate.now();
-    }
 }
 
