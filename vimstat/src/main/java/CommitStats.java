@@ -7,25 +7,24 @@ import java.nio.file.attribute.*;
 /**
  * The class to get git stats 
  *
- * @version  0.7.6
- * @since    11.01.2026
+ * @version  0.8.7
+ * @since    01.02.2026
  * @author   AlexandrAnatoliev
  */
-public class CommitStats {
-    protected String pathToLastCommitHash;
-    protected String pathToDailyCommits;
+public class CommitStats extends Stats {
+    protected String pathToString;
 
     /**
      * CommitStats class constructor
      *
-     * @param  pathToLastCommitHash Path to temporary file 
+     * @param  pathToString Path to temporary file 
      *                              for last commit hash storage
      */
     public CommitStats(
-            String pathToLastCommitHash,
-            String pathToDailyCommits) {
-        this.pathToLastCommitHash = pathToLastCommitHash;
-        this.pathToDailyCommits = pathToDailyCommits;
+            String pathToString,
+            String pathToLong) {
+        super(pathToLong);
+        this.pathToString = pathToString;
             }
 
     /**
@@ -57,7 +56,7 @@ public class CommitStats {
     public void writeHashToFile(String hash) {
         try {
             String content = (hash == null) ? "" : hash;
-            Files.writeString(Paths.get(pathToLastCommitHash), content);
+            Files.writeString(Paths.get(pathToString), content);
         } catch (Exception e) {
             System.out.println(
                     Colors.RED.apply("[ERROR]")
@@ -73,7 +72,7 @@ public class CommitStats {
      */
     public String readHashFromFile() {
         try {
-            return Files.readString(Paths.get(this.pathToLastCommitHash));
+            return Files.readString(Paths.get(this.pathToString));
         } catch (Exception e) {
             System.out.println(
                     Colors.RED.apply("[ERROR]")
@@ -89,7 +88,7 @@ public class CommitStats {
      * @param  value Daily commits value to write to file
      */
     public void writeDailyCommitsToFile(Long value) {
-        try (FileWriter writer = new FileWriter(pathToDailyCommits)) {
+        try (FileWriter writer = new FileWriter(pathToLong)) {
             writer.write(value.toString());
         } catch (Exception e) {
             System.out.println(
@@ -107,7 +106,7 @@ public class CommitStats {
      */
     public long readDailyCommitsFromFile() {
         try (BufferedReader reader = new BufferedReader(
-                    new FileReader(this.pathToDailyCommits))) {
+                    new FileReader(this.pathToLong))) {
             long value = Long.parseLong(reader.readLine());
             return value;
         } catch (Exception e) {

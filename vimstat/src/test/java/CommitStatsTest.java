@@ -7,8 +7,8 @@ import java.time.LocalDate;
 /**
  * Unit tests for CommitStats class
  *
- * @version  0.7.8
- * @since    18.01.2026
+ * @version  0.8.7
+ * @since    01.02.2026
  * @author   AlexandrAnatoliev 
  */
 public class CommitStatsTest {
@@ -47,9 +47,9 @@ public class CommitStatsTest {
         CommitStats testCommitStats = new CommitStats (
                 lastCommitHash,
                 dailyCommits);
-        assertEquals(lastCommitHash, testCommitStats.pathToLastCommitHash,
+        assertEquals(lastCommitHash, testCommitStats.pathToString,
                 "Path to last commit hash file should be set correctly");
-        assertEquals(dailyCommits, testCommitStats.pathToDailyCommits,
+        assertEquals(dailyCommits, testCommitStats.pathToLong,
                 "Path to daily commits file should be set correctly");
     }
 
@@ -57,26 +57,26 @@ public class CommitStatsTest {
     @DisplayName("Constructor should work with null values") 
     void testConstructorShouldHandleNull() {
         CommitStats testStats = new CommitStats(null, null);
-        assertNull(testStats.pathToLastCommitHash);
-        assertNull(testStats.pathToDailyCommits);
+        assertNull(testStats.pathToString);
+        assertNull(testStats.pathToLong);
     }
 
     @Test
     @DisplayName("Constructor should work with empty strings")
     void testConstructorShouldHandleEmptyStrings() {
         CommitStats testStats = new CommitStats("", "");
-        assertEquals("", testStats.pathToLastCommitHash);
-        assertEquals("", testStats.pathToDailyCommits);
+        assertEquals("", testStats.pathToString);
+        assertEquals("", testStats.pathToLong);
     }
 
     @Test
     @DisplayName("Constructor should handle strings with whitespace") 
     void testConstructorShouldHandleWhitespaceStrings() {
         CommitStats testStats = new CommitStats(" ", " \t");
-        assertEquals(" ", testStats.pathToLastCommitHash,
-                "pathToLastCommitHash should preserve whitespace");
-        assertEquals(" \t", testStats.pathToDailyCommits,
-                "pathToDailyCommits should preserve whitespace and tabs");
+        assertEquals(" ", testStats.pathToString,
+                "pathToString should preserve whitespace");
+        assertEquals(" \t", testStats.pathToLong,
+                "pathToLong should preserve whitespace and tabs");
     }
 
     @Test
@@ -85,8 +85,8 @@ public class CommitStatsTest {
         String relativePath1 = "./data/last_commit_hash.txt";
         String relativePath2 = "../commits/daily_commits.txt";
         CommitStats testStats = new CommitStats(relativePath1, relativePath2);
-        assertEquals(relativePath1, testStats.pathToLastCommitHash);
-        assertEquals(relativePath2, testStats.pathToDailyCommits);
+        assertEquals(relativePath1, testStats.pathToString);
+        assertEquals(relativePath2, testStats.pathToLong);
     }
 
     @Test
@@ -96,8 +96,8 @@ public class CommitStatsTest {
         String absolutePath2 = "var/log/commits/daily_commits.txt";
         if (!System.getProperty("os.name").toLowerCase().contains("win")) {
             CommitStats testStats = new CommitStats(absolutePath1, absolutePath2);
-            assertEquals(absolutePath1, testStats.pathToLastCommitHash);
-            assertEquals(absolutePath2, testStats.pathToDailyCommits);
+            assertEquals(absolutePath1, testStats.pathToString);
+            assertEquals(absolutePath2, testStats.pathToLong);
         }
     }
 
@@ -107,11 +107,11 @@ public class CommitStatsTest {
         String path1 = "file1.txt";
         String path2 = "file2.txt";
         CommitStats testStats = new CommitStats(path1, path2);
-        assertNotSame(testStats.pathToLastCommitHash, 
-                testStats.pathToDailyCommits,
+        assertNotSame(testStats.pathToString, 
+                testStats.pathToLong,
                 "Paths should be different objects"); 
-        assertNotEquals(testStats.pathToLastCommitHash,
-                testStats.pathToDailyCommits,
+        assertNotEquals(testStats.pathToString,
+                testStats.pathToLong,
                 "Paths should be different values");
     }
 
@@ -123,9 +123,9 @@ public class CommitStatsTest {
         CommitStats testStats = new CommitStats(
                 pathWithSpecialChars1,
                 pathWithSpecialChars2);
-        assertEquals(pathWithSpecialChars1, testStats.pathToLastCommitHash,
+        assertEquals(pathWithSpecialChars1, testStats.pathToString,
                 "Special characters in paths should be preserved");
-        assertEquals(pathWithSpecialChars2, testStats.pathToDailyCommits,
+        assertEquals(pathWithSpecialChars2, testStats.pathToLong,
                 "Special characters in paths should be preserved");
     }
 

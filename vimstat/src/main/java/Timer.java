@@ -9,20 +9,19 @@ import java.nio.file.attribute.*;
  * The class provides methods for reading start time from temporary file, 
  * calculates running duration, and managing the temporary file. 
  *
- * @version  0.6.17 
- * @since    22.12.2025
+ * @version  0.8.7 
+ * @since    01.02.2026
  * @author   AlexandrAnatoliev
  */
-public class Timer {
-    protected String pathToFile;
+public class Timer extends Stats {
 
     /** 
      * Timer class constructor
      *
-     * @param  pathToFile - path to temporary file for store of value
+     * @param  pathToLong - path to temporary file for store of value
      */
-    public Timer(String pathToFile) {
-        this.pathToFile = pathToFile;
+    public Timer(String pathToLong) {
+        super(pathToLong);
     }
 
     /**
@@ -33,7 +32,7 @@ public class Timer {
      */
     public void writeToFile(Long value) {
         try {
-            FileWriter writer = new FileWriter(pathToFile);
+            FileWriter writer = new FileWriter(pathToLong);
             writer.write(value.toString());
 
             writer.close();
@@ -54,7 +53,7 @@ public class Timer {
     public long readFromFile() {
         try {
             BufferedReader reader = new BufferedReader(
-                    new FileReader(this.pathToFile));
+                    new FileReader(this.pathToLong));
             long value = Long.parseLong(reader.readLine());
 
             reader.close();
@@ -90,7 +89,7 @@ public class Timer {
      * Deletes temporary file 
      */
     void deleteFile() {
-        new File(this.pathToFile).delete();
+        new File(this.pathToLong).delete();
     }
 
     /**
@@ -101,7 +100,7 @@ public class Timer {
      * @throws Exception if file does not exists
      */
     public boolean fileIsNotExist() {
-        File file = new File(pathToFile);
+        File file = new File(pathToLong);
 
         try {
             return !file.exists();
@@ -120,7 +119,7 @@ public class Timer {
      * @throws Exception if unexpected error 
      */
     public LocalDate getFileDate() {
-        File file = new File(pathToFile);
+        File file = new File(pathToLong);
 
         try {
             BasicFileAttributes attrs = Files.readAttributes(
