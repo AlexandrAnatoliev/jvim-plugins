@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests file operations, session time calculation, and edge cases
  * Uses temporary file that is cleaned up after each test
  * @version  0.8.7
- * @since    01.12.2026
+ * @since    02.12.2026
  * @author   AlexandrAnatoliev 
  */
 public class TimerTest {
@@ -202,24 +202,24 @@ public class TimerTest {
     }
 
     /**
-     * Tests fileIsNotExist() method when file does not exist
+     * Tests isFileExists() method when file does not exist
      * Verifies that method returns true for non-existent file 
      */
     @Test
     void testFileIsNotExistWhenFileDoesNotExist() {
-        assertTrue(timer.fileIsNotExist());
+        assertFalse(timer.isFileExists(TEST_FILE_PATH));
     }
 
     @Test
     /**
-     * Tests fileIsNotExist() method when file exists
+     * Tests isFileExists() method when file exists
      * Verifies that method returns false for existing file 
      *
      * @throws IOException if file creation fails
      */
     void testFileIsNotExistWhenFileExists() throws IOException {
         Files.createFile(Paths.get(TEST_FILE_PATH));
-        assertFalse(timer.fileIsNotExist());
+        assertTrue(timer.isFileExists(TEST_FILE_PATH));
     }
 
     /**

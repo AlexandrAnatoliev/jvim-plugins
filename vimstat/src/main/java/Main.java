@@ -86,18 +86,18 @@ public class Main {
         Timer monthTimer = new Timer(pathToMonthTime);
         Timer yesterdayTimer = new Timer(pathToYesterdayTime);
 
-        if(!sessionTimer.fileIsNotExist()) {
+        if(sessionTimer.isFileExists(homeDir + SESSION_FILE_PATH)) {
             long pastDuration = sessionTimer.getSessionTime();
             long dayTime = dayTimer.readLong();
             dayTimer.writeLong(dayTime + pastDuration);
         }
         sessionTimer.writeLong(System.currentTimeMillis() / 1000);
 
-        if(yesterdayTimer.fileIsNotExist()) {
+        if(!yesterdayTimer.isFileExists(pathToYesterdayTime)) {
             yesterdayTimer.writeLong(0L);
         }
 
-        if(monthTimer.fileIsNotExist()) {
+        if(!monthTimer.isFileExists(pathToMonthTime)) {
             monthTimer.writeLong(0L);
         }
 
@@ -112,7 +112,7 @@ public class Main {
                     (monthTime + dayTimer.readLong()) / 30);     
         }
 
-        if(dayTimer.fileIsNotExist() || 
+        if(!dayTimer.isFileExists(pathToDayTime) || 
                 !dayTimer.getFileDate(pathToDayTime).equals(today)) {
             dayTimer.writeLong(0L);
                 }
@@ -152,7 +152,7 @@ public class Main {
 
         long duration = sessionTimer.getSessionTime(); 
 
-        if(dayTimer.fileIsNotExist()) {
+        if(!dayTimer.isFileExists(pathToDayTime)) {
             dayTimer.writeLong(0L);
         }
 
@@ -160,7 +160,7 @@ public class Main {
 
         dayTimer.writeLong(dayTime);
 
-        if(monthTimer.fileIsNotExist()) {
+        if(!monthTimer.isFileExists(pathToMonthTime)) {
             monthTimer.writeLong(0L);
         }
         long monthTime = monthTimer.readLong();

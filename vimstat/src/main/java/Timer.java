@@ -48,25 +48,5 @@ public class Timer extends Stats {
     void deleteFile() {
         new File(this.pathToLong).delete();
     }
-
-    /**
-     * Checks if temporary file does not exist
-     *
-     * @return true if file does not exists
-     *         false if file exists
-     * @throws Exception if file does not exists
-     */
-    public boolean fileIsNotExist() {
-        File file = new File(pathToLong);
-
-        try {
-            return !file.exists();
-        } catch (Exception e) {
-            System.out.println(Colors.RED.apply(
-                        "ERROR file existing checking: " + e.getMessage()));
-        }
-
-        return false;
-    }
 }
 
