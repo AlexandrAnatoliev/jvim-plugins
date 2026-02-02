@@ -13,7 +13,7 @@ import java.time.temporal.ChronoUnit;
  *   java Main stop     -   print commit stats
  *
  * @version  0.8.7
- * @since    01.02.2026
+ * @since    02.02.2026
  * @author   AlexandrAnatoliev
  */
 public class Main {
@@ -68,12 +68,12 @@ public class Main {
         CommitStats commitStats = createCommitStats();
         LocalDate today = LocalDate.now();
 
-        if (!commitStats.isFileExists(PATH_TO_DAILY_COMMITS)
+        if (!commitStats.isFileExists(homeDir + PATH_TO_DAILY_COMMITS)
                 || !today.equals(commitStats.getFileDate(homeDir + PATH_TO_DAILY_COMMITS))) {
             commitStats.writeLong(0L);
                 }
 
-        if (!commitStats.isFileExists(PATH_TO_LAST_COMMIT_HASH)) {
+        if (!commitStats.isFileExists(homeDir + PATH_TO_LAST_COMMIT_HASH)) {
             commitStats.writeHashToFile("");
         }
 

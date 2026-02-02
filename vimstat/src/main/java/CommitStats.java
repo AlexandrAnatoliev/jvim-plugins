@@ -81,45 +81,4 @@ public class CommitStats extends Stats {
             return "";
         }
     }
-
-    /**
-     * Reads daily commits value from temporary file 
-     *
-     * @return  daily commits value from file, 
-     *          or 0 if file does not exist or contains invalid data
-     */
-    public long readLong() {
-        try (BufferedReader reader = new BufferedReader(
-                    new FileReader(this.pathToLong))) {
-            long value = Long.parseLong(reader.readLine());
-            return value;
-        } catch (Exception e) {
-            System.out.println(
-                    Colors.RED.apply("[ERROR]")
-                    + " reading daily commits: "
-                    + e.getMessage());
-        }
-        return 0;
-    }
-
-    /**
-     * Checks if temporary file is exist 
-     * 
-     * @param   pathToFile  Path to temporary file
-     * @return  true        If file is exist
-     *          false       If file is not exist
-     */
-    public boolean isFileExists(String pathToFile) {
-        String homeDir = System.getProperty("user.home");
-        File file = new File(homeDir + pathToFile);
-        try {
-            return file.exists();
-        } catch (Exception e) {
-            System.out.println(
-                    Colors.RED.apply("[ERROR]")
-                    + " file existing checking: "
-                    + e.getMessage());
-        }
-        return false;
-    }
 }

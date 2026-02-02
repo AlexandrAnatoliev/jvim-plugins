@@ -386,15 +386,8 @@ public class CommitStatsTest {
     @Test
     @DisplayName("isFileExists returns true for existent file")
     void testIsFileExistsWhenFileExists() throws IOException {
-        String lastCommitHash = "/last_hash.txt";
-        String dailyCommits = "/daily_commits.txt";
-        String homeDir = System.getProperty("user.home");
-        CommitStats testCommitStats = new CommitStats (
-                homeDir + lastCommitHash,
-                homeDir + dailyCommits);
-        testCommitStats.writeHashToFile("hash");
-        assertTrue(stats.isFileExists(lastCommitHash));
-        Files.deleteIfExists(Paths.get(homeDir + lastCommitHash));
+        stats.writeHashToFile("hash");
+        assertTrue(stats.isFileExists(PATH_TO_LAST_COMMIT_HASH));
     }
 
     @Test

@@ -70,4 +70,24 @@ public abstract class Stats {
             return null;
         }
     }
+
+    /**
+     * Checks if temporary file is exist 
+     * 
+     * @param   pathToFile  Path to temporary file
+     * @return  true        If file is exist
+     *          false       If file is not exist
+     */
+    public boolean isFileExists(String pathToFile) {
+        File file = new File(pathToFile);
+        try {
+            return file.exists();
+        } catch (Exception e) {
+            System.out.println(
+                    Colors.RED.apply("[ERROR]")
+                    + " file existing checking: "
+                    + e.getMessage());
+        }
+        return false;
+    }
 }
