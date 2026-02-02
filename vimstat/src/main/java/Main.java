@@ -74,7 +74,7 @@ public class Main {
                 }
 
         if (!gitStats.isFileExists(homeDir + PATH_TO_LAST_COMMIT_HASH)) {
-            gitStats.writeHashToFile("");
+            gitStats.writeString("");
         }
 
         String pathToDayTime = homeDir + DAY_FILE_PATH;
@@ -125,7 +125,7 @@ public class Main {
      */
     public static void update() {
         GitStats gitStats = createGitStats(); 
-        String savedHash = gitStats.readHashFromFile();
+        String savedHash = gitStats.readString();
         String lastHash = gitStats.getLastCommitHash();
 
         if (!lastHash.equals(savedHash)) {
@@ -133,7 +133,7 @@ public class Main {
             gitStats.writeLong(savedDailyCommits + 1L);
         }
 
-        gitStats.writeHashToFile(lastHash);
+        gitStats.writeString(lastHash);
     }
 
     /*

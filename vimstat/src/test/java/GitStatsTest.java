@@ -197,98 +197,98 @@ public class GitStatsTest {
     }
 
     @Test
-    @DisplayName("writeHashToFile correctly writes a hash to the file")
+    @DisplayName("writeString correctly writes a hash to the file")
     void testWriteHashToFile() throws IOException {
         String testHash = "0123456789abcdef";
-        stats.writeHashToFile(testHash);
+        stats.writeString(testHash);
         String content = Files.readString(Paths.get(PATH_TO_LAST_COMMIT_HASH));
         assertEquals(testHash, content);
     }
 
     @Test
-    @DisplayName("writeHashToFile correctly writes an empty string to the file")
+    @DisplayName("writeString correctly writes an empty string to the file")
     void testWriteEmptyString() throws IOException {
         String emptyString = "";
-        stats.writeHashToFile(emptyString);
+        stats.writeString(emptyString);
         String content = Files.readString(Paths.get(PATH_TO_LAST_COMMIT_HASH));
         assertEquals(emptyString, content);
     }
 
     @Test
-    @DisplayName("writeHashToFile error handling works for invalid paths")
+    @DisplayName("writeString error handling works for invalid paths")
     void testWriteHashToInvalidPath() {
         String invalidPath = "non_existent_directory/test.txt";
         GitStats invalidStats = new GitStats(
                 invalidPath,
                 PATH_TO_DAILY_COMMITS);
-        assertDoesNotThrow(() -> invalidStats.writeHashToFile("test"));
+        assertDoesNotThrow(() -> invalidStats.writeString("test"));
     }
 
     @Test
-    @DisplayName("writeHashToFile handles null values gracefully")
+    @DisplayName("writeString handles null values gracefully")
     void testWriteNullToHashFile() {
-        assertDoesNotThrow(() -> stats.writeHashToFile(null));
+        assertDoesNotThrow(() -> stats.writeString(null));
         assertTrue(Files.exists(Paths.get(PATH_TO_LAST_COMMIT_HASH)));
     }
 
     @Test
-    @DisplayName("writeHashToFile new hash overwrites previous content")
+    @DisplayName("writeString new hash overwrites previous content")
     void testHashToFileOverwrite() throws IOException {
         String firstHash = "test hash 1";
         String secondHash = "test hash 2";
-        stats.writeHashToFile(firstHash);
-        stats.writeHashToFile(secondHash);
+        stats.writeString(firstHash);
+        stats.writeString(secondHash);
         String content = Files.readString(Paths.get(PATH_TO_LAST_COMMIT_HASH));
         assertEquals(secondHash, content);
         assertNotEquals(firstHash, content);
     }
 
     @Test
-    @DisplayName("writeHashToFile and readHashFromFile "
+    @DisplayName("writeString and readString "
     + "write and read hash correctly from the file")
     void testWriteAndReadHash() throws IOException {
         String testHash = "0123456789abcdef";
-        stats.writeHashToFile(testHash);
-        String content = stats.readHashFromFile();
+        stats.writeString(testHash);
+        String content = stats.readString();
         assertEquals(testHash, content);
     }
 
     @Test
-    @DisplayName("writeHashToFile and readHashFromFile "
+    @DisplayName("writeString and readString "
     + " write and read empty string correctly from the file")
     void testWriteAndReadEmptyString() throws IOException {
         String emptyString = "";
-        stats.writeHashToFile(emptyString);
-        String content = stats.readHashFromFile();
+        stats.writeString(emptyString);
+        String content = stats.readString();
         assertEquals(emptyString, content);
     }
 
     @Test
-    @DisplayName("readHashFromFile error handling works for invalid paths")
+    @DisplayName("readString error handling works for invalid paths")
     void testReadHashFromInvalidPath() {
         String invalidPath = "non_existent_directory/test.txt";
         GitStats invalidStats = new GitStats(
                 invalidPath,
                 PATH_TO_DAILY_COMMITS);
-        assertDoesNotThrow(() -> invalidStats.readHashFromFile());
+        assertDoesNotThrow(() -> invalidStats.readString());
     }
 
     @Test
-    @DisplayName("readHashFromFile empty file reading are handled gracefully")
+    @DisplayName("readString empty file reading are handled gracefully")
     void testReadEmptyHashFile() {
         assertDoesNotThrow(() -> {
             new File(PATH_TO_LAST_COMMIT_HASH).createNewFile();
-            String result = stats.readHashFromFile();
+            String result = stats.readString();
             assertEquals("", result);
         });
     }
 
     @Test
-    @DisplayName("Tests readHashFromFile() returns empty string "
+    @DisplayName("Tests readString() returns empty string "
     + "when file does not exist")
     void testReadHashFromFileWhenFileDoesNotExist() throws IOException {
         Files.deleteIfExists(Paths.get(PATH_TO_LAST_COMMIT_HASH));
-        String actualValue = stats.readHashFromFile();
+        String actualValue = stats.readString();
         assertEquals("", actualValue);
     }
 
@@ -386,7 +386,7 @@ public class GitStatsTest {
     @Test
     @DisplayName("isFileExists returns true for existent file")
     void testIsFileExistsWhenFileExists() throws IOException {
-        stats.writeHashToFile("hash");
+        stats.writeString("hash");
         assertTrue(stats.isFileExists(PATH_TO_LAST_COMMIT_HASH));
     }
 
@@ -400,7 +400,7 @@ public class GitStatsTest {
     @Test
     @DisplayName("getFileDate return file creation data")
     void testGetFileDateWhenFileExists() throws IOException {
-        stats.writeHashToFile("hash");
+        stats.writeString("hash");
         LocalDate expectedDate = LocalDate.now();
         LocalDate actualDate = stats.getFileDate(PATH_TO_LAST_COMMIT_HASH);
         assertEquals(expectedDate, actualDate);

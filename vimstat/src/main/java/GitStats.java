@@ -1,8 +1,5 @@
 import java.util.Scanner;
-import java.io.*;
-import java.time.*;
 import java.nio.file.*;
-import java.nio.file.attribute.*;
 
 /**
  * The class to get git stats 
@@ -17,8 +14,7 @@ public class GitStats extends Stats {
     /**
      * GitStats class constructor
      *
-     * @param  pathToString Path to temporary file 
-     *                              for last commit hash storage
+     * @param  pathToString Path to temporary file for String value storage
      */
     public GitStats(
             String pathToString,
@@ -42,41 +38,41 @@ public class GitStats extends Stats {
             }
         } catch (Exception e) {
             System.out.println(Colors.RED.apply("[ERROR]") 
-                    + " get last commit hash: " 
+                    + " Get last commit hash: " 
                     + e.getMessage());
             return "";
         }
     }
 
     /**
-     * Writes hash to a temporary file
+     * Writes string value to a temporary file
      *
-     * @param hash Hash to write to the file
+     * @param hash String to write to the file
      */
-    public void writeHashToFile(String hash) {
+    public void writeString(String hash) {
         try {
             String content = (hash == null) ? "" : hash;
             Files.writeString(Paths.get(pathToString), content);
         } catch (Exception e) {
             System.out.println(
                     Colors.RED.apply("[ERROR]")
-                    + " writing hash: "
+                    + " Writing string: "
                     + e.getMessage());
         }
     }
 
     /**
-     * Reads hash value from temporary file 
+     * Reads string value from temporary file 
      *
-     * @return String Hash value from file 
+     * @return String value from file 
      */
-    public String readHashFromFile() {
+    public String readString() {
         try {
             return Files.readString(Paths.get(this.pathToString));
         } catch (Exception e) {
             System.out.println(
                     Colors.RED.apply("[ERROR]")
-                    + " reading hash: "
+                    + " Reading string: "
                     + e.getMessage());
             return "";
         }
