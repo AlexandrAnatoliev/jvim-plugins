@@ -8,19 +8,19 @@ import java.nio.file.attribute.*;
  * The class to get git stats 
  *
  * @version  0.8.7
- * @since    01.02.2026
+ * @since    02.02.2026
  * @author   AlexandrAnatoliev
  */
-public class CommitStats extends Stats {
+public class GitStats extends Stats {
     protected String pathToString;
 
     /**
-     * CommitStats class constructor
+     * GitStats class constructor
      *
      * @param  pathToString Path to temporary file 
      *                              for last commit hash storage
      */
-    public CommitStats(
+    public GitStats(
             String pathToString,
             String pathToLong) {
         super(pathToLong);

@@ -49,32 +49,32 @@ public class Main {
     }
 
     /**
-     * Creates and configures a CommitStats interface with standard settings.
+     * Creates and configures a GitStats interface with standard settings.
      *
-     * @return Configured CommitStats instance ready for use
+     * @return Configured GitStats instance ready for use
      */
-    private static CommitStats createCommitStats() {
+    private static GitStats createGitStats() {
         String homeDir = System.getProperty("user.home");
-        return new CommitStats (
+        return new GitStats (
                 homeDir + PATH_TO_LAST_COMMIT_HASH, 
                 homeDir + PATH_TO_DAILY_COMMITS);
     }
 
     /**
-     * Starts a new CommitStats session.
+     * Starts a new GitStats session.
      */
     public static void start() {
         String homeDir = System.getProperty("user.home");
-        CommitStats commitStats = createCommitStats();
+        GitStats gitStats = createGitStats();
         LocalDate today = LocalDate.now();
 
-        if (!commitStats.isFileExists(homeDir + PATH_TO_DAILY_COMMITS)
-                || !today.equals(commitStats.getFileDate(homeDir + PATH_TO_DAILY_COMMITS))) {
-            commitStats.writeLong(0L);
+        if (!gitStats.isFileExists(homeDir + PATH_TO_DAILY_COMMITS)
+                || !today.equals(gitStats.getFileDate(homeDir + PATH_TO_DAILY_COMMITS))) {
+            gitStats.writeLong(0L);
                 }
 
-        if (!commitStats.isFileExists(homeDir + PATH_TO_LAST_COMMIT_HASH)) {
-            commitStats.writeHashToFile("");
+        if (!gitStats.isFileExists(homeDir + PATH_TO_LAST_COMMIT_HASH)) {
+            gitStats.writeHashToFile("");
         }
 
         String pathToDayTime = homeDir + DAY_FILE_PATH;
@@ -124,16 +124,16 @@ public class Main {
      * Update commit stats
      */
     public static void update() {
-        CommitStats commitStats = createCommitStats(); 
-        String savedHash = commitStats.readHashFromFile();
-        String lastHash = commitStats.getLastCommitHash();
+        GitStats gitStats = createGitStats(); 
+        String savedHash = gitStats.readHashFromFile();
+        String lastHash = gitStats.getLastCommitHash();
 
         if (!lastHash.equals(savedHash)) {
-            long savedDailyCommits = commitStats.readLong();
-            commitStats.writeLong(savedDailyCommits + 1L);
+            long savedDailyCommits = gitStats.readLong();
+            gitStats.writeLong(savedDailyCommits + 1L);
         }
 
-        commitStats.writeHashToFile(lastHash);
+        gitStats.writeHashToFile(lastHash);
     }
 
     /*
@@ -205,8 +205,8 @@ public class Main {
         sessionTimeStats.deleteFile();
 
 
-        CommitStats commitStats = createCommitStats(); 
-        long savedDailyCommits = commitStats.readLong();
+        GitStats gitStats = createGitStats(); 
+        long savedDailyCommits = gitStats.readLong();
 
         new Thread(() -> {
             try {
