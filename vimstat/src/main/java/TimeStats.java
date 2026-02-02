@@ -4,7 +4,7 @@ import java.nio.file.*;
 import java.nio.file.attribute.*;
 
 /**
- * Timer - class for measuring Vim working time 
+ * TimeStats - class for measuring Vim working time 
  * 
  * The class provides methods for reading start time from temporary file, 
  * calculates running duration, and managing the temporary file. 
@@ -13,14 +13,14 @@ import java.nio.file.attribute.*;
  * @since    02.02.2026
  * @author   AlexandrAnatoliev
  */
-public class Timer extends Stats {
+public class TimeStats extends Stats {
 
     /** 
-     * Timer class constructor
+     * TimeStats class constructor
      *
      * @param  pathToLong - path to temporary file for store of value
      */
-    public Timer(String pathToLong) {
+    public TimeStats(String pathToLong) {
         super(pathToLong);
     }
 

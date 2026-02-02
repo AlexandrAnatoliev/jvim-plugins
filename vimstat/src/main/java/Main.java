@@ -81,40 +81,40 @@ public class Main {
         String pathToMonthTime = homeDir + MONTH_FILE_PATH;
         String pathToYesterdayTime = homeDir + YESTERDAY_FILE_PATH;
 
-        Timer sessionTimer = new Timer(homeDir + SESSION_FILE_PATH);
-        Timer dayTimer = new Timer(pathToDayTime);
-        Timer monthTimer = new Timer(pathToMonthTime);
-        Timer yesterdayTimer = new Timer(pathToYesterdayTime);
+        TimeStats sessionTimeStats = new TimeStats(homeDir + SESSION_FILE_PATH);
+        TimeStats dayTimeStats = new TimeStats(pathToDayTime);
+        TimeStats monthTimeStats = new TimeStats(pathToMonthTime);
+        TimeStats yesterdayTimeStats = new TimeStats(pathToYesterdayTime);
 
-        if(sessionTimer.isFileExists(homeDir + SESSION_FILE_PATH)) {
-            long pastDuration = sessionTimer.getSessionTime();
-            long dayTime = dayTimer.readLong();
-            dayTimer.writeLong(dayTime + pastDuration);
+        if(sessionTimeStats.isFileExists(homeDir + SESSION_FILE_PATH)) {
+            long pastDuration = sessionTimeStats.getSessionTime();
+            long dayTime = dayTimeStats.readLong();
+            dayTimeStats.writeLong(dayTime + pastDuration);
         }
-        sessionTimer.writeLong(System.currentTimeMillis() / 1000);
+        sessionTimeStats.writeLong(System.currentTimeMillis() / 1000);
 
-        if(!yesterdayTimer.isFileExists(pathToYesterdayTime)) {
-            yesterdayTimer.writeLong(0L);
-        }
-
-        if(!monthTimer.isFileExists(pathToMonthTime)) {
-            monthTimer.writeLong(0L);
+        if(!yesterdayTimeStats.isFileExists(pathToYesterdayTime)) {
+            yesterdayTimeStats.writeLong(0L);
         }
 
-        if(!monthTimer.getFileDate(pathToMonthTime).equals(today)) {
-            long yesterdayTime = monthTimer.readLong();
-            yesterdayTimer.writeLong(yesterdayTime);
+        if(!monthTimeStats.isFileExists(pathToMonthTime)) {
+            monthTimeStats.writeLong(0L);
+        }
+
+        if(!monthTimeStats.getFileDate(pathToMonthTime).equals(today)) {
+            long yesterdayTime = monthTimeStats.readLong();
+            yesterdayTimeStats.writeLong(yesterdayTime);
 
             long emptyDays = ChronoUnit.DAYS.between(
-                    monthTimer.getFileDate(pathToMonthTime), today);
-            long monthTime = monthTimer.readLong() * (30 - emptyDays);
-            monthTimer.writeLong(
-                    (monthTime + dayTimer.readLong()) / 30);     
+                    monthTimeStats.getFileDate(pathToMonthTime), today);
+            long monthTime = monthTimeStats.readLong() * (30 - emptyDays);
+            monthTimeStats.writeLong(
+                    (monthTime + dayTimeStats.readLong()) / 30);     
         }
 
-        if(!dayTimer.isFileExists(pathToDayTime) || 
-                !dayTimer.getFileDate(pathToDayTime).equals(today)) {
-            dayTimer.writeLong(0L);
+        if(!dayTimeStats.isFileExists(pathToDayTime) || 
+                !dayTimeStats.getFileDate(pathToDayTime).equals(today)) {
+            dayTimeStats.writeLong(0L);
                 }
 
         return;
@@ -145,27 +145,27 @@ public class Main {
         String pathToMonthTime = homeDir + MONTH_FILE_PATH;
         String pathToYesterdayTime = homeDir + YESTERDAY_FILE_PATH;
 
-        Timer sessionTimer = new Timer(homeDir + SESSION_FILE_PATH);
-        Timer dayTimer = new Timer(pathToDayTime);
-        Timer monthTimer = new Timer(pathToMonthTime);
-        Timer yesterdayTimer = new Timer(pathToYesterdayTime);
+        TimeStats sessionTimeStats = new TimeStats(homeDir + SESSION_FILE_PATH);
+        TimeStats dayTimeStats = new TimeStats(pathToDayTime);
+        TimeStats monthTimeStats = new TimeStats(pathToMonthTime);
+        TimeStats yesterdayTimeStats = new TimeStats(pathToYesterdayTime);
 
-        long duration = sessionTimer.getSessionTime(); 
+        long duration = sessionTimeStats.getSessionTime(); 
 
-        if(!dayTimer.isFileExists(pathToDayTime)) {
-            dayTimer.writeLong(0L);
+        if(!dayTimeStats.isFileExists(pathToDayTime)) {
+            dayTimeStats.writeLong(0L);
         }
 
-        long dayTime = dayTimer.readLong() + duration;
+        long dayTime = dayTimeStats.readLong() + duration;
 
-        dayTimer.writeLong(dayTime);
+        dayTimeStats.writeLong(dayTime);
 
-        if(!monthTimer.isFileExists(pathToMonthTime)) {
-            monthTimer.writeLong(0L);
+        if(!monthTimeStats.isFileExists(pathToMonthTime)) {
+            monthTimeStats.writeLong(0L);
         }
-        long monthTime = monthTimer.readLong();
+        long monthTime = monthTimeStats.readLong();
 
-        long yesterdayTime = yesterdayTimer.readLong();
+        long yesterdayTime = yesterdayTimeStats.readLong();
 
         long sessionHours = duration / 3600;
         long sessionMinutes = (duration % 3600) / 60;
@@ -202,7 +202,7 @@ public class Main {
 
         System.out.println("  =========================================");
 
-        sessionTimer.deleteFile();
+        sessionTimeStats.deleteFile();
 
 
         CommitStats commitStats = createCommitStats(); 

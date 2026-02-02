@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit tests for Timer class
+ * Unit tests for TimeStats class
  *
  * Tests file operations, session time calculation, and edge cases
  * Uses temporary file that is cleaned up after each test
@@ -14,18 +14,18 @@ import static org.junit.jupiter.api.Assertions.*;
  * @since    02.12.2026
  * @author   AlexandrAnatoliev 
  */
-public class TimerTest {
-    private static final String TEST_FILE_PATH = "test_timer.txt";
+public class TimeStatsTest {
+    private static final String TEST_FILE_PATH = "test_timeStats.txt";
 
-    private Timer timer;
+    private TimeStats timeStats;
 
     /**
      * Set up test environment before each test method
-     * Creates new SessionTimer instance with test file path
+     * Creates new SessionTimeStats instance with test file path
      */
     @BeforeEach
     void setUp() {
-        timer = new Timer(TEST_FILE_PATH);
+        timeStats = new TimeStats(TEST_FILE_PATH);
     }
 
     /**
@@ -51,11 +51,11 @@ public class TimerTest {
         throws IOException, InterruptedException {
 
         long startTime = System.currentTimeMillis() / 1000;
-        timer.writeLong(startTime);
+        timeStats.writeLong(startTime);
 
         Thread.sleep(1000);
 
-        long sessionTime = timer.getSessionTime();
+        long sessionTime = timeStats.getSessionTime();
 
         assertTrue(sessionTime >= 1 && sessionTime <= 2,
                 "Session time should be around 1 second");
@@ -67,8 +67,8 @@ public class TimerTest {
      */
     @Test
     void testGetSessionTimeWhenFileDoesNotExist() {
-        timer.deleteFile();
-        long sessionTime = timer.getSessionTime();
+        timeStats.deleteFile();
+        long sessionTime = timeStats.getSessionTime();
         assertTrue(sessionTime == 0, "Session time should be zero");
     }
 
@@ -79,9 +79,9 @@ public class TimerTest {
     @Test
     void testWriteToFileAndReadFromFile() {
         long expectedValue = 123456789L;
-        timer.writeLong(expectedValue);
+        timeStats.writeLong(expectedValue);
 
-        long actualValue = timer.readLong();
+        long actualValue = timeStats.readLong();
         assertEquals(expectedValue, actualValue);
     }
 
@@ -91,8 +91,8 @@ public class TimerTest {
      */
     @Test
     void testReadFromFileWhenFileDoesNotExist() {
-        timer.deleteFile();
-        long actualValue = timer.readLong();
+        timeStats.deleteFile();
+        long actualValue = timeStats.readLong();
         assertEquals(0L, actualValue);
     }
 
@@ -106,7 +106,7 @@ public class TimerTest {
     void testReadFromFileWithInvalidData() throws IOException {
         Files.write(Paths.get(TEST_FILE_PATH), "Invalid_data".getBytes());
 
-        long actualValue = timer.readLong();
+        long actualValue = timeStats.readLong();
         assertEquals(0L, actualValue);
     }
 
@@ -116,10 +116,10 @@ public class TimerTest {
      */
     @Test
     void testWriteToFileOverwritesPreviousContent() {
-        timer.writeLong(100L);
-        timer.writeLong(200L);
+        timeStats.writeLong(100L);
+        timeStats.writeLong(200L);
 
-        long actualValue = timer.readLong();
+        long actualValue = timeStats.readLong();
         assertEquals(200L, actualValue);
     }
 
@@ -129,9 +129,9 @@ public class TimerTest {
      */
     @Test
     void testWriteToFileWithNull() {
-        timer.writeLong(null);
+        timeStats.writeLong(null);
 
-        long actualValue = timer.readLong();
+        long actualValue = timeStats.readLong();
         assertNotNull(actualValue);
     }
 
@@ -145,7 +145,7 @@ public class TimerTest {
     void testDeleteFileWhenFileExists() throws IOException {
         Files.createFile(Paths.get(TEST_FILE_PATH));
 
-        timer.deleteFile();
+        timeStats.deleteFile();
 
         assertFalse(Files.exists(Paths.get(TEST_FILE_PATH)),
                 "File should be deleted");
@@ -157,7 +157,7 @@ public class TimerTest {
      */
     @Test
     void testDeleteFileWhenFileDoesNotExist() {
-        assertDoesNotThrow(() -> timer.deleteFile());
+        assertDoesNotThrow(() -> timeStats.deleteFile());
     }
 
     /**
@@ -167,11 +167,11 @@ public class TimerTest {
     @Test
     void testConstructorStoresFilePath() {
         String customPath = "custom_test_file.txt";
-        Timer customTimer = new Timer(customPath);
+        TimeStats customTimeStats = new TimeStats(customPath);
 
         try {
-            customTimer.writeLong(999L);
-            long value = customTimer.readLong();
+            customTimeStats.writeLong(999L);
+            long value = customTimeStats.readLong();
             assertEquals(999L, value);
         } finally {
             new File(customPath).delete();
@@ -190,12 +190,12 @@ public class TimerTest {
         throws IOException, InterruptedException {
 
         long startTime = System.currentTimeMillis() / 1000;
-        timer.writeLong(startTime);
+        timeStats.writeLong(startTime);
 
         int waitSecunds = 2;
         Thread.sleep(waitSecunds * 1000);
 
-        long sessionTime = timer.getSessionTime();
+        long sessionTime = timeStats.getSessionTime();
 
         assertTrue(sessionTime >= waitSecunds && sessionTime <= waitSecunds + 1, 
                 "Session time should be approximately " + waitSecunds + " seconds");
@@ -207,7 +207,7 @@ public class TimerTest {
      */
     @Test
     void testFileIsNotExistWhenFileDoesNotExist() {
-        assertFalse(timer.isFileExists(TEST_FILE_PATH));
+        assertFalse(timeStats.isFileExists(TEST_FILE_PATH));
     }
 
     @Test
@@ -219,7 +219,7 @@ public class TimerTest {
      */
     void testFileIsNotExistWhenFileExists() throws IOException {
         Files.createFile(Paths.get(TEST_FILE_PATH));
-        assertTrue(timer.isFileExists(TEST_FILE_PATH));
+        assertTrue(timeStats.isFileExists(TEST_FILE_PATH));
     }
 
     /**
@@ -230,11 +230,11 @@ public class TimerTest {
      */
     @Test
     void testGetFileDateWhenFileExists() throws IOException {
-        timer = new Timer(TEST_FILE_PATH);
+        timeStats = new TimeStats(TEST_FILE_PATH);
         Files.deleteIfExists(Paths.get(TEST_FILE_PATH));
         Files.createFile(Paths.get(TEST_FILE_PATH));
         LocalDate expectedDate = LocalDate.now();
-        LocalDate actualDate = timer.getFileDate(TEST_FILE_PATH);
+        LocalDate actualDate = timeStats.getFileDate(TEST_FILE_PATH);
 
         assertEquals(expectedDate, actualDate);
     }
@@ -245,7 +245,7 @@ public class TimerTest {
      */
     @Test
     void testGetFileDateWhenFileDoesNotExist() {
-        LocalDate actualDate = timer.getFileDate(TEST_FILE_PATH);
+        LocalDate actualDate = timeStats.getFileDate(TEST_FILE_PATH);
 
         assertEquals(null, actualDate);
     }
