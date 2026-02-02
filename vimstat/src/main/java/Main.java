@@ -17,19 +17,19 @@ import java.time.temporal.ChronoUnit;
  * @author   AlexandrAnatoliev
  */
 public class Main {
-    private static final String PATH_TO_LAST_COMMIT_HASH = 
-        "/.vim/pack/my-plugins/start/vimstat/data/last_commit_hash.txt";
-    private static final String PATH_TO_DAILY_COMMITS = 
-        "/.vim/pack/my-plugins/start/vimstat/data/daily_commits.txt";
-
-    private static final String SESSION_FILE_PATH = 
-        "/.vim/pack/my-plugins/start/vimstat/data/jvim_session_time.txt";
-    private static final String DAY_FILE_PATH = 
-        "/.vim/pack/my-plugins/start/vimstat/data/jvim_day_time.txt";
-    private static final String MONTH_FILE_PATH = 
-        "/.vim/pack/my-plugins/start/vimstat/data/jvim_month_time.txt";
-    private static final String YESTERDAY_FILE_PATH = 
-        "/.vim/pack/my-plugins/start/vimstat/data/jvim_yesterday_time.txt";
+    private static final String HOME_DIR = System.getProperty("user.home");
+    private static final String GIT_HASH_PATH = 
+        HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_hash.txt";
+    private static final String GIT_DAY_COMMIT_PATH = 
+        HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_day_commit.txt";
+    private static final String TIME_SESSION_PATH = 
+        HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_session.txt";
+    private static final String TIME_DAY_PATH = 
+        HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_day.txt";
+    private static final String TIME_MONTH_PATH = 
+        HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_month.txt";
+    private static final String TIME_YESTERDAY_PATH = 
+        HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_yesterday.txt";
 
     /** Main entry point for the Commit Stats application
      *
@@ -54,66 +54,60 @@ public class Main {
      * @return Configured GitStats instance ready for use
      */
     private static GitStats createGitStats() {
-        String homeDir = System.getProperty("user.home");
         return new GitStats (
-                homeDir + PATH_TO_LAST_COMMIT_HASH, 
-                homeDir + PATH_TO_DAILY_COMMITS);
+                GIT_HASH_PATH, 
+                GIT_DAY_COMMIT_PATH);
     }
 
     /**
      * Starts a new GitStats session.
      */
     public static void start() {
-        String homeDir = System.getProperty("user.home");
         GitStats gitStats = createGitStats();
         LocalDate today = LocalDate.now();
 
-        if (!gitStats.isFileExists(homeDir + PATH_TO_DAILY_COMMITS)
-                || !today.equals(gitStats.getFileDate(homeDir + PATH_TO_DAILY_COMMITS))) {
+        if (!gitStats.isFileExists(GIT_DAY_COMMIT_PATH)
+                || !today.equals(gitStats.getFileDate(GIT_DAY_COMMIT_PATH))) {
             gitStats.writeLong(0L);
                 }
 
-        if (!gitStats.isFileExists(homeDir + PATH_TO_LAST_COMMIT_HASH)) {
+        if (!gitStats.isFileExists(GIT_HASH_PATH)) {
             gitStats.writeString("");
         }
 
-        String pathToDayTime = homeDir + DAY_FILE_PATH;
-        String pathToMonthTime = homeDir + MONTH_FILE_PATH;
-        String pathToYesterdayTime = homeDir + YESTERDAY_FILE_PATH;
+        TimeStats sessionTimeStats = new TimeStats(TIME_SESSION_PATH);
+        TimeStats dayTimeStats = new TimeStats(TIME_DAY_PATH);
+        TimeStats monthTimeStats = new TimeStats(TIME_MONTH_PATH);
+        TimeStats yesterdayTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
 
-        TimeStats sessionTimeStats = new TimeStats(homeDir + SESSION_FILE_PATH);
-        TimeStats dayTimeStats = new TimeStats(pathToDayTime);
-        TimeStats monthTimeStats = new TimeStats(pathToMonthTime);
-        TimeStats yesterdayTimeStats = new TimeStats(pathToYesterdayTime);
-
-        if(sessionTimeStats.isFileExists(homeDir + SESSION_FILE_PATH)) {
+        if(sessionTimeStats.isFileExists(TIME_SESSION_PATH)) {
             long pastDuration = sessionTimeStats.getSessionTime();
             long dayTime = dayTimeStats.readLong();
             dayTimeStats.writeLong(dayTime + pastDuration);
         }
         sessionTimeStats.writeLong(System.currentTimeMillis() / 1000);
 
-        if(!yesterdayTimeStats.isFileExists(pathToYesterdayTime)) {
+        if(!yesterdayTimeStats.isFileExists(TIME_YESTERDAY_PATH)) {
             yesterdayTimeStats.writeLong(0L);
         }
 
-        if(!monthTimeStats.isFileExists(pathToMonthTime)) {
+        if(!monthTimeStats.isFileExists(TIME_MONTH_PATH)) {
             monthTimeStats.writeLong(0L);
         }
 
-        if(!monthTimeStats.getFileDate(pathToMonthTime).equals(today)) {
+        if(!monthTimeStats.getFileDate(TIME_MONTH_PATH).equals(today)) {
             long yesterdayTime = monthTimeStats.readLong();
             yesterdayTimeStats.writeLong(yesterdayTime);
 
             long emptyDays = ChronoUnit.DAYS.between(
-                    monthTimeStats.getFileDate(pathToMonthTime), today);
+                    monthTimeStats.getFileDate(TIME_MONTH_PATH), today);
             long monthTime = monthTimeStats.readLong() * (30 - emptyDays);
             monthTimeStats.writeLong(
                     (monthTime + dayTimeStats.readLong()) / 30);     
         }
 
-        if(!dayTimeStats.isFileExists(pathToDayTime) || 
-                !dayTimeStats.getFileDate(pathToDayTime).equals(today)) {
+        if(!dayTimeStats.isFileExists(TIME_DAY_PATH) || 
+                !dayTimeStats.getFileDate(TIME_DAY_PATH).equals(today)) {
             dayTimeStats.writeLong(0L);
                 }
 
@@ -140,19 +134,14 @@ public class Main {
      * Print commit stats
      */
     public static void stop() {
-        String homeDir = System.getProperty("user.home");
-        String pathToDayTime = homeDir + DAY_FILE_PATH;
-        String pathToMonthTime = homeDir + MONTH_FILE_PATH;
-        String pathToYesterdayTime = homeDir + YESTERDAY_FILE_PATH;
-
-        TimeStats sessionTimeStats = new TimeStats(homeDir + SESSION_FILE_PATH);
-        TimeStats dayTimeStats = new TimeStats(pathToDayTime);
-        TimeStats monthTimeStats = new TimeStats(pathToMonthTime);
-        TimeStats yesterdayTimeStats = new TimeStats(pathToYesterdayTime);
+        TimeStats sessionTimeStats = new TimeStats(TIME_SESSION_PATH);
+        TimeStats dayTimeStats = new TimeStats(TIME_DAY_PATH);
+        TimeStats monthTimeStats = new TimeStats(TIME_MONTH_PATH);
+        TimeStats yesterdayTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
 
         long duration = sessionTimeStats.getSessionTime(); 
 
-        if(!dayTimeStats.isFileExists(pathToDayTime)) {
+        if(!dayTimeStats.isFileExists(TIME_DAY_PATH)) {
             dayTimeStats.writeLong(0L);
         }
 
@@ -160,7 +149,7 @@ public class Main {
 
         dayTimeStats.writeLong(dayTime);
 
-        if(!monthTimeStats.isFileExists(pathToMonthTime)) {
+        if(!monthTimeStats.isFileExists(TIME_MONTH_PATH)) {
             monthTimeStats.writeLong(0L);
         }
         long monthTime = monthTimeStats.readLong();
