@@ -38,7 +38,7 @@ public class GitStats extends Stats {
             }
         } catch (Exception e) {
             System.out.println(Colors.RED.apply("[ERROR]") 
-                    + " Get last commit hash: " 
+                    + " Getting last commit hash: " 
                     + e.getMessage());
             return "";
         }
