@@ -3,9 +3,21 @@ import java.time.*;
 import java.nio.file.*;
 import java.nio.file.attribute.*;
 
+/**
+ * The class to get working stats 
+ *
+ * @version  0.8.7
+ * @since    02.02.2026
+ * @author   AlexandrAnatoliev
+ */
 public abstract class Stats {
     protected String pathToLong;
 
+    /**
+     * Stats class constructor
+     *
+     * @param   pathToLong  Path to temporary file for long value storage
+     */
     public Stats (String pathToLong) {
         this.pathToLong = pathToLong;
     }
@@ -13,7 +25,7 @@ public abstract class Stats {
     /**
      * Writes long value to temporary file 
      *
-     * @param  value Long value to write to file
+     * @param   value   Long value to write to file
      */
     public void writeLong(Long value) {
         try (FileWriter writer = new FileWriter(pathToLong)) {
@@ -29,8 +41,8 @@ public abstract class Stats {
     /**
      * Reads long value from temporary file 
      *
-     * @return  long value from file, 
-     *          or 0 if file does not exist or contains invalid data
+     * @return  Long value from file, 
+     *          Or 0 if file does not exist or contains invalid data
      */
     public long readLong() {
         try (BufferedReader reader = new BufferedReader(
@@ -38,7 +50,7 @@ public abstract class Stats {
 
             return Long.parseLong(reader.readLine());
 
-        } catch (Exception e) {
+        } catch (IOException | NumberFormatException e) {
             System.out.println(
                     Colors.RED.apply("[ERROR]")
                     + " Reading long: "
@@ -52,42 +64,32 @@ public abstract class Stats {
      *
      * @param   pathToFile  Path to temporary file
      * @return  LocalDate   Representing file creation time
+     *                      Or null if has error
      */
     public LocalDate getFileDate(String pathToFile) {
-        File file = new File(pathToFile);
+        Path path = Paths.get(pathToFile);
         try {
-            BasicFileAttributes attrs = Files.readAttributes(
-                    file.toPath(), 
-                    BasicFileAttributes.class);
+            BasicFileAttributes attrs = Files
+                .readAttributes(path, BasicFileAttributes.class);
             LocalDate fileDate = attrs.creationTime().toInstant()
                 .atZone(ZoneId.systemDefault()).toLocalDate();
             return fileDate;
         } catch (Exception e) {
             System.out.println(
                     Colors.RED.apply("[ERROR]")
-                    + " Get file date checking: "
+                    + " Getting file date: "
                     + e.getMessage());
             return null;
         }
     }
 
     /**
-     * Checks if temporary file is exist 
+     * Checks if temporary file exists 
      * 
      * @param   pathToFile  Path to temporary file
-     * @return  true        If file is exist
-     *          false       If file is not exist
+     * @return  true        If file exists, false otherwise
      */
     public boolean isFileExists(String pathToFile) {
-        File file = new File(pathToFile);
-        try {
-            return file.exists();
-        } catch (Exception e) {
-            System.out.println(
-                    Colors.RED.apply("[ERROR]")
-                    + " file existing checking: "
-                    + e.getMessage());
-        }
-        return false;
+        return new File(pathToFile).exists();
     }
 }

@@ -10,7 +10,7 @@ import java.nio.file.attribute.*;
  * calculates running duration, and managing the temporary file. 
  *
  * @version  0.8.7 
- * @since    01.02.2026
+ * @since    02.02.2026
  * @author   AlexandrAnatoliev
  */
 public class Timer extends Stats {
