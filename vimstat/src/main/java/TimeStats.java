@@ -1,7 +1,4 @@
 import java.io.*;
-import java.time.*;
-import java.nio.file.*;
-import java.nio.file.attribute.*;
 
 /**
  * TimeStats - class for measuring Vim working time 
@@ -25,27 +22,27 @@ public class TimeStats extends Stats {
     }
 
     /**
-     * Reads start time from file  and calculates session duration
-     * in seconds
+     * Calculates the duration of the current Vim session in seconds
+     * Reads the start time from temporary file and subtracts it from current time 
      *
-     * @return - Vim session duration in seconds
+     * @return  Duration in seconds, or 0 if start time 0  
      */
-    long getSessionTime() {
+    public long getSessionTime() {
         long startTime = readLong();
 
         if(startTime == 0) {
             return 0;
         }
 
-        long duration = (System.currentTimeMillis() / 1000) - startTime;
+        long currentTime = System.currentTimeMillis() / 1000;
 
-        return duration;
+        return currentTime - startTime;
     }
 
     /**
      * Deletes temporary file 
      */
-    void deleteFile() {
+    public void deleteFile() {
         new File(this.pathToLong).delete();
     }
 }
