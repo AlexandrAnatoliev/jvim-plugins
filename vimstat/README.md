@@ -20,41 +20,27 @@ folder and creates the following file structure:
 ```
 vimstat/
 ├── data
-│  ├── daily_commits.txt
-│  └── last_commit_hash.txt
+│  ├── git_day_commit.txt
+│  └── git_hash.txt
 ├── plugin
 │  └── vimstat.vim
 ├── pom.xml
 ├── README.md
 ├── src
-│  └── main
+│  ├── main
+│  │  └── java
+│  │     ├── Colors.java
+│  │     ├── GitStats.java
+│  │     ├── Main.java
+│  │     ├── Stats.java
+│  │     └── TimeStats.java
+│  └── test
 │     └── java
-│        ├── Colors.java
-│        ├── CommitStats.java
-│        └── Main.java
+│        ├── ColorsTest.java
+│        ├── GitStatsTest.java
+│        └── TimeStatsTest.java
 └── target
-   ├── classes
-   │  ├── Colors.class
-   │  ├── CommitStats.class
-   │  └── Main.class
-   ├── generated-sources
-   │  └── annotations
-   ├── generated-test-sources
-   │  └── test-annotations
-   ├── maven-archiver
-   │  └── pom.properties
-   ├── maven-status
-   │  └── maven-compiler-plugin
-   │     ├── compile
-   │     │  └── default-compile
-   │     │     ├── createdFiles.lst
-   │     │     └── inputFiles.lst
-   │     └── testCompile
-   │        └── default-testCompile
-   │           ├── createdFiles.lst
-   │           └── inputFiles.lst
-   ├── test-classes
-   └── vimstat-0.8.0.jar
+   └── vimstat-0.8.7.jar
 ```
 
 <div align="center">
@@ -68,12 +54,12 @@ mvn package
 
 * Copy the plugin to the  `.vim/` folder:
 ```
-cp -r commit-stats/ ~/.vim/pack/my-plugins/start/
+cp -r vimstat/ ~/.vim/pack/my-plugins/start/
 ```
 
 * Reload Vim or run the command:
 ```
-:source ~/.vim/pack/my-plugins/start/commit-stats/plugin/vimstat.vim
+:source ~/.vim/pack/my-plugins/start/vimstat/plugin/vimstat.vim
 ```
 
 <div align="center">
@@ -106,9 +92,16 @@ $ vim example.md
 * After closing Vim, you will see:
 ```
   =========================================
-              Commit stats:
+                Vim uptime:
   -----------------------------------------
-  - Commits for day: 0
+  - per session:         0 h  2 min 35 sec
+  - per day:             0 h 27 min 32 sec
+  - average per month:   0 h  0 min  1 sec
+  =========================================
+  =========================================
+                Commit stats:
+  -----------------------------------------
+  - Commits per day: 2
   =========================================
 ```
 
@@ -119,8 +112,6 @@ $ vim example.md
 * Java installed
 * Vim installed
 * Maven installed
-* .class files built into designated folder
-* JUnit 5 installed (optional)
 
 <div align="center">
   <h4>Compatibility</h4>
@@ -131,6 +122,40 @@ $ vim example.md
 * Maven 3 and above
 
 <div align="center">
+  <h4>Class hierarchy</h4>
+</div>
+
+```mermaid
+classDiagram
+
+  class Stats {
+    - pathToLong: String
+    + Stats(pathToLong: String)
+    + writeLong(value: Long )
+    + readLong() long 
+    + getFileDate(pathToFile: String) LocalDate
+    + isFileExists(pathToFile: String) boolean 
+  }
+
+  class GitStats {
+    - pathToString: String 
+    + GitStats(pathToString: String, pathToLong: String)
+    + getLastCommitHash() String 
+    + writeString(hash: String) 
+    + readString() String
+  }
+
+  class TimeStats {
+    + TimeStats(pathToLong: String)
+    + getSessionTime(): long 
+    + deleteFile() 
+  }
+
+  Stats <|-- GitStats
+  Stats <|-- TimeStats
+```
+
+<div align="center">
   <h4>Class call hierarchy</h4>
 </div>
 
@@ -138,58 +163,50 @@ $ vim example.md
 classDiagram
   
   class vimstat.vim {
-    + StartVimStat()
-    + UpdateVimStat()
-    + StopVimStat()
   }
 
   class Main {
-    - PATH_TO_LAST_COMMIT_HASH: String 
-        = "/.vim/pack/my-plugins/start/vimstat/data/last_commit_hash.txt"
-    - PATH_TO_DAILY_COMMITS: 
-        = "/.vim/pack/my-plugins/start/vimstat/data/daily_commits.txt"
-    - createCommitStats() CommitStats
-    + start() void
-    + update() void
-    + stop() void
   }
 
   class enum Colors {
-    - RED.code = "\u001B[31m"
-    - GREEN.code = "\u001B[32m"
-    - YELLOW.code = "\u001B[33m"
-    - RESET.code = "\u001B[0m"
-    - Colors(code: String)
-    + toString() String
-    + apply(text: String) String
   }
 
-  class CommitStats {
-    - pathToLastCommitHash: String
-    - pathToDailyCommits: String
-    + CommitStats(pathToLastCommitHash: String, pathToDailyCommits: String)
-    + getLastCommitHash() String
-    + writeHashToFile(hash: String) void
-    + readHashFromFile() String
-    + writeDailyCommitsToFile(value: Long) void
-    + readDailyCommitsFromFile() long
-    + isFileExists(pathToFile: String) boolean
-    + getFileDate(pathToFile: String) LocalDate 
+  class GitStats {
   }
 
-  class last_commit_hash.txt {
-    + last_commit_hash: String
+  class git_hash.txt {
   }
 
-  class daily_commits.txt {
-    + daily_commits: long
+  class git_day_commit.txt {
+  }
+
+  class TimeStats {
+  }
+
+  class time_session.txt {
+  }
+
+  class time_day.txt {
+  }
+
+  class time_month.txt {
+  }
+
+  class time_yesterday.txt {
   }
 
   vimstat.vim --|> Main : calls
-  Main --|> CommitStats : calls
-  enum Colors -- CommitStats : use
-  CommitStats --|> last_commit_hash.txt : writes / reads
-  CommitStats --|> daily_commits.txt : writes / reads
+  Main --|> GitStats : calls
+  Main --|> TimeStats : calls
+  enum Colors -- Main : use
+  enum Colors -- GitStats : use
+  enum Colors -- TimeStats : use
+  GitStats --|> git_hash.txt : writes / reads
+  GitStats --|> git_day_commit.txt : writes / reads
+  TimeStats --|> time_session.txt : writes / reads
+  TimeStats --|> time_day.txt : writes / reads
+  TimeStats --|> time_month.txt : writes / reads
+  TimeStats --|> time_yesterday.txt : writes / reads
 ```
 
 <div align="center">
@@ -214,41 +231,27 @@ classDiagram
 ```
 vimstat/
 ├── data
-│  ├── daily_commits.txt
-│  └── last_commit_hash.txt
+│  ├── git_day_commit.txt
+│  └── git_hash.txt
 ├── plugin
 │  └── vimstat.vim
 ├── pom.xml
 ├── README.md
 ├── src
-│  └── main
+│  ├── main
+│  │  └── java
+│  │     ├── Colors.java
+│  │     ├── GitStats.java
+│  │     ├── Main.java
+│  │     ├── Stats.java
+│  │     └── TimeStats.java
+│  └── test
 │     └── java
-│        ├── Colors.java
-│        ├── CommitStats.java
-│        └── Main.java
+│        ├── ColorsTest.java
+│        ├── GitStatsTest.java
+│        └── TimeStatsTest.java
 └── target
-   ├── classes
-   │  ├── Colors.class
-   │  ├── CommitStats.class
-   │  └── Main.class
-   ├── generated-sources
-   │  └── annotations
-   ├── generated-test-sources
-   │  └── test-annotations
-   ├── maven-archiver
-   │  └── pom.properties
-   ├── maven-status
-   │  └── maven-compiler-plugin
-   │     ├── compile
-   │     │  └── default-compile
-   │     │     ├── createdFiles.lst
-   │     │     └── inputFiles.lst
-   │     └── testCompile
-   │        └── default-testCompile
-   │           ├── createdFiles.lst
-   │           └── inputFiles.lst
-   ├── test-classes
-   └── vimstat-0.8.0.jar
+   └── vimstat-0.8.7.jar
 ```
 
 <div align="center">
@@ -262,12 +265,12 @@ mvn package
 
 * Скопируйте плагин в папку `.vim/`:
 ```
-cp -r commit-stats/ ~/.vim/pack/my-plugins/start/
+cp -r vimstat/ ~/.vim/pack/my-plugins/start/
 ```
 
 * Перезагрузите Vim или выполните команду:
 ```
-:source ~/.vim/pack/my-plugins/start/commit-stats/plugin/vimstat.vim
+:source ~/.vim/pack/my-plugins/start/vimstat/plugin/vimstat.vim
 ```
 
 <div align="center">
@@ -288,7 +291,6 @@ rm -r ~/.vim/pack/my-plugins/start/vimstat/
 mvn test
 ```
 
-
 <div align="center">
   <h4>Использование</h4>
 </div>
@@ -301,9 +303,16 @@ $ vim example.md
 * После закрытия Vim, вы увидите:
 ```
   =========================================
-              Commit stats:
+                Vim uptime:
   -----------------------------------------
-  - Commits for day: 0
+  - per session:         0 h  2 min 35 sec
+  - per day:             0 h 27 min 32 sec
+  - average per month:   0 h  0 min  1 sec
+  =========================================
+  =========================================
+                Commit stats:
+  -----------------------------------------
+  - Commits per day: 2
   =========================================
 ```
 
@@ -314,8 +323,6 @@ $ vim example.md
 * Установленная Java 
 * Установленный Vim 
 * Установленный Maven
-* Скомпилированные .class файлы в соответствующей папке
-* Установленный JUnit 5 (опционально)
 
 <div align="center">
   <h4>Совместимость</h4>
@@ -331,59 +338,84 @@ $ vim example.md
 
 ```mermaid
 classDiagram
+
+  class Stats {
+    - pathToLong: String
+    + Stats(pathToLong: String)
+    + writeLong(value: Long )
+    + readLong() long 
+    + getFileDate(pathToFile: String) LocalDate
+    + isFileExists(pathToFile: String) boolean 
+  }
+
+  class GitStats {
+    - pathToString: String 
+    + GitStats(pathToString: String, pathToLong: String)
+    + getLastCommitHash() String 
+    + writeString(hash: String) 
+    + readString() String
+  }
+
+  class TimeStats {
+    + TimeStats(pathToLong: String)
+    + getSessionTime(): long 
+    + deleteFile() 
+  }
+
+  Stats <|-- GitStats
+  Stats <|-- TimeStats
+```
+
+<div align="center">
+  <h4>Иерархия вызовов классов</h4>
+</div>
+
+```mermaid
+classDiagram
   
   class vimstat.vim {
-    + StartVimStat()
-    + UpdateVimStat()
-    + StopVimStat()
   }
 
   class Main {
-    - PATH_TO_LAST_COMMIT_HASH: String 
-        = "/.vim/pack/my-plugins/start/vimstat/data/last_commit_hash.txt"
-    - PATH_TO_DAILY_COMMITS: 
-        = "/.vim/pack/my-plugins/start/vimstat/data/daily_commits.txt"
-    - createCommitStats() CommitStats
-    + start() void
-    + update() void
-    + stop() void
   }
 
   class enum Colors {
-    - RED.code = "\u001B[31m"
-    - GREEN.code = "\u001B[32m"
-    - YELLOW.code = "\u001B[33m"
-    - RESET.code = "\u001B[0m"
-    - Colors(code: String)
-    + toString() String
-    + apply(text: String) String
   }
 
-  class CommitStats {
-    - pathToLastCommitHash: String
-    - pathToDailyCommits: String
-    + CommitStats(pathToLastCommitHash: String, pathToDailyCommits: String)
-    + getLastCommitHash() String
-    + writeHashToFile(hash: String) void
-    + readHashFromFile() String
-    + writeDailyCommitsToFile(value: Long) void
-    + readDailyCommitsFromFile() long
-    + isFileExists(pathToFile: String) boolean
-    + getFileDate(pathToFile: String) LocalDate 
+  class GitStats {
   }
 
-  class last_commit_hash.txt {
-    + last_commit_hash: String
+  class git_hash.txt {
   }
 
-  class daily_commits.txt {
-    + daily_commits: long
+  class git_day_commit.txt {
+  }
+
+  class TimeStats {
+  }
+
+  class time_session.txt {
+  }
+
+  class time_day.txt {
+  }
+
+  class time_month.txt {
+  }
+
+  class time_yesterday.txt {
   }
 
   vimstat.vim --|> Main : calls
-  Main --|> CommitStats : calls
-  enum Colors -- CommitStats : use
-  CommitStats --|> last_commit_hash.txt : writes / reads
-  CommitStats --|> daily_commits.txt : writes / reads
+  Main --|> GitStats : calls
+  Main --|> TimeStats : calls
+  enum Colors -- Main : use
+  enum Colors -- GitStats : use
+  enum Colors -- TimeStats : use
+  GitStats --|> git_hash.txt : writes / reads
+  GitStats --|> git_day_commit.txt : writes / reads
+  TimeStats --|> time_session.txt : writes / reads
+  TimeStats --|> time_day.txt : writes / reads
+  TimeStats --|> time_month.txt : writes / reads
+  TimeStats --|> time_yesterday.txt : writes / reads
 ```
-
