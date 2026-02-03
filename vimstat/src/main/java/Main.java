@@ -2,41 +2,41 @@ import java.time.*;
 import java.time.temporal.ChronoUnit;
 
 /**
- * Vim utility to get commit stats
+ * Vim utility to get Vim stats
  * 
- * When ended work with Vim, print value commit per day
+ * When ended work with Vim, print stats 
  *
  * Usage:
  *   java Main start    -   erases information from temporary files, 
- *                          and starts to calculate commit stats  
- *   java Main update   -   update commit stats 
- *   java Main stop     -   print commit stats
+ *                          and starts to calculate stats  
+ *   java Main update   -   update stats 
+ *   java Main stop     -   print stats
  *
- * @version  0.8.5
- * @since    01.02.2026
+ * @version  0.8.7
+ * @since    03.02.2026
  * @author   AlexandrAnatoliev
  */
 public class Main {
-    private static final String PATH_TO_LAST_COMMIT_HASH = 
-        "/.vim/pack/my-plugins/start/vimstat/data/last_commit_hash.txt";
-    private static final String PATH_TO_DAILY_COMMITS = 
-        "/.vim/pack/my-plugins/start/vimstat/data/daily_commits.txt";
+    private static final String HOME_DIR = System.getProperty("user.home");
+    private static final String GIT_HASH_PATH = 
+        HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_hash.txt";
+    private static final String GIT_DAY_COMMIT_PATH = 
+        HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_day_commit.txt";
+    private static final String TIME_SESSION_PATH = 
+        HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_session.txt";
+    private static final String TIME_DAY_PATH = 
+        HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_day.txt";
+    private static final String TIME_MONTH_PATH = 
+        HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_month.txt";
+    private static final String TIME_YESTERDAY_PATH = 
+        HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_yesterday.txt";
 
-    private static final String SESSION_FILE_PATH = 
-        "/.vim/pack/my-plugins/start/vimstat/data/jvim_session_time.txt";
-    private static final String DAY_FILE_PATH = 
-        "/.vim/pack/my-plugins/start/vimstat/data/jvim_day_time.txt";
-    private static final String MONTH_FILE_PATH = 
-        "/.vim/pack/my-plugins/start/vimstat/data/jvim_month_time.txt";
-    private static final String YESTERDAY_FILE_PATH = 
-        "/.vim/pack/my-plugins/start/vimstat/data/jvim_yesterday_time.txt";
-
-    /** Main entry point for the Commit Stats application
+    /** Main entry point for the vimstats application
      *
      * @param args command line arguments - first argument determines operation mode 
      *   "start"    To begin new work session     
-     *   "update"   To update commit stats     
-     *   "stop"     Or any other argument to print commit stats     
+     *   "update"   To update stats     
+     *   "stop"     Or any other argument to print stats     
      */
     public static void main(String[] args) {
         if (args.length > 0 && "start".equals(args[0])) {
@@ -49,123 +49,111 @@ public class Main {
     }
 
     /**
-     * Creates and configures a CommitStats interface with standard settings.
+     * Creates and configures a GitStats interface with standard settings.
      *
-     * @return Configured CommitStats instance ready for use
+     * @return Configured GitStats instance ready for use
      */
-    private static CommitStats createCommitStats() {
-        String homeDir = System.getProperty("user.home");
-        return new CommitStats (
-                homeDir + PATH_TO_LAST_COMMIT_HASH, 
-                homeDir + PATH_TO_DAILY_COMMITS);
+    private static GitStats createGitStats() {
+        return new GitStats (
+                GIT_HASH_PATH, 
+                GIT_DAY_COMMIT_PATH);
     }
 
     /**
-     * Starts a new CommitStats session.
+     * Starts a new stats session.
      */
     public static void start() {
-        CommitStats commitStats = createCommitStats();
         LocalDate today = LocalDate.now();
+        TimeStats sessionTimeStats = new TimeStats(TIME_SESSION_PATH);
+        TimeStats dayTimeStats = new TimeStats(TIME_DAY_PATH);
+        TimeStats monthTimeStats = new TimeStats(TIME_MONTH_PATH);
+        TimeStats yesterdayTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
+        GitStats gitStats = createGitStats();
 
-        if (!commitStats.isFileExists(PATH_TO_DAILY_COMMITS)
-                || !today.equals(commitStats.getFileDate(PATH_TO_DAILY_COMMITS))) {
-            commitStats.writeDailyCommitsToFile(0L);
+        if (!gitStats.isFileExists(GIT_DAY_COMMIT_PATH)
+                || !today.equals(gitStats.getFileDate(GIT_DAY_COMMIT_PATH))) {
+            gitStats.writeLong(0L);
                 }
 
-        if (!commitStats.isFileExists(PATH_TO_LAST_COMMIT_HASH)) {
-            commitStats.writeHashToFile("");
+        if (!gitStats.isFileExists(GIT_HASH_PATH)) {
+            gitStats.writeString("");
         }
 
-        String homeDir = System.getProperty("user.home");
-        String pathToDayTime = homeDir + DAY_FILE_PATH;
-        String pathToMonthTime = homeDir + MONTH_FILE_PATH;
-        String pathToYesterdayTime = homeDir + YESTERDAY_FILE_PATH;
 
-        Timer sessionTimer = new Timer(homeDir + SESSION_FILE_PATH);
-        Timer dayTimer = new Timer(pathToDayTime);
-        Timer monthTimer = new Timer(pathToMonthTime);
-        Timer yesterdayTimer = new Timer(pathToYesterdayTime);
-
-        if(!sessionTimer.fileIsNotExist()) {
-            long pastDuration = sessionTimer.getSessionTime();
-            long dayTime = dayTimer.readFromFile();
-            dayTimer.writeToFile(dayTime + pastDuration);
+        if(sessionTimeStats.isFileExists(TIME_SESSION_PATH)) {
+            long pastDuration = sessionTimeStats.getSessionTime();
+            long dayTime = dayTimeStats.readLong();
+            dayTimeStats.writeLong(dayTime + pastDuration);
         }
-        sessionTimer.writeToFile(System.currentTimeMillis() / 1000);
+        sessionTimeStats.writeLong(System.currentTimeMillis() / 1000);
 
-        if(yesterdayTimer.fileIsNotExist()) {
-            yesterdayTimer.writeToFile(0L);
+        if(!yesterdayTimeStats.isFileExists(TIME_YESTERDAY_PATH)) {
+            yesterdayTimeStats.writeLong(0L);
         }
 
-        if(monthTimer.fileIsNotExist()) {
-            monthTimer.writeToFile(0L);
+        if(!monthTimeStats.isFileExists(TIME_MONTH_PATH)) {
+            monthTimeStats.writeLong(0L);
         }
 
-        if(!monthTimer.getFileDate().equals(today)) {
-            long yesterdayTime = monthTimer.readFromFile();
-            yesterdayTimer.writeToFile(yesterdayTime);
+        if(!monthTimeStats.getFileDate(TIME_MONTH_PATH).equals(today)) {
+            long yesterdayTime = monthTimeStats.readLong();
+            yesterdayTimeStats.writeLong(yesterdayTime);
 
             long emptyDays = ChronoUnit.DAYS.between(
-                    monthTimer.getFileDate(), today);
-            long monthTime = monthTimer.readFromFile() * (30 - emptyDays);
-            monthTimer.writeToFile(
-                    (monthTime + dayTimer.readFromFile()) / 30);     
+                    monthTimeStats.getFileDate(TIME_MONTH_PATH), today);
+            long monthTime = monthTimeStats.readLong() * (30 - emptyDays);
+            monthTimeStats.writeLong(
+                    (monthTime + dayTimeStats.readLong()) / 30);     
         }
 
-        if(dayTimer.fileIsNotExist() || 
-                !dayTimer.getFileDate().equals(today)) {
-            dayTimer.writeToFile(0L);
+        if(!dayTimeStats.isFileExists(TIME_DAY_PATH) || 
+                !dayTimeStats.getFileDate(TIME_DAY_PATH).equals(today)) {
+            dayTimeStats.writeLong(0L);
                 }
-
-        return;
     }
 
     /*
-     * Update commit stats
+     * Update stats
      */
     public static void update() {
-        CommitStats commitStats = createCommitStats(); 
-        String savedHash = commitStats.readHashFromFile();
-        String lastHash = commitStats.getLastCommitHash();
+        GitStats gitStats = createGitStats(); 
+        String savedHash = gitStats.readString();
+        String lastHash = gitStats.getLastCommitHash();
 
         if (!lastHash.equals(savedHash)) {
-            long savedDailyCommits = commitStats.readDailyCommitsFromFile();
-            commitStats.writeDailyCommitsToFile(savedDailyCommits + 1L);
+            long savedDailyCommits = gitStats.readLong();
+            gitStats.writeLong(savedDailyCommits + 1L);
         }
 
-        commitStats.writeHashToFile(lastHash);
+        gitStats.writeString(lastHash);
     }
 
     /*
-     * Print commit stats
+     * Print stats
      */
     public static void stop() {
-        String homeDir = System.getProperty("user.home");
-        String pathToDayTime = homeDir + DAY_FILE_PATH;
-        String pathToMonthTime = homeDir + MONTH_FILE_PATH;
-        String pathToYesterdayTime = homeDir + YESTERDAY_FILE_PATH;
+        TimeStats sessionTimeStats = new TimeStats(TIME_SESSION_PATH);
+        TimeStats dayTimeStats = new TimeStats(TIME_DAY_PATH);
+        TimeStats monthTimeStats = new TimeStats(TIME_MONTH_PATH);
+        TimeStats yesterdayTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
+        GitStats gitStats = createGitStats(); 
 
-        Timer sessionTimer = new Timer(homeDir + SESSION_FILE_PATH);
-        Timer dayTimer = new Timer(pathToDayTime);
-        Timer monthTimer = new Timer(pathToMonthTime);
-        Timer yesterdayTimer = new Timer(pathToYesterdayTime);
+        long duration = sessionTimeStats.getSessionTime(); 
 
-        long duration = sessionTimer.getSessionTime(); 
-
-        if(dayTimer.fileIsNotExist()) {
-            dayTimer.writeToFile(0L);
+        if(!dayTimeStats.isFileExists(TIME_DAY_PATH)) {
+            dayTimeStats.writeLong(0L);
         }
 
-        long dayTime = dayTimer.readFromFile() + duration;
+        long dayTime = dayTimeStats.readLong() + duration;
 
-        dayTimer.writeToFile(dayTime);
+        dayTimeStats.writeLong(dayTime);
 
-        if(monthTimer.fileIsNotExist()) {
-            monthTimer.writeToFile(0L);
+        if(!monthTimeStats.isFileExists(TIME_MONTH_PATH)) {
+            monthTimeStats.writeLong(0L);
         }
-        long monthTime = monthTimer.readFromFile();
 
-        long yesterdayTime = yesterdayTimer.readFromFile();
+        long monthTime = monthTimeStats.readLong();
+        long yesterdayTime = yesterdayTimeStats.readLong();
 
         long sessionHours = duration / 3600;
         long sessionMinutes = (duration % 3600) / 60;
@@ -181,9 +169,9 @@ public class Main {
 
         System.out.println("\n");
         System.out.print("""
-                =========================================
-                Vim uptime:                
-                -----------------------------------------
+                  =========================================
+                                Vim uptime:                
+                  -----------------------------------------
                 """);
         System.out.printf( "  - per session:        %2d h %2d min %2d sec\n",
                 sessionHours, sessionMinutes, sessionSeconds);
@@ -202,26 +190,17 @@ public class Main {
 
         System.out.println("  =========================================");
 
-        sessionTimer.deleteFile();
+        sessionTimeStats.deleteFile();
 
+        long savedDailyCommits = gitStats.readLong();
 
-        CommitStats commitStats = createCommitStats(); 
-        long savedDailyCommits = commitStats.readDailyCommitsFromFile();
-
-        new Thread(() -> {
-            try {
-                Thread.sleep(200);
-                System.out.print("""
-                        =========================================
-                        Commit stats:                
-                        -----------------------------------------
-                        """);
-                System.out.println("  - Commits per day: " + savedDailyCommits);
-                System.out.println("  =========================================");
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }).start();
+        System.out.print("""
+                  =========================================
+                                Commit stats:                
+                  -----------------------------------------
+                """);
+        System.out.println("  - Commits per day: " + savedDailyCommits);
+        System.out.println("  =========================================");
     }
 }
 

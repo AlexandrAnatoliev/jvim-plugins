@@ -7,7 +7,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.8.6](https://img.shields.io/badge/Version-0.8.6-orange.svg)
+  ![Version 0.8.7](https://img.shields.io/badge/Version-0.8.7-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -26,7 +26,6 @@
 * [Plugin Installation](#plugin-installation)
 * [Plugin Uninstallation](#plugin-uninstallation)
 * [Files Structure](#files-structure)
-* [Script Usage](#script-usage)
 * [Plugin List](#plugin-list)
 * [Contributing](#contributing)
 * [Requirements](#requirements)
@@ -52,17 +51,12 @@ cd jvim-plugins/
 
 * Make the scripts executable:
 ```
-chmod +x scripts/*.sh
+chmod +x *.sh
 ```
 
 Install the plugin using the script:
-* with test execution:
 ```
-./scripts/install_plugin.sh [plugin]
-```
-* without running tests:
-```
-./scripts/install_plugin.sh [plugin] --no-test
+./install.sh [plugin]
 ```
 
 * When installing a plugin, it is installed in the appropriate Vim directory. 
@@ -89,7 +83,7 @@ Install the plugin using the script:
 
 * To uninstall the plugin using the script:
 ```
-./scripts/uninstall_plugin.sh [plugin]
+./remove.sh [plugin]
 ```
 
 ---
@@ -101,89 +95,16 @@ Install the plugin using the script:
 
 ```
 jvim-plugins 
+├── commit-stats
+├── install.sh
 ├── pomodoro
 ├── README.md
-└── scripts
-    ├── build.sh
-    ├── build_and_run_tests.sh
-    ├── check_jdk.sh
-    ├── check_junit.sh
-    ├── check_vim.sh
-    ├── compile.sh
-    ├── compile_tests.sh
-    ├── copy_plugin_to_vim.sh
-    ├── install_plugin.sh
-    ├── run_tests.sh
-    └── uninstall_plugin.sh
+├── remove.sh
+├── scripts
+├── timer
+└── vimstat
 ```
  
----
-
-<div align="center">
-  <a id="script-usage"></a>
-  <h2>Script Usage</h2>
-</div>
-
-The `install_plugin.sh [plugin]` script runs the following scripts sequentially:
-* `build.sh [plugin]` - builds plugin Java files;
-* `build_and_run_tests.sh [plugin]` - runs JUnit tests;
-* `copy_plugin_to_vim.sh [plugin]` - copies the build plugin to the appropriate 
-Vim directory;
-
-The `install_plugin.sh [plugin] --no-test` script runs without testing:
-* `build.sh [plugin]`
-* `copy_plugin_to_vim.sh [plugin]`
-
-Script for automatic plugin building:
-```
-./scripts/build.sh [plugin]
-```
-
-This script runs:
-* Checks if Vim is installed
-```
-./scripts/check_vim.sh
-```
-
-* Checks if JDK is installed
-```
-./scripts/check_jdk.sh
-```
-
-* Compiles Java files 
-```
-./scripts/compile.sh [plugin]
-```
-
-Script for automatic compilation and test execution
-```
-./scripts/build_and_run_tests.sh [plugin]
-```
-
-This script runs:
-* Checks if JUnit is installed
-```
-./scripts/check_junit.sh
-```
-
-* If case of an error, check the path to JUnit using command: 
-```
-dpkg -L junit5 | grep junit-jupiter-api
-```
-```
-dpkg -L junit5 | grep junit-platform-console-standalone
-```
-
-* Compiles JUnit classes 
-```
-./scripts/compile_tests.sh [plugin]
-```
-
-* Runs tests:
-```
-./scripts/run_tests.sh [plugin]
-```
-
 ---
 
 <div align="center">
@@ -201,102 +122,36 @@ Use Vim to edit files, and after 25 minutes it will change Vim's color scheme
 to remind you to take a break.
 Designed for self-monitoring and productivity.
 
-<div align="center">
-  <h4>Plugin installation</h4>
-</div>
-
-* with test execution:
 ```
-./scripts/install_plugin.sh pomodoro
-```
-
-* without running tests:
-```
-./scripts/install_plugin.sh pomodoro --no-test
+./install.sh pomodoro
 ```
 
 <div align="center">
-  <h4>Plugin uninstallation</h4>
+  <h3>Vim stats plugin</h3>
 </div>
 
-```
-./scripts/uninstall_plugin.sh pomodoro
-```
-<div align="center">
-  <h3>Timer Plugin</h3>
-</div>
-
-[timer](timer/README.md) - Simple Vim Working Time Measurement Plugin.
-
- After closing Vim, you will see:
-```
-  =========================================
-                Vim uptime:
-  -----------------------------------------
-  - per session:         0 h  0 min  8 sec
-  - per day:             0 h 19 min 59 sec
-  - average per month:   0 h 57 min 14 sec
-  =========================================
-```
-Designed for self-monitoring and productivity.
-
-<div align="center">
-  <h4>Plugin installation</h4>
-</div>
-
-* with test execution:
-```
-./scripts/install_plugin.sh timer
-```
-
-* without running tests:
-```
-./scripts/install_plugin.sh timer --no-test
-```
-
-<div align="center">
-  <h4>Plugin uninstallation</h4>
-</div>
-
-```
-./scripts/uninstall_plugin.sh timer
-```
-
-<div align="center">
-  <h3>Commit stats Vim plugin</h3>
-</div>
-
-[commit-stats](commit-stats/README.md) - Vim utility to get commit stats.
+[vimstat](vimstat/README.md) - Vim utility to get stats.
 
 * After closing Vim, you will see:
 ```
   =========================================
-              Commit stats:
+                Vim uptime:
   -----------------------------------------
-  - Commits per day: 0
+  - per session:         0 h  2 min 35 sec
+  - per day:             0 h 27 min 32 sec
+  - average per month:   0 h  0 min  1 sec
+  =========================================
+  =========================================
+                Commit stats:
+  -----------------------------------------
+  - Commits per day: 2
   =========================================
 ```
 
-<div align="center">
-  <h4>Plugin installation</h4>
-</div>
-
-* with test execution:
-```
-./scripts/install_plugin.sh commit-stats
-```
-
-* without running tests:
-```
-./scripts/install_plugin.sh commit-stats --no-test
-```
-
-<div align="center">
-  <h4>Plugin uninstallation</h4>
-</div>
+Designed for self-monitoring and productivity.
 
 ```
-./scripts/uninstall_plugin.sh commit-stats
+./install.sh vimstat
 ```
 
 ---
@@ -465,7 +320,7 @@ or reach out to me at per-1986@list.ru.
  
 * Java installed
 * Vim installed
-* JUnit 5 installed (optional)
+* Maven installed
 
 ---
 
@@ -476,6 +331,7 @@ or reach out to me at per-1986@list.ru.
  
 * Vim 7.0 and above
 * Java 8 and above
+* Maven 3 and above
 
 ---
 
@@ -487,7 +343,7 @@ or reach out to me at per-1986@list.ru.
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.8.6](https://img.shields.io/badge/Version-0.8.6-orange.svg)
+  ![Version 0.8.7](https://img.shields.io/badge/Version-0.8.7-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
@@ -508,7 +364,6 @@ or reach out to me at per-1986@list.ru.
 * [Установка](#plugin-installation-ru)
 * [Удаление Плагина](#plugin-uninstallation-ru)
 * [Структура Файлов](#files-structure-ru)
-* [Использование Скриптов](#script-usage-ru)
 * [Список Плагинов](#plugin-list-ru)
 * [Участие В Разработке](#contributing-ru)
 * [Требования](#requirements-ru)
@@ -534,17 +389,12 @@ cd jvim-plugins/
 
 * Сделайте скрипты исполняемыми:
 ```
-chmod +x scripts/*.sh
+chmod +x *.sh
 ```
 
 Установите плагин с помощью скрипта:
-* с выполнением тестов:
 ```
-./scripts/install_plugin.sh [plugin]
-```
-* без запуска тестов:
-```
-./scripts/install_plugin.sh [plugin] --no-test
+./install.sh [plugin]
 ```
 
 * При установке плагин помещается в соответствующую директорию Vim. 
@@ -571,7 +421,7 @@ chmod +x scripts/*.sh
 
 * Для удаления плагина используйте скрипт:
 ```
-./scripts/uninstall_plugin.sh [plugin]
+./remove.sh [plugin]
 ```
 
 ---
@@ -583,87 +433,16 @@ chmod +x scripts/*.sh
 
 ```
 jvim-plugins 
+├── commit-stats
+├── install.sh
 ├── pomodoro
 ├── README.md
-└── scripts
-    ├── build.sh
-    ├── build_and_run_tests.sh
-    ├── check_jdk.sh
-    ├── check_junit.sh
-    ├── check_vim.sh
-    ├── compile.sh
-    ├── compile_tests.sh
-    ├── copy_plugin_to_vim.sh
-    ├── install_plugin.sh
-    ├── run_tests.sh
-    └── uninstall_plugin.sh
+├── remove.sh
+├── scripts
+├── timer
+└── vimstat
 ```
  
----
-
-<div align="center">
-  <a id="script-usage-ru"></a>
-  <h2>Использование скриптов</h2>
-</div>
-
-Скрипт `install_plugin.sh [plugin]` выполняет следующие скрипты последовательно:
-* `build.sh [plugin]` - сборка Java файлов плагина;
-* `build_and_run_tests.sh [plugin]` - сборка и запуск JUnit тестов;
-* `copy_plugin_to_vim.sh [plugin]` - копирование собранного плагина в 
-соответствующую директорию Vim.
-
-Скрипт `install_plugin.sh [plugin] --no-test` выполняется без тестирования:
-* `build.sh [plugin]`
-* `copy_plugin_to_vim.sh [plugin]`
-
-Скрипт для автоматической сборки плагина:
-```
-./scripts/build.sh [plugin]
-```
-
-Этот скрипт выполняет:
-* Проверяет установлен ли Vim
-```
-./scripts/check_vim.sh
-```
-
-* Проверяет установлен ли JDK
-```
-./scripts/check_jdk.sh
-```
-
-* Компилирует Java файлы
-```
-./scripts/compile.sh [plugin]
-```
-
-Скрипт для автоматической компиляции и выполнения тестов
-```
-./scripts/build_and_run_tests.sh [plugin]
-```
-
-Этот скрипт выполняет:
-* Проверяет установлен ли JUnit
-```
-./scripts/check_junit.sh
-```
-* В случае ошибки, проверьте путь до JUnit используя команды:
-```
-dpkg -L junit5 | grep junit-jupiter-api
-```
-```
-dpkg -L junit5 | grep junit-platform-console-standalone
-```
-* Компилирует JUnit классы
-```
-./scripts/compile_tests.sh [plugin]
-```
-
-* Запускает тесты:
-```
-./scripts/run_tests.sh [plugin]
-```
-
 ---
 
 <div align="center">
@@ -672,7 +451,7 @@ dpkg -L junit5 | grep junit-platform-console-standalone
 </div>
  
 <div align="center">
-  <h3>Pomodoro плагин</h3>
+  <h3>Pomodoro Плагин</h3>
 </div>
 
 [pomodoro](pomodoro/README.md) - Простой Pomodoro плагин для Vim.
@@ -682,102 +461,30 @@ dpkg -L junit5 | grep junit-platform-console-standalone
 самоконтроля и эффективности.
 
 <div align="center">
-  <h4>Установка</h4>
+  <h3>Vim Stats Плагин</h3>
 </div>
 
-* с выполнением тестов:
-```
-./scripts/install_plugin.sh pomodoro
-```
-
-* без запуска тестов:
-```
-./scripts/install_plugin.sh pomodoro --no-test
-```
-
-<div align="center">
-  <h4>Удаление плагина</h4>
-</div>
-
-```
-./scripts/uninstall_plugin.sh pomodoro
-```
-
-<div align="center">
-  <h3>Timer плагин</h3>
-</div>
-
-[timer](timer/README.md) - Простой плагин для измерения времени работы Vim.
+[vimstat](vimstat/README.md) - Простой плагин для измерения статистики работы Vim.
 
 По окончании работы и закрытия Vim будет выведено:
 ```
   =========================================
                 Vim uptime:
   -----------------------------------------
-  - per session:         0 h  0 min  8 sec
-  - per day:             0 h 19 min 59 sec
-  - average per month:   0 h 57 min 14 sec
+  - per session:         0 h  2 min 35 sec
+  - per day:             0 h 27 min 32 sec
+  - average per month:   0 h  0 min  1 sec
+  =========================================
+  =========================================
+                Commit stats:
+  -----------------------------------------
+  - Commits per day: 2
   =========================================
 ```
 Нужен для самоконтроля и производительности.
 
-<div align="center">
-  <h4>Установка</h4>
-</div>
-
-* с выполнением тестов:
 ```
-./scripts/install_plugin.sh timer
-```
-
-* без запуска тестов:
-```
-./scripts/install_plugin.sh timer --no-test
-```
-
-<div align="center">
-  <h4>Удаление плагина</h4>
-</div>
-
-```
-./scripts/uninstall_plugin.sh timer
-```
-
-<div align="center">
-  <h3>Commit stats Vim plugin</h3>
-</div>
-
-[commit-stats](commit-stats/README.md) - Vim-утилита для получения статистики коммитов.
-
-* После закрытия Vim, вы увидите:
-```
-  =========================================
-              Commit stats:
-  -----------------------------------------
-  - Commits per day: 0
-  =========================================
-```
-
-<div align="center">
-  <h4>Установка</h4>
-</div>
-
-* с выполнением тестов:
-```
-./scripts/install_plugin.sh commit-stats
-```
-
-* без запуска тестов:
-```
-./scripts/install_plugin.sh commit-stats --no-test
-```
-
-<div align="center">
-  <h4>Удаление плагина</h4>
-</div>
-
-```
-./scripts/uninstall_plugin.sh commit-stats
+./install.sh vimstat
 ```
 
 ---
@@ -942,7 +649,7 @@ request, не закрывайте его сами.
  
 * Установленная Java
 * Установленный Vim
-* Установленный JUnit (опционально)
+* Установленный Maven
 
 ---
 
@@ -953,3 +660,4 @@ request, не закрывайте его сами.
  
 * Vim 7.0 и выше
 * Java 8 и выше
+* Maven 3 и выше
