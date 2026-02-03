@@ -13,7 +13,7 @@ import java.time.temporal.ChronoUnit;
  *   java Main stop     -   print commit stats
  *
  * @version  0.8.7
- * @since    02.02.2026
+ * @since    03.02.2026
  * @author   AlexandrAnatoliev
  */
 public class Main {
@@ -60,11 +60,15 @@ public class Main {
     }
 
     /**
-     * Starts a new GitStats session.
+     * Starts a new stats session.
      */
     public static void start() {
-        GitStats gitStats = createGitStats();
         LocalDate today = LocalDate.now();
+        TimeStats sessionTimeStats = new TimeStats(TIME_SESSION_PATH);
+        TimeStats dayTimeStats = new TimeStats(TIME_DAY_PATH);
+        TimeStats monthTimeStats = new TimeStats(TIME_MONTH_PATH);
+        TimeStats yesterdayTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
+        GitStats gitStats = createGitStats();
 
         if (!gitStats.isFileExists(GIT_DAY_COMMIT_PATH)
                 || !today.equals(gitStats.getFileDate(GIT_DAY_COMMIT_PATH))) {
@@ -75,10 +79,6 @@ public class Main {
             gitStats.writeString("");
         }
 
-        TimeStats sessionTimeStats = new TimeStats(TIME_SESSION_PATH);
-        TimeStats dayTimeStats = new TimeStats(TIME_DAY_PATH);
-        TimeStats monthTimeStats = new TimeStats(TIME_MONTH_PATH);
-        TimeStats yesterdayTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
 
         if(sessionTimeStats.isFileExists(TIME_SESSION_PATH)) {
             long pastDuration = sessionTimeStats.getSessionTime();
@@ -110,12 +110,10 @@ public class Main {
                 !dayTimeStats.getFileDate(TIME_DAY_PATH).equals(today)) {
             dayTimeStats.writeLong(0L);
                 }
-
-        return;
     }
 
     /*
-     * Update commit stats
+     * Update stats
      */
     public static void update() {
         GitStats gitStats = createGitStats(); 
@@ -131,13 +129,14 @@ public class Main {
     }
 
     /*
-     * Print commit stats
+     * Print stats
      */
     public static void stop() {
         TimeStats sessionTimeStats = new TimeStats(TIME_SESSION_PATH);
         TimeStats dayTimeStats = new TimeStats(TIME_DAY_PATH);
         TimeStats monthTimeStats = new TimeStats(TIME_MONTH_PATH);
         TimeStats yesterdayTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
+        GitStats gitStats = createGitStats(); 
 
         long duration = sessionTimeStats.getSessionTime(); 
 
@@ -152,8 +151,8 @@ public class Main {
         if(!monthTimeStats.isFileExists(TIME_MONTH_PATH)) {
             monthTimeStats.writeLong(0L);
         }
-        long monthTime = monthTimeStats.readLong();
 
+        long monthTime = monthTimeStats.readLong();
         long yesterdayTime = yesterdayTimeStats.readLong();
 
         long sessionHours = duration / 3600;
@@ -170,9 +169,9 @@ public class Main {
 
         System.out.println("\n");
         System.out.print("""
-                =========================================
-                Vim uptime:                
-                -----------------------------------------
+                  =========================================
+                                Vim uptime:                
+                  -----------------------------------------
                 """);
         System.out.printf( "  - per session:        %2d h %2d min %2d sec\n",
                 sessionHours, sessionMinutes, sessionSeconds);
@@ -193,24 +192,15 @@ public class Main {
 
         sessionTimeStats.deleteFile();
 
-
-        GitStats gitStats = createGitStats(); 
         long savedDailyCommits = gitStats.readLong();
 
-        new Thread(() -> {
-            try {
-                Thread.sleep(200);
-                System.out.print("""
-                        =========================================
-                        Commit stats:                
-                        -----------------------------------------
-                        """);
-                System.out.println("  - Commits per day: " + savedDailyCommits);
-                System.out.println("  =========================================");
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }).start();
+        System.out.print("""
+                  =========================================
+                                Commit stats:                
+                  -----------------------------------------
+                """);
+        System.out.println("  - Commits per day: " + savedDailyCommits);
+        System.out.println("  =========================================");
     }
 }
 
