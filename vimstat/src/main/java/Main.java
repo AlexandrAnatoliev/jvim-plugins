@@ -2,15 +2,15 @@ import java.time.*;
 import java.time.temporal.ChronoUnit;
 
 /**
- * Vim utility to get commit stats
+ * Vim utility to get Vim stats
  * 
- * When ended work with Vim, print value commit per day
+ * When ended work with Vim, print stats 
  *
  * Usage:
  *   java Main start    -   erases information from temporary files, 
- *                          and starts to calculate commit stats  
- *   java Main update   -   update commit stats 
- *   java Main stop     -   print commit stats
+ *                          and starts to calculate stats  
+ *   java Main update   -   update stats 
+ *   java Main stop     -   print stats
  *
  * @version  0.8.7
  * @since    03.02.2026
@@ -31,12 +31,12 @@ public class Main {
     private static final String TIME_YESTERDAY_PATH = 
         HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_yesterday.txt";
 
-    /** Main entry point for the Commit Stats application
+    /** Main entry point for the vimstats application
      *
      * @param args command line arguments - first argument determines operation mode 
      *   "start"    To begin new work session     
-     *   "update"   To update commit stats     
-     *   "stop"     Or any other argument to print commit stats     
+     *   "update"   To update stats     
+     *   "stop"     Or any other argument to print stats     
      */
     public static void main(String[] args) {
         if (args.length > 0 && "start".equals(args[0])) {
