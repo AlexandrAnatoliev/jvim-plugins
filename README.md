@@ -244,19 +244,25 @@ merge conflicts._
 Once you've made the necessary changes to fix the issue, 
 you're ready to submit your changes!
 
-1. Stage your changes with the command:
+1. Apply the style checker:
+
+```
+mvn -f [plugin-name] spotless:apply
+```
+
+2. Stage your changes with the command:
 
 ```bash
 git add files-that-you-changed
 ```
 
-2. Commit your changes with the command:
+3. Commit your changes with the command:
 
 ```bash
 git commit -m "Fixed issue"
 ```
 
-3. Push your changes to your forked repository 
+4. Push your changes to your forked repository 
 with the command:
 
 ```bash
@@ -578,19 +584,25 @@ _Примечание: Рекомендую всегда создавать но
 После того как Вы решили задачу, Вы готовы отправить 
 изменения! 
 
-1. Добавьте Ваши изменения в отслеживание:
+1. Примените стайл-чекер:
+
+```
+mvn -f [plugin-name] spotless:apply
+```
+
+2. Добавьте Ваши изменения в отслеживание:
 
 ```bash
 git add files-that-you-changed
 ```
 
-2. Сделайте коммит:
+3. Сделайте коммит:
 
 ```bash
 git commit -m "Fixed issue"
 ```
 
-3. Отправить изменения в Ваш "форк" репозиторий:
+4. Отправить изменения в Ваш "форк" репозиторий:
 
 ```bash
 git push origin fix-issue
