@@ -1,5 +1,5 @@
 name: "Spotless Check"
-  # Запускать при push в ветку или открытии/обновлении pull request
+# Запускать при push в ветку или открытии/обновлении pull request
 on: [push, pull_request]
 
 jobs:
@@ -10,13 +10,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-          # 2. Настроить Java (если проект на Java)
+      # 2. Настроить Java (если проект на Java)
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          java-version: '21' 
+          java-version: '21'
           distribution: 'temurin'
 
-            # 3. Запустить проверку Spotless
-      - name: Run Spotless Check
-        run: mvn spotless:check # Для Maven
+      # 3. Запустить проверку Spotless
+      - name: Run Spotless Check in pomodoro module
+        working-directory: ./pomodoro
+        run: mvn spotless:check
+
+      - name: Run Spotless Check in vimstat module
+        working-directory: ./vimstat
+        run: mvn spotless:check
