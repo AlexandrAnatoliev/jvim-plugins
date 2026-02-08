@@ -1,0 +1,22 @@
+name: "Spotless Check"
+  # Запускать при push в ветку или открытии/обновлении pull request
+on: [push, pull_request]
+
+jobs:
+  spotless-check:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Получить код репозитория
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+          # 2. Настроить Java (если проект на Java)
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21' 
+          distribution: 'temurin'
+
+            # 3. Запустить проверку Spotless
+      - name: Run Spotless Check
+        run: mvn spotless:check # Для Maven
