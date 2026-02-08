@@ -7,7 +7,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.8.7](https://img.shields.io/badge/Version-0.8.7-orange.svg)
+  ![Version 0.8.8](https://img.shields.io/badge/Version-0.8.8-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -244,19 +244,25 @@ merge conflicts._
 Once you've made the necessary changes to fix the issue, 
 you're ready to submit your changes!
 
-1. Stage your changes with the command:
+1. Apply the style checker:
+
+```
+mvn -f [plugin-name] spotless:apply
+```
+
+2. Stage your changes with the command:
 
 ```bash
 git add files-that-you-changed
 ```
 
-2. Commit your changes with the command:
+3. Commit your changes with the command:
 
 ```bash
 git commit -m "Fixed issue"
 ```
 
-3. Push your changes to your forked repository 
+4. Push your changes to your forked repository 
 with the command:
 
 ```bash
@@ -343,7 +349,7 @@ or reach out to me at per-1986@list.ru.
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.8.7](https://img.shields.io/badge/Version-0.8.7-orange.svg)
+  ![Version 0.8.8](https://img.shields.io/badge/Version-0.8.8-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
@@ -578,19 +584,25 @@ _Примечание: Рекомендую всегда создавать но
 После того как Вы решили задачу, Вы готовы отправить 
 изменения! 
 
-1. Добавьте Ваши изменения в отслеживание:
+1. Примените стайл-чекер:
+
+```
+mvn -f [plugin-name] spotless:apply
+```
+
+2. Добавьте Ваши изменения в отслеживание:
 
 ```bash
 git add files-that-you-changed
 ```
 
-2. Сделайте коммит:
+3. Сделайте коммит:
 
 ```bash
 git commit -m "Fixed issue"
 ```
 
-3. Отправить изменения в Ваш "форк" репозиторий:
+4. Отправить изменения в Ваш "форк" репозиторий:
 
 ```bash
 git push origin fix-issue

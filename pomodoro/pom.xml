@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ru.java-practice.jvim-plugins</groupId>
   <artifactId>pomodoro</artifactId>
-  <version>0.8.6</version>
+  <version>0.8.8</version>
 
   <properties>
     <maven.compiler.source>21</maven.compiler.source>
@@ -66,6 +66,16 @@
               <mainClass>Main</mainClass>
             </manifest>
           </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <version>2.43.0</version>
+        <configuration>
+          <java>
+            <googleJavaFormat />
+          </java>
         </configuration>
       </plugin>
     </plugins>
