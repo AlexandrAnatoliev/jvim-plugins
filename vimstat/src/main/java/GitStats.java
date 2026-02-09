@@ -35,8 +35,7 @@ public class GitStats extends Stats {
         return scanner.hasNext() ? scanner.next() : "";
       }
     } catch (Exception e) {
-      System.out.println(
-          ERROR + " Getting last commit hash: " + e.getMessage());
+      System.out.println(ERROR + " Getting last commit hash: " + e.getMessage());
       return "";
     }
   }
