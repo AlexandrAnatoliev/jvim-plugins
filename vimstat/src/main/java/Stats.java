@@ -2,16 +2,20 @@ import java.io.*;
 import java.nio.file.*;
 import java.nio.file.attribute.*;
 import java.time.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The class to get working stats
  *
- * @version 0.8.7
- * @since 02.02.2026
+ * @version 0.8.11
+ * @since 09.02.2026
  * @author AlexandrAnatoliev
  */
 public abstract class Stats {
   protected String pathToLong;
+  protected static final String ERROR = "[" + Colors.RED.apply("ERROR") + "]";
+  private static final Logger LOGGER = LoggerFactory.getLogger(Stats.class);
 
   /**
    * Stats class constructor
@@ -31,7 +35,7 @@ public abstract class Stats {
     try (FileWriter writer = new FileWriter(pathToLong)) {
       writer.write(value.toString());
     } catch (Exception e) {
-      System.out.println(Colors.RED.apply("[ERROR]") + " Writing long: " + e.getMessage());
+      LOGGER.error(ERROR + " Writing long: " + e.getMessage());
     }
   }
 
@@ -46,7 +50,7 @@ public abstract class Stats {
       return Long.parseLong(reader.readLine());
 
     } catch (IOException | NumberFormatException e) {
-      System.out.println(Colors.RED.apply("[ERROR]") + " Reading long: " + e.getMessage());
+      LOGGER.error(ERROR + " Reading long: " + e.getMessage());
       return 0;
     }
   }
@@ -65,7 +69,7 @@ public abstract class Stats {
           attrs.creationTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
       return fileDate;
     } catch (Exception e) {
-      System.out.println(Colors.RED.apply("[ERROR]") + " Getting file date: " + e.getMessage());
+      LOGGER.error(ERROR + " Getting file date: " + e.getMessage());
       return null;
     }
   }

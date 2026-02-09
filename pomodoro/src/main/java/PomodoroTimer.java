@@ -1,10 +1,12 @@
 import java.io.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The class to launch a timer and write a command to a temporary file.
  *
- * @version 0.6.5
- * @since 30.11.2025
+ * @version 0.8.11
+ * @since 09.02.2026
  * @author AlexandrAnatoliev
  */
 public class PomodoroTimer {
@@ -12,6 +14,8 @@ public class PomodoroTimer {
   protected String pathToStartTime;
   protected String defaultCommand;
   protected long time;
+  protected final String ERROR = "[" + Colors.RED.apply("ERROR") + "]";
+  private static final Logger LOGGER = LoggerFactory.getLogger(PomodoroTimer.class);
 
   /**
    * PomodoroTimer class constructor
@@ -38,7 +42,7 @@ public class PomodoroTimer {
     try (FileWriter writer = new FileWriter(pathToMonitor)) {
       writer.write(command);
     } catch (Exception e) {
-      System.out.println(Colors.RED.apply("ERROR writing: " + e.getMessage()));
+      LOGGER.error(ERROR + " Writing command: " + e.getMessage());
     }
   }
 
@@ -51,7 +55,7 @@ public class PomodoroTimer {
     try (FileWriter writer = new FileWriter(pathToStartTime)) {
       writer.write(time.toString());
     } catch (Exception e) {
-      System.out.println(Colors.RED.apply("ERROR writing: " + e.getMessage()));
+      LOGGER.error(ERROR + " Writing time: " + e.getMessage());
     }
   }
 
@@ -67,7 +71,7 @@ public class PomodoroTimer {
       Thread.sleep(60000 * time);
       writeCommand(defaultCommand);
     } catch (InterruptedException e) {
-      System.out.println(Colors.RED.apply("ERROR: Timer interrupted"));
+      LOGGER.error(ERROR + " Timer interrupted");
     }
   }
 
@@ -84,7 +88,7 @@ public class PomodoroTimer {
         return Long.parseLong(line);
       }
     } catch (Exception e) {
-      System.out.println(Colors.RED.apply("ERROR reading: " + e.getMessage()));
+      LOGGER.error(ERROR + " Getting start time: " + e.getMessage());
     }
     return -1;
   }
