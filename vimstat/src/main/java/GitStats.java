@@ -4,8 +4,8 @@ import java.util.Scanner;
 /**
  * The class to get git stats
  *
- * @version 0.8.7
- * @since 02.02.2026
+ * @version 0.8.11
+ * @since 09.02.2026
  * @author AlexandrAnatoliev
  */
 public class GitStats extends Stats {
@@ -36,7 +36,7 @@ public class GitStats extends Stats {
       }
     } catch (Exception e) {
       System.out.println(
-          Colors.RED.apply("[ERROR]") + " Getting last commit hash: " + e.getMessage());
+          ERROR + " Getting last commit hash: " + e.getMessage());
       return "";
     }
   }
@@ -51,7 +51,7 @@ public class GitStats extends Stats {
       String content = (hash == null) ? "" : hash;
       Files.writeString(Paths.get(pathToString), content);
     } catch (Exception e) {
-      System.out.println(Colors.RED.apply("[ERROR]") + " Writing string: " + e.getMessage());
+      System.out.println(ERROR + " Writing string: " + e.getMessage());
     }
   }
 
@@ -64,7 +64,7 @@ public class GitStats extends Stats {
     try {
       return Files.readString(Paths.get(this.pathToString));
     } catch (Exception e) {
-      System.out.println(Colors.RED.apply("[ERROR]") + " Reading string: " + e.getMessage());
+      System.out.println(ERROR + " Reading string: " + e.getMessage());
       return "";
     }
   }
