@@ -1,4 +1,6 @@
 import java.io.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The class to launch a timer and write a command to a temporary file.
@@ -13,6 +15,7 @@ public class PomodoroTimer {
   protected String defaultCommand;
   protected long time;
   protected final String ERROR = "[" + Colors.RED.apply("ERROR") + "]";
+  private static final Logger LOGGER = LoggerFactory.getLogger(PomodoroTimer.class);
 
   /**
    * PomodoroTimer class constructor
@@ -39,7 +42,7 @@ public class PomodoroTimer {
     try (FileWriter writer = new FileWriter(pathToMonitor)) {
       writer.write(command);
     } catch (Exception e) {
-      System.out.println(ERROR + " Writing command: " + e.getMessage());
+      LOGGER.error(ERROR + " Writing command: " + e.getMessage());
     }
   }
 
@@ -52,7 +55,7 @@ public class PomodoroTimer {
     try (FileWriter writer = new FileWriter(pathToStartTime)) {
       writer.write(time.toString());
     } catch (Exception e) {
-      System.out.println(ERROR + " Writing time: " + e.getMessage());
+      LOGGER.error(ERROR + " Writing time: " + e.getMessage());
     }
   }
 
@@ -68,7 +71,7 @@ public class PomodoroTimer {
       Thread.sleep(60000 * time);
       writeCommand(defaultCommand);
     } catch (InterruptedException e) {
-      System.out.println(ERROR + " Timer interrupted");
+      LOGGER.error(ERROR + " Timer interrupted");
     }
   }
 
@@ -85,7 +88,7 @@ public class PomodoroTimer {
         return Long.parseLong(line);
       }
     } catch (Exception e) {
-      System.out.println(ERROR + " Getting start time: " + e.getMessage());
+      LOGGER.error(ERROR + " Getting start time: " + e.getMessage());
     }
     return -1;
   }

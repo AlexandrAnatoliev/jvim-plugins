@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  */
 public class GitStats extends Stats {
   protected String pathToString;
-  private static final Logger LOGGER = LoggerFactory.getLogger(Stats.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(GitStats.class);
 
   /**
    * GitStats class constructor
