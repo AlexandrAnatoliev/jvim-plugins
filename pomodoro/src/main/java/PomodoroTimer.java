@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 /**
  * The class to launch a timer and write a command to a temporary file.
  *
- * @version 0.8.11
- * @since 09.02.2026
+ * @version 0.8.14
+ * @since 10.02.2026
  * @author AlexandrAnatoliev
  */
 public class PomodoroTimer {
@@ -59,11 +59,7 @@ public class PomodoroTimer {
     }
   }
 
-  /**
-   * Starts a timer and then writes a command to a temporary file
-   *
-   * @throws InterruptedException If timer is interrupted
-   */
+  /** Starts a timer and then writes a command to a temporary file */
   public void startTimer() {
     try {
       long startTime = System.currentTimeMillis() / 1000; // in seconds
@@ -71,6 +67,7 @@ public class PomodoroTimer {
       Thread.sleep(60000 * time);
       writeCommand(defaultCommand);
     } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
       LOGGER.error(ERROR + " Timer interrupted");
     }
   }
