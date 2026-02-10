@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ru.java-practice.jvim-plugins</groupId>
   <artifactId>vimstat</artifactId>
-  <version>0.8.11</version>
+  <version>0.8.15</version>
 
   <properties>
     <maven.compiler.source>21</maven.compiler.source>
