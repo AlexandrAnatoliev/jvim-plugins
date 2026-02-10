@@ -6,8 +6,8 @@ import org.slf4j.LoggerFactory;
 /**
  * The class to get git stats
  *
- * @version 0.8.11
- * @since 09.02.2026
+ * @version 0.8.15
+ * @since 10.02.2026
  * @author AlexandrAnatoliev
  */
 public class GitStats extends Stats {
@@ -38,6 +38,7 @@ public class GitStats extends Stats {
         return scanner.hasNext() ? scanner.next() : "";
       }
     } catch (Exception e) {
+      Thread.currentThread().interrupt();
       LOGGER.error(ERROR + " Getting last commit hash: " + e.getMessage());
       return "";
     }
