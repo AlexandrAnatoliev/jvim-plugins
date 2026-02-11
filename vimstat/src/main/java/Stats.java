@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 /**
  * The class to get working stats
  *
- * @version 0.8.11
- * @since 09.02.2026
+ * @version 0.8.23
+ * @since 11.02.2026
  * @author AlexandrAnatoliev
  */
 public abstract class Stats {
@@ -22,7 +22,7 @@ public abstract class Stats {
    *
    * @param pathToLong Path to temporary file for long value storage
    */
-  public Stats(String pathToLong) {
+  protected Stats(String pathToLong) {
     this.pathToLong = pathToLong;
   }
 
