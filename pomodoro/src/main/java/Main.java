@@ -1,3 +1,6 @@
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Pomodoro utility for work time self-management
  *
@@ -9,8 +12,8 @@
  * show_time - displays elapsed time of current session java Main stop - erases information from
  * temporary file
  *
- * @version 0.6.12
- * @since 17.12.2025
+ * @version 0.8.17
+ * @since 11.02.2026
  * @author AlexandrAnatoliev
  */
 public class Main {
@@ -18,6 +21,7 @@ public class Main {
       "/.vim/pack/my-plugins/start/pomodoro/data/monitor.txt";
   private static final String PATH_TO_START_TIME =
       "/.vim/pack/my-plugins/start/pomodoro/data/start_time.txt";
+  private static final Logger LOGGER = LoggerFactory.getLogger(PomodoroTimer.class);
 
   /**
    * Main entry point for the Pomodoro Timer application
@@ -72,7 +76,7 @@ public class Main {
     long currentTime = pomodoroTimer.getElapsedTime();
 
     if (currentTime == -1) {
-      System.out.println("No active session found");
+      LOGGER.error("No active session found");
       return;
     }
 
