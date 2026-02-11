@@ -195,6 +195,6 @@ public class Main {
                     - Commits per day: %d
                 """,
         savedDailyCommits);
-    System.out.printf("    =========================================%n");
+    System.out.println("    =========================================");
   }
 }
