@@ -2,7 +2,7 @@
 " File: vimstat.vim
 " Description: Vim plugin for work self-management 
 " Author: AlexandrAnatoliev
-" Version: 0.8.23
+" Version: 0.8.25
 " Last Modified: 11.02.2026
 " ==================================================================
 
@@ -23,7 +23,7 @@ augroup END
 " Returns: None
 " ------------------------------------------------------------------  
 function! StartVimStat()
-  silent !java -jar ~/.vim/pack/my-plugins/start/vimstat/target/vimstat-0.8.23.jar start &
+  silent !java -jar ~/.vim/pack/my-plugins/start/vimstat/target/vimstat-0.8.25.jar start &
 endfunction
 " }}}
 
@@ -35,7 +35,7 @@ endfunction
 " Returns: None
 " ------------------------------------------------------------------  
 function! UpdateVimStat()
-  silent !java -jar ~/.vim/pack/my-plugins/start/vimstat/target/vimstat-0.8.23.jar update &
+  silent !java -jar ~/.vim/pack/my-plugins/start/vimstat/target/vimstat-0.8.25.jar update &
 endfunction
 " }}}
 
@@ -47,6 +47,6 @@ endfunction
 " Returns: None
 " ------------------------------------------------------------------  
 function! StopVimStat()
-  silent !java -jar ~/.vim/pack/my-plugins/start/vimstat/target/vimstat-0.8.23.jar stop &
+  silent !java -jar ~/.vim/pack/my-plugins/start/vimstat/target/vimstat-0.8.25.jar stop &
 endfunction
 " }}}

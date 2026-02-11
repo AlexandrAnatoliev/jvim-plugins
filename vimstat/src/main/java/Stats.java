@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The class to get working stats
  *
- * @version 0.8.23
+ * @version 0.8.25
  * @since 11.02.2026
  * @author AlexandrAnatoliev
  */
@@ -65,9 +65,8 @@ public abstract class Stats {
     Path path = Paths.get(pathToFile);
     try {
       BasicFileAttributes attrs = Files.readAttributes(path, BasicFileAttributes.class);
-      LocalDate fileDate =
-          attrs.creationTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-      return fileDate;
+      return attrs.creationTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
     } catch (Exception e) {
       LOGGER.error(ERROR + " Getting file date: " + e.getMessage());
       return null;
