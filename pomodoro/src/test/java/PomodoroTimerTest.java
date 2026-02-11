@@ -9,8 +9,8 @@ import org.junit.jupiter.api.*;
  *
  * <p>Tests file operations, and edge cases Uses temporary file that is cleaned up after each test
  *
- * @version 0.6.5
- * @since 29.11.2025
+ * @version 0.8.20
+ * @since 11.02.2026
  * @author AlexandrAnatoliev
  */
 public class PomodoroTimerTest {
@@ -154,7 +154,7 @@ public class PomodoroTimerTest {
     Thread timerThread = new Thread(longTimer::startTimer);
     timerThread.start();
     timerThread.interrupt();
-    Thread.sleep(100);
+    timerThread.join(100);
     assertFalse(timerThread.isAlive());
   }
 
