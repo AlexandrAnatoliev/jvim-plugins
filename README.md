@@ -7,7 +7,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.8.24](https://img.shields.io/badge/Version-0.8.24-orange.svg)
+  ![Version 0.8.25](https://img.shields.io/badge/Version-0.8.25-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -100,7 +100,6 @@ jvim-plugins
 ├── pomodoro
 ├── README.md
 ├── remove.sh
-├── scripts
 └── vimstat
 ```
  
@@ -347,7 +346,7 @@ or reach out to me at per-1986@list.ru.
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.8.24](https://img.shields.io/badge/Version-0.8.24-orange.svg)
+  ![Version 0.8.25](https://img.shields.io/badge/Version-0.8.25-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
@@ -442,7 +441,6 @@ jvim-plugins
 ├── pomodoro
 ├── README.md
 ├── remove.sh
-├── scripts
 └── vimstat
 ```
  
