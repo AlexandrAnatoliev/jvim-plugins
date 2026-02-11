@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  * show_time - displays elapsed time of current session java Main stop - erases information from
  * temporary file
  *
- * @version 0.8.18
+ * @version 0.8.19
  * @since 11.02.2026
  * @author AlexandrAnatoliev
  */
@@ -22,6 +22,8 @@ public class Main {
   private static final String PATH_TO_START_TIME =
       "/.vim/pack/my-plugins/start/pomodoro/data/start_time.txt";
   private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+
+  private Main() {}
 
   /**
    * Main entry point for the Pomodoro Timer application

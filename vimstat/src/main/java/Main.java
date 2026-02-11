@@ -9,7 +9,7 @@ import java.time.temporal.ChronoUnit;
  * <p>Usage: java Main start - erases information from temporary files, and starts to calculate
  * stats java Main update - update stats java Main stop - print stats
  *
- * @version 0.8.18
+ * @version 0.8.19
  * @since 11.02.2026
  * @author AlexandrAnatoliev
  */
@@ -27,6 +27,8 @@ public class Main {
       HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_month.txt";
   private static final String TIME_YESTERDAY_PATH =
       HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_yesterday.txt";
+
+  private Main() {}
 
   /**
    * Main entry point for the vimstats application
