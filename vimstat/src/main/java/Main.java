@@ -9,7 +9,7 @@ import java.time.temporal.ChronoUnit;
  * <p>Usage: java Main start - erases information from temporary files, and starts to calculate
  * stats java Main update - update stats java Main stop - print stats
  *
- * @version 0.8.19
+ * @version 0.8.21
  * @since 11.02.2026
  * @author AlexandrAnatoliev
  */
@@ -158,45 +158,43 @@ public class Main {
     long monthMinutes = (monthTime % 3600) / 60;
     long monthSeconds = monthTime % 60;
 
-    System.out.println("\n");
-    System.out.print(
+    System.out.printf(
         """
-                  =========================================
+
+                    =========================================
                                 Vim uptime:
-                  -----------------------------------------
-                """);
-    System.out.printf(
-        "  - per session:        %2d h %2d min %2d sec\n",
-        sessionHours, sessionMinutes, sessionSeconds);
-    System.out.printf(
-        "  - per day:            %2d h %2d min %2d sec\n", dayHours, dayMinutes, daySeconds);
+                    -----------------------------------------
+                    - per session:        %2d h %2d min %2d sec
+                    - per day:            %2d h %2d min %2d sec
+                """,
+        sessionHours, sessionMinutes, sessionSeconds, dayHours, dayMinutes, daySeconds);
+
     if (monthTime > yesterdayTime || dayTime > yesterdayTime) {
       System.out.printf(
-          Colors.GREEN.apply("  - average per month:  %2d h %2d min %2d sec\n"),
+          Colors.GREEN.apply("    - average per month:  %2d h %2d min %2d sec%n"),
           monthHours,
           monthMinutes,
           monthSeconds);
     } else {
       System.out.printf(
-          Colors.RED.apply("  - average per month:  %2d h %2d min %2d sec\n"),
+          Colors.RED.apply("    - average per month:  %2d h %2d min %2d sec%n"),
           monthHours,
           monthMinutes,
           monthSeconds);
     }
 
-    System.out.println("  =========================================");
-
     sessionTimeStats.deleteFile();
 
     long savedDailyCommits = gitStats.readLong();
 
-    System.out.print(
+    System.out.printf(
         """
-                  =========================================
+                    -----------------------------------------
                                 Commit stats:
-                  -----------------------------------------
-                """);
-    System.out.println("  - Commits per day: " + savedDailyCommits);
-    System.out.println("  =========================================");
+                    -----------------------------------------
+                    - Commits per day: %d
+                """,
+        savedDailyCommits);
+    System.out.printf("    =========================================");
   }
 }
