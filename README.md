@@ -7,7 +7,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.8.21](https://img.shields.io/badge/Version-0.8.21-orange.svg)
+  ![Version 0.8.22](https://img.shields.io/badge/Version-0.8.22-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -95,13 +95,12 @@ Install the plugin using the script:
 
 ```
 jvim-plugins 
-├── commit-stats
 ├── install.sh
+├── pom.xml
 ├── pomodoro
 ├── README.md
 ├── remove.sh
 ├── scripts
-├── timer
 └── vimstat
 ```
  
@@ -134,18 +133,17 @@ Designed for self-monitoring and productivity.
 
 * After closing Vim, you will see:
 ```
-  =========================================
+    =========================================
                 Vim uptime:
-  -----------------------------------------
-  - per session:         0 h  2 min 35 sec
-  - per day:             0 h 27 min 32 sec
-  - average per month:   0 h  0 min  1 sec
-  =========================================
-  =========================================
+    -----------------------------------------
+    - per session:         0 h  1 min 21 sec
+    - per day:             0 h 52 min 53 sec
+    - average per month:   0 h  0 min 42 sec
+    -----------------------------------------
                 Commit stats:
-  -----------------------------------------
-  - Commits per day: 2
-  =========================================
+    -----------------------------------------
+    - Commits per day: 1
+    =========================================
 ```
 
 Designed for self-monitoring and productivity.
@@ -349,7 +347,7 @@ or reach out to me at per-1986@list.ru.
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.8.21](https://img.shields.io/badge/Version-0.8.21-orange.svg)
+  ![Version 0.8.22](https://img.shields.io/badge/Version-0.8.22-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
@@ -439,13 +437,12 @@ chmod +x *.sh
 
 ```
 jvim-plugins 
-├── commit-stats
 ├── install.sh
+├── pom.xml
 ├── pomodoro
 ├── README.md
 ├── remove.sh
 ├── scripts
-├── timer
 └── vimstat
 ```
  
@@ -474,20 +471,21 @@ jvim-plugins
 
 По окончании работы и закрытия Vim будет выведено:
 ```
-  =========================================
+    =========================================
                 Vim uptime:
-  -----------------------------------------
-  - per session:         0 h  2 min 35 sec
-  - per day:             0 h 27 min 32 sec
-  - average per month:   0 h  0 min  1 sec
-  =========================================
-  =========================================
+    -----------------------------------------
+    - per session:         0 h  1 min 21 sec
+    - per day:             0 h 52 min 53 sec
+    - average per month:   0 h  0 min 42 sec
+    -----------------------------------------
                 Commit stats:
-  -----------------------------------------
-  - Commits per day: 2
-  =========================================
+    -----------------------------------------
+    - Commits per day: 1
+    =========================================
 ```
+
 Нужен для самоконтроля и производительности.
+
 
 ```
 ./install.sh vimstat
