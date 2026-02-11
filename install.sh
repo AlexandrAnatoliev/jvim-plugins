@@ -21,8 +21,8 @@
 #   1 - Building or testing or copies of plugin to Vim plugin 
 #       directory is failed
 #
-# Version   0.8.4
-# Since     31.01.2026 
+# Version   0.8.24
+# Since     11.02.2026 
 # Author    AlexandrAnatoliev
 
 RED='\u001B[31m'
@@ -51,9 +51,7 @@ if [ $? -eq 0 ]; then
   echo "Copying $PLUGIN_DIR to $TARGET_DIR..."
   cp -r "$PLUGIN_DIR" "$TARGET_DIR"
   if [ $? -eq 0 ]; then
-    echo "Contents of installed plugin:"
-    find "$TARGET_DIR" -type f | head -20
-    echo -e "${GREEN}jvim-timer plugin successfully installed to: $TARGET_DIR ${NC}"
+    echo -e "${GREEN}${PLUGIN_DIR} plugin successfully installed to: $TARGET_DIR ${NC}"
 
     echo ""
     echo -e "${GREEN}==========================================${NC}"
