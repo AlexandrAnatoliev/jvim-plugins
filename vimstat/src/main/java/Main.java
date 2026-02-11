@@ -9,8 +9,8 @@ import java.time.temporal.ChronoUnit;
  * <p>Usage: java Main start - erases information from temporary files, and starts to calculate
  * stats java Main update - update stats java Main stop - print stats
  *
- * @version 0.8.7
- * @since 03.02.2026
+ * @version 0.8.18
+ * @since 11.02.2026
  * @author AlexandrAnatoliev
  */
 public class Main {
