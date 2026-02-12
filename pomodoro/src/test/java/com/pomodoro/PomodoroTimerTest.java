@@ -1,3 +1,5 @@
+package com.pomodoro;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.*;
@@ -9,8 +11,8 @@ import org.junit.jupiter.api.*;
  *
  * <p>Tests file operations, and edge cases Uses temporary file that is cleaned up after each test
  *
- * @version 0.8.20
- * @since 11.02.2026
+ * @version 0.8.27
+ * @since 12.02.2026
  * @author AlexandrAnatoliev
  */
 public class PomodoroTimerTest {

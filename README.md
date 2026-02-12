@@ -7,7 +7,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.8.26](https://img.shields.io/badge/Version-0.8.26-orange.svg)
+  ![Version 0.8.27](https://img.shields.io/badge/Version-0.8.27-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -346,22 +346,16 @@ or reach out to me at per-1986@list.ru.
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.8.26](https://img.shields.io/badge/Version-0.8.26-orange.svg)
-  ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
+  ![Version 0.8.27](https://img.shields.io/badge/Version-0.8.27-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
-
 </div>
-
-  > **Author:** Alexandr Anatoliev
-
-  > **GitHub:** [AlexandrAnatoliev](https://github.com/AlexandrAnatoliev)
 
 ---
 
 <div align="center">
-  <h2>Table of Contents</h2>
+  <h2>Оглавление</h2>
 </div>
 
 * [Установка](#plugin-installation-ru)
