@@ -8,8 +8,8 @@ import org.junit.jupiter.api.*;
 /**
  * Unit tests for GitStats class
  *
- * @version 0.8.7
- * @since 02.02.2026
+ * @version 0.8.26
+ * @since 12.02.2026
  * @author AlexandrAnatoliev
  */
 public class GitStatsTest {
@@ -151,7 +151,6 @@ public class GitStatsTest {
       // Check if we are in a Git repo
       Process p =
           new ProcessBuilder("git", "rev-parse", "--git-dir").redirectErrorStream(true).start();
-      BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
       int exitCode = p.waitFor();
       if (exitCode == 0) {
         // We are in a Git repo
