@@ -1,3 +1,5 @@
+package com.pomodoro;
+
 import java.io.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -5,8 +7,8 @@ import org.slf4j.LoggerFactory;
 /**
  * The class to launch a timer and write a command to a temporary file.
  *
- * @version 0.8.14
- * @since 10.02.2026
+ * @version 0.8.27
+ * @since 12.02.2026
  * @author AlexandrAnatoliev
  */
 public class PomodoroTimer {

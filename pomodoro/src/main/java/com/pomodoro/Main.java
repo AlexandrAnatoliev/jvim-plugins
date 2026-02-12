@@ -1,3 +1,5 @@
+package com.pomodoro;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,8 +14,8 @@ import org.slf4j.LoggerFactory;
  * show_time - displays elapsed time of current session java Main stop - erases information from
  * temporary file
  *
- * @version 0.8.19
- * @since 11.02.2026
+ * @version 0.8.17
+ * @since 12.02.2026
  * @author AlexandrAnatoliev
  */
 public class Main {

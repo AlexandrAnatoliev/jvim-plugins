@@ -1,8 +1,10 @@
+package com.pomodoro;
+
 /**
  * Enum representation supported ANSI color codes for console output.
  *
- * @version 0.6.5
- * @since 30.11.2025
+ * @version 0.8.27
+ * @since 12.02.2026
  * @author AlexandrAnatoliev
  */
 public enum Colors {
