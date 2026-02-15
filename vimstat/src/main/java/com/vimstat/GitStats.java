@@ -32,7 +32,7 @@ public class GitStats extends Stats {
    * @return Last commit hash, or "" if error
    */
   public String getLastCommitHash() {
-    ProcessBuilder pb = new ProcessBuilder("git", "rev-parse", "HEAD");
+    ProcessBuilder pb = new ProcessBuilder("/usr/bin/git", "rev-parse", "HEAD");
     try {
       Process p = pb.start();
       p.waitFor();
