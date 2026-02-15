@@ -1,6 +1,8 @@
 package com.vimstat;
 
 import java.io.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * TimeStats - class for measuring Vim working time
@@ -8,11 +10,12 @@ import java.io.*;
  * <p>The class provides methods for reading start time from temporary file, calculates running
  * duration, and managing the temporary file.
  *
- * @version 0.8.28
+ * @version 0.8.29
  * @since 15.02.2026
  * @author AlexandrAnatoliev
  */
 public class TimeStats extends Stats {
+  private static final Logger LOGGER = LoggerFactory.getLogger(GitStats.class);
 
   /**
    * TimeStats class constructor
@@ -43,6 +46,9 @@ public class TimeStats extends Stats {
 
   /** Deletes temporary file */
   public void deleteFile() {
-    new File(this.pathToLong).delete();
+    boolean result = new File(this.pathToLong).delete();
+    if (!result) {
+      LOGGER.error(ERROR + " Deleting file");
+    }
   }
 }
