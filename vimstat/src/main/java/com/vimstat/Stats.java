@@ -1,3 +1,5 @@
+package com.vimstat;
+
 import java.io.*;
 import java.nio.file.*;
 import java.nio.file.attribute.*;
@@ -8,8 +10,8 @@ import org.slf4j.LoggerFactory;
 /**
  * The class to get working stats
  *
- * @version 0.8.25
- * @since 11.02.2026
+ * @version 0.8.28
+ * @since 15.02.2026
  * @author AlexandrAnatoliev
  */
 public abstract class Stats {

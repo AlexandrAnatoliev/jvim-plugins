@@ -1,8 +1,10 @@
+package com.vimstat;
+
 /**
  * Enum representation supported ANSI color codes for console output.
  *
- * @version 0.7.6
- * @since 12.01.2026
+ * @version 0.8.28
+ * @since 15.02.2026
  * @author AlexandrAnatoliev
  */
 public enum Colors {

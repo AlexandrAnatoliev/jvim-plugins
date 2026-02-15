@@ -1,3 +1,5 @@
+package com.vimstat;
+
 import java.io.*;
 
 /**
@@ -6,8 +8,8 @@ import java.io.*;
  * <p>The class provides methods for reading start time from temporary file, calculates running
  * duration, and managing the temporary file.
  *
- * @version 0.8.7
- * @since 02.02.2026
+ * @version 0.8.28
+ * @since 15.02.2026
  * @author AlexandrAnatoliev
  */
 public class TimeStats extends Stats {

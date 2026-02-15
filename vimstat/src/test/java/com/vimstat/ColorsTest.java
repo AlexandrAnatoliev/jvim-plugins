@@ -1,3 +1,5 @@
+package com.vimstat;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.*;
@@ -5,8 +7,8 @@ import org.junit.jupiter.api.*;
 /*
  * Unit tests for Color enum
  *
- * @version 0.8.1
- * @since 28.01.2026
+ * @version 0.8.28
+ * @since 15.02.2026
  * @author AlexandrAnatoliev
  */
 public class ColorsTest {

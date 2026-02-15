@@ -1,3 +1,5 @@
+package com.vimstat;
+
 import java.nio.file.*;
 import java.util.Scanner;
 import org.slf4j.Logger;
@@ -6,8 +8,8 @@ import org.slf4j.LoggerFactory;
 /**
  * The class to get git stats
  *
- * @version 0.8.15
- * @since 10.02.2026
+ * @version 0.8.28
+ * @since 15.02.2026
  * @author AlexandrAnatoliev
  */
 public class GitStats extends Stats {
@@ -30,7 +32,7 @@ public class GitStats extends Stats {
    * @return Last commit hash, or "" if error
    */
   public String getLastCommitHash() {
-    ProcessBuilder pb = new ProcessBuilder("git", "rev-parse", "HEAD");
+    ProcessBuilder pb = new ProcessBuilder("/usr/bin/git", "rev-parse", "HEAD");
     try {
       Process p = pb.start();
       p.waitFor();

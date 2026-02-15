@@ -1,3 +1,5 @@
+package com.vimstat;
+
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 
@@ -9,8 +11,8 @@ import java.time.temporal.ChronoUnit;
  * <p>Usage: java Main start - erases information from temporary files, and starts to calculate
  * stats java Main update - update stats java Main stop - print stats
  *
- * @version 0.8.22
- * @since 11.02.2026
+ * @version 0.8.26
+ * @since 15.02.2026
  * @author AlexandrAnatoliev
  */
 public class Main {

@@ -1,3 +1,5 @@
+package com.vimstat;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.*;
@@ -11,8 +13,8 @@ import org.junit.jupiter.api.*;
  * <p>Tests file operations, session time calculation, and edge cases Uses temporary file that is
  * cleaned up after each test
  *
- * @version 0.8.7
- * @since 02.12.2026
+ * @version 0.8.28
+ * @since 15.02.2026
  * @author AlexandrAnatoliev
  */
 public class TimeStatsTest {
