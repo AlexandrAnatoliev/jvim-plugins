@@ -1,3 +1,5 @@
+package com.vimstat;
+
 import java.nio.file.*;
 import java.util.Scanner;
 import org.slf4j.Logger;
@@ -6,8 +8,8 @@ import org.slf4j.LoggerFactory;
 /**
  * The class to get git stats
  *
- * @version 0.8.15
- * @since 10.02.2026
+ * @version 0.8.28
+ * @since 15.02.2026
  * @author AlexandrAnatoliev
  */
 public class GitStats extends Stats {

@@ -51,7 +51,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>Main</mainClass>
+              <mainClass>com.vimstat.Main</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>
