@@ -2,7 +2,7 @@
 " File: pomodoro.vim
 " Description: Vim pomodoro plugin for work time self-management 
 " Author: AlexandrAnatoliev
-" Version: 0.8.30
+" Version: 0.8.31
 " Last Modified: 17.02.2026
 " ==================================================================
 
@@ -22,7 +22,7 @@ augroup END
 " Returns: None
 " ------------------------------------------------------------------  
 function! StartPomodoroTimer()
-  silent !java -jar ~/.vim/pack/my-plugins/start/pomodoro/target/pomodoro-0.8.30.jar start &
+  silent !java -jar ~/.vim/pack/my-plugins/start/pomodoro/target/pomodoro-0.8.31.jar start pomodoro &
   call StartFileMonitor()
 endfunction
 " }}}
@@ -35,7 +35,7 @@ endfunction
 " Returns: None
 " ------------------------------------------------------------------  
 function! StopPomodoroTimer()
-  silent !java -jar ~/.vim/pack/my-plugins/start/pomodoro/target/pomodoro-0.8.30.jar stop &
+  silent !java -jar ~/.vim/pack/my-plugins/start/pomodoro/target/pomodoro-0.8.31.jar stop pomodoro &
 endfunction
 " }}}
 
@@ -91,7 +91,7 @@ command! -nargs=0 ShowPomodoroTime call s:RunShowPomodoroTime()
 " Returns: None
 " ------------------------------------------------------------------  
 function! s:RunShowPomodoroTime()
-  let result = system('java -jar ~/.vim/pack/my-plugins/start/pomodoro/target/pomodoro-0.8.30.jar show_time')
+  let result = system('java -jar ~/.vim/pack/my-plugins/start/pomodoro/target/pomodoro-0.8.30.jar show_time pomodoro')
   if v:shell_error !=# 0
     echo "ERROR: " . result
   else
