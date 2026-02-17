@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 /**
  * The class to launch a timer and write a command to a temporary file.
  *
- * @version 0.8.27
- * @since 12.02.2026
+ * @version 0.8.30
+ * @since 17.02.2026
  * @author AlexandrAnatoliev
  */
 public class PomodoroTimer {
@@ -16,7 +16,7 @@ public class PomodoroTimer {
   protected String pathToStartTime;
   protected String defaultCommand;
   protected long time;
-  protected final String ERROR = "[" + Colors.RED.apply("ERROR") + "]";
+  protected static final String ERROR = "[" + Colors.RED.apply("ERROR") + "]";
   private static final Logger LOGGER = LoggerFactory.getLogger(PomodoroTimer.class);
 
   /**
