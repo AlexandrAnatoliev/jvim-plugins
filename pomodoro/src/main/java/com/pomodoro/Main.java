@@ -20,9 +20,9 @@ import org.slf4j.LoggerFactory;
  */
 public class Main {
   private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+  private static final String DEFAULT_PLUGIN = "pomodoro";
   private static String pathToMonitor;
   private static String pathToStartTime;
-  private static String DEFAULT_PLUGIN = "pomodoro";
 
   private Main() {}
 
