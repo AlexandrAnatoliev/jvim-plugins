@@ -14,16 +14,14 @@ import org.slf4j.LoggerFactory;
  * show_time - displays elapsed time of current session java Main stop - erases information from
  * temporary file
  *
- * @version 0.8.17
- * @since 12.02.2026
+ * @version 0.8.31
+ * @since 17.02.2026
  * @author AlexandrAnatoliev
  */
 public class Main {
-  private static final String PATH_TO_MONITOR =
-      "/.vim/pack/my-plugins/start/pomodoro/data/monitor.txt";
-  private static final String PATH_TO_START_TIME =
-      "/.vim/pack/my-plugins/start/pomodoro/data/start_time.txt";
   private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+  private static String pathToMonitor;
+  private static String pathToStartTime;
 
   private Main() {}
 
@@ -36,10 +34,21 @@ public class Main {
    */
   public static void main(String[] args) {
     if (args.length > 0 && "start".equals(args[0])) {
+      if (args.length > 1) {
+        initPaths(args[1]);
+      } else {
+        initPaths("pomodoro");
+      }
       start();
     } else if (args.length > 0 && "show_time".equals(args[0])) {
+      if (args.length > 1) {
+        initPaths(args[1]);
+      } else {
+        initPaths("pomodoro");
+      }
       showTime();
     } else {
+      initPaths("pomodoro");
       stop();
     }
   }
@@ -55,7 +64,12 @@ public class Main {
   private static PomodoroTimer createPomodoroTimer() {
     String homeDir = System.getProperty("user.home");
     return new PomodoroTimer(
-        homeDir + PATH_TO_MONITOR, homeDir + PATH_TO_START_TIME, "colorscheme blue", 25L);
+        homeDir + pathToMonitor, homeDir + pathToStartTime, "colorscheme blue", 25L);
+  }
+
+  private static void initPaths(String pluginName) {
+    pathToMonitor = "/.vim/pack/my-plugins/start/" + pluginName + "/data/monitor.txt";
+    pathToStartTime = "/.vim/pack/my-plugins/start/" + pluginName + "/data/start_time.txt";
   }
 
   /** Starts a new Pomodoro work session. */
