@@ -37,18 +37,18 @@ public class Main {
       if (args.length > 1) {
         initPaths(args[1]);
       } else {
-        initDefaultPaths();
+        initPaths("pomodoro");
       }
       start();
     } else if (args.length > 0 && "show_time".equals(args[0])) {
       if (args.length > 1) {
         initPaths(args[1]);
       } else {
-        initDefaultPaths();
+        initPaths("pomodoro");
       }
       showTime();
     } else {
-      initDefaultPaths();
+      initPaths("pomodoro");
       stop();
     }
   }
@@ -65,11 +65,6 @@ public class Main {
     String homeDir = System.getProperty("user.home");
     return new PomodoroTimer(
         homeDir + pathToMonitor, homeDir + pathToStartTime, "colorscheme blue", 25L);
-  }
-
-  private static void initDefaultPaths() {
-    pathToMonitor = "/.vim/pack/my-plugins/start/pomodoro/data/monitor.txt";
-    pathToStartTime = "/.vim/pack/my-plugins/start/pomodoro/data/start_time.txt";
   }
 
   private static void initPaths(String pluginName) {
