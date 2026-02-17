@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  * show_time - displays elapsed time of current session java Main stop - erases information from
  * temporary file
  *
- * @version 0.8.31
+ * @version 0.8.32
  * @since 17.02.2026
  * @author AlexandrAnatoliev
  */
@@ -103,7 +103,7 @@ public class Main {
     long sessionMinutes = (currentTime % 3600) / 60;
     long sessionSeconds = currentTime % 60;
     System.out.printf(
-        "Time per session:   %2d h %2d min %2d sec\n",
+        "Time per session:   %2d h %2d min %2d sec%n",
         sessionHours, sessionMinutes, sessionSeconds);
   }
 
