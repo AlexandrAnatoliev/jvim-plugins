@@ -22,6 +22,7 @@ public class Main {
   private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
   private static String pathToMonitor;
   private static String pathToStartTime;
+  private static String DEFAULT_PLUGIN = "pomodoro";
 
   private Main() {}
 
@@ -37,18 +38,18 @@ public class Main {
       if (args.length > 1) {
         initPaths(args[1]);
       } else {
-        initPaths("pomodoro");
+        initPaths(DEFAULT_PLUGIN);
       }
       start();
     } else if (args.length > 0 && "show_time".equals(args[0])) {
       if (args.length > 1) {
         initPaths(args[1]);
       } else {
-        initPaths("pomodoro");
+        initPaths(DEFAULT_PLUGIN);
       }
       showTime();
     } else {
-      initPaths("pomodoro");
+      initPaths(DEFAULT_PLUGIN);
       stop();
     }
   }
