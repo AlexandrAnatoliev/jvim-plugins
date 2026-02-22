@@ -2,15 +2,15 @@
 " File: pomodoro.vim
 " Description: Vim pomodoro plugin for work time self-management 
 " Author: AlexandrAnatoliev
-" Version: 0.8.32
-" Last Modified: 17.02.2026
+" Version: 0.8.33
+" Last Modified: 22.02.2026
 " ==================================================================
 
 " Automatic timer start on Vim enter and stop on Vim leave {{{
 augroup Pomodoro
   autocmd!
-  autocmd VimEnter * call StartPomodoroTimer()
-  autocmd VimLeave * call StopPomodoroTimer()
+  autocmd VimEnter * call <SID>StartPomodoroTimer()
+  autocmd VimLeave * call <SID>StopPomodoroTimer()
 augroup END
 " }}}
 
@@ -21,9 +21,9 @@ augroup END
 " Parameters: None
 " Returns: None
 " ------------------------------------------------------------------  
-function! StartPomodoroTimer()
-  silent !java -jar ~/.vim/pack/my-plugins/start/pomodoro/target/pomodoro-0.8.32.jar start pomodoro &
-  call StartFileMonitor()
+function! s:StartPomodoroTimer()
+  silent !java -jar ~/.vim/pack/my-plugins/start/pomodoro/target/pomodoro-0.8.33.jar start pomodoro &
+  call <SID>StartFileMonitor()
 endfunction
 " }}}
 
@@ -34,8 +34,8 @@ endfunction
 " Parameters: None
 " Returns: None
 " ------------------------------------------------------------------  
-function! StopPomodoroTimer()
-  silent !java -jar ~/.vim/pack/my-plugins/start/pomodoro/target/pomodoro-0.8.32.jar stop pomodoro &
+function! s:StopPomodoroTimer()
+  silent !java -jar ~/.vim/pack/my-plugins/start/pomodoro/target/pomodoro-0.8.33.jar stop pomodoro &
 endfunction
 " }}}
 
@@ -54,9 +54,9 @@ let s:last_content = ''
 " Parameters: None
 " Returns: None
 " ------------------------------------------------------------------  
-function! StartFileMonitor()
+function! s:StartFileMonitor()
   if !exists('s:monitor_timer')
-    let s:monitor_timer = timer_start(6000, {-> SimpleFileMonitor()}, {'repeat': -1})
+    let s:monitor_timer = timer_start(6000, {-> <SID>SimpleFileMonitor()}, {'repeat': -1})
   endif
 endfunction
 " }}}
@@ -68,7 +68,7 @@ endfunction
 " Parameters: None
 " Returns: None
 " ------------------------------------------------------------------  
-function! SimpleFileMonitor()
+function! s:SimpleFileMonitor()
   if filereadable(s:monitor_file)
     let content = join(readfile(s:monitor_file), "\n")
     if content !=# s:last_content && !empty(content)
@@ -91,7 +91,7 @@ command! -nargs=0 ShowPomodoroTime call s:RunShowPomodoroTime()
 " Returns: None
 " ------------------------------------------------------------------  
 function! s:RunShowPomodoroTime()
-  let result = system('java -jar ~/.vim/pack/my-plugins/start/pomodoro/target/pomodoro-0.8.32.jar show_time pomodoro')
+  let result = system('java -jar ~/.vim/pack/my-plugins/start/pomodoro/target/pomodoro-0.8.33.jar show_time pomodoro')
   if v:shell_error !=# 0
     echo "ERROR: " . result
   else
