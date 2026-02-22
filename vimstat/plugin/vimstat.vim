@@ -2,16 +2,16 @@
 " File: vimstat.vim
 " Description: Vim plugin for work self-management 
 " Author: AlexandrAnatoliev
-" Version: 0.8.29
-" Last Modified: 15.02.2026
+" Version: 0.8.33
+" Last Modified: 22.02.2026
 " ==================================================================
 
 " Plugin event handlers {{{
 augroup CommitStats
   autocmd!
-  autocmd VimEnter * call StartVimStat()
-  autocmd BufWritePost * call UpdateVimStat()
-  autocmd VimLeave * call StopVimStat()
+  autocmd VimEnter * call <SID>StartVimStat()
+  autocmd BufWritePost * call <SID>UpdateVimStat()
+  autocmd VimLeave * call <SID>StopVimStat()
 augroup END
 " }}}
 
@@ -22,8 +22,8 @@ augroup END
 " Parameters: None
 " Returns: None
 " ------------------------------------------------------------------  
-function! StartVimStat()
-  silent !java -jar ~/.vim/pack/my-plugins/start/vimstat/target/vimstat-0.8.29.jar start &
+function! s:StartVimStat()
+  silent !java -jar ~/.vim/pack/my-plugins/start/vimstat/target/vimstat-0.8.33.jar start &
 endfunction
 " }}}
 
@@ -34,8 +34,8 @@ endfunction
 " Parameters: None
 " Returns: None
 " ------------------------------------------------------------------  
-function! UpdateVimStat()
-  silent !java -jar ~/.vim/pack/my-plugins/start/vimstat/target/vimstat-0.8.29.jar update &
+function! s:UpdateVimStat()
+  silent !java -jar ~/.vim/pack/my-plugins/start/vimstat/target/vimstat-0.8.33.jar update &
 endfunction
 " }}}
 
@@ -46,7 +46,7 @@ endfunction
 " Parameters: None
 " Returns: None
 " ------------------------------------------------------------------  
-function! StopVimStat()
-  silent !java -jar ~/.vim/pack/my-plugins/start/vimstat/target/vimstat-0.8.29.jar stop &
+function! s:StopVimStat()
+  silent !java -jar ~/.vim/pack/my-plugins/start/vimstat/target/vimstat-0.8.33.jar stop &
 endfunction
 " }}}
