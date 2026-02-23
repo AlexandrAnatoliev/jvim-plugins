@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 /**
  * The class to get git stats
  *
- * @version 0.8.28
- * @since 15.02.2026
+ * @version 0.8.34
+ * @since 23.02.2026
  * @author AlexandrAnatoliev
  */
 public class GitStats extends Stats {
@@ -71,6 +71,28 @@ public class GitStats extends Stats {
     } catch (Exception e) {
       LOGGER.error(ERROR + " Reading string: " + e.getMessage());
       return "";
+    }
+  }
+
+  /**
+   * Get last commit added lines
+   *
+   * @return Added lines value
+   */
+  public int getLastCommitAddedLines() {
+    ProcessBuilder pb = new ProcessBuilder(
+            "bash", "-c", 
+            "git show --numstat | awk '/^[0-9]/ {add+=$1} END {print add}'");
+    try {
+      Process p = pb.start();
+      p.waitFor();
+      try (Scanner scanner = new Scanner(p.getInputStream())) {
+        return scanner.hasNextInt() ? scanner.nextInt() : 0;
+      }
+    } catch (Exception e) {
+      Thread.currentThread().interrupt();
+      LOGGER.error(ERROR + " Getting last commit added lines: " + e.getMessage());
+      return 0;
     }
   }
 }
