@@ -31,6 +31,8 @@ public class Main {
       HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_month.txt";
   private static final String TIME_YESTERDAY_PATH =
       HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_yesterday.txt";
+  private static GitStats gitStats; 
+  private static GitStats todayAddedLinesGitStats; 
 
   private Main() {}
 
@@ -51,12 +53,13 @@ public class Main {
   }
 
   /**
-   * Creates and configures a GitStats interface with standard settings.
-   *
-   * @return Configured GitStats instance ready for use
+   * Creates and configures GitStats instances.
    */
-  private static GitStats createGitStats() {
-    return new GitStats(GIT_HASH_PATH, GIT_DAY_COMMIT_PATH);
+  private static void initGitStatsInstances() {
+    gitStats = new GitStats(
+            GIT_HASH_PATH, GIT_DAY_COMMIT_PATH);
+    todayAddedLinesGitStats = new GitStats(
+            GIT_HASH_PATH, GIT_DAY_ADDED_LINES_PATH);
   }
 
   /** Starts a new stats session. */
@@ -66,9 +69,7 @@ public class Main {
     TimeStats dayTimeStats = new TimeStats(TIME_DAY_PATH);
     TimeStats monthTimeStats = new TimeStats(TIME_MONTH_PATH);
     TimeStats yesterdayTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
-    GitStats gitStats = createGitStats();
-    GitStats todayAddedLinesGitStats = new GitStats(
-            GIT_HASH_PATH, GIT_DAY_ADDED_LINES_PATH);
+    initGitStatsInstances();
 
     if (!gitStats.isFileExists(GIT_HASH_PATH)) {
       gitStats.writeString("");
@@ -119,9 +120,7 @@ public class Main {
    * Update stats
    */
   public static void update() {
-    GitStats gitStats = createGitStats();
-    GitStats todayAddedLinesGitStats = new GitStats(
-            GIT_HASH_PATH, GIT_DAY_ADDED_LINES_PATH);
+    initGitStatsInstances();
     String savedHash = gitStats.readString();
     String lastHash = gitStats.getLastCommitHash();
     long lastCommitAddedLines = todayAddedLinesGitStats.getLastCommitAddedLines();
@@ -145,9 +144,7 @@ public class Main {
     TimeStats dayTimeStats = new TimeStats(TIME_DAY_PATH);
     TimeStats monthTimeStats = new TimeStats(TIME_MONTH_PATH);
     TimeStats yesterdayTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
-    GitStats gitStats = createGitStats();
-    GitStats todayAddedLinesGitStats = new GitStats(
-            GIT_HASH_PATH, GIT_DAY_ADDED_LINES_PATH);
+    initGitStatsInstances();
 
     long duration = sessionTimeStats.getSessionTime();
 
