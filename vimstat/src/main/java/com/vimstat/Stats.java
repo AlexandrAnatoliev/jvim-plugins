@@ -15,17 +15,17 @@ import org.slf4j.LoggerFactory;
  * @author AlexandrAnatoliev
  */
 public abstract class Stats {
-  protected String pathToLong;
+  protected String pathToLongValue;
   protected static final String ERROR = "[" + Colors.RED.apply("ERROR") + "]";
   private static final Logger LOGGER = LoggerFactory.getLogger(Stats.class);
 
   /**
    * Stats class constructor
    *
-   * @param pathToLong Path to temporary file for long value storage
+   * @param pathToLongValue Path to temporary file for long value storage
    */
-  protected Stats(String pathToLong) {
-    this.pathToLong = pathToLong;
+  protected Stats(String pathToLongValue) {
+    this.pathToLongValue = pathToLongValue;
   }
 
   /**
@@ -34,7 +34,7 @@ public abstract class Stats {
    * @param value Long value to write to file
    */
   public void writeLongValue(Long value) {
-    try (FileWriter writer = new FileWriter(pathToLong)) {
+    try (FileWriter writer = new FileWriter(pathToLongValue)) {
       writer.write(value.toString());
     } catch (Exception e) {
       LOGGER.error(ERROR + " Writing long: " + e.getMessage());
@@ -47,7 +47,7 @@ public abstract class Stats {
    * @return Long value from file, Or 0 if file does not exist or contains invalid data
    */
   public long readLongValue() {
-    try (BufferedReader reader = new BufferedReader(new FileReader(this.pathToLong))) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(this.pathToLongValue))) {
 
       return Long.parseLong(reader.readLine());
 
