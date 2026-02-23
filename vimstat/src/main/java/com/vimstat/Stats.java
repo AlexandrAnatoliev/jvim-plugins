@@ -46,7 +46,7 @@ public abstract class Stats {
    *
    * @return Long value from file, Or 0 if file does not exist or contains invalid data
    */
-  public long readLong() {
+  public long readLongValue() {
     try (BufferedReader reader = new BufferedReader(new FileReader(this.pathToLong))) {
 
       return Long.parseLong(reader.readLine());

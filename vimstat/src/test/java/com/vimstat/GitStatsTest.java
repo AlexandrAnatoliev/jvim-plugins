@@ -313,46 +313,46 @@ public class GitStatsTest {
     }
 
     @Test
-    @DisplayName("writeLongValue and readLong " + "write and read from the file correctly")
+    @DisplayName("writeLongValue and readLongValue " + "write and read from the file correctly")
     void testWriteAndReadDailyCommits() throws IOException {
         Long testValue = 123L;
         stats.writeLongValue(testValue);
-        Long content = stats.readLong();
+        Long content = stats.readLongValue();
         assertEquals(testValue, content);
     }
 
     @Test
-    @DisplayName("readLong error handling works for invalid paths")
+    @DisplayName("readLongValue error handling works for invalid paths")
     void testReadDailyCommitsFromInvalidPath() {
         String invalidPath = "non_existent_directory/test.txt";
         GitStats invalidStats = new GitStats(PATH_TO_LAST_COMMIT_HASH, invalidPath);
-        assertDoesNotThrow(() -> invalidStats.readLong());
+        assertDoesNotThrow(() -> invalidStats.readLongValue());
     }
 
     @Test
-    @DisplayName("readLong empty file reading are handled gracefully")
+    @DisplayName("readLongValue empty file reading are handled gracefully")
     void testReadEmptyDailyCommitsFile() {
         assertDoesNotThrow(
                 () -> {
                     new File(PATH_TO_DAILY_COMMITS).createNewFile();
-                    Long result = stats.readLong();
+                    Long result = stats.readLongValue();
                     assertEquals(0L, (long) result);
                 });
     }
 
     @Test
-    @DisplayName("readLong returns 0 as default value")
+    @DisplayName("readLongValue returns 0 as default value")
     void testReadDailyCommitsFromFileWhenFileDoesNotExist() throws IOException {
         Files.deleteIfExists(Paths.get(PATH_TO_DAILY_COMMITS));
-        Long actualValue = stats.readLong();
+        Long actualValue = stats.readLongValue();
         assertEquals(0L, (long) actualValue);
     }
 
     @Test
-    @DisplayName("readLong non-numeric data is handled gracefully")
+    @DisplayName("readLongValue non-numeric data is handled gracefully")
     void testReadDailyCommitsFromFileWithInvalidData() throws IOException {
         Files.write(Paths.get(PATH_TO_DAILY_COMMITS), "Invalid_data".getBytes());
-        assertDoesNotThrow(() -> stats.readLong());
+        assertDoesNotThrow(() -> stats.readLongValue());
     }
 
     @Test

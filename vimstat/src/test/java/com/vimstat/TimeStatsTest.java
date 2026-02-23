@@ -73,7 +73,7 @@ public class TimeStatsTest {
   }
 
   /**
-   * Tests writeLongValue() and readLong() methods Verifies that written value can be successfully read
+   * Tests writeLongValue() and readLongValue() methods Verifies that written value can be successfully read
    * back
    */
   @Test
@@ -81,23 +81,23 @@ public class TimeStatsTest {
     long expectedValue = 123456789L;
     timeStats.writeLongValue(expectedValue);
 
-    long actualValue = timeStats.readLong();
+    long actualValue = timeStats.readLongValue();
     assertEquals(expectedValue, actualValue);
   }
 
   /**
-   * Tests readLong() method when file does not exist Verifies that method returns 0 as default
+   * Tests readLongValue() method when file does not exist Verifies that method returns 0 as default
    * value
    */
   @Test
   void testReadFromFileWhenFileDoesNotExist() {
     timeStats.deleteFile();
-    long actualValue = timeStats.readLong();
+    long actualValue = timeStats.readLongValue();
     assertEquals(0L, actualValue);
   }
 
   /**
-   * Tests readLong() method with invalid data in file Verifies that non-numeric data is handled
+   * Tests readLongValue() method with invalid data in file Verifies that non-numeric data is handled
    * gracefully
    *
    * @throws IOException if file writing fails
@@ -106,7 +106,7 @@ public class TimeStatsTest {
   void testReadFromFileWithInvalidData() throws IOException {
     Files.write(Paths.get(TEST_FILE_PATH), "Invalid_data".getBytes());
 
-    long actualValue = timeStats.readLong();
+    long actualValue = timeStats.readLongValue();
     assertEquals(0L, actualValue);
   }
 
@@ -119,7 +119,7 @@ public class TimeStatsTest {
     timeStats.writeLongValue(100L);
     timeStats.writeLongValue(200L);
 
-    long actualValue = timeStats.readLong();
+    long actualValue = timeStats.readLongValue();
     assertEquals(200L, actualValue);
   }
 
@@ -130,7 +130,7 @@ public class TimeStatsTest {
   void testWriteToFileWithNull() {
     timeStats.writeLongValue(null);
 
-    long actualValue = timeStats.readLong();
+    long actualValue = timeStats.readLongValue();
     assertNotNull(actualValue);
   }
 
@@ -165,7 +165,7 @@ public class TimeStatsTest {
 
     try {
       customTimeStats.writeLongValue(999L);
-      long value = customTimeStats.readLong();
+      long value = customTimeStats.readLongValue();
       assertEquals(999L, value);
     } finally {
       new File(customPath).delete();

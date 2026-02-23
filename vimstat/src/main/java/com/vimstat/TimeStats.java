@@ -33,7 +33,7 @@ public class TimeStats extends Stats {
    * @return Duration in seconds, or 0 if start time 0
    */
   public long getSessionTime() {
-    long startTime = readLong();
+    long startTime = readLongValue();
 
     if (startTime == 0) {
       return 0;

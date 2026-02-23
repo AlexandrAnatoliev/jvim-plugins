@@ -100,7 +100,7 @@ public class Main {
 
     if (sessionTimeStats.isFileExists(TIME_SESSION_PATH)) {
       long pastDuration = sessionTimeStats.getSessionTime();
-      long dayTime = dayTimeStats.readLong();
+      long dayTime = dayTimeStats.readLongValue();
       dayTimeStats.writeLongValue(dayTime + pastDuration);
     }
     sessionTimeStats.writeLongValue(System.currentTimeMillis() / 1000);
@@ -114,12 +114,12 @@ public class Main {
     }
 
     if (!monthTimeStats.getFileDate(TIME_MONTH_PATH).equals(today)) {
-      long yesterdayTime = monthTimeStats.readLong();
+      long yesterdayTime = monthTimeStats.readLongValue();
       yesterdayTimeStats.writeLongValue(yesterdayTime);
 
       long emptyDays = ChronoUnit.DAYS.between(monthTimeStats.getFileDate(TIME_MONTH_PATH), today);
-      long monthTime = monthTimeStats.readLong() * (30 - emptyDays);
-      monthTimeStats.writeLongValue((monthTime + dayTimeStats.readLong()) / 30);
+      long monthTime = monthTimeStats.readLongValue() * (30 - emptyDays);
+      monthTimeStats.writeLongValue((monthTime + dayTimeStats.readLongValue()) / 30);
     }
 
     if (!dayTimeStats.isFileExists(TIME_DAY_PATH)
@@ -139,9 +139,9 @@ public class Main {
     long lastCommitAddedLines = todayAddedLinesGitStats.getLastCommitAddedLines();
 
     if (!lastHash.equals(savedHash)) {
-      long savedDailyCommits = gitStats.readLong();
+      long savedDailyCommits = gitStats.readLongValue();
       gitStats.writeLongValue(savedDailyCommits + 1L);
-      long savedDailyCommitAddedLines = todayAddedLinesGitStats.readLong();
+      long savedDailyCommitAddedLines = todayAddedLinesGitStats.readLongValue();
       todayAddedLinesGitStats.writeLongValue(
           savedDailyCommitAddedLines + lastCommitAddedLines);
     }
@@ -162,7 +162,7 @@ public class Main {
       dayTimeStats.writeLongValue(0L);
     }
 
-    long dayTime = dayTimeStats.readLong() + duration;
+    long dayTime = dayTimeStats.readLongValue() + duration;
 
     dayTimeStats.writeLongValue(dayTime);
 
@@ -170,8 +170,8 @@ public class Main {
       monthTimeStats.writeLongValue(0L);
     }
 
-    long monthTime = monthTimeStats.readLong();
-    long yesterdayTime = yesterdayTimeStats.readLong();
+    long monthTime = monthTimeStats.readLongValue();
+    long yesterdayTime = yesterdayTimeStats.readLongValue();
 
     long sessionHours = duration / 3600;
     long sessionMinutes = (duration % 3600) / 60;
@@ -212,8 +212,8 @@ public class Main {
 
     sessionTimeStats.deleteFile();
 
-    long savedDailyCommits = gitStats.readLong();
-    long savedDailyCommitAddedLines = todayAddedLinesGitStats.readLong();
+    long savedDailyCommits = gitStats.readLongValue();
+    long savedDailyCommitAddedLines = todayAddedLinesGitStats.readLongValue();
 
     System.out.printf(
             "    - today commits: %d lines: "
