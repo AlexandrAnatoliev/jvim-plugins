@@ -89,42 +89,42 @@ public class Main {
 
     if (!gitStats.isFileExists(GIT_DAY_COMMIT_PATH)
         || !today.equals(gitStats.getFileDate(GIT_DAY_COMMIT_PATH))) {
-      gitStats.writeLong(0L);
+      gitStats.writeLongValue(0L);
     }
 
     if (!todayAddedLinesGitStats.isFileExists(GIT_DAY_ADDED_LINES_PATH)
         || !today.equals(
           todayAddedLinesGitStats.getFileDate(GIT_DAY_ADDED_LINES_PATH))) {
-      todayAddedLinesGitStats.writeLong(0L);
+      todayAddedLinesGitStats.writeLongValue(0L);
     }
 
     if (sessionTimeStats.isFileExists(TIME_SESSION_PATH)) {
       long pastDuration = sessionTimeStats.getSessionTime();
       long dayTime = dayTimeStats.readLong();
-      dayTimeStats.writeLong(dayTime + pastDuration);
+      dayTimeStats.writeLongValue(dayTime + pastDuration);
     }
-    sessionTimeStats.writeLong(System.currentTimeMillis() / 1000);
+    sessionTimeStats.writeLongValue(System.currentTimeMillis() / 1000);
 
     if (!yesterdayTimeStats.isFileExists(TIME_YESTERDAY_PATH)) {
-      yesterdayTimeStats.writeLong(0L);
+      yesterdayTimeStats.writeLongValue(0L);
     }
 
     if (!monthTimeStats.isFileExists(TIME_MONTH_PATH)) {
-      monthTimeStats.writeLong(0L);
+      monthTimeStats.writeLongValue(0L);
     }
 
     if (!monthTimeStats.getFileDate(TIME_MONTH_PATH).equals(today)) {
       long yesterdayTime = monthTimeStats.readLong();
-      yesterdayTimeStats.writeLong(yesterdayTime);
+      yesterdayTimeStats.writeLongValue(yesterdayTime);
 
       long emptyDays = ChronoUnit.DAYS.between(monthTimeStats.getFileDate(TIME_MONTH_PATH), today);
       long monthTime = monthTimeStats.readLong() * (30 - emptyDays);
-      monthTimeStats.writeLong((monthTime + dayTimeStats.readLong()) / 30);
+      monthTimeStats.writeLongValue((monthTime + dayTimeStats.readLong()) / 30);
     }
 
     if (!dayTimeStats.isFileExists(TIME_DAY_PATH)
         || !dayTimeStats.getFileDate(TIME_DAY_PATH).equals(today)) {
-      dayTimeStats.writeLong(0L);
+      dayTimeStats.writeLongValue(0L);
     }
   }
 
@@ -140,9 +140,9 @@ public class Main {
 
     if (!lastHash.equals(savedHash)) {
       long savedDailyCommits = gitStats.readLong();
-      gitStats.writeLong(savedDailyCommits + 1L);
+      gitStats.writeLongValue(savedDailyCommits + 1L);
       long savedDailyCommitAddedLines = todayAddedLinesGitStats.readLong();
-      todayAddedLinesGitStats.writeLong(
+      todayAddedLinesGitStats.writeLongValue(
           savedDailyCommitAddedLines + lastCommitAddedLines);
     }
 
@@ -159,15 +159,15 @@ public class Main {
     long duration = sessionTimeStats.getSessionTime();
 
     if (!dayTimeStats.isFileExists(TIME_DAY_PATH)) {
-      dayTimeStats.writeLong(0L);
+      dayTimeStats.writeLongValue(0L);
     }
 
     long dayTime = dayTimeStats.readLong() + duration;
 
-    dayTimeStats.writeLong(dayTime);
+    dayTimeStats.writeLongValue(dayTime);
 
     if (!monthTimeStats.isFileExists(TIME_MONTH_PATH)) {
-      monthTimeStats.writeLong(0L);
+      monthTimeStats.writeLongValue(0L);
     }
 
     long monthTime = monthTimeStats.readLong();

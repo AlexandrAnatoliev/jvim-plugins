@@ -52,7 +52,7 @@ public class TimeStatsTest {
   void testGetSessionTimeWithValidStartTime() throws IOException, InterruptedException {
 
     long startTime = System.currentTimeMillis() / 1000;
-    timeStats.writeLong(startTime);
+    timeStats.writeLongValue(startTime);
 
     Thread.sleep(1000);
 
@@ -73,13 +73,13 @@ public class TimeStatsTest {
   }
 
   /**
-   * Tests writeLong() and readLong() methods Verifies that written value can be successfully read
+   * Tests writeLongValue() and readLong() methods Verifies that written value can be successfully read
    * back
    */
   @Test
   void testWriteToFileAndReadFromFile() {
     long expectedValue = 123456789L;
-    timeStats.writeLong(expectedValue);
+    timeStats.writeLongValue(expectedValue);
 
     long actualValue = timeStats.readLong();
     assertEquals(expectedValue, actualValue);
@@ -111,24 +111,24 @@ public class TimeStatsTest {
   }
 
   /**
-   * Tests that writeLong() method overwrites previous content Verifies that only the last written
+   * Tests that writeLongValue() method overwrites previous content Verifies that only the last written
    * value is preserved
    */
   @Test
   void testWriteToFileOverwritesPreviousContent() {
-    timeStats.writeLong(100L);
-    timeStats.writeLong(200L);
+    timeStats.writeLongValue(100L);
+    timeStats.writeLongValue(200L);
 
     long actualValue = timeStats.readLong();
     assertEquals(200L, actualValue);
   }
 
   /**
-   * Tests writeLong() method with null value Verifies that null input is handled without exceptions
+   * Tests writeLongValue() method with null value Verifies that null input is handled without exceptions
    */
   @Test
   void testWriteToFileWithNull() {
-    timeStats.writeLong(null);
+    timeStats.writeLongValue(null);
 
     long actualValue = timeStats.readLong();
     assertNotNull(actualValue);
@@ -164,7 +164,7 @@ public class TimeStatsTest {
     TimeStats customTimeStats = new TimeStats(customPath);
 
     try {
-      customTimeStats.writeLong(999L);
+      customTimeStats.writeLongValue(999L);
       long value = customTimeStats.readLong();
       assertEquals(999L, value);
     } finally {
@@ -182,7 +182,7 @@ public class TimeStatsTest {
   void testSessionTimeCalculationAccuracy() throws IOException, InterruptedException {
 
     long startTime = System.currentTimeMillis() / 1000;
-    timeStats.writeLong(startTime);
+    timeStats.writeLongValue(startTime);
 
     int waitSecunds = 2;
     Thread.sleep(waitSecunds * 1000);
