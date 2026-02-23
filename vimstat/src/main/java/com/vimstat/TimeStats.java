@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
  * <p>The class provides methods for reading start time from temporary file, calculates running
  * duration, and managing the temporary file.
  *
- * @version 0.8.29
- * @since 15.02.2026
+ * @version 0.8.34
+ * @since 22.02.2026
  * @author AlexandrAnatoliev
  */
 public class TimeStats extends Stats {

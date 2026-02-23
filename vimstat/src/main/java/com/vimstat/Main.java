@@ -84,7 +84,7 @@ public class Main {
     LocalDate today = LocalDate.now();
 
     if (!gitStats.isFileExists(GIT_HASH_PATH)) {
-      gitStats.writeString("");
+      gitStats.writeStringValue("");
     }
 
     if (!gitStats.isFileExists(GIT_DAY_COMMIT_PATH)
@@ -146,7 +146,7 @@ public class Main {
           savedDailyCommitAddedLines + lastCommitAddedLines);
     }
 
-    gitStats.writeString(lastHash);
+    gitStats.writeStringValue(lastHash);
   }
 
   /*
