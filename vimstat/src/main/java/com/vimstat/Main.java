@@ -11,8 +11,8 @@ import java.time.temporal.ChronoUnit;
  * <p>Usage: java Main start - erases information from temporary files, and starts to calculate
  * stats java Main update - update stats java Main stop - print stats
  *
- * @version 0.8.26
- * @since 15.02.2026
+ * @version 0.8.34
+ * @since 23.02.2026
  * @author AlexandrAnatoliev
  */
 public class Main {
@@ -188,15 +188,16 @@ public class Main {
     sessionTimeStats.deleteFile();
 
     long savedDailyCommits = gitStats.readLong();
+    int addedLines = gitStats.getLastCommitAddedLines();
 
     System.out.printf(
         """
                     -----------------------------------------
                                 Commit stats:
                     -----------------------------------------
-                    - Commits per day: %d
+                    - today commits: %d lines: %d
                 """,
-        savedDailyCommits);
+        savedDailyCommits, addedLines);
     System.out.println("    =========================================");
   }
 }
