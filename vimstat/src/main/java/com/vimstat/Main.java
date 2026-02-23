@@ -214,6 +214,5 @@ public class Main {
                 """,
         savedDailyCommits, savedDailyCommitAddedLines);
     System.out.println("    =========================================");
-    // test
   }
 }
