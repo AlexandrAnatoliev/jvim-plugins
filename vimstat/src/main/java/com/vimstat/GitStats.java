@@ -13,17 +13,17 @@ import org.slf4j.LoggerFactory;
  * @author AlexandrAnatoliev
  */
 public class GitStats extends Stats {
-  protected String pathToString;
+  protected String pathToStringValue;
   private static final Logger LOGGER = LoggerFactory.getLogger(GitStats.class);
 
   /**
    * GitStats class constructor
    *
-   * @param pathToString Path to temporary file for String value storage
+   * @param pathToStringValue Path to temporary file for String value storage
    */
-  public GitStats(String pathToString, String pathToLong) {
-    super(pathToLong);
-    this.pathToString = pathToString;
+  public GitStats(String pathToStringValue, String pathToLongValue) {
+    super(pathToLongValue);
+    this.pathToStringValue = pathToStringValue;
   }
 
   /**
@@ -54,7 +54,7 @@ public class GitStats extends Stats {
   public void writeString(String hash) {
     try {
       String content = (hash == null) ? "" : hash;
-      Files.writeString(Paths.get(pathToString), content);
+      Files.writeString(Paths.get(pathToStringValue), content);
     } catch (Exception e) {
       LOGGER.error(ERROR + " Writing string: " + e.getMessage());
     }
@@ -67,7 +67,7 @@ public class GitStats extends Stats {
    */
   public String readString() {
     try {
-      return Files.readString(Paths.get(this.pathToString));
+      return Files.readString(Paths.get(this.pathToStringValue));
     } catch (Exception e) {
       LOGGER.error(ERROR + " Reading string: " + e.getMessage());
       return "";
