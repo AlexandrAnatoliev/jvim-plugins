@@ -31,6 +31,10 @@ public class Main {
       HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_month.txt";
   private static final String TIME_YESTERDAY_PATH =
       HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_yesterday.txt";
+  private static TimeStats sessionTimeStats;
+  private static TimeStats dayTimeStats;
+  private static TimeStats monthTimeStats;
+  private static TimeStats yesterdayTimeStats;
   private static GitStats gitStats; 
   private static GitStats todayAddedLinesGitStats; 
 
@@ -62,14 +66,22 @@ public class Main {
             GIT_HASH_PATH, GIT_DAY_ADDED_LINES_PATH);
   }
 
+  /**
+   * Creates and configures TimeStats instances.
+   */
+  private static void initTimeStatsInstances() {
+    sessionTimeStats = new TimeStats(TIME_SESSION_PATH);
+    dayTimeStats = new TimeStats(TIME_DAY_PATH);
+    monthTimeStats = new TimeStats(TIME_MONTH_PATH);
+    yesterdayTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
+  }
+
   /** Starts a new stats session. */
   public static void start() {
-    LocalDate today = LocalDate.now();
-    TimeStats sessionTimeStats = new TimeStats(TIME_SESSION_PATH);
-    TimeStats dayTimeStats = new TimeStats(TIME_DAY_PATH);
-    TimeStats monthTimeStats = new TimeStats(TIME_MONTH_PATH);
-    TimeStats yesterdayTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
+    initTimeStatsInstances();
     initGitStatsInstances();
+
+    LocalDate today = LocalDate.now();
 
     if (!gitStats.isFileExists(GIT_HASH_PATH)) {
       gitStats.writeString("");
@@ -121,6 +133,7 @@ public class Main {
    */
   public static void update() {
     initGitStatsInstances();
+
     String savedHash = gitStats.readString();
     String lastHash = gitStats.getLastCommitHash();
     long lastCommitAddedLines = todayAddedLinesGitStats.getLastCommitAddedLines();
@@ -140,11 +153,8 @@ public class Main {
    * Print stats
    */
   public static void stop() {
-    TimeStats sessionTimeStats = new TimeStats(TIME_SESSION_PATH);
-    TimeStats dayTimeStats = new TimeStats(TIME_DAY_PATH);
-    TimeStats monthTimeStats = new TimeStats(TIME_MONTH_PATH);
-    TimeStats yesterdayTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
     initGitStatsInstances();
+    initTimeStatsInstances();
 
     long duration = sessionTimeStats.getSessionTime();
 
@@ -206,10 +216,11 @@ public class Main {
     long savedDailyCommitAddedLines = todayAddedLinesGitStats.readLong();
 
     System.out.printf(
-        """
-                    - today commits: %d lines: %d
-                """,
+            "    - today commits: %d lines: "
+            + Colors.GREEN.apply("+%d ")
+            + "%n",
         savedDailyCommits, savedDailyCommitAddedLines);
-    System.out.println("    =========================================");
+    System.out.println(
+            "    =========================================");
   }
 }
