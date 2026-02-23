@@ -67,14 +67,22 @@ public class Main {
     TimeStats monthTimeStats = new TimeStats(TIME_MONTH_PATH);
     TimeStats yesterdayTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
     GitStats gitStats = createGitStats();
+    GitStats todayAddedLinesGitStats = new GitStats(
+            GIT_HASH_PATH, GIT_DAY_ADDED_LINES_PATH);
+
+    if (!gitStats.isFileExists(GIT_HASH_PATH)) {
+      gitStats.writeString("");
+    }
 
     if (!gitStats.isFileExists(GIT_DAY_COMMIT_PATH)
         || !today.equals(gitStats.getFileDate(GIT_DAY_COMMIT_PATH))) {
       gitStats.writeLong(0L);
     }
 
-    if (!gitStats.isFileExists(GIT_HASH_PATH)) {
-      gitStats.writeString("");
+    if (!todayAddedLinesGitStats.isFileExists(GIT_DAY_ADDED_LINES_PATH)
+        || !today.equals(
+          todayAddedLinesGitStats.getFileDate(GIT_DAY_ADDED_LINES_PATH))) {
+      todayAddedLinesGitStats.writeLong(0L);
     }
 
     if (sessionTimeStats.isFileExists(TIME_SESSION_PATH)) {
@@ -112,12 +120,18 @@ public class Main {
    */
   public static void update() {
     GitStats gitStats = createGitStats();
+    GitStats todayAddedLinesGitStats = new GitStats(
+            GIT_HASH_PATH, GIT_DAY_ADDED_LINES_PATH);
     String savedHash = gitStats.readString();
     String lastHash = gitStats.getLastCommitHash();
+    long lastCommitAddedLines = todayAddedLinesGitStats.getLastCommitAddedLines();
 
     if (!lastHash.equals(savedHash)) {
       long savedDailyCommits = gitStats.readLong();
       gitStats.writeLong(savedDailyCommits + 1L);
+      long savedDailyCommitAddedLines = todayAddedLinesGitStats.readLong();
+      todayAddedLinesGitStats.writeLong(
+          savedDailyCommitAddedLines + lastCommitAddedLines);
     }
 
     gitStats.writeString(lastHash);
@@ -132,6 +146,8 @@ public class Main {
     TimeStats monthTimeStats = new TimeStats(TIME_MONTH_PATH);
     TimeStats yesterdayTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
     GitStats gitStats = createGitStats();
+    GitStats todayAddedLinesGitStats = new GitStats(
+            GIT_HASH_PATH, GIT_DAY_ADDED_LINES_PATH);
 
     long duration = sessionTimeStats.getSessionTime();
 
@@ -190,13 +206,13 @@ public class Main {
     sessionTimeStats.deleteFile();
 
     long savedDailyCommits = gitStats.readLong();
-    long addedLines = gitStats.getLastCommitAddedLines();
+    long savedDailyCommitAddedLines = todayAddedLinesGitStats.readLong();
 
     System.out.printf(
         """
                     - today commits: %d lines: %d
                 """,
-        savedDailyCommits, addedLines);
+        savedDailyCommits, savedDailyCommitAddedLines);
     System.out.println("    =========================================");
   }
 }
