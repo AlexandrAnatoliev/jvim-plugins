@@ -387,7 +387,7 @@ public class GitStatsTest {
     @Test
     @DisplayName("getLastCommitAddedLines doesn't throw exceptions and returns a value")
     void testGetLastCommitAddedLinesNoExceptions() {
-        int addedLines =
+        long addedLines =
             assertDoesNotThrow(
                     () -> stats.getLastCommitAddedLines(), "Method should not throw any exceptions");
         assertNotNull(addedLines, "Returned value should not be null");

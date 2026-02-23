@@ -79,7 +79,7 @@ public class GitStats extends Stats {
    *
    * @return Added lines value
    */
-  public int getLastCommitAddedLines() {
+  public long getLastCommitAddedLines() {
     ProcessBuilder pb = new ProcessBuilder(
             "bash", "-c", 
             "git show --numstat | awk '/^[0-9]/ {add+=$1} END {print add}'");
@@ -87,7 +87,7 @@ public class GitStats extends Stats {
       Process p = pb.start();
       p.waitFor();
       try (Scanner scanner = new Scanner(p.getInputStream())) {
-        return scanner.hasNextInt() ? scanner.nextInt() : 0;
+        return scanner.hasNextLong() ? scanner.nextLong() : 0;
       }
     } catch (Exception e) {
       Thread.currentThread().interrupt();

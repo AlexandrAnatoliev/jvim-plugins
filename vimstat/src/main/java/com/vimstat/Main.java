@@ -21,6 +21,8 @@ public class Main {
       HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_hash.txt";
   private static final String GIT_DAY_COMMIT_PATH =
       HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_day_commit.txt";
+  private static final String GIT_DAY_ADDED_LINES_PATH =
+      HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_day_added_lines.txt";
   private static final String TIME_SESSION_PATH =
       HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_session.txt";
   private static final String TIME_DAY_PATH =
@@ -188,13 +190,10 @@ public class Main {
     sessionTimeStats.deleteFile();
 
     long savedDailyCommits = gitStats.readLong();
-    int addedLines = gitStats.getLastCommitAddedLines();
+    long addedLines = gitStats.getLastCommitAddedLines();
 
     System.out.printf(
         """
-                    -----------------------------------------
-                                Commit stats:
-                    -----------------------------------------
                     - today commits: %d lines: %d
                 """,
         savedDailyCommits, addedLines);
