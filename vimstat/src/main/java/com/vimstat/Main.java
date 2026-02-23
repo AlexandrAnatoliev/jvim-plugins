@@ -134,7 +134,7 @@ public class Main {
   public static void update() {
     initGitStatsInstances();
 
-    String savedHash = gitStats.readString();
+    String savedHash = gitStats.readStringValue();
     String lastHash = gitStats.getLastCommitHash();
     long lastCommitAddedLines = todayAddedLinesGitStats.getLastCommitAddedLines();
 

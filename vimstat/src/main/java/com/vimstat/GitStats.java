@@ -65,7 +65,7 @@ public class GitStats extends Stats {
    *
    * @return String value from file
    */
-  public String readString() {
+  public String readStringValue() {
     try {
       return Files.readString(Paths.get(this.pathToStringValue));
     } catch (Exception e) {

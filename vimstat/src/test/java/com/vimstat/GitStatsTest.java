@@ -231,48 +231,48 @@ public class GitStatsTest {
     }
 
     @Test
-    @DisplayName("writeStringValue and readString " + "write and read hash correctly from the file")
+    @DisplayName("writeStringValue and readStringValue " + "write and read hash correctly from the file")
     void testWriteAndReadHash() throws IOException {
         String testHash = "0123456789abcdef";
         stats.writeStringValue(testHash);
-        String content = stats.readString();
+        String content = stats.readStringValue();
         assertEquals(testHash, content);
     }
 
     @Test
     @DisplayName(
-    "writeStringValue and readString " + " write and read empty string correctly from the file")
+    "writeStringValue and readStringValue " + " write and read empty string correctly from the file")
     void testWriteAndReadEmptyString() throws IOException {
         String emptyString = "";
         stats.writeStringValue(emptyString);
-        String content = stats.readString();
+        String content = stats.readStringValue();
         assertEquals(emptyString, content);
     }
 
     @Test
-    @DisplayName("readString error handling works for invalid paths")
+    @DisplayName("readStringValue error handling works for invalid paths")
     void testReadHashFromInvalidPath() {
         String invalidPath = "non_existent_directory/test.txt";
         GitStats invalidStats = new GitStats(invalidPath, PATH_TO_DAILY_COMMITS);
-        assertDoesNotThrow(() -> invalidStats.readString());
+        assertDoesNotThrow(() -> invalidStats.readStringValue());
     }
 
     @Test
-    @DisplayName("readString empty file reading are handled gracefully")
+    @DisplayName("readStringValue empty file reading are handled gracefully")
     void testReadEmptyHashFile() {
         assertDoesNotThrow(
                 () -> {
                     new File(PATH_TO_LAST_COMMIT_HASH).createNewFile();
-                    String result = stats.readString();
+                    String result = stats.readStringValue();
                     assertEquals("", result);
                 });
     }
 
     @Test
-    @DisplayName("Tests readString() returns empty string " + "when file does not exist")
+    @DisplayName("Tests readStringValue() returns empty string " + "when file does not exist")
     void testReadHashFromFileWhenFileDoesNotExist() throws IOException {
         Files.deleteIfExists(Paths.get(PATH_TO_LAST_COMMIT_HASH));
-        String actualValue = stats.readString();
+        String actualValue = stats.readStringValue();
         assertEquals("", actualValue);
     }
 
