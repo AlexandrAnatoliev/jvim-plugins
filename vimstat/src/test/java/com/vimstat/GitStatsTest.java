@@ -15,390 +15,395 @@ import org.junit.jupiter.api.*;
  * @author AlexandrAnatoliev
  */
 public class GitStatsTest {
-    private GitStats stats;
-    private static final String PATH_TO_LAST_COMMIT_HASH = "last_commit_hash.txt";
-    private static final String PATH_TO_DAILY_COMMITS = "daily_commits.txt";
+  private GitStats stats;
+  private static final String PATH_TO_LAST_COMMIT_HASH = "last_commit_hash.txt";
+  private static final String PATH_TO_DAILY_COMMITS = "daily_commits.txt";
 
-    /** Set up test environment before each test method execution. Creates new GitStats instance. */
-    @BeforeEach
-    void setUp() {
-        stats = new GitStats(PATH_TO_LAST_COMMIT_HASH, PATH_TO_DAILY_COMMITS);
+  /** Set up test environment before each test method execution. Creates new GitStats instance. */
+  @BeforeEach
+  void setUp() {
+    stats = new GitStats(PATH_TO_LAST_COMMIT_HASH, PATH_TO_DAILY_COMMITS);
+  }
+
+  /**
+   * Clean up test environment after each test method execution.
+   *
+   * @throws IOException if file operation fails
+   */
+  @AfterEach
+  void tearDown() throws IOException {
+    stats = null;
+    Files.deleteIfExists(Paths.get(PATH_TO_LAST_COMMIT_HASH));
+    Files.deleteIfExists(Paths.get(PATH_TO_DAILY_COMMITS));
+  }
+
+  @Test
+  @DisplayName("Constructor should set all fields are properly")
+  void testConstructorShouldSetPaths() {
+    String lastCommitHash = "last_hash.txt";
+    String dailyCommits = "daily_commits.txt";
+    GitStats testGitStats = new GitStats(lastCommitHash, dailyCommits);
+    assertEquals(
+        lastCommitHash,
+        testGitStats.pathToStringValue,
+        "Path to last commit hash file should be set correctly");
+    assertEquals(
+        dailyCommits,
+        testGitStats.pathToLongValue,
+        "Path to daily commits file should be set correctly");
+  }
+
+  @Test
+  @DisplayName("Constructor should work with null values")
+  void testConstructorShouldHandleNull() {
+    GitStats testStats = new GitStats(null, null);
+    assertNull(testStats.pathToStringValue);
+    assertNull(testStats.pathToLongValue);
+  }
+
+  @Test
+  @DisplayName("Constructor should work with empty strings")
+  void testConstructorShouldHandleEmptyStrings() {
+    GitStats testStats = new GitStats("", "");
+    assertEquals("", testStats.pathToStringValue);
+    assertEquals("", testStats.pathToLongValue);
+  }
+
+  @Test
+  @DisplayName("Constructor should handle strings with whitespace")
+  void testConstructorShouldHandleWhitespaceStrings() {
+    GitStats testStats = new GitStats(" ", " \t");
+    assertEquals(" ", testStats.pathToStringValue, "pathToStringValue should preserve whitespace");
+    assertEquals(
+        " \t", testStats.pathToLongValue, "pathToLongValue should preserve whitespace and tabs");
+  }
+
+  @Test
+  @DisplayName("Constructor should handle relative paths")
+  void testConstructorShouldHandleRelativePaths() {
+    String relativePath1 = "./data/last_commit_hash.txt";
+    String relativePath2 = "../commits/daily_commits.txt";
+    GitStats testStats = new GitStats(relativePath1, relativePath2);
+    assertEquals(relativePath1, testStats.pathToStringValue);
+    assertEquals(relativePath2, testStats.pathToLongValue);
+  }
+
+  @Test
+  @DisplayName("Constructor should handle absolute paths")
+  void testConstructorShouldHandleAbsolutePaths() {
+    String absolutePath1 = "/tmp/last_commit_hash.txt";
+    String absolutePath2 = "var/log/commits/daily_commits.txt";
+    if (!System.getProperty("os.name").toLowerCase().contains("win")) {
+      GitStats testStats = new GitStats(absolutePath1, absolutePath2);
+      assertEquals(absolutePath1, testStats.pathToStringValue);
+      assertEquals(absolutePath2, testStats.pathToLongValue);
     }
+  }
 
-    /**
-     * Clean up test environment after each test method execution.
-     *
-     * @throws IOException if file operation fails
-     */
-    @AfterEach
-    void tearDown() throws IOException {
-        stats = null;
-        Files.deleteIfExists(Paths.get(PATH_TO_LAST_COMMIT_HASH));
-        Files.deleteIfExists(Paths.get(PATH_TO_DAILY_COMMITS));
+  @Test
+  @DisplayName("Constructor should set different paths for different files")
+  void testConstructorShouldSetDifferentPaths() {
+    String path1 = "file1.txt";
+    String path2 = "file2.txt";
+    GitStats testStats = new GitStats(path1, path2);
+    assertNotSame(
+        testStats.pathToStringValue,
+        testStats.pathToLongValue,
+        "Paths should be different objects");
+    assertNotEquals(
+        testStats.pathToStringValue, testStats.pathToLongValue, "Paths should be different values");
+  }
+
+  @Test
+  @DisplayName("Constructor should preserve special characters in paths")
+  void testConstructorShouldPreserveSpecialCharacters() {
+    String pathWithSpecialChars1 = "last_commit_2025-01-15.txt";
+    String pathWithSpecialChars2 = "daily_commits_v1.2.3.txt";
+    GitStats testStats = new GitStats(pathWithSpecialChars1, pathWithSpecialChars2);
+    assertEquals(
+        pathWithSpecialChars1,
+        testStats.pathToStringValue,
+        "Special characters in paths should be preserved");
+    assertEquals(
+        pathWithSpecialChars2,
+        testStats.pathToLongValue,
+        "Special characters in paths should be preserved");
+  }
+
+  @Test
+  @DisplayName("Git should be installed and accessible")
+  void testIsGitInstalled() {
+    try {
+      Process p = new ProcessBuilder("git", "--version").redirectErrorStream(true).start();
+      BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+      String versionOutput = reader.readLine();
+      int exitCode = p.waitFor();
+      assertEquals(0, exitCode, "Git command should execute successfully");
+      assertNotNull(versionOutput, "Git version output should not be null");
+      assertTrue(
+          versionOutput.toLowerCase().contains("git version"),
+          "Output should contain 'git version'");
+    } catch (Exception e) {
+      fail("Git is not installed or not accessible: " + e.getMessage());
     }
+  }
 
-    @Test
-    @DisplayName("Constructor should set all fields are properly")
-    void testConstructorShouldSetPaths() {
-        String lastCommitHash = "last_hash.txt";
-        String dailyCommits = "daily_commits.txt";
-        GitStats testGitStats = new GitStats(lastCommitHash, dailyCommits);
-        assertEquals(
-                lastCommitHash,
-                testGitStats.pathToStringValue,
-                "Path to last commit hash file should be set correctly");
-        assertEquals(
-                dailyCommits,
-                testGitStats.pathToLongValue,
-                "Path to daily commits file should be set correctly");
+  /** This test requires git to be installed and may fail if not in a git repository */
+  @Test
+  @DisplayName("getLastCommitHash must get last commit hash in git repository")
+  void testGetLastCommitHashInGitRepo() {
+    try {
+      // Check if we are in a Git repo
+      Process p =
+          new ProcessBuilder("git", "rev-parse", "--git-dir").redirectErrorStream(true).start();
+      int exitCode = p.waitFor();
+      if (exitCode == 0) {
+        // We are in a Git repo
+        String hash = stats.getLastCommitHash();
+        assertNotNull(hash, "Hash should not be null");
+        assertFalse(hash.isEmpty());
+        assertEquals(40, hash.length(), "Git hash should be 40 chars");
+        assertTrue(hash.matches("[0-9a-f]{40}"), "Should be a valid SHA-1 hash");
+      } else {
+        // Not in a Git repo, test should return empty string
+        String hash = stats.getLastCommitHash();
+        assertEquals("", hash, "Should return empty string when Git is not available");
+      }
+    } catch (IOException e) {
+      String hash = stats.getLastCommitHash();
+      assertEquals(
+          "", hash, "Should return empty string when Git is not available or IO error occurs");
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      fail("Test was interrupted: " + e.getMessage());
     }
+  }
 
-    @Test
-    @DisplayName("Constructor should work with null values")
-    void testConstructorShouldHandleNull() {
-        GitStats testStats = new GitStats(null, null);
-        assertNull(testStats.pathToStringValue);
-        assertNull(testStats.pathToLongValue);
-    }
-
-    @Test
-    @DisplayName("Constructor should work with empty strings")
-    void testConstructorShouldHandleEmptyStrings() {
-        GitStats testStats = new GitStats("", "");
-        assertEquals("", testStats.pathToStringValue);
-        assertEquals("", testStats.pathToLongValue);
-    }
-
-    @Test
-    @DisplayName("Constructor should handle strings with whitespace")
-    void testConstructorShouldHandleWhitespaceStrings() {
-        GitStats testStats = new GitStats(" ", " \t");
-        assertEquals(" ", testStats.pathToStringValue, "pathToStringValue should preserve whitespace");
-        assertEquals(" \t", testStats.pathToLongValue, "pathToLongValue should preserve whitespace and tabs");
-    }
-
-    @Test
-    @DisplayName("Constructor should handle relative paths")
-    void testConstructorShouldHandleRelativePaths() {
-        String relativePath1 = "./data/last_commit_hash.txt";
-        String relativePath2 = "../commits/daily_commits.txt";
-        GitStats testStats = new GitStats(relativePath1, relativePath2);
-        assertEquals(relativePath1, testStats.pathToStringValue);
-        assertEquals(relativePath2, testStats.pathToLongValue);
-    }
-
-    @Test
-    @DisplayName("Constructor should handle absolute paths")
-    void testConstructorShouldHandleAbsolutePaths() {
-        String absolutePath1 = "/tmp/last_commit_hash.txt";
-        String absolutePath2 = "var/log/commits/daily_commits.txt";
-        if (!System.getProperty("os.name").toLowerCase().contains("win")) {
-            GitStats testStats = new GitStats(absolutePath1, absolutePath2);
-            assertEquals(absolutePath1, testStats.pathToStringValue);
-            assertEquals(absolutePath2, testStats.pathToLongValue);
-        }
-    }
-
-    @Test
-    @DisplayName("Constructor should set different paths for different files")
-    void testConstructorShouldSetDifferentPaths() {
-        String path1 = "file1.txt";
-        String path2 = "file2.txt";
-        GitStats testStats = new GitStats(path1, path2);
-        assertNotSame(
-                testStats.pathToStringValue, testStats.pathToLongValue, "Paths should be different objects");
-        assertNotEquals(
-                testStats.pathToStringValue, testStats.pathToLongValue, "Paths should be different values");
-    }
-
-    @Test
-    @DisplayName("Constructor should preserve special characters in paths")
-    void testConstructorShouldPreserveSpecialCharacters() {
-        String pathWithSpecialChars1 = "last_commit_2025-01-15.txt";
-        String pathWithSpecialChars2 = "daily_commits_v1.2.3.txt";
-        GitStats testStats = new GitStats(pathWithSpecialChars1, pathWithSpecialChars2);
-        assertEquals(
-                pathWithSpecialChars1,
-                testStats.pathToStringValue,
-                "Special characters in paths should be preserved");
-        assertEquals(
-                pathWithSpecialChars2,
-                testStats.pathToLongValue,
-                "Special characters in paths should be preserved");
-    }
-
-    @Test
-    @DisplayName("Git should be installed and accessible")
-    void testIsGitInstalled() {
-        try {
-            Process p = new ProcessBuilder("git", "--version").redirectErrorStream(true).start();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String versionOutput = reader.readLine();
-            int exitCode = p.waitFor();
-            assertEquals(0, exitCode, "Git command should execute successfully");
-            assertNotNull(versionOutput, "Git version output should not be null");
-            assertTrue(
-                    versionOutput.toLowerCase().contains("git version"),
-                    "Output should contain 'git version'");
-        } catch (Exception e) {
-            fail("Git is not installed or not accessible: " + e.getMessage());
-        }
-    }
-
-    /** This test requires git to be installed and may fail if not in a git repository */
-    @Test
-    @DisplayName("getLastCommitHash must get last commit hash in git repository")
-    void testGetLastCommitHashInGitRepo() {
-        try {
-            // Check if we are in a Git repo
-            Process p =
-                new ProcessBuilder("git", "rev-parse", "--git-dir").redirectErrorStream(true).start();
-            int exitCode = p.waitFor();
-            if (exitCode == 0) {
-                // We are in a Git repo
-                String hash = stats.getLastCommitHash();
-                assertNotNull(hash, "Hash should not be null");
-                assertFalse(hash.isEmpty());
-                assertEquals(40, hash.length(), "Git hash should be 40 chars");
-                assertTrue(hash.matches("[0-9a-f]{40}"), "Should be a valid SHA-1 hash");
-            } else {
-                // Not in a Git repo, test should return empty string
-                String hash = stats.getLastCommitHash();
-                assertEquals("", hash, "Should return empty string when Git is not available");
-            }
-        } catch (IOException e) {
-            String hash = stats.getLastCommitHash();
-            assertEquals(
-                    "", hash, "Should return empty string when Git is not available or IO error occurs");
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            fail("Test was interrupted: " + e.getMessage());
-        }
-    }
-
-    @Test
-    @DisplayName("getLastCommitHash doesn't throw exceptions and returns a value")
-    void testGetLastCommitHashNoExceptions() {
-        String hash =
-            assertDoesNotThrow(
-                    () -> stats.getLastCommitHash(), "Method should not throw any exceptions");
-        assertNotNull(hash, "Returned value should not be null");
-    }
-
-    @Test
-    @DisplayName("writeStringValue correctly writes a hash to the file")
-    void testWriteHashToFile() throws IOException {
-        String testHash = "0123456789abcdef";
-        stats.writeStringValue(testHash);
-        String content = Files.readString(Paths.get(PATH_TO_LAST_COMMIT_HASH));
-        assertEquals(testHash, content);
-    }
-
-    @Test
-    @DisplayName("writeStringValue correctly writes an empty string to the file")
-    void testWriteEmptyString() throws IOException {
-        String emptyString = "";
-        stats.writeStringValue(emptyString);
-        String content = Files.readString(Paths.get(PATH_TO_LAST_COMMIT_HASH));
-        assertEquals(emptyString, content);
-    }
-
-    @Test
-    @DisplayName("writeStringValue error handling works for invalid paths")
-    void testWriteHashToInvalidPath() {
-        String invalidPath = "non_existent_directory/test.txt";
-        GitStats invalidStats = new GitStats(invalidPath, PATH_TO_DAILY_COMMITS);
-        assertDoesNotThrow(() -> invalidStats.writeStringValue("test"));
-    }
-
-    @Test
-    @DisplayName("writeStringValue handles null values gracefully")
-    void testWriteNullToHashFile() {
-        assertDoesNotThrow(() -> stats.writeStringValue(null));
-        assertTrue(Files.exists(Paths.get(PATH_TO_LAST_COMMIT_HASH)));
-    }
-
-    @Test
-    @DisplayName("writeStringValue new hash overwrites previous content")
-    void testHashToFileOverwrite() throws IOException {
-        String firstHash = "test hash 1";
-        String secondHash = "test hash 2";
-        stats.writeStringValue(firstHash);
-        stats.writeStringValue(secondHash);
-        String content = Files.readString(Paths.get(PATH_TO_LAST_COMMIT_HASH));
-        assertEquals(secondHash, content);
-        assertNotEquals(firstHash, content);
-    }
-
-    @Test
-    @DisplayName("writeStringValue and readStringValue " + "write and read hash correctly from the file")
-    void testWriteAndReadHash() throws IOException {
-        String testHash = "0123456789abcdef";
-        stats.writeStringValue(testHash);
-        String content = stats.readStringValue();
-        assertEquals(testHash, content);
-    }
-
-    @Test
-    @DisplayName(
-    "writeStringValue and readStringValue " + " write and read empty string correctly from the file")
-    void testWriteAndReadEmptyString() throws IOException {
-        String emptyString = "";
-        stats.writeStringValue(emptyString);
-        String content = stats.readStringValue();
-        assertEquals(emptyString, content);
-    }
-
-    @Test
-    @DisplayName("readStringValue error handling works for invalid paths")
-    void testReadHashFromInvalidPath() {
-        String invalidPath = "non_existent_directory/test.txt";
-        GitStats invalidStats = new GitStats(invalidPath, PATH_TO_DAILY_COMMITS);
-        assertDoesNotThrow(() -> invalidStats.readStringValue());
-    }
-
-    @Test
-    @DisplayName("readStringValue empty file reading are handled gracefully")
-    void testReadEmptyHashFile() {
+  @Test
+  @DisplayName("getLastCommitHash doesn't throw exceptions and returns a value")
+  void testGetLastCommitHashNoExceptions() {
+    String hash =
         assertDoesNotThrow(
-                () -> {
-                    new File(PATH_TO_LAST_COMMIT_HASH).createNewFile();
-                    String result = stats.readStringValue();
-                    assertEquals("", result);
-                });
-    }
+            () -> stats.getLastCommitHash(), "Method should not throw any exceptions");
+    assertNotNull(hash, "Returned value should not be null");
+  }
 
-    @Test
-    @DisplayName("Tests readStringValue() returns empty string " + "when file does not exist")
-    void testReadHashFromFileWhenFileDoesNotExist() throws IOException {
-        Files.deleteIfExists(Paths.get(PATH_TO_LAST_COMMIT_HASH));
-        String actualValue = stats.readStringValue();
-        assertEquals("", actualValue);
-    }
+  @Test
+  @DisplayName("writeStringValue correctly writes a hash to the file")
+  void testWriteHashToFile() throws IOException {
+    String testHash = "0123456789abcdef";
+    stats.writeStringValue(testHash);
+    String content = Files.readString(Paths.get(PATH_TO_LAST_COMMIT_HASH));
+    assertEquals(testHash, content);
+  }
 
-    @Test
-    @DisplayName("writeLongValue writes value to the file correctly")
-    void testWriteDailyCommitsToFile() throws IOException {
-        Long testValue = 123L;
-        stats.writeLongValue(testValue);
-        Long content = Long.parseLong(Files.readString(Paths.get(PATH_TO_DAILY_COMMITS)));
-        assertEquals(testValue, content);
-    }
+  @Test
+  @DisplayName("writeStringValue correctly writes an empty string to the file")
+  void testWriteEmptyString() throws IOException {
+    String emptyString = "";
+    stats.writeStringValue(emptyString);
+    String content = Files.readString(Paths.get(PATH_TO_LAST_COMMIT_HASH));
+    assertEquals(emptyString, content);
+  }
 
-    @Test
-    @DisplayName("writeLongValue error handling works for invalid paths")
-    void testWriteDailyCommitsToInvalidPath() {
-        String invalidPath = "non_existent_directory/test.txt";
-        GitStats invalidStats = new GitStats(PATH_TO_LAST_COMMIT_HASH, invalidPath);
-        assertDoesNotThrow(() -> invalidStats.writeLongValue(123L));
-    }
+  @Test
+  @DisplayName("writeStringValue error handling works for invalid paths")
+  void testWriteHashToInvalidPath() {
+    String invalidPath = "non_existent_directory/test.txt";
+    GitStats invalidStats = new GitStats(invalidPath, PATH_TO_DAILY_COMMITS);
+    assertDoesNotThrow(() -> invalidStats.writeStringValue("test"));
+  }
 
-    @Test
-    @DisplayName("writeLongValue handles null values gracefully")
-    void testWriteNullToDailyCommitsFile() {
-        assertDoesNotThrow(() -> stats.writeLongValue(null));
-        assertTrue(Files.exists(Paths.get(PATH_TO_DAILY_COMMITS)));
-    }
+  @Test
+  @DisplayName("writeStringValue handles null values gracefully")
+  void testWriteNullToHashFile() {
+    assertDoesNotThrow(() -> stats.writeStringValue(null));
+    assertTrue(Files.exists(Paths.get(PATH_TO_LAST_COMMIT_HASH)));
+  }
 
-    @Test
-    @DisplayName("writeLongValue overwrites previous content with new value")
-    void testDailyCommitsFileOverwrite() throws IOException {
-        Long firstValue = 123L;
-        Long secondValue = 1234L;
-        stats.writeLongValue(firstValue);
-        stats.writeLongValue(secondValue);
-        Long content = Long.parseLong(Files.readString(Paths.get(PATH_TO_DAILY_COMMITS)));
-        assertEquals(secondValue, content);
-        assertNotEquals(firstValue, content);
-    }
+  @Test
+  @DisplayName("writeStringValue new hash overwrites previous content")
+  void testHashToFileOverwrite() throws IOException {
+    String firstHash = "test hash 1";
+    String secondHash = "test hash 2";
+    stats.writeStringValue(firstHash);
+    stats.writeStringValue(secondHash);
+    String content = Files.readString(Paths.get(PATH_TO_LAST_COMMIT_HASH));
+    assertEquals(secondHash, content);
+    assertNotEquals(firstHash, content);
+  }
 
-    @Test
-    @DisplayName("writeLongValue and readLongValue " + "write and read from the file correctly")
-    void testWriteAndReadDailyCommits() throws IOException {
-        Long testValue = 123L;
-        stats.writeLongValue(testValue);
-        Long content = stats.readLongValue();
-        assertEquals(testValue, content);
-    }
+  @Test
+  @DisplayName(
+      "writeStringValue and readStringValue " + "write and read hash correctly from the file")
+  void testWriteAndReadHash() throws IOException {
+    String testHash = "0123456789abcdef";
+    stats.writeStringValue(testHash);
+    String content = stats.readStringValue();
+    assertEquals(testHash, content);
+  }
 
-    @Test
-    @DisplayName("readLongValue error handling works for invalid paths")
-    void testReadDailyCommitsFromInvalidPath() {
-        String invalidPath = "non_existent_directory/test.txt";
-        GitStats invalidStats = new GitStats(PATH_TO_LAST_COMMIT_HASH, invalidPath);
-        assertDoesNotThrow(() -> invalidStats.readLongValue());
-    }
+  @Test
+  @DisplayName(
+      "writeStringValue and readStringValue "
+          + " write and read empty string correctly from the file")
+  void testWriteAndReadEmptyString() throws IOException {
+    String emptyString = "";
+    stats.writeStringValue(emptyString);
+    String content = stats.readStringValue();
+    assertEquals(emptyString, content);
+  }
 
-    @Test
-    @DisplayName("readLongValue empty file reading are handled gracefully")
-    void testReadEmptyDailyCommitsFile() {
+  @Test
+  @DisplayName("readStringValue error handling works for invalid paths")
+  void testReadHashFromInvalidPath() {
+    String invalidPath = "non_existent_directory/test.txt";
+    GitStats invalidStats = new GitStats(invalidPath, PATH_TO_DAILY_COMMITS);
+    assertDoesNotThrow(() -> invalidStats.readStringValue());
+  }
+
+  @Test
+  @DisplayName("readStringValue empty file reading are handled gracefully")
+  void testReadEmptyHashFile() {
+    assertDoesNotThrow(
+        () -> {
+          new File(PATH_TO_LAST_COMMIT_HASH).createNewFile();
+          String result = stats.readStringValue();
+          assertEquals("", result);
+        });
+  }
+
+  @Test
+  @DisplayName("Tests readStringValue() returns empty string " + "when file does not exist")
+  void testReadHashFromFileWhenFileDoesNotExist() throws IOException {
+    Files.deleteIfExists(Paths.get(PATH_TO_LAST_COMMIT_HASH));
+    String actualValue = stats.readStringValue();
+    assertEquals("", actualValue);
+  }
+
+  @Test
+  @DisplayName("writeLongValue writes value to the file correctly")
+  void testWriteDailyCommitsToFile() throws IOException {
+    Long testValue = 123L;
+    stats.writeLongValue(testValue);
+    Long content = Long.parseLong(Files.readString(Paths.get(PATH_TO_DAILY_COMMITS)));
+    assertEquals(testValue, content);
+  }
+
+  @Test
+  @DisplayName("writeLongValue error handling works for invalid paths")
+  void testWriteDailyCommitsToInvalidPath() {
+    String invalidPath = "non_existent_directory/test.txt";
+    GitStats invalidStats = new GitStats(PATH_TO_LAST_COMMIT_HASH, invalidPath);
+    assertDoesNotThrow(() -> invalidStats.writeLongValue(123L));
+  }
+
+  @Test
+  @DisplayName("writeLongValue handles null values gracefully")
+  void testWriteNullToDailyCommitsFile() {
+    assertDoesNotThrow(() -> stats.writeLongValue(null));
+    assertTrue(Files.exists(Paths.get(PATH_TO_DAILY_COMMITS)));
+  }
+
+  @Test
+  @DisplayName("writeLongValue overwrites previous content with new value")
+  void testDailyCommitsFileOverwrite() throws IOException {
+    Long firstValue = 123L;
+    Long secondValue = 1234L;
+    stats.writeLongValue(firstValue);
+    stats.writeLongValue(secondValue);
+    Long content = Long.parseLong(Files.readString(Paths.get(PATH_TO_DAILY_COMMITS)));
+    assertEquals(secondValue, content);
+    assertNotEquals(firstValue, content);
+  }
+
+  @Test
+  @DisplayName("writeLongValue and readLongValue " + "write and read from the file correctly")
+  void testWriteAndReadDailyCommits() throws IOException {
+    Long testValue = 123L;
+    stats.writeLongValue(testValue);
+    Long content = stats.readLongValue();
+    assertEquals(testValue, content);
+  }
+
+  @Test
+  @DisplayName("readLongValue error handling works for invalid paths")
+  void testReadDailyCommitsFromInvalidPath() {
+    String invalidPath = "non_existent_directory/test.txt";
+    GitStats invalidStats = new GitStats(PATH_TO_LAST_COMMIT_HASH, invalidPath);
+    assertDoesNotThrow(() -> invalidStats.readLongValue());
+  }
+
+  @Test
+  @DisplayName("readLongValue empty file reading are handled gracefully")
+  void testReadEmptyDailyCommitsFile() {
+    assertDoesNotThrow(
+        () -> {
+          new File(PATH_TO_DAILY_COMMITS).createNewFile();
+          Long result = stats.readLongValue();
+          assertEquals(0L, (long) result);
+        });
+  }
+
+  @Test
+  @DisplayName("readLongValue returns 0 as default value")
+  void testReadDailyCommitsFromFileWhenFileDoesNotExist() throws IOException {
+    Files.deleteIfExists(Paths.get(PATH_TO_DAILY_COMMITS));
+    Long actualValue = stats.readLongValue();
+    assertEquals(0L, (long) actualValue);
+  }
+
+  @Test
+  @DisplayName("readLongValue non-numeric data is handled gracefully")
+  void testReadDailyCommitsFromFileWithInvalidData() throws IOException {
+    Files.write(Paths.get(PATH_TO_DAILY_COMMITS), "Invalid_data".getBytes());
+    assertDoesNotThrow(() -> stats.readLongValue());
+  }
+
+  @Test
+  @DisplayName("isFileExists returns false for non-existent file")
+  void testIsFileExistsWhenFileDoesNotExist() {
+    assertFalse(stats.isFileExists(PATH_TO_LAST_COMMIT_HASH));
+  }
+
+  @Test
+  @DisplayName("isFileExists returns true for existent file")
+  void testIsFileExistsWhenFileExists() throws IOException {
+    stats.writeStringValue("hash");
+    assertTrue(stats.isFileExists(PATH_TO_LAST_COMMIT_HASH));
+  }
+
+  @Test
+  @DisplayName("getFileDate return null when file does not exist")
+  void testGetFileDateWhenFileDoesNotExist() throws IOException {
+    LocalDate actualDate = stats.getFileDate(PATH_TO_LAST_COMMIT_HASH);
+    assertEquals(null, actualDate);
+  }
+
+  @Test
+  @DisplayName("getFileDate return file creation data")
+  void testGetFileDateWhenFileExists() throws IOException {
+    stats.writeStringValue("hash");
+    LocalDate expectedDate = LocalDate.now();
+    LocalDate actualDate = stats.getFileDate(PATH_TO_LAST_COMMIT_HASH);
+    assertEquals(expectedDate, actualDate);
+  }
+
+  @Test
+  @DisplayName("getLastCommitAddedLines doesn't throw exceptions and returns a value")
+  void testGetLastCommitAddedLinesNoExceptions() {
+    long addedLines =
         assertDoesNotThrow(
-                () -> {
-                    new File(PATH_TO_DAILY_COMMITS).createNewFile();
-                    Long result = stats.readLongValue();
-                    assertEquals(0L, (long) result);
-                });
-    }
+            () -> stats.getLastCommitAddedLines(), "Method should not throw any exceptions");
+    assertNotNull(addedLines, "Returned value should not be null");
+  }
 
-    @Test
-    @DisplayName("readLongValue returns 0 as default value")
-    void testReadDailyCommitsFromFileWhenFileDoesNotExist() throws IOException {
-        Files.deleteIfExists(Paths.get(PATH_TO_DAILY_COMMITS));
-        Long actualValue = stats.readLongValue();
-        assertEquals(0L, (long) actualValue);
-    }
-
-    @Test
-    @DisplayName("readLongValue non-numeric data is handled gracefully")
-    void testReadDailyCommitsFromFileWithInvalidData() throws IOException {
-        Files.write(Paths.get(PATH_TO_DAILY_COMMITS), "Invalid_data".getBytes());
-        assertDoesNotThrow(() -> stats.readLongValue());
-    }
-
-    @Test
-    @DisplayName("isFileExists returns false for non-existent file")
-    void testIsFileExistsWhenFileDoesNotExist() {
-        assertFalse(stats.isFileExists(PATH_TO_LAST_COMMIT_HASH));
-    }
-
-    @Test
-    @DisplayName("isFileExists returns true for existent file")
-    void testIsFileExistsWhenFileExists() throws IOException {
-        stats.writeStringValue("hash");
-        assertTrue(stats.isFileExists(PATH_TO_LAST_COMMIT_HASH));
-    }
-
-    @Test
-    @DisplayName("getFileDate return null when file does not exist")
-    void testGetFileDateWhenFileDoesNotExist() throws IOException {
-        LocalDate actualDate = stats.getFileDate(PATH_TO_LAST_COMMIT_HASH);
-        assertEquals(null, actualDate);
-    }
-
-    @Test
-    @DisplayName("getFileDate return file creation data")
-    void testGetFileDateWhenFileExists() throws IOException {
-        stats.writeStringValue("hash");
-        LocalDate expectedDate = LocalDate.now();
-        LocalDate actualDate = stats.getFileDate(PATH_TO_LAST_COMMIT_HASH);
-        assertEquals(expectedDate, actualDate);
-    }
-
-    @Test
-    @DisplayName("getLastCommitAddedLines doesn't throw exceptions and returns a value")
-    void testGetLastCommitAddedLinesNoExceptions() {
-        long addedLines =
-            assertDoesNotThrow(
-                    () -> stats.getLastCommitAddedLines(), "Method should not throw any exceptions");
-        assertNotNull(addedLines, "Returned value should not be null");
-    }
-
-    @Test
-    @DisplayName("getLastCommitDeletedLines doesn't throw exceptions and returns a value")
-    void testGetLastCommitDeletedLinesNoExceptions() {
-        long addedLines =
-            assertDoesNotThrow(
-                    () -> stats.getLastCommitAddedLines(), "Method should not throw any exceptions");
-        assertNotNull(addedLines, "Returned value should not be null");
-    }
+  @Test
+  @DisplayName("getLastCommitDeletedLines doesn't throw exceptions and returns a value")
+  void testGetLastCommitDeletedLinesNoExceptions() {
+    long addedLines =
+        assertDoesNotThrow(
+            () -> stats.getLastCommitAddedLines(), "Method should not throw any exceptions");
+    assertNotNull(addedLines, "Returned value should not be null");
+  }
 }

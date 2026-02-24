@@ -1,8 +1,6 @@
 package com.vimstat;
 
 import java.io.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * TimeStats - class for measuring Vim working time
@@ -15,7 +13,6 @@ import org.slf4j.LoggerFactory;
  * @author AlexandrAnatoliev
  */
 public class TimeStats extends Stats {
-  private static final Logger LOGGER = LoggerFactory.getLogger(GitStats.class);
 
   /**
    * TimeStats class constructor

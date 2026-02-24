@@ -73,8 +73,8 @@ public class TimeStatsTest {
   }
 
   /**
-   * Tests writeLongValue() and readLongValue() methods Verifies that written value can be successfully read
-   * back
+   * Tests writeLongValue() and readLongValue() methods Verifies that written value can be
+   * successfully read back
    */
   @Test
   void testWriteToFileAndReadFromFile() {
@@ -97,8 +97,8 @@ public class TimeStatsTest {
   }
 
   /**
-   * Tests readLongValue() method with invalid data in file Verifies that non-numeric data is handled
-   * gracefully
+   * Tests readLongValue() method with invalid data in file Verifies that non-numeric data is
+   * handled gracefully
    *
    * @throws IOException if file writing fails
    */
@@ -111,8 +111,8 @@ public class TimeStatsTest {
   }
 
   /**
-   * Tests that writeLongValue() method overwrites previous content Verifies that only the last written
-   * value is preserved
+   * Tests that writeLongValue() method overwrites previous content Verifies that only the last
+   * written value is preserved
    */
   @Test
   void testWriteToFileOverwritesPreviousContent() {
@@ -124,7 +124,8 @@ public class TimeStatsTest {
   }
 
   /**
-   * Tests writeLongValue() method with null value Verifies that null input is handled without exceptions
+   * Tests writeLongValue() method with null value Verifies that null input is handled without
+   * exceptions
    */
   @Test
   void testWriteToFileWithNull() {

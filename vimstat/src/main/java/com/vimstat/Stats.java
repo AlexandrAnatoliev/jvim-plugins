@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 public abstract class Stats {
   protected String pathToLongValue;
   protected static final String ERROR = "[" + Colors.RED.apply("ERROR") + "]";
-  private static final Logger LOGGER = LoggerFactory.getLogger(Stats.class);
+  protected static final Logger LOGGER = LoggerFactory.getLogger(Stats.class);
 
   /**
    * Stats class constructor
