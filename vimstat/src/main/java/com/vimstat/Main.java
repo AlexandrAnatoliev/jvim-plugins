@@ -144,6 +144,10 @@ public class Main {
     String lastHash = gitStats.getLastCommitHash();
     long lastCommitAddedLines = todayAddedLinesGitStats.getLastCommitLines("added");
     long lastCommitDeletedLines = todayDeletedLinesGitStats.getLastCommitLines("deleted");
+    System.out.println("lastCommitAddedLines = "
+            + lastCommitAddedLines
+            + " lastCommitDeletedLines = "
+            + lastCommitDeletedLines);
 
     if (!lastHash.equals(savedHash)) {
       long savedDailyCommits = gitStats.readLongValue();
@@ -151,10 +155,12 @@ public class Main {
 
       long savedDailyCommitAddedLines = todayAddedLinesGitStats.readLongValue();
       todayAddedLinesGitStats.writeLongValue(savedDailyCommitAddedLines + lastCommitAddedLines);
+      System.out.println("savedDailyCommitAddedLines = " + savedDailyCommitAddedLines);
 
       long savedDailyCommitDeletedLines = todayDeletedLinesGitStats.readLongValue();
       todayDeletedLinesGitStats.writeLongValue(
           savedDailyCommitDeletedLines + lastCommitDeletedLines);
+      System.out.println("savedDailyCommitDeletedLines = " + savedDailyCommitDeletedLines);
     }
 
     gitStats.writeStringValue(lastHash);
