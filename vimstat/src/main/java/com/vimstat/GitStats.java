@@ -13,87 +13,108 @@ import org.slf4j.LoggerFactory;
  * @author AlexandrAnatoliev
  */
 public class GitStats extends Stats {
-  protected String pathToStringValue;
-  private static final Logger LOGGER = LoggerFactory.getLogger(GitStats.class);
+    protected String pathToStringValue;
+    private static final Logger LOGGER = LoggerFactory.getLogger(GitStats.class);
 
-  /**
-   * GitStats class constructor
-   *
-   * @param pathToStringValue Path to temporary file for String value storage
-   */
-  public GitStats(String pathToStringValue, String pathToLongValue) {
-    super(pathToLongValue);
-    this.pathToStringValue = pathToStringValue;
-  }
-
-  /**
-   * Get last commit hash
-   *
-   * @return Last commit hash, or "" if error
-   */
-  public String getLastCommitHash() {
-    ProcessBuilder pb = new ProcessBuilder("/usr/bin/git", "rev-parse", "HEAD");
-    try {
-      Process p = pb.start();
-      p.waitFor();
-      try (Scanner scanner = new Scanner(p.getInputStream())) {
-        return scanner.hasNext() ? scanner.next() : "";
-      }
-    } catch (Exception e) {
-      Thread.currentThread().interrupt();
-      LOGGER.error(ERROR + " Getting last commit hash: " + e.getMessage());
-      return "";
+    /**
+     * GitStats class constructor
+     *
+     * @param pathToStringValue Path to temporary file for String value storage
+     */
+    public GitStats(String pathToStringValue, String pathToLongValue) {
+        super(pathToLongValue);
+        this.pathToStringValue = pathToStringValue;
     }
-  }
 
-  /**
-   * Writes string value to a temporary file
-   *
-   * @param hash String to write to the file
-   */
-  public void writeStringValue(String hash) {
-    try {
-      String content = (hash == null) ? "" : hash;
-      Files.writeString(Paths.get(pathToStringValue), content);
-    } catch (Exception e) {
-      LOGGER.error(ERROR + " Writing string: " + e.getMessage());
+    /**
+     * Get last commit hash
+     *
+     * @return Last commit hash, or "" if error
+     */
+    public String getLastCommitHash() {
+        ProcessBuilder pb = new ProcessBuilder("/usr/bin/git", "rev-parse", "HEAD");
+        try {
+            Process p = pb.start();
+            p.waitFor();
+            try (Scanner scanner = new Scanner(p.getInputStream())) {
+                return scanner.hasNext() ? scanner.next() : "";
+            }
+        } catch (Exception e) {
+            Thread.currentThread().interrupt();
+            LOGGER.error(ERROR + " Getting last commit hash: " + e.getMessage());
+            return "";
+        }
     }
-  }
 
-  /**
-   * Reads string value from temporary file
-   *
-   * @return String value from file
-   */
-  public String readStringValue() {
-    try {
-      return Files.readString(Paths.get(this.pathToStringValue));
-    } catch (Exception e) {
-      LOGGER.error(ERROR + " Reading string: " + e.getMessage());
-      return "";
+    /**
+     * Writes string value to a temporary file
+     *
+     * @param hash String to write to the file
+     */
+    public void writeStringValue(String hash) {
+        try {
+            String content = (hash == null) ? "" : hash;
+            Files.writeString(Paths.get(pathToStringValue), content);
+        } catch (Exception e) {
+            LOGGER.error(ERROR + " Writing string: " + e.getMessage());
+        }
     }
-  }
 
-  /**
-   * Get last commit added lines
-   *
-   * @return Added lines value
-   */
-  public long getLastCommitAddedLines() {
-    ProcessBuilder pb = new ProcessBuilder(
-            "bash", "-c", 
-            "git show --numstat | awk '/^[0-9]/ {add+=$1} END {print add}'");
-    try {
-      Process p = pb.start();
-      p.waitFor();
-      try (Scanner scanner = new Scanner(p.getInputStream())) {
-        return scanner.hasNextLong() ? scanner.nextLong() : 0;
-      }
-    } catch (Exception e) {
-      Thread.currentThread().interrupt();
-      LOGGER.error(ERROR + " Getting last commit added lines: " + e.getMessage());
-      return 0;
+    /**
+     * Reads string value from temporary file
+     *
+     * @return String value from file
+     */
+    public String readStringValue() {
+        try {
+            return Files.readString(Paths.get(this.pathToStringValue));
+        } catch (Exception e) {
+            LOGGER.error(ERROR + " Reading string: " + e.getMessage());
+            return "";
+        }
     }
-    // test
-  }
+
+    /**
+     * Get last commit added lines
+     *
+     * @return Added lines value
+     */
+    public long getLastCommitAddedLines() {
+        ProcessBuilder pb = new ProcessBuilder(
+                "bash", "-c", 
+                "git show --numstat | awk '/^[0-9]/ {add+=$1} END {print add}'");
+        try {
+            Process p = pb.start();
+            p.waitFor();
+            try (Scanner scanner = new Scanner(p.getInputStream())) {
+                return scanner.hasNextLong() ? scanner.nextLong() : 0;
+            }
+        } catch (Exception e) {
+            Thread.currentThread().interrupt();
+            LOGGER.error(ERROR + " Getting last commit added lines: " + e.getMessage());
+            return 0;
+        }
+    }
+
+    /**
+     * Get last commit deleted lines
+     *
+     * @return Deleted lines value
+     */
+    public long getLastCommitDeletedLines() {
+        ProcessBuilder pb = new ProcessBuilder(
+                "bash", "-c", 
+                "git show --numstat | awk '/^[0-9]/ {add+=$2} END {print add}'");
+        try {
+            Process p = pb.start();
+            p.waitFor();
+            try (Scanner scanner = new Scanner(p.getInputStream())) {
+                return scanner.hasNextLong() ? scanner.nextLong() : 0;
+            }
+        } catch (Exception e) {
+            Thread.currentThread().interrupt();
+            LOGGER.error(ERROR + " Getting last commit deleted lines: " + e.getMessage());
+            return 0;
+        }
+    }
 }
