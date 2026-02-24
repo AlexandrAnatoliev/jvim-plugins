@@ -159,8 +159,7 @@ classDiagram
     + getLastCommitHash() String 
     + writeStringValue(hash: String) 
     + readStringValue() String
-    + getLastCommitLines() long
-    + getLastCommitDeletedLines() long
+    + getLastCommitLines(command: String) long
   }
 
   class TimeStats {
@@ -396,8 +395,7 @@ classDiagram
     + getLastCommitHash() String 
     + writeStringValue(hash: String) 
     + readStringValue() String
-    + getLastCommitLines() long
-    + getLastCommitDeletedLines() long
+    + getLastCommitLines(command: String) long
   }
 
   class TimeStats {
