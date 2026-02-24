@@ -12,17 +12,11 @@ import java.time.temporal.ChronoUnit;
  * stats java Main update - update stats java Main stop - print stats
  *
  * @version 0.8.34
- * @since 23.02.2026
+ * @since 24.02.2026
  * @author AlexandrAnatoliev
  */
 public class Main {
   private static final String HOME_DIR = System.getProperty("user.home");
-  private static final String GIT_HASH_PATH =
-      HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_hash.txt";
-  private static final String GIT_DAY_COMMIT_PATH =
-      HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_day_commit.txt";
-  private static final String GIT_DAY_ADDED_LINES_PATH =
-      HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_day_added_lines.txt";
   private static final String TIME_SESSION_PATH =
       HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_session.txt";
   private static final String TIME_DAY_PATH =
@@ -31,12 +25,21 @@ public class Main {
       HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_month.txt";
   private static final String TIME_YESTERDAY_PATH =
       HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_yesterday.txt";
+  private static final String GIT_HASH_PATH =
+      HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_hash.txt";
+  private static final String GIT_DAY_COMMIT_PATH =
+      HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_day_commit.txt";
+  private static final String GIT_DAY_ADDED_LINES_PATH =
+      HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_day_added_lines.txt";
+  private static final String GIT_DAY_DELETED_LINES_PATH =
+      HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_day_deleted_lines.txt";
   private static TimeStats sessionTimeStats;
   private static TimeStats dayTimeStats;
   private static TimeStats monthTimeStats;
   private static TimeStats yesterdayTimeStats;
   private static GitStats gitStats; 
   private static GitStats todayAddedLinesGitStats; 
+  private static GitStats todayDeletedLinesGitStats; 
 
   private Main() {}
 
@@ -64,6 +67,8 @@ public class Main {
             GIT_HASH_PATH, GIT_DAY_COMMIT_PATH);
     todayAddedLinesGitStats = new GitStats(
             GIT_HASH_PATH, GIT_DAY_ADDED_LINES_PATH);
+    todayDeletedLinesGitStats = new GitStats(
+            GIT_HASH_PATH, GIT_DAY_DELETED_LINES_PATH);
   }
 
   /**
@@ -96,6 +101,12 @@ public class Main {
         || !today.equals(
           todayAddedLinesGitStats.getFileDate(GIT_DAY_ADDED_LINES_PATH))) {
       todayAddedLinesGitStats.writeLongValue(0L);
+    }
+    
+    if (!todayDeletedLinesGitStats.isFileExists(GIT_DAY_DELETED_LINES_PATH)
+        || !today.equals(
+          todayDeletedLinesGitStats.getFileDate(GIT_DAY_DELETED_LINES_PATH))) {
+      todayDeletedLinesGitStats.writeLongValue(0L);
     }
 
     if (sessionTimeStats.isFileExists(TIME_SESSION_PATH)) {
@@ -137,13 +148,19 @@ public class Main {
     String savedHash = gitStats.readStringValue();
     String lastHash = gitStats.getLastCommitHash();
     long lastCommitAddedLines = todayAddedLinesGitStats.getLastCommitAddedLines();
+    long lastCommitDeletedLines = todayDeletedLinesGitStats.getLastCommitDeletedLines();
 
     if (!lastHash.equals(savedHash)) {
       long savedDailyCommits = gitStats.readLongValue();
       gitStats.writeLongValue(savedDailyCommits + 1L);
+
       long savedDailyCommitAddedLines = todayAddedLinesGitStats.readLongValue();
       todayAddedLinesGitStats.writeLongValue(
           savedDailyCommitAddedLines + lastCommitAddedLines);
+
+      long savedDailyCommitDeletedLines = todayDeletedLinesGitStats.readLongValue();
+      todayDeletedLinesGitStats.writeLongValue(
+          savedDailyCommitDeletedLines + lastCommitDeletedLines);
     }
 
     gitStats.writeStringValue(lastHash);
@@ -214,12 +231,14 @@ public class Main {
 
     long savedDailyCommits = gitStats.readLongValue();
     long savedDailyCommitAddedLines = todayAddedLinesGitStats.readLongValue();
+    long savedDailyCommitDeletedLines = todayDeletedLinesGitStats.readLongValue();
 
     System.out.printf(
             "    - today commits: %d lines: "
-            + Colors.GREEN.apply("+%d ")
+            + Colors.GREEN.apply("%+4d ")
+            + Colors.RED.apply(" %+4d ")
             + "%n",
-        savedDailyCommits, savedDailyCommitAddedLines);
+        savedDailyCommits, savedDailyCommitAddedLines, 0 - savedDailyCommitDeletedLines);
     System.out.println(
             "    =========================================");
   }
