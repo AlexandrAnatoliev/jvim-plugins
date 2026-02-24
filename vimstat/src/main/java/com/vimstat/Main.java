@@ -228,7 +228,10 @@ public class Main {
     long savedDailyCommitDeletedLines = todayDeletedLinesGitStats.readLongValue();
 
     System.out.printf(
-        "    - today commits: %d lines: " + Colors.GREEN.apply("%+4d ") + Colors.RED.apply(" %+4d ") + "%n",
+        "    - today commits: %d lines: "
+            + Colors.GREEN.apply("%+4d ")
+            + Colors.RED.apply(" %+4d ")
+            + "%n",
         savedDailyCommits,
         savedDailyCommitAddedLines,
         0 - savedDailyCommitDeletedLines);
