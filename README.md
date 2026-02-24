@@ -131,17 +131,15 @@ Designed for self-monitoring and productivity.
 [vimstat](vimstat/README.md) - Vim utility to get stats.
 
 * After closing Vim, you will see:
+
 ```
     =========================================
                 Vim uptime:
     -----------------------------------------
-    - per session:         0 h  1 min 21 sec
-    - per day:             0 h 52 min 53 sec
-    - average per month:   0 h  0 min 42 sec
-    -----------------------------------------
-                Commit stats:
-    -----------------------------------------
-    - Commits per day: 1
+    - per session:         0 h  0 min  1 sec
+    - per day:             0 h 31 min  4 sec
+    - average per month:   0 h 31 min  5 sec
+    - today commits: 2 lines: +158   -19
     =========================================
 ```
 
@@ -466,13 +464,10 @@ jvim-plugins
     =========================================
                 Vim uptime:
     -----------------------------------------
-    - per session:         0 h  1 min 21 sec
-    - per day:             0 h 52 min 53 sec
-    - average per month:   0 h  0 min 42 sec
-    -----------------------------------------
-                Commit stats:
-    -----------------------------------------
-    - Commits per day: 1
+    - per session:         0 h  0 min  1 sec
+    - per day:             0 h 31 min  4 sec
+    - average per month:   0 h 31 min  5 sec
+    - today commits: 2 lines: +158   -19
     =========================================
 ```
 
