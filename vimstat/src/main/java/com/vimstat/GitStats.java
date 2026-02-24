@@ -88,11 +88,12 @@ public class GitStats extends Stats {
       else {
           return 0;
       }
+      String awkCommand = String.format(
+              "git show --numstat | awk '/^[0-9]/ {add+=$%d} END {print add+0}'", 
+              num);
+
     ProcessBuilder pb =
-        new ProcessBuilder(
-            "/usr/bin/bash",
-            "-c",
-            "git show --numstat | awk '/^[0-9]/ {add+=$num} END {print add+0}'");
+        new ProcessBuilder("/usr/bin/bash", "-c", awkCommand);
     try {
       Process p = pb.start();
       p.waitFor();
