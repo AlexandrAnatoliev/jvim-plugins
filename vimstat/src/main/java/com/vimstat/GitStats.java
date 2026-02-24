@@ -79,7 +79,7 @@ public class GitStats extends Stats {
   public long getLastCommitAddedLines() {
     ProcessBuilder pb =
         new ProcessBuilder(
-            "bash",
+            "/usr/bin/bash",
             "-c",
             "/usr/bin/git",
             "show --numstat | awk '/^[0-9]/ {add+=$1} END {print add+0}'");
@@ -104,7 +104,7 @@ public class GitStats extends Stats {
   public long getLastCommitDeletedLines() {
     ProcessBuilder pb =
         new ProcessBuilder(
-            "bash",
+            "/usr/bin/bash",
             "-c",
             "/usr/bin/git",
             "show --numstat | awk '/^[0-9]/ {deleted+=$2} END {print deleted+0}'");
