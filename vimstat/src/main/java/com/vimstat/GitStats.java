@@ -78,22 +78,18 @@ public class GitStats extends Stats {
    * @return Added or deleted lines value
    */
   public long getLastCommitLines(String command) {
-      int num;
-      if (command.equalsIgnoreCase("added")) {
-          num = 1;
-      }
-      else if (command.equalsIgnoreCase("deleted")) {
-          num = 2;
-      }
-      else {
-          return 0;
-      }
-      String awkCommand = String.format(
-              "git show --numstat | awk '/^[0-9]/ {add+=$%d} END {print add+0}'", 
-              num);
+    int num;
+    if (command.equalsIgnoreCase("added")) {
+      num = 1;
+    } else if (command.equalsIgnoreCase("deleted")) {
+      num = 2;
+    } else {
+      return 0;
+    }
+    String awkCommand =
+        String.format("git show --numstat | awk '/^[0-9]/ {add+=$%d} END {print add+0}'", num);
 
-    ProcessBuilder pb =
-        new ProcessBuilder("/usr/bin/bash", "-c", awkCommand);
+    ProcessBuilder pb = new ProcessBuilder("/usr/bin/bash", "-c", awkCommand);
     try {
       Process p = pb.start();
       p.waitFor();
