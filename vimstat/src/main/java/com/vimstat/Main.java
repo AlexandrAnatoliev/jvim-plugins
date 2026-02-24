@@ -144,6 +144,7 @@ public class Main {
     String lastHash = gitStats.getLastCommitHash();
     long lastCommitAddedLines = todayAddedLinesGitStats.getLastCommitLines("added");
     long lastCommitDeletedLines = todayDeletedLinesGitStats.getLastCommitLines("deleted");
+    System.out.println("lastCommitDeletedLines = " + lastCommitDeletedLines);
 
     if (!lastHash.equals(savedHash)) {
       long savedDailyCommits = gitStats.readLongValue();
