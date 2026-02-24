@@ -82,7 +82,7 @@ public class GitStats extends Stats {
       if (command.equalsIgnoreCase("added")) {
           num = 1;
       }
-      else if (command.equalsIgnoreCase("added")) {
+      else if (command.equalsIgnoreCase("deleted")) {
           num = 2;
       }
       else {
@@ -101,33 +101,8 @@ public class GitStats extends Stats {
       }
     } catch (Exception e) {
       Thread.currentThread().interrupt();
-      LOGGER.error(ERROR + " Getting last commit added lines: " + e.getMessage());
+      LOGGER.error(ERROR + " Getting last commit " + command + " lines: " + e.getMessage());
       return 0;
     }
   }
-
-  /**
-   * Get last commit deleted lines
-   *
-   * @return Deleted lines value
-   */
-  // public long getLastCommitDeletedLines() {
-    // ProcessBuilder pb =
-        // new ProcessBuilder(
-            // "/usr/bin/bash",
-            // "-c",
-            // "/usr/bin/git",
-            // "show --numstat | awk '/^[0-9]/ {deleted+=$2} END {print deleted+0}'");
-    // try {
-      // Process p = pb.start();
-      // p.waitFor();
-      // try (Scanner scanner = new Scanner(p.getInputStream())) {
-        // return scanner.hasNextLong() ? scanner.nextLong() : 0;
-      // }
-    // } catch (Exception e) {
-      // Thread.currentThread().interrupt();
-      // LOGGER.error(ERROR + " Getting last commit deleted lines: " + e.getMessage());
-      // return 0;
-    // }
-  // }
 }
