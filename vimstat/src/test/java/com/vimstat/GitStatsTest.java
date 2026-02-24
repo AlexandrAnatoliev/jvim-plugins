@@ -390,11 +390,11 @@ public class GitStatsTest {
   }
 
   @Test
-  @DisplayName("getLastCommitAddedLines doesn't throw exceptions and returns a value")
+  @DisplayName("getLastCommitLines doesn't throw exceptions and returns a value")
   void testGetLastCommitAddedLinesNoExceptions() {
     long addedLines =
         assertDoesNotThrow(
-            () -> stats.getLastCommitAddedLines(), "Method should not throw any exceptions");
+            () -> stats.getLastCommitLines("added"), "Method should not throw any exceptions");
     assertNotNull(addedLines, "Returned value should not be null");
   }
 
@@ -403,7 +403,7 @@ public class GitStatsTest {
   void testGetLastCommitDeletedLinesNoExceptions() {
     long addedLines =
         assertDoesNotThrow(
-            () -> stats.getLastCommitAddedLines(), "Method should not throw any exceptions");
+            () -> stats.getLastCommitDeletedLines(), "Method should not throw any exceptions");
     assertNotNull(addedLines, "Returned value should not be null");
   }
 }

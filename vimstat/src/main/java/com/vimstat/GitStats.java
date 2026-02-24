@@ -72,17 +72,28 @@ public class GitStats extends Stats {
   }
 
   /**
-   * Get last commit added lines
+   * Get last commit added or deleted lines
    *
-   * @return Added lines value
+   * @param command Type of lines (added / deleted)
+   * @return Added or deleted lines value
    */
-  public long getLastCommitAddedLines() {
+  public long getLastCommitLines(String command) {
+      int num;
+      if (command.equalsIgnoreCase("added")) {
+          num = 1;
+      }
+      else if (command.equalsIgnoreCase("added")) {
+          num = 2;
+      }
+      else {
+          return 0;
+      }
     ProcessBuilder pb =
         new ProcessBuilder(
             "/usr/bin/bash",
             "-c",
             "/usr/bin/git",
-            "show --numstat | awk '/^[0-9]/ {add+=$1} END {print add+0}'");
+            "show --numstat | awk '/^[0-9]/ {add+=$num} END {print add+0}'");
     try {
       Process p = pb.start();
       p.waitFor();

@@ -159,7 +159,7 @@ classDiagram
     + getLastCommitHash() String 
     + writeStringValue(hash: String) 
     + readStringValue() String
-    + getLastCommitAddedLines() long
+    + getLastCommitLines() long
     + getLastCommitDeletedLines() long
   }
 
@@ -396,7 +396,7 @@ classDiagram
     + getLastCommitHash() String 
     + writeStringValue(hash: String) 
     + readStringValue() String
-    + getLastCommitAddedLines() long
+    + getLastCommitLines() long
     + getLastCommitDeletedLines() long
   }
 
