@@ -92,8 +92,7 @@ public class GitStats extends Stats {
         new ProcessBuilder(
             "/usr/bin/bash",
             "-c",
-            "/usr/bin/git",
-            "show --numstat | awk '/^[0-9]/ {add+=$num} END {print add+0}'");
+            "git show --numstat | awk '/^[0-9]/ {add+=$num} END {print add+0}'");
     try {
       Process p = pb.start();
       p.waitFor();
