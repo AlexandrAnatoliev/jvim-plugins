@@ -29,18 +29,36 @@ vimstat/
 ├── src
 │  ├── main
 │  │  └── java
-│  │     ├── Colors.java
-│  │     ├── GitStats.java
-│  │     ├── Main.java
-│  │     ├── Stats.java
-│  │     └── TimeStats.java
+│  │     └── com
+│  │        └── vimstat
+│  │           ├── Colors.java
+│  │           ├── GitStats.java
+│  │           ├── Main.java
+│  │           ├── Stats.java
+│  │           └── TimeStats.java
 │  └── test
 │     └── java
-│        ├── ColorsTest.java
-│        ├── GitStatsTest.java
-│        └── TimeStatsTest.java
+│        └── com
+│           └── vimstat
+│              ├── ColorsTest.java
+│              ├── GitStatsTest.java
+│              └── TimeStatsTest.java
 └── target
-   └── vimstat-0.8.7.jar
+   ├── classes
+   │  └── com
+   │     └── vimstat
+   │        ├── Colors.class
+   │        ├── GitStats.class
+   │        ├── Main.class
+   │        ├── Stats.class
+   │        └── TimeStats.class
+   ├── test-classes
+   │  └── com
+   │     └── vimstat
+   │        ├── ColorsTest.class
+   │        ├── GitStatsTest.class
+   │        └── TimeStatsTest.class
+   └── vimstat-0.8.34.jar
 ```
 
 <div align="center">
@@ -91,18 +109,14 @@ $ vim example.md
 
 * After closing Vim, you will see:
 ```
-  =========================================
+    =========================================
                 Vim uptime:
-  -----------------------------------------
-  - per session:         0 h  2 min 35 sec
-  - per day:             0 h 27 min 32 sec
-  - average per month:   0 h  0 min  1 sec
-  =========================================
-  =========================================
-                Commit stats:
-  -----------------------------------------
-  - Commits per day: 2
-  =========================================
+    -----------------------------------------
+    - per session:         0 h  0 min  1 sec
+    - per day:             0 h 31 min  4 sec
+    - average per month:   0 h 31 min  5 sec
+    - today commits: 2 lines: +158   -19
+    =========================================
 ```
 
 <div align="center">
@@ -129,24 +143,27 @@ $ vim example.md
 classDiagram
 
   class Stats {
-    - pathToLong: String
-    + Stats(pathToLong: String)
-    + writeLong(value: Long )
-    + readLong() long 
+    - pathToLongValue: String 
+    - ERROR: String 
+    - LOGGER: Logger
+    + Stats(pathToLongValue: String)
+    + writeLongValue(value: Long )
+    + readLongValue() long 
     + getFileDate(pathToFile: String) LocalDate
     + isFileExists(pathToFile: String) boolean 
   }
 
   class GitStats {
-    - pathToString: String 
-    + GitStats(pathToString: String, pathToLong: String)
+    - pathToStringValue: String 
+    + GitStats(pathToStringValue: String, pathToLongValue: String)
     + getLastCommitHash() String 
-    + writeString(hash: String) 
-    + readString() String
+    + writeStringValue(hash: String) 
+    + readStringValue() String
+    + getLastCommitLines(command: String) long
   }
 
   class TimeStats {
-    + TimeStats(pathToLong: String)
+    + TimeStats(pathToLongValue: String)
     + getSessionTime(): long 
     + deleteFile() 
   }
@@ -180,6 +197,12 @@ classDiagram
   class git_day_commit.txt {
   }
 
+  class git_day_added_lines.txt {
+  }
+
+  class git_day_deleted_lines.txt {
+  }
+
   class TimeStats {
   }
 
@@ -203,6 +226,8 @@ classDiagram
   enum Colors -- TimeStats : use
   GitStats --|> git_hash.txt : writes / reads
   GitStats --|> git_day_commit.txt : writes / reads
+  GitStats --|> git_day_added_lines.txt : writes / reads
+  GitStats --|> git_day_deleted_lines.txt : writes / reads
   TimeStats --|> time_session.txt : writes / reads
   TimeStats --|> time_day.txt : writes / reads
   TimeStats --|> time_month.txt : writes / reads
@@ -240,18 +265,36 @@ vimstat/
 ├── src
 │  ├── main
 │  │  └── java
-│  │     ├── Colors.java
-│  │     ├── GitStats.java
-│  │     ├── Main.java
-│  │     ├── Stats.java
-│  │     └── TimeStats.java
+│  │     └── com
+│  │        └── vimstat
+│  │           ├── Colors.java
+│  │           ├── GitStats.java
+│  │           ├── Main.java
+│  │           ├── Stats.java
+│  │           └── TimeStats.java
 │  └── test
 │     └── java
-│        ├── ColorsTest.java
-│        ├── GitStatsTest.java
-│        └── TimeStatsTest.java
+│        └── com
+│           └── vimstat
+│              ├── ColorsTest.java
+│              ├── GitStatsTest.java
+│              └── TimeStatsTest.java
 └── target
-   └── vimstat-0.8.7.jar
+   ├── classes
+   │  └── com
+   │     └── vimstat
+   │        ├── Colors.class
+   │        ├── GitStats.class
+   │        ├── Main.class
+   │        ├── Stats.class
+   │        └── TimeStats.class
+   ├── test-classes
+   │  └── com
+   │     └── vimstat
+   │        ├── ColorsTest.class
+   │        ├── GitStatsTest.class
+   │        └── TimeStatsTest.class
+   └── vimstat-0.8.34.jar
 ```
 
 <div align="center">
@@ -302,18 +345,14 @@ $ vim example.md
 
 * После закрытия Vim, вы увидите:
 ```
-  =========================================
+    =========================================
                 Vim uptime:
-  -----------------------------------------
-  - per session:         0 h  2 min 35 sec
-  - per day:             0 h 27 min 32 sec
-  - average per month:   0 h  0 min  1 sec
-  =========================================
-  =========================================
-                Commit stats:
-  -----------------------------------------
-  - Commits per day: 2
-  =========================================
+    -----------------------------------------
+    - per session:         0 h  0 min  1 sec
+    - per day:             0 h 31 min  4 sec
+    - average per month:   0 h 31 min  5 sec
+    - today commits: 2 lines: +158   -19
+    =========================================
 ```
 
 <div align="center">
@@ -340,24 +379,27 @@ $ vim example.md
 classDiagram
 
   class Stats {
-    - pathToLong: String
-    + Stats(pathToLong: String)
-    + writeLong(value: Long )
-    + readLong() long 
+    - pathToLongValue: String 
+    - ERROR: String 
+    - LOGGER: Logger
+    + Stats(pathToLongValue: String)
+    + writeLongValue(value: Long )
+    + readLongValue() long 
     + getFileDate(pathToFile: String) LocalDate
     + isFileExists(pathToFile: String) boolean 
   }
 
   class GitStats {
-    - pathToString: String 
-    + GitStats(pathToString: String, pathToLong: String)
+    - pathToStringValue: String 
+    + GitStats(pathToStringValue: String, pathToLongValue: String)
     + getLastCommitHash() String 
-    + writeString(hash: String) 
-    + readString() String
+    + writeStringValue(hash: String) 
+    + readStringValue() String
+    + getLastCommitLines(command: String) long
   }
 
   class TimeStats {
-    + TimeStats(pathToLong: String)
+    + TimeStats(pathToLongValue: String)
     + getSessionTime(): long 
     + deleteFile() 
   }
@@ -391,6 +433,12 @@ classDiagram
   class git_day_commit.txt {
   }
 
+  class git_day_added_lines.txt {
+  }
+
+  class git_day_deleted_lines.txt {
+  }
+
   class TimeStats {
   }
 
@@ -414,6 +462,8 @@ classDiagram
   enum Colors -- TimeStats : use
   GitStats --|> git_hash.txt : writes / reads
   GitStats --|> git_day_commit.txt : writes / reads
+  GitStats --|> git_day_added_lines.txt : writes / reads
+  GitStats --|> git_day_deleted_lines.txt : writes / reads
   TimeStats --|> time_session.txt : writes / reads
   TimeStats --|> time_day.txt : writes / reads
   TimeStats --|> time_month.txt : writes / reads

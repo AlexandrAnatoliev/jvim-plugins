@@ -2,28 +2,25 @@ package com.vimstat;
 
 import java.nio.file.*;
 import java.util.Scanner;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The class to get git stats
  *
- * @version 0.8.28
- * @since 15.02.2026
+ * @version 0.8.34
+ * @since 24.02.2026
  * @author AlexandrAnatoliev
  */
 public class GitStats extends Stats {
-  protected String pathToString;
-  private static final Logger LOGGER = LoggerFactory.getLogger(GitStats.class);
+  protected String pathToStringValue;
 
   /**
    * GitStats class constructor
    *
-   * @param pathToString Path to temporary file for String value storage
+   * @param pathToStringValue Path to temporary file for String value storage
    */
-  public GitStats(String pathToString, String pathToLong) {
-    super(pathToLong);
-    this.pathToString = pathToString;
+  public GitStats(String pathToStringValue, String pathToLongValue) {
+    super(pathToLongValue);
+    this.pathToStringValue = pathToStringValue;
   }
 
   /**
@@ -51,10 +48,10 @@ public class GitStats extends Stats {
    *
    * @param hash String to write to the file
    */
-  public void writeString(String hash) {
+  public void writeStringValue(String hash) {
     try {
       String content = (hash == null) ? "" : hash;
-      Files.writeString(Paths.get(pathToString), content);
+      Files.writeString(Paths.get(pathToStringValue), content);
     } catch (Exception e) {
       LOGGER.error(ERROR + " Writing string: " + e.getMessage());
     }
@@ -65,12 +62,44 @@ public class GitStats extends Stats {
    *
    * @return String value from file
    */
-  public String readString() {
+  public String readStringValue() {
     try {
-      return Files.readString(Paths.get(this.pathToString));
+      return Files.readString(Paths.get(this.pathToStringValue));
     } catch (Exception e) {
       LOGGER.error(ERROR + " Reading string: " + e.getMessage());
       return "";
+    }
+  }
+
+  /**
+   * Get last commit added or deleted lines
+   *
+   * @param command Type of lines (added / deleted)
+   * @return Added or deleted lines value
+   */
+  public long getLastCommitLines(String command) {
+    int num;
+    if (command.equalsIgnoreCase("added")) {
+      num = 1;
+    } else if (command.equalsIgnoreCase("deleted")) {
+      num = 2;
+    } else {
+      return 0;
+    }
+    String awkCommand =
+        String.format("git show --numstat | awk '/^[0-9]/ {add+=$%d} END {print add+0}'", num);
+
+    ProcessBuilder pb = new ProcessBuilder("/usr/bin/bash", "-c", awkCommand);
+    try {
+      Process p = pb.start();
+      p.waitFor();
+      try (Scanner scanner = new Scanner(p.getInputStream())) {
+        return scanner.hasNextLong() ? scanner.nextLong() : 0;
+      }
+    } catch (Exception e) {
+      Thread.currentThread().interrupt();
+      LOGGER.error(ERROR + " Getting last commit " + command + " lines: " + e.getMessage());
+      return 0;
     }
   }
 }

@@ -52,7 +52,7 @@ public class TimeStatsTest {
   void testGetSessionTimeWithValidStartTime() throws IOException, InterruptedException {
 
     long startTime = System.currentTimeMillis() / 1000;
-    timeStats.writeLong(startTime);
+    timeStats.writeLongValue(startTime);
 
     Thread.sleep(1000);
 
@@ -73,32 +73,32 @@ public class TimeStatsTest {
   }
 
   /**
-   * Tests writeLong() and readLong() methods Verifies that written value can be successfully read
-   * back
+   * Tests writeLongValue() and readLongValue() methods Verifies that written value can be
+   * successfully read back
    */
   @Test
   void testWriteToFileAndReadFromFile() {
     long expectedValue = 123456789L;
-    timeStats.writeLong(expectedValue);
+    timeStats.writeLongValue(expectedValue);
 
-    long actualValue = timeStats.readLong();
+    long actualValue = timeStats.readLongValue();
     assertEquals(expectedValue, actualValue);
   }
 
   /**
-   * Tests readLong() method when file does not exist Verifies that method returns 0 as default
+   * Tests readLongValue() method when file does not exist Verifies that method returns 0 as default
    * value
    */
   @Test
   void testReadFromFileWhenFileDoesNotExist() {
     timeStats.deleteFile();
-    long actualValue = timeStats.readLong();
+    long actualValue = timeStats.readLongValue();
     assertEquals(0L, actualValue);
   }
 
   /**
-   * Tests readLong() method with invalid data in file Verifies that non-numeric data is handled
-   * gracefully
+   * Tests readLongValue() method with invalid data in file Verifies that non-numeric data is
+   * handled gracefully
    *
    * @throws IOException if file writing fails
    */
@@ -106,31 +106,32 @@ public class TimeStatsTest {
   void testReadFromFileWithInvalidData() throws IOException {
     Files.write(Paths.get(TEST_FILE_PATH), "Invalid_data".getBytes());
 
-    long actualValue = timeStats.readLong();
+    long actualValue = timeStats.readLongValue();
     assertEquals(0L, actualValue);
   }
 
   /**
-   * Tests that writeLong() method overwrites previous content Verifies that only the last written
-   * value is preserved
+   * Tests that writeLongValue() method overwrites previous content Verifies that only the last
+   * written value is preserved
    */
   @Test
   void testWriteToFileOverwritesPreviousContent() {
-    timeStats.writeLong(100L);
-    timeStats.writeLong(200L);
+    timeStats.writeLongValue(100L);
+    timeStats.writeLongValue(200L);
 
-    long actualValue = timeStats.readLong();
+    long actualValue = timeStats.readLongValue();
     assertEquals(200L, actualValue);
   }
 
   /**
-   * Tests writeLong() method with null value Verifies that null input is handled without exceptions
+   * Tests writeLongValue() method with null value Verifies that null input is handled without
+   * exceptions
    */
   @Test
   void testWriteToFileWithNull() {
-    timeStats.writeLong(null);
+    timeStats.writeLongValue(null);
 
-    long actualValue = timeStats.readLong();
+    long actualValue = timeStats.readLongValue();
     assertNotNull(actualValue);
   }
 
@@ -164,8 +165,8 @@ public class TimeStatsTest {
     TimeStats customTimeStats = new TimeStats(customPath);
 
     try {
-      customTimeStats.writeLong(999L);
-      long value = customTimeStats.readLong();
+      customTimeStats.writeLongValue(999L);
+      long value = customTimeStats.readLongValue();
       assertEquals(999L, value);
     } finally {
       new File(customPath).delete();
@@ -182,7 +183,7 @@ public class TimeStatsTest {
   void testSessionTimeCalculationAccuracy() throws IOException, InterruptedException {
 
     long startTime = System.currentTimeMillis() / 1000;
-    timeStats.writeLong(startTime);
+    timeStats.writeLongValue(startTime);
 
     int waitSecunds = 2;
     Thread.sleep(waitSecunds * 1000);

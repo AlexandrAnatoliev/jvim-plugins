@@ -11,16 +11,13 @@ import java.time.temporal.ChronoUnit;
  * <p>Usage: java Main start - erases information from temporary files, and starts to calculate
  * stats java Main update - update stats java Main stop - print stats
  *
- * @version 0.8.26
- * @since 15.02.2026
+ * @version 0.8.34
+ * @since 24.02.2026
  * @author AlexandrAnatoliev
  */
 public class Main {
   private static final String HOME_DIR = System.getProperty("user.home");
-  private static final String GIT_HASH_PATH =
-      HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_hash.txt";
-  private static final String GIT_DAY_COMMIT_PATH =
-      HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_day_commit.txt";
+
   private static final String TIME_SESSION_PATH =
       HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_session.txt";
   private static final String TIME_DAY_PATH =
@@ -29,6 +26,24 @@ public class Main {
       HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_month.txt";
   private static final String TIME_YESTERDAY_PATH =
       HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/time_yesterday.txt";
+
+  private static final String GIT_HASH_PATH =
+      HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_hash.txt";
+  private static final String GIT_DAY_COMMIT_PATH =
+      HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_day_commit.txt";
+  private static final String GIT_DAY_ADDED_LINES_PATH =
+      HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_day_added_lines.txt";
+  private static final String GIT_DAY_DELETED_LINES_PATH =
+      HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_day_deleted_lines.txt";
+
+  private static TimeStats sessionTimeStats;
+  private static TimeStats dayTimeStats;
+  private static TimeStats monthTimeStats;
+  private static TimeStats yesterdayTimeStats;
+
+  private static GitStats gitStats;
+  private static GitStats todayAddedLinesGitStats;
+  private static GitStats todayDeletedLinesGitStats;
 
   private Main() {}
 
@@ -48,60 +63,74 @@ public class Main {
     }
   }
 
-  /**
-   * Creates and configures a GitStats interface with standard settings.
-   *
-   * @return Configured GitStats instance ready for use
-   */
-  private static GitStats createGitStats() {
-    return new GitStats(GIT_HASH_PATH, GIT_DAY_COMMIT_PATH);
+  /** Creates and configures GitStats instances. */
+  private static void initGitStatsInstances() {
+    gitStats = new GitStats(GIT_HASH_PATH, GIT_DAY_COMMIT_PATH);
+    todayAddedLinesGitStats = new GitStats(GIT_HASH_PATH, GIT_DAY_ADDED_LINES_PATH);
+    todayDeletedLinesGitStats = new GitStats(GIT_HASH_PATH, GIT_DAY_DELETED_LINES_PATH);
+  }
+
+  /** Creates and configures TimeStats instances. */
+  private static void initTimeStatsInstances() {
+    sessionTimeStats = new TimeStats(TIME_SESSION_PATH);
+    dayTimeStats = new TimeStats(TIME_DAY_PATH);
+    monthTimeStats = new TimeStats(TIME_MONTH_PATH);
+    yesterdayTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
   }
 
   /** Starts a new stats session. */
   public static void start() {
+    initTimeStatsInstances();
+    initGitStatsInstances();
+
     LocalDate today = LocalDate.now();
-    TimeStats sessionTimeStats = new TimeStats(TIME_SESSION_PATH);
-    TimeStats dayTimeStats = new TimeStats(TIME_DAY_PATH);
-    TimeStats monthTimeStats = new TimeStats(TIME_MONTH_PATH);
-    TimeStats yesterdayTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
-    GitStats gitStats = createGitStats();
+
+    if (!gitStats.isFileExists(GIT_HASH_PATH)) {
+      gitStats.writeStringValue("");
+    }
 
     if (!gitStats.isFileExists(GIT_DAY_COMMIT_PATH)
         || !today.equals(gitStats.getFileDate(GIT_DAY_COMMIT_PATH))) {
-      gitStats.writeLong(0L);
+      gitStats.writeLongValue(0L);
     }
 
-    if (!gitStats.isFileExists(GIT_HASH_PATH)) {
-      gitStats.writeString("");
+    if (!todayAddedLinesGitStats.isFileExists(GIT_DAY_ADDED_LINES_PATH)
+        || !today.equals(todayAddedLinesGitStats.getFileDate(GIT_DAY_ADDED_LINES_PATH))) {
+      todayAddedLinesGitStats.writeLongValue(0L);
+    }
+
+    if (!todayDeletedLinesGitStats.isFileExists(GIT_DAY_DELETED_LINES_PATH)
+        || !today.equals(todayDeletedLinesGitStats.getFileDate(GIT_DAY_DELETED_LINES_PATH))) {
+      todayDeletedLinesGitStats.writeLongValue(0L);
     }
 
     if (sessionTimeStats.isFileExists(TIME_SESSION_PATH)) {
       long pastDuration = sessionTimeStats.getSessionTime();
-      long dayTime = dayTimeStats.readLong();
-      dayTimeStats.writeLong(dayTime + pastDuration);
+      long dayTime = dayTimeStats.readLongValue();
+      dayTimeStats.writeLongValue(dayTime + pastDuration);
     }
-    sessionTimeStats.writeLong(System.currentTimeMillis() / 1000);
+    sessionTimeStats.writeLongValue(System.currentTimeMillis() / 1000);
 
     if (!yesterdayTimeStats.isFileExists(TIME_YESTERDAY_PATH)) {
-      yesterdayTimeStats.writeLong(0L);
+      yesterdayTimeStats.writeLongValue(0L);
     }
 
     if (!monthTimeStats.isFileExists(TIME_MONTH_PATH)) {
-      monthTimeStats.writeLong(0L);
+      monthTimeStats.writeLongValue(0L);
     }
 
     if (!monthTimeStats.getFileDate(TIME_MONTH_PATH).equals(today)) {
-      long yesterdayTime = monthTimeStats.readLong();
-      yesterdayTimeStats.writeLong(yesterdayTime);
+      long yesterdayTime = monthTimeStats.readLongValue();
+      yesterdayTimeStats.writeLongValue(yesterdayTime);
 
       long emptyDays = ChronoUnit.DAYS.between(monthTimeStats.getFileDate(TIME_MONTH_PATH), today);
-      long monthTime = monthTimeStats.readLong() * (30 - emptyDays);
-      monthTimeStats.writeLong((monthTime + dayTimeStats.readLong()) / 30);
+      long monthTime = monthTimeStats.readLongValue() * (30 - emptyDays);
+      monthTimeStats.writeLongValue((monthTime + dayTimeStats.readLongValue()) / 30);
     }
 
     if (!dayTimeStats.isFileExists(TIME_DAY_PATH)
         || !dayTimeStats.getFileDate(TIME_DAY_PATH).equals(today)) {
-      dayTimeStats.writeLong(0L);
+      dayTimeStats.writeLongValue(0L);
     }
   }
 
@@ -109,44 +138,51 @@ public class Main {
    * Update stats
    */
   public static void update() {
-    GitStats gitStats = createGitStats();
-    String savedHash = gitStats.readString();
+    initGitStatsInstances();
+
+    String savedHash = gitStats.readStringValue();
     String lastHash = gitStats.getLastCommitHash();
+    long lastCommitAddedLines = todayAddedLinesGitStats.getLastCommitLines("added");
+    long lastCommitDeletedLines = todayDeletedLinesGitStats.getLastCommitLines("deleted");
 
     if (!lastHash.equals(savedHash)) {
-      long savedDailyCommits = gitStats.readLong();
-      gitStats.writeLong(savedDailyCommits + 1L);
+      long savedDailyCommits = gitStats.readLongValue();
+      gitStats.writeLongValue(savedDailyCommits + 1L);
+
+      long savedDailyCommitAddedLines = todayAddedLinesGitStats.readLongValue();
+      todayAddedLinesGitStats.writeLongValue(savedDailyCommitAddedLines + lastCommitAddedLines);
+
+      long savedDailyCommitDeletedLines = todayDeletedLinesGitStats.readLongValue();
+      todayDeletedLinesGitStats.writeLongValue(
+          savedDailyCommitDeletedLines + lastCommitDeletedLines);
     }
 
-    gitStats.writeString(lastHash);
+    gitStats.writeStringValue(lastHash);
   }
 
   /*
    * Print stats
    */
   public static void stop() {
-    TimeStats sessionTimeStats = new TimeStats(TIME_SESSION_PATH);
-    TimeStats dayTimeStats = new TimeStats(TIME_DAY_PATH);
-    TimeStats monthTimeStats = new TimeStats(TIME_MONTH_PATH);
-    TimeStats yesterdayTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
-    GitStats gitStats = createGitStats();
+    initGitStatsInstances();
+    initTimeStatsInstances();
 
     long duration = sessionTimeStats.getSessionTime();
 
     if (!dayTimeStats.isFileExists(TIME_DAY_PATH)) {
-      dayTimeStats.writeLong(0L);
+      dayTimeStats.writeLongValue(0L);
     }
 
-    long dayTime = dayTimeStats.readLong() + duration;
+    long dayTime = dayTimeStats.readLongValue() + duration;
 
-    dayTimeStats.writeLong(dayTime);
+    dayTimeStats.writeLongValue(dayTime);
 
     if (!monthTimeStats.isFileExists(TIME_MONTH_PATH)) {
-      monthTimeStats.writeLong(0L);
+      monthTimeStats.writeLongValue(0L);
     }
 
-    long monthTime = monthTimeStats.readLong();
-    long yesterdayTime = yesterdayTimeStats.readLong();
+    long monthTime = monthTimeStats.readLongValue();
+    long yesterdayTime = yesterdayTimeStats.readLongValue();
 
     long sessionHours = duration / 3600;
     long sessionMinutes = (duration % 3600) / 60;
@@ -187,16 +223,18 @@ public class Main {
 
     sessionTimeStats.deleteFile();
 
-    long savedDailyCommits = gitStats.readLong();
+    long savedDailyCommits = gitStats.readLongValue();
+    long savedDailyCommitAddedLines = todayAddedLinesGitStats.readLongValue();
+    long savedDailyCommitDeletedLines = todayDeletedLinesGitStats.readLongValue();
 
     System.out.printf(
-        """
-                    -----------------------------------------
-                                Commit stats:
-                    -----------------------------------------
-                    - Commits per day: %d
-                """,
-        savedDailyCommits);
+        "    - today commits: %d lines: "
+            + Colors.GREEN.apply("%+4d ")
+            + Colors.RED.apply(" %+4d ")
+            + "%n",
+        savedDailyCommits,
+        savedDailyCommitAddedLines,
+        0 - savedDailyCommitDeletedLines);
     System.out.println("    =========================================");
   }
 }

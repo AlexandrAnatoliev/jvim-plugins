@@ -7,7 +7,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.8.33](https://img.shields.io/badge/Version-0.8.33-orange.svg)
+  ![Version 0.8.34](https://img.shields.io/badge/Version-0.8.34-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -131,17 +131,15 @@ Designed for self-monitoring and productivity.
 [vimstat](vimstat/README.md) - Vim utility to get stats.
 
 * After closing Vim, you will see:
+
 ```
     =========================================
                 Vim uptime:
     -----------------------------------------
-    - per session:         0 h  1 min 21 sec
-    - per day:             0 h 52 min 53 sec
-    - average per month:   0 h  0 min 42 sec
-    -----------------------------------------
-                Commit stats:
-    -----------------------------------------
-    - Commits per day: 1
+    - per session:         0 h  0 min  1 sec
+    - per day:             0 h 31 min  4 sec
+    - average per month:   0 h 31 min  5 sec
+    - today commits: 2 lines: +158   -19
     =========================================
 ```
 
@@ -346,7 +344,7 @@ or reach out to me at per-1986@list.ru.
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.8.33](https://img.shields.io/badge/Version-0.8.33-orange.svg)
+  ![Version 0.8.34](https://img.shields.io/badge/Version-0.8.34-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -466,13 +464,10 @@ jvim-plugins
     =========================================
                 Vim uptime:
     -----------------------------------------
-    - per session:         0 h  1 min 21 sec
-    - per day:             0 h 52 min 53 sec
-    - average per month:   0 h  0 min 42 sec
-    -----------------------------------------
-                Commit stats:
-    -----------------------------------------
-    - Commits per day: 1
+    - per session:         0 h  0 min  1 sec
+    - per day:             0 h 31 min  4 sec
+    - average per month:   0 h 31 min  5 sec
+    - today commits: 2 lines: +158   -19
     =========================================
 ```
 
