@@ -11,8 +11,8 @@ import java.time.temporal.ChronoUnit;
  * <p>Usage: java Main start - erases information from temporary files, and starts to calculate
  * stats java Main update - update stats java Main stop - print stats
  *
- * @version 0.8.34
- * @since 24.02.2026
+ * @version 0.8.35
+ * @since 25.02.2026
  * @author AlexandrAnatoliev
  */
 public class Main {
@@ -36,6 +36,13 @@ public class Main {
   private static final String GIT_DAY_DELETED_LINES_PATH =
       HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_day_deleted_lines.txt";
 
+  private static final String GIT_AVERAGE_COMMIT_PATH =
+      HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_average_commit.txt";
+  private static final String GIT_AVERAGE_ADDED_LINES_PATH =
+      HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_average_added_lines.txt";
+  private static final String GIT_AVERAGE_DELETED_LINES_PATH =
+      HOME_DIR + "/.vim/pack/my-plugins/start/vimstat/data/git_average_deleted_lines.txt";
+
   private static TimeStats sessionTimeStats;
   private static TimeStats dayTimeStats;
   private static TimeStats monthTimeStats;
@@ -44,6 +51,8 @@ public class Main {
   private static GitStats gitStats;
   private static GitStats todayAddedLinesGitStats;
   private static GitStats todayDeletedLinesGitStats;
+
+  private static GitStats averageCommitGitStats;
 
   private Main() {}
 
@@ -68,6 +77,8 @@ public class Main {
     gitStats = new GitStats(GIT_HASH_PATH, GIT_DAY_COMMIT_PATH);
     todayAddedLinesGitStats = new GitStats(GIT_HASH_PATH, GIT_DAY_ADDED_LINES_PATH);
     todayDeletedLinesGitStats = new GitStats(GIT_HASH_PATH, GIT_DAY_DELETED_LINES_PATH);
+
+    averageCommitGitStats = new GitStats(GIT_HASH_PATH, GIT_AVERAGE_COMMIT_PATH);
   }
 
   /** Creates and configures TimeStats instances. */
@@ -89,8 +100,25 @@ public class Main {
       gitStats.writeStringValue("");
     }
 
-    if (!gitStats.isFileExists(GIT_DAY_COMMIT_PATH)
-        || !today.equals(gitStats.getFileDate(GIT_DAY_COMMIT_PATH))) {
+    if (!gitStats.isFileExists(GIT_DAY_COMMIT_PATH)) {
+      gitStats.writeLongValue(0L);
+    }
+
+    if (!averageCommitGitStats.isFileExists(GIT_AVERAGE_COMMIT_PATH)) {
+      averageCommitGitStats.writeLongValue(0L);
+    }
+
+    if (!averageCommitGitStats.getFileDate(GIT_AVERAGE_COMMIT_PATH).equals(today)) {
+      long averageCommits = averageCommitGitStats.readLongValue();
+      long yesterdayCommits = gitStats.readLongValue();
+
+      long emptyDays = ChronoUnit.DAYS.between(
+              averageCommitGitStats.getFileDate(GIT_AVERAGE_COMMIT_PATH), today);
+      averageCommitGitStats.writeLongValue(
+              averageCommits - (averageCommits * emptyDays) / 30 + yesterdayCommits);
+    }
+
+    if (!today.equals(gitStats.getFileDate(GIT_DAY_COMMIT_PATH))) {
       gitStats.writeLongValue(0L);
     }
 
@@ -176,7 +204,7 @@ public class Main {
     long dayTime = dayTimeStats.readLongValue() + duration;
 
     dayTimeStats.writeLongValue(dayTime);
-
+// TODO лишняя проверка? проверялось при start()
     if (!monthTimeStats.isFileExists(TIME_MONTH_PATH)) {
       monthTimeStats.writeLongValue(0L);
     }
@@ -227,13 +255,20 @@ public class Main {
     long savedDailyCommitAddedLines = todayAddedLinesGitStats.readLongValue();
     long savedDailyCommitDeletedLines = todayDeletedLinesGitStats.readLongValue();
 
-    String format =
+    long averageCommits = averageCommitGitStats.readLongValue();
+
+    String dailyFormat =
         "    - today commits: %d lines: "
             + Colors.GREEN.apply("%+4d ")
             + Colors.RED.apply(" %+4d ")
             + "%n";
+    String averageFormat =
+        "    - average commits: %d "
+            + "%n";
     System.out.printf(
-        format, savedDailyCommits, savedDailyCommitAddedLines, 0 - savedDailyCommitDeletedLines);
+        dailyFormat, savedDailyCommits, savedDailyCommitAddedLines, 0 - savedDailyCommitDeletedLines);
+    System.out.printf(
+            averageFormat, averageCommits);
     System.out.println("    =========================================");
   }
 }
