@@ -58,7 +58,7 @@ vimstat/
    │        ├── ColorsTest.class
    │        ├── GitStatsTest.class
    │        └── TimeStatsTest.class
-   └── vimstat-0.8.34.jar
+   └── vimstat-0.8.35.jar
 ```
 
 <div align="center">
@@ -109,14 +109,15 @@ $ vim example.md
 
 * After closing Vim, you will see:
 ```
-    =========================================
-                Vim uptime:
-    -----------------------------------------
-    - per session:         0 h  0 min  1 sec
-    - per day:             0 h 31 min  4 sec
-    - average per month:   0 h 31 min  5 sec
-    - today commits: 2 lines: +158   -19
-    =========================================
+    =======================================
+                    Vim stats:
+    ---------------------------------------
+    - session:           0 h  0 min  2 sec
+    - today:             1 h 45 min 15 sec
+    - average:           0 h 34 min 34 sec
+    - today:    0 commits   441++    192-- 
+    - average:  0 commits     0++      0-- 
+    =======================================
 ```
 
 <div align="center">
@@ -203,6 +204,15 @@ classDiagram
   class git_day_deleted_lines.txt {
   }
 
+  class git_average_commit.txt {
+  }
+
+  class git_average_added_lines.txt {
+  }
+
+  class git_average_deleted_lines.txt {
+  }
+
   class TimeStats {
   }
 
@@ -228,6 +238,9 @@ classDiagram
   GitStats --|> git_day_commit.txt : writes / reads
   GitStats --|> git_day_added_lines.txt : writes / reads
   GitStats --|> git_day_deleted_lines.txt : writes / reads
+  GitStats --|> git_average_commit.txt : writes / reads
+  GitStats --|> git_average_added_lines.txt : writes / reads
+  GitStats --|> git_average_deleted_lines.txt : writes / reads
   TimeStats --|> time_session.txt : writes / reads
   TimeStats --|> time_day.txt : writes / reads
   TimeStats --|> time_month.txt : writes / reads
@@ -294,7 +307,7 @@ vimstat/
    │        ├── ColorsTest.class
    │        ├── GitStatsTest.class
    │        └── TimeStatsTest.class
-   └── vimstat-0.8.34.jar
+   └── vimstat-0.8.35.jar
 ```
 
 <div align="center">
@@ -345,14 +358,15 @@ $ vim example.md
 
 * После закрытия Vim, вы увидите:
 ```
-    =========================================
-                Vim uptime:
-    -----------------------------------------
-    - per session:         0 h  0 min  1 sec
-    - per day:             0 h 31 min  4 sec
-    - average per month:   0 h 31 min  5 sec
-    - today commits: 2 lines: +158   -19
-    =========================================
+    =======================================
+                    Vim stats:
+    ---------------------------------------
+    - session:           0 h  0 min  2 sec
+    - today:             1 h 45 min 15 sec
+    - average:           0 h 34 min 34 sec
+    - today:    0 commits   441++    192-- 
+    - average:  0 commits     0++      0-- 
+    =======================================
 ```
 
 <div align="center">
@@ -439,6 +453,15 @@ classDiagram
   class git_day_deleted_lines.txt {
   }
 
+  class git_average_commit.txt {
+  }
+
+  class git_average_added_lines.txt {
+  }
+
+  class git_average_deleted_lines.txt {
+  }
+
   class TimeStats {
   }
 
@@ -464,6 +487,9 @@ classDiagram
   GitStats --|> git_day_commit.txt : writes / reads
   GitStats --|> git_day_added_lines.txt : writes / reads
   GitStats --|> git_day_deleted_lines.txt : writes / reads
+  GitStats --|> git_average_commit.txt : writes / reads
+  GitStats --|> git_average_added_lines.txt : writes / reads
+  GitStats --|> git_average_deleted_lines.txt : writes / reads
   TimeStats --|> time_session.txt : writes / reads
   TimeStats --|> time_day.txt : writes / reads
   TimeStats --|> time_month.txt : writes / reads
