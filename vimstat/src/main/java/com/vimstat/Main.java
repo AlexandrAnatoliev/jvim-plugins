@@ -89,7 +89,11 @@ public class Main {
     yesterdayTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
   }
 
-  /** Initial file 0 value if is not exits */
+  /** 
+   * Initial file 0 value if is not exits 
+   *
+   * @param GitStats instance
+   */
   private static void initFileIsNotExist(GitStats instance) {
     if (!instance.isFileExists(instance.pathToLongValue)) {
       instance.writeLongValue(0L);
@@ -99,9 +103,37 @@ public class Main {
     }
   }
 
-  /** Initial file 0 value if is not exits */
+  /** 
+   * Initial file 0 value if is not exits 
+   *
+   * @param TimeStats instance
+   */
   private static void initFileIsNotExist(TimeStats instance) {
     if (!instance.isFileExists(instance.pathToLongValue)) {
+      instance.writeLongValue(0L);
+    }
+  }
+
+  /** 
+   * Set file 0 value if first session today  
+   *
+   * @param GitStats instance
+   */
+  private static void resetFileIfFirstSessionToday(GitStats instance) {
+    LocalDate today = LocalDate.now();
+    if (!today.equals(instance.getFileDate(instance.pathToLongValue))) {
+      instance.writeLongValue(0L);
+    }
+  }
+  
+  /** 
+   * Set file 0 value if first session today  
+   *
+   * @param TimeStats instance
+   */
+  private static void resetFileIfFirstSessionToday(TimeStats instance) {
+    LocalDate today = LocalDate.now();
+    if (!today.equals(instance.getFileDate(instance.pathToLongValue))) {
       instance.writeLongValue(0L);
     }
   }
@@ -110,7 +142,7 @@ public class Main {
   public static void start() {
     initTimeStatsInstances();
     initGitStatsInstances();
-
+// TODO убрать?
     LocalDate today = LocalDate.now();
 
     initFileIsNotExist(gitStats);
@@ -126,19 +158,13 @@ public class Main {
               averageCommits - (averageCommits * emptyDays) / 30 + yesterdayCommits);
     }
 
-    if (!today.equals(gitStats.getFileDate(GIT_DAY_COMMIT_PATH))) {
-      gitStats.writeLongValue(0L);
-    }
+    resetFileIfFirstSessionToday(gitStats);
 
-    if (!todayAddedLinesGitStats.isFileExists(GIT_DAY_ADDED_LINES_PATH)
-        || !today.equals(todayAddedLinesGitStats.getFileDate(GIT_DAY_ADDED_LINES_PATH))) {
-      todayAddedLinesGitStats.writeLongValue(0L);
-    }
+    initFileIsNotExist(todayAddedLinesGitStats);
+    resetFileIfFirstSessionToday(todayAddedLinesGitStats);
 
-    if (!todayDeletedLinesGitStats.isFileExists(GIT_DAY_DELETED_LINES_PATH)
-        || !today.equals(todayDeletedLinesGitStats.getFileDate(GIT_DAY_DELETED_LINES_PATH))) {
-      todayDeletedLinesGitStats.writeLongValue(0L);
-    }
+    initFileIsNotExist(todayDeletedLinesGitStats);
+    resetFileIfFirstSessionToday(todayDeletedLinesGitStats);
 
     if (sessionTimeStats.isFileExists(TIME_SESSION_PATH)) {
       long pastDuration = sessionTimeStats.getSessionTime();
@@ -159,10 +185,8 @@ public class Main {
       monthTimeStats.writeLongValue((monthTime + dayTimeStats.readLongValue()) / 30);
     }
 
-    if (!dayTimeStats.isFileExists(TIME_DAY_PATH)
-        || !dayTimeStats.getFileDate(TIME_DAY_PATH).equals(today)) {
-      dayTimeStats.writeLongValue(0L);
-    }
+    initFileIsNotExist(dayTimeStats);
+    resetFileIfFirstSessionToday(dayTimeStats);
   }
 
   /*
