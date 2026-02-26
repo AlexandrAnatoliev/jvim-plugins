@@ -276,23 +276,23 @@ public class Main {
     System.out.printf(
         """
 
-                    =========================================
-                                Vim uptime:
-                    -----------------------------------------
-                    - per session:        %2d h %2d min %2d sec
-                    - per day:            %2d h %2d min %2d sec
+                    =======================================
+                                    Vim stats:
+                    ---------------------------------------
+                    - session:          %2d h %2d min %2d sec
+                    - today:            %2d h %2d min %2d sec
                 """,
         sessionHours, sessionMinutes, sessionSeconds, dayHours, dayMinutes, daySeconds);
 
     if (monthTime > yesterdayTime || dayTime > yesterdayTime) {
       System.out.printf(
-          Colors.GREEN.apply("    - average per month:  %2d h %2d min %2d sec%n"),
+          Colors.GREEN.apply("    - average:          %2d h %2d min %2d sec%n"),
           monthHours,
           monthMinutes,
           monthSeconds);
     } else {
       System.out.printf(
-          Colors.RED.apply("    - average per month:  %2d h %2d min %2d sec%n"),
+          Colors.RED.apply("    - average:         %2d h %2d min %2d sec%n"),
           monthHours,
           monthMinutes,
           monthSeconds);
@@ -322,6 +322,6 @@ public class Main {
         dailyFormat, savedDailyCommits, savedDailyCommitAddedLines, savedDailyCommitDeletedLines);
     System.out.printf(
             averageFormat, averageCommits / 30, averageAddedLines / 30, averageDeletedLines);
-    System.out.println("    =========================================");
+    System.out.println("    =======================================");
   }
 }
