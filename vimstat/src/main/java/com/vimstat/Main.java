@@ -53,6 +53,7 @@ public class Main {
   private static GitStats todayDeletedLinesGitStats;
 
   private static GitStats averageCommitGitStats;
+  private static GitStats averageAddedLinesGitStats;
 
   private Main() {}
 
@@ -75,10 +76,14 @@ public class Main {
   /** Creates and configures GitStats instances. */
   private static void initGitStatsInstances() {
     gitStats = new GitStats(GIT_HASH_PATH, GIT_DAY_COMMIT_PATH);
-    todayAddedLinesGitStats = new GitStats(GIT_HASH_PATH, GIT_DAY_ADDED_LINES_PATH);
-    todayDeletedLinesGitStats = new GitStats(GIT_HASH_PATH, GIT_DAY_DELETED_LINES_PATH);
+    todayAddedLinesGitStats = new GitStats(
+        GIT_HASH_PATH, GIT_DAY_ADDED_LINES_PATH);
+    todayDeletedLinesGitStats = new GitStats(
+        GIT_HASH_PATH, GIT_DAY_DELETED_LINES_PATH);
 
     averageCommitGitStats = new GitStats(GIT_HASH_PATH, GIT_AVERAGE_COMMIT_PATH);
+    averageAddedLinesGitStats = new GitStats(
+        GIT_HASH_PATH, GIT_AVERAGE_ADDED_LINES_PATH);
   }
 
   /** Creates and configures TimeStats instances. */
@@ -154,7 +159,6 @@ public class Main {
       averageInstance.writeLongValue(
               averageValue - (averageValue * emptyDays) / 30 + noTodayValue);
     }
-
   }
 
   /** Starts a new stats session. */
@@ -165,13 +169,15 @@ public class Main {
     LocalDate today = LocalDate.now();
 
     initFileIsNotExist(gitStats);
+    initFileIsNotExist(todayAddedLinesGitStats);
+    
     initFileIsNotExist(averageCommitGitStats);
+    initFileIsNotExist(averageAddedLinesGitStats);
 
     updateAverageValue(gitStats, averageCommitGitStats);
+    updateAverageValue(todayAddedLinesGitStats, averageAddedLinesGitStats);
 
     resetFileIfFirstSessionToday(gitStats);
-
-    initFileIsNotExist(todayAddedLinesGitStats);
     resetFileIfFirstSessionToday(todayAddedLinesGitStats);
 
     initFileIsNotExist(todayDeletedLinesGitStats);
@@ -295,19 +301,21 @@ public class Main {
     long savedDailyCommitDeletedLines = todayDeletedLinesGitStats.readLongValue();
 
     long averageCommits = averageCommitGitStats.readLongValue();
+    long averageCommitAddedLines = averageAddedLinesGitStats.readLongValue();
 
     String dailyFormat =
-        "    - today commits: %d lines: "
-            + Colors.GREEN.apply("%+4d ")
-            + Colors.RED.apply(" %+4d ")
+        "    - today:   %2d commits "
+            + Colors.GREEN.apply("%5d++ ")
+            + Colors.RED.apply(" %5d-- ")
             + "%n";
     String averageFormat =
-        "    - average commits: %d "
+        "    - average: %2d commits "
+            + Colors.GREEN.apply("%5d++ ")
             + "%n";
     System.out.printf(
-        dailyFormat, savedDailyCommits, savedDailyCommitAddedLines, 0 - savedDailyCommitDeletedLines);
+        dailyFormat, savedDailyCommits, savedDailyCommitAddedLines, savedDailyCommitDeletedLines);
     System.out.printf(
-            averageFormat, averageCommits);
+            averageFormat, averageCommits / 30, averageCommitAddedLines / 30);
     System.out.println("    =========================================");
   }
 }
