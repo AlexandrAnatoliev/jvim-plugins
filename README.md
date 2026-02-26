@@ -7,7 +7,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.8.34](https://img.shields.io/badge/Version-0.8.34-orange.svg)
+  ![Version 0.8.35](https://img.shields.io/badge/Version-0.8.35-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -133,14 +133,15 @@ Designed for self-monitoring and productivity.
 * After closing Vim, you will see:
 
 ```
-    =========================================
-                Vim uptime:
-    -----------------------------------------
-    - per session:         0 h  0 min  1 sec
-    - per day:             0 h 31 min  4 sec
-    - average per month:   0 h 31 min  5 sec
-    - today commits: 2 lines: +158   -19
-    =========================================
+    =======================================
+                    Vim stats:
+    ---------------------------------------
+    - session:           0 h  0 min  2 sec
+    - today:             1 h 45 min 15 sec
+    - average:           0 h 34 min 34 sec
+    - today:    0 commits   441++    192-- 
+    - average:  0 commits     0++      0-- 
+    =======================================
 ```
 
 Designed for self-monitoring and productivity.
@@ -344,7 +345,7 @@ or reach out to me at per-1986@list.ru.
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.8.34](https://img.shields.io/badge/Version-0.8.34-orange.svg)
+  ![Version 0.8.35](https://img.shields.io/badge/Version-0.8.35-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -461,14 +462,15 @@ jvim-plugins
 
 По окончании работы и закрытия Vim будет выведено:
 ```
-    =========================================
-                Vim uptime:
-    -----------------------------------------
-    - per session:         0 h  0 min  1 sec
-    - per day:             0 h 31 min  4 sec
-    - average per month:   0 h 31 min  5 sec
-    - today commits: 2 lines: +158   -19
-    =========================================
+    =======================================
+                    Vim stats:
+    ---------------------------------------
+    - session:           0 h  0 min  2 sec
+    - today:             1 h 45 min 15 sec
+    - average:           0 h 34 min 34 sec
+    - today:    0 commits   441++    192-- 
+    - average:  0 commits     0++      0-- 
+    =======================================
 ```
 
 Нужен для самоконтроля и производительности.
