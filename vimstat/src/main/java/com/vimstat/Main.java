@@ -54,6 +54,7 @@ public class Main {
 
   private static GitStats averageCommitGitStats;
   private static GitStats averageAddedLinesGitStats;
+  private static GitStats averageDeletedLinesGitStats;
 
   private Main() {}
 
@@ -84,6 +85,8 @@ public class Main {
     averageCommitGitStats = new GitStats(GIT_HASH_PATH, GIT_AVERAGE_COMMIT_PATH);
     averageAddedLinesGitStats = new GitStats(
         GIT_HASH_PATH, GIT_AVERAGE_ADDED_LINES_PATH);
+    averageDeletedLinesGitStats = new GitStats(
+        GIT_HASH_PATH, GIT_AVERAGE_DELETED_LINES_PATH);
   }
 
   /** Creates and configures TimeStats instances. */
@@ -170,17 +173,18 @@ public class Main {
 
     initFileIsNotExist(gitStats);
     initFileIsNotExist(todayAddedLinesGitStats);
+    initFileIsNotExist(todayDeletedLinesGitStats);
     
     initFileIsNotExist(averageCommitGitStats);
     initFileIsNotExist(averageAddedLinesGitStats);
+    initFileIsNotExist(averageDeletedLinesGitStats);
 
     updateAverageValue(gitStats, averageCommitGitStats);
     updateAverageValue(todayAddedLinesGitStats, averageAddedLinesGitStats);
+    updateAverageValue(todayDeletedLinesGitStats, averageDeletedLinesGitStats);
 
     resetFileIfFirstSessionToday(gitStats);
     resetFileIfFirstSessionToday(todayAddedLinesGitStats);
-
-    initFileIsNotExist(todayDeletedLinesGitStats);
     resetFileIfFirstSessionToday(todayDeletedLinesGitStats);
 
     if (sessionTimeStats.isFileExists(TIME_SESSION_PATH)) {
@@ -301,7 +305,8 @@ public class Main {
     long savedDailyCommitDeletedLines = todayDeletedLinesGitStats.readLongValue();
 
     long averageCommits = averageCommitGitStats.readLongValue();
-    long averageCommitAddedLines = averageAddedLinesGitStats.readLongValue();
+    long averageAddedLines = averageAddedLinesGitStats.readLongValue();
+    long averageDeletedLines = averageDeletedLinesGitStats.readLongValue();
 
     String dailyFormat =
         "    - today:   %2d commits "
@@ -311,11 +316,12 @@ public class Main {
     String averageFormat =
         "    - average: %2d commits "
             + Colors.GREEN.apply("%5d++ ")
+            + Colors.RED.apply(" %5d-- ")
             + "%n";
     System.out.printf(
         dailyFormat, savedDailyCommits, savedDailyCommitAddedLines, savedDailyCommitDeletedLines);
     System.out.printf(
-            averageFormat, averageCommits / 30, averageCommitAddedLines / 30);
+            averageFormat, averageCommits / 30, averageAddedLines / 30, averageDeletedLines);
     System.out.println("    =========================================");
   }
 }
