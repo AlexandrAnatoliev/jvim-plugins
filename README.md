@@ -133,14 +133,15 @@ Designed for self-monitoring and productivity.
 * After closing Vim, you will see:
 
 ```
-    =========================================
-                Vim uptime:
-    -----------------------------------------
-    - per session:         0 h  0 min  1 sec
-    - per day:             0 h 31 min  4 sec
-    - average per month:   0 h 31 min  5 sec
-    - today commits: 2 lines: +158   -19
-    =========================================
+    =======================================
+                    Vim stats:
+    ---------------------------------------
+    - session:           0 h  0 min  2 sec
+    - today:             1 h 45 min 15 sec
+    - average:           0 h 34 min 34 sec
+    - today:    0 commits   441++    192-- 
+    - average:  0 commits     0++      0-- 
+    =======================================
 ```
 
 Designed for self-monitoring and productivity.
@@ -461,14 +462,15 @@ jvim-plugins
 
 По окончании работы и закрытия Vim будет выведено:
 ```
-    =========================================
-                Vim uptime:
-    -----------------------------------------
-    - per session:         0 h  0 min  1 sec
-    - per day:             0 h 31 min  4 sec
-    - average per month:   0 h 31 min  5 sec
-    - today commits: 2 lines: +158   -19
-    =========================================
+    =======================================
+                    Vim stats:
+    ---------------------------------------
+    - session:           0 h  0 min  2 sec
+    - today:             1 h 45 min 15 sec
+    - average:           0 h 34 min 34 sec
+    - today:    0 commits   441++    192-- 
+    - average:  0 commits     0++      0-- 
+    =======================================
 ```
 
 Нужен для самоконтроля и производительности.
