@@ -12,7 +12,7 @@ import java.time.temporal.ChronoUnit;
  * stats java Main update - update stats java Main stop - print stats
  *
  * @version 0.8.35
- * @since 25.02.2026
+ * @since 26.02.2026
  * @author AlexandrAnatoliev
  */
 public class Main {
@@ -89,6 +89,23 @@ public class Main {
     yesterdayTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
   }
 
+  /** Initial file 0 value if is not exits */
+  private static void initFileIsNotExist(GitStats instance) {
+    if (!instance.isFileExists(instance.pathToLongValue)) {
+      instance.writeLongValue(0L);
+    }
+    if (!instance.isFileExists(instance.pathToStringValue)) {
+      instance.writeStringValue("");
+    }
+  }
+
+  /** Initial file 0 value if is not exits */
+  private static void initFileIsNotExist(TimeStats instance) {
+    if (!instance.isFileExists(instance.pathToLongValue)) {
+      instance.writeLongValue(0L);
+    }
+  }
+
   /** Starts a new stats session. */
   public static void start() {
     initTimeStatsInstances();
@@ -96,17 +113,8 @@ public class Main {
 
     LocalDate today = LocalDate.now();
 
-    if (!gitStats.isFileExists(GIT_HASH_PATH)) {
-      gitStats.writeStringValue("");
-    }
-
-    if (!gitStats.isFileExists(GIT_DAY_COMMIT_PATH)) {
-      gitStats.writeLongValue(0L);
-    }
-
-    if (!averageCommitGitStats.isFileExists(GIT_AVERAGE_COMMIT_PATH)) {
-      averageCommitGitStats.writeLongValue(0L);
-    }
+    initFileIsNotExist(gitStats);
+    initFileIsNotExist(averageCommitGitStats);
 
     if (!averageCommitGitStats.getFileDate(GIT_AVERAGE_COMMIT_PATH).equals(today)) {
       long averageCommits = averageCommitGitStats.readLongValue();
@@ -139,13 +147,8 @@ public class Main {
     }
     sessionTimeStats.writeLongValue(System.currentTimeMillis() / 1000);
 
-    if (!yesterdayTimeStats.isFileExists(TIME_YESTERDAY_PATH)) {
-      yesterdayTimeStats.writeLongValue(0L);
-    }
-
-    if (!monthTimeStats.isFileExists(TIME_MONTH_PATH)) {
-      monthTimeStats.writeLongValue(0L);
-    }
+    initFileIsNotExist(yesterdayTimeStats);
+    initFileIsNotExist(monthTimeStats);
 
     if (!monthTimeStats.getFileDate(TIME_MONTH_PATH).equals(today)) {
       long yesterdayTime = monthTimeStats.readLongValue();
@@ -197,6 +200,7 @@ public class Main {
 
     long duration = sessionTimeStats.getSessionTime();
 
+// TODO лишняя проверка? проверялось при start()
     if (!dayTimeStats.isFileExists(TIME_DAY_PATH)) {
       dayTimeStats.writeLongValue(0L);
     }
