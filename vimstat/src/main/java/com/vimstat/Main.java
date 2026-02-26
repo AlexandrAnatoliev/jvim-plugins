@@ -113,7 +113,7 @@ public class Main {
       instance.writeLongValue(0L);
     }
   }
-
+  
   /** 
    * Set file 0 value if first session today  
    *
@@ -138,6 +138,25 @@ public class Main {
     }
   }
 
+  /** 
+   * Update average value and write in file 
+   *
+   * @param GitStats instance
+   */
+  private static void updateAverageValue(GitStats noTodayInstance, GitStats averageInstance) {
+    LocalDate today = LocalDate.now();
+    LocalDate noToday = noTodayInstance.getFileDate(noTodayInstance.pathToLongValue);
+    if (!noToday.equals(today)) {
+      long averageValue = averageInstance.readLongValue();
+      long noTodayValue = noTodayInstance.readLongValue();
+
+      long emptyDays = ChronoUnit.DAYS.between(noToday , today);
+      averageInstance.writeLongValue(
+              averageValue - (averageValue * emptyDays) / 30 + noTodayValue);
+    }
+
+  }
+
   /** Starts a new stats session. */
   public static void start() {
     initTimeStatsInstances();
@@ -148,15 +167,7 @@ public class Main {
     initFileIsNotExist(gitStats);
     initFileIsNotExist(averageCommitGitStats);
 
-    if (!averageCommitGitStats.getFileDate(GIT_AVERAGE_COMMIT_PATH).equals(today)) {
-      long averageCommits = averageCommitGitStats.readLongValue();
-      long yesterdayCommits = gitStats.readLongValue();
-
-      long emptyDays = ChronoUnit.DAYS.between(
-              averageCommitGitStats.getFileDate(GIT_AVERAGE_COMMIT_PATH), today);
-      averageCommitGitStats.writeLongValue(
-              averageCommits - (averageCommits * emptyDays) / 30 + yesterdayCommits);
-    }
+    updateAverageValue(gitStats, averageCommitGitStats);
 
     resetFileIfFirstSessionToday(gitStats);
 
