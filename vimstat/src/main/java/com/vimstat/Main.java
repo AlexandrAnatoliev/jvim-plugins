@@ -77,16 +77,12 @@ public class Main {
   /** Creates and configures GitStats instances. */
   private static void initGitStatsInstances() {
     gitStats = new GitStats(GIT_HASH_PATH, GIT_DAY_COMMIT_PATH);
-    todayAddedLinesGitStats = new GitStats(
-        GIT_HASH_PATH, GIT_DAY_ADDED_LINES_PATH);
-    todayDeletedLinesGitStats = new GitStats(
-        GIT_HASH_PATH, GIT_DAY_DELETED_LINES_PATH);
+    todayAddedLinesGitStats = new GitStats(GIT_HASH_PATH, GIT_DAY_ADDED_LINES_PATH);
+    todayDeletedLinesGitStats = new GitStats(GIT_HASH_PATH, GIT_DAY_DELETED_LINES_PATH);
 
     averageCommitGitStats = new GitStats(GIT_HASH_PATH, GIT_AVERAGE_COMMIT_PATH);
-    averageAddedLinesGitStats = new GitStats(
-        GIT_HASH_PATH, GIT_AVERAGE_ADDED_LINES_PATH);
-    averageDeletedLinesGitStats = new GitStats(
-        GIT_HASH_PATH, GIT_AVERAGE_DELETED_LINES_PATH);
+    averageAddedLinesGitStats = new GitStats(GIT_HASH_PATH, GIT_AVERAGE_ADDED_LINES_PATH);
+    averageDeletedLinesGitStats = new GitStats(GIT_HASH_PATH, GIT_AVERAGE_DELETED_LINES_PATH);
   }
 
   /** Creates and configures TimeStats instances. */
@@ -97,8 +93,8 @@ public class Main {
     yesterdayTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
   }
 
-  /** 
-   * Initial file 0 value if is not exits 
+  /**
+   * Initial file 0 value if is not exits
    *
    * @param GitStats instance
    */
@@ -111,8 +107,8 @@ public class Main {
     }
   }
 
-  /** 
-   * Initial file 0 value if is not exits 
+  /**
+   * Initial file 0 value if is not exits
    *
    * @param TimeStats instance
    */
@@ -121,9 +117,9 @@ public class Main {
       instance.writeLongValue(0L);
     }
   }
-  
-  /** 
-   * Set file 0 value if first session today  
+
+  /**
+   * Set file 0 value if first session today
    *
    * @param GitStats instance
    */
@@ -133,9 +129,9 @@ public class Main {
       instance.writeLongValue(0L);
     }
   }
-  
-  /** 
-   * Set file 0 value if first session today  
+
+  /**
+   * Set file 0 value if first session today
    *
    * @param TimeStats instance
    */
@@ -146,8 +142,8 @@ public class Main {
     }
   }
 
-  /** 
-   * Update average value and write in file 
+  /**
+   * Update average value and write in file
    *
    * @param GitStats instance
    */
@@ -158,9 +154,8 @@ public class Main {
       long averageValue = averageInstance.readLongValue();
       long noTodayValue = noTodayInstance.readLongValue();
 
-      long emptyDays = ChronoUnit.DAYS.between(noToday , today);
-      averageInstance.writeLongValue(
-              averageValue - (averageValue * emptyDays) / 30 + noTodayValue);
+      long emptyDays = ChronoUnit.DAYS.between(noToday, today);
+      averageInstance.writeLongValue(averageValue - (averageValue * emptyDays) / 30 + noTodayValue);
     }
   }
 
@@ -168,13 +163,13 @@ public class Main {
   public static void start() {
     initTimeStatsInstances();
     initGitStatsInstances();
-// TODO убрать?
+    // TODO убрать?
     LocalDate today = LocalDate.now();
 
     initFileIsNotExist(gitStats);
     initFileIsNotExist(todayAddedLinesGitStats);
     initFileIsNotExist(todayDeletedLinesGitStats);
-    
+
     initFileIsNotExist(averageCommitGitStats);
     initFileIsNotExist(averageAddedLinesGitStats);
     initFileIsNotExist(averageDeletedLinesGitStats);
@@ -245,7 +240,7 @@ public class Main {
 
     long duration = sessionTimeStats.getSessionTime();
 
-// TODO лишняя проверка? проверялось при start()
+    // TODO лишняя проверка? проверялось при start()
     if (!dayTimeStats.isFileExists(TIME_DAY_PATH)) {
       dayTimeStats.writeLongValue(0L);
     }
@@ -253,7 +248,7 @@ public class Main {
     long dayTime = dayTimeStats.readLongValue() + duration;
 
     dayTimeStats.writeLongValue(dayTime);
-// TODO лишняя проверка? проверялось при start()
+    // TODO лишняя проверка? проверялось при start()
     if (!monthTimeStats.isFileExists(TIME_MONTH_PATH)) {
       monthTimeStats.writeLongValue(0L);
     }
@@ -321,7 +316,7 @@ public class Main {
     System.out.printf(
         dailyFormat, savedDailyCommits, savedDailyCommitAddedLines, savedDailyCommitDeletedLines);
     System.out.printf(
-            averageFormat, averageCommits / 30, averageAddedLines / 30, averageDeletedLines);
+        averageFormat, averageCommits / 30, averageAddedLines / 30, averageDeletedLines);
     System.out.println("    =======================================");
   }
 }
