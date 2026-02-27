@@ -11,8 +11,8 @@ import java.time.temporal.ChronoUnit;
  * <p>Usage: java Main start - erases information from temporary files, and starts to calculate
  * stats java Main update - update stats java Main stop - print stats
  *
- * @version 0.8.35
- * @since 26.02.2026
+ * @version 0.8.36
+ * @since 27.02.2026
  * @author AlexandrAnatoliev
  */
 public class Main {
@@ -316,7 +316,7 @@ public class Main {
     System.out.printf(
         dailyFormat, savedDailyCommits, savedDailyCommitAddedLines, savedDailyCommitDeletedLines);
     System.out.printf(
-        averageFormat, averageCommits / 30, averageAddedLines / 30, averageDeletedLines);
+        averageFormat, averageCommits / 30, averageAddedLines / 30, averageDeletedLines / 30);
     System.out.println("    =======================================");
   }
 }
