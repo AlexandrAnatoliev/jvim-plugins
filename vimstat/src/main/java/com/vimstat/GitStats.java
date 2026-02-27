@@ -6,21 +6,21 @@ import java.util.Scanner;
 /**
  * The class to get git stats
  *
- * @version 0.8.34
- * @since 24.02.2026
+ * @version 0.8.37
+ * @since 27.02.2026
  * @author AlexandrAnatoliev
  */
 public class GitStats extends Stats {
-  protected String pathToStringValue;
+  protected String pathToHash;
 
   /**
    * GitStats class constructor
    *
-   * @param pathToStringValue Path to temporary file for String value storage
+   * @param pathToHash Path to temporary file for hash storage
    */
-  public GitStats(String pathToStringValue, String pathToLongValue) {
-    super(pathToLongValue);
-    this.pathToStringValue = pathToStringValue;
+  public GitStats(String pathToHash, String pathToCounter) {
+    super(pathToCounter);
+    this.pathToHash = pathToHash;
   }
 
   /**
@@ -44,29 +44,29 @@ public class GitStats extends Stats {
   }
 
   /**
-   * Writes string value to a temporary file
+   * Writes hash value to a temporary file
    *
-   * @param hash String to write to the file
+   * @param hash to write to the file
    */
-  public void writeStringValue(String hash) {
+  public void write(String hash) {
     try {
       String content = (hash == null) ? "" : hash;
-      Files.writeString(Paths.get(pathToStringValue), content);
+      Files.writeString(Paths.get(pathToHash), content);
     } catch (Exception e) {
-      LOGGER.error(ERROR + " Writing string: " + e.getMessage());
+      LOGGER.error(ERROR + " Writing hash: " + e.getMessage());
     }
   }
 
   /**
-   * Reads string value from temporary file
+   * Reads hash from temporary file
    *
-   * @return String value from file
+   * @return hash from file
    */
-  public String readStringValue() {
+  public String readHash() {
     try {
-      return Files.readString(Paths.get(this.pathToStringValue));
+      return Files.readString(Paths.get(this.pathToHash));
     } catch (Exception e) {
-      LOGGER.error(ERROR + " Reading string: " + e.getMessage());
+      LOGGER.error(ERROR + " Reading hash: " + e.getMessage());
       return "";
     }
   }

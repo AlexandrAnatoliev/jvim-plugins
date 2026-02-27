@@ -10,49 +10,49 @@ import org.slf4j.LoggerFactory;
 /**
  * The class to get working stats
  *
- * @version 0.8.34
- * @since 34.02.2026
+ * @version 0.8.37
+ * @since 27.02.2026
  * @author AlexandrAnatoliev
  */
 public abstract class Stats {
-  protected String pathToLongValue;
+  protected String pathToCounter;
   protected static final String ERROR = "[" + Colors.RED.apply("ERROR") + "]";
   protected static final Logger LOGGER = LoggerFactory.getLogger(Stats.class);
 
   /**
    * Stats class constructor
    *
-   * @param pathToLongValue Path to temporary file for long value storage
+   * @param pathToCounter Path to temporary file for count value storage
    */
-  protected Stats(String pathToLongValue) {
-    this.pathToLongValue = pathToLongValue;
+  protected Stats(String pathToCounter) {
+    this.pathToCounter = pathToCounter;
   }
 
   /**
-   * Writes long value to temporary file
+   * Writes count value to temporary file
    *
-   * @param value Long value to write to file
+   * @param count to write to file
    */
-  public void writeLongValue(Long value) {
-    try (FileWriter writer = new FileWriter(pathToLongValue)) {
-      writer.write(value.toString());
+  public void write(Long count) {
+    try (FileWriter writer = new FileWriter(pathToCounter)) {
+      writer.write(count.toString());
     } catch (Exception e) {
-      LOGGER.error(ERROR + " Writing long: " + e.getMessage());
+      LOGGER.error(ERROR + " Writing count: " + e.getMessage());
     }
   }
 
   /**
-   * Reads long value from temporary file
+   * Reads count value from temporary file
    *
-   * @return Long value from file, Or 0 if file does not exist or contains invalid data
+   * @return count value from file, Or 0 if file does not exist or contains invalid data
    */
-  public long readLongValue() {
-    try (BufferedReader reader = new BufferedReader(new FileReader(this.pathToLongValue))) {
+  public long readCount() {
+    try (BufferedReader reader = new BufferedReader(new FileReader(this.pathToCounter))) {
 
       return Long.parseLong(reader.readLine());
 
     } catch (IOException | NumberFormatException e) {
-      LOGGER.error(ERROR + " Reading long: " + e.getMessage());
+      LOGGER.error(ERROR + " Reading count: " + e.getMessage());
       return 0;
     }
   }
