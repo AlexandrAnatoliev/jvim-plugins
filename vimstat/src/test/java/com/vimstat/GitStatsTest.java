@@ -189,38 +189,38 @@ public class GitStatsTest {
   }
 
   @Test
-  @DisplayName("writeValue correctly writes a hash to the file")
+  @DisplayName("write correctly writes a hash to the file")
   void testWriteHashToFile() throws IOException {
     String testHash = "0123456789abcdef";
-    stats.writeValue(testHash);
+    stats.write(testHash);
     String content = Files.readString(Paths.get(PATH_TO_LAST_COMMIT_HASH));
     assertEquals(testHash, content);
   }
 
   @Test
-  @DisplayName("writeValue correctly writes an empty string to the file")
+  @DisplayName("write correctly writes an empty string to the file")
   void testWriteEmptyString() throws IOException {
     String emptyString = "";
-    stats.writeValue(emptyString);
+    stats.write(emptyString);
     String content = Files.readString(Paths.get(PATH_TO_LAST_COMMIT_HASH));
     assertEquals(emptyString, content);
   }
 
   @Test
-  @DisplayName("writeValue error handling works for invalid paths")
+  @DisplayName("write error handling works for invalid paths")
   void testWriteHashToInvalidPath() {
     String invalidPath = "non_existent_directory/test.txt";
     GitStats invalidStats = new GitStats(invalidPath, PATH_TO_DAILY_COMMITS);
-    assertDoesNotThrow(() -> invalidStats.writeValue("test"));
+    assertDoesNotThrow(() -> invalidStats.write("test"));
   }
 
   @Test
-  @DisplayName("writeValue new hash overwrites previous content")
+  @DisplayName("write new hash overwrites previous content")
   void testHashToFileOverwrite() throws IOException {
     String firstHash = "test hash 1";
     String secondHash = "test hash 2";
-    stats.writeValue(firstHash);
-    stats.writeValue(secondHash);
+    stats.write(firstHash);
+    stats.write(secondHash);
     String content = Files.readString(Paths.get(PATH_TO_LAST_COMMIT_HASH));
     assertEquals(secondHash, content);
     assertNotEquals(firstHash, content);
@@ -228,21 +228,21 @@ public class GitStatsTest {
 
   @Test
   @DisplayName(
-      "writeValue and readStringValue " + "write and read hash correctly from the file")
+      "write and readStringValue " + "write and read hash correctly from the file")
   void testWriteAndReadHash() throws IOException {
     String testHash = "0123456789abcdef";
-    stats.writeValue(testHash);
+    stats.write(testHash);
     String content = stats.readStringValue();
     assertEquals(testHash, content);
   }
 
   @Test
   @DisplayName(
-      "writeValue and readStringValue "
+      "write and readStringValue "
           + " write and read empty string correctly from the file")
   void testWriteAndReadEmptyString() throws IOException {
     String emptyString = "";
-    stats.writeValue(emptyString);
+    stats.write(emptyString);
     String content = stats.readStringValue();
     assertEquals(emptyString, content);
   }
@@ -275,39 +275,39 @@ public class GitStatsTest {
   }
 
   @Test
-  @DisplayName("writeValue writes value to the file correctly")
+  @DisplayName("write writes value to the file correctly")
   void testWriteDailyCommitsToFile() throws IOException {
     Long testValue = 123L;
-    stats.writeValue(testValue);
+    stats.write(testValue);
     Long content = Long.parseLong(Files.readString(Paths.get(PATH_TO_DAILY_COMMITS)));
     assertEquals(testValue, content);
   }
 
   @Test
-  @DisplayName("writeValue error handling works for invalid paths")
+  @DisplayName("write error handling works for invalid paths")
   void testWriteDailyCommitsToInvalidPath() {
     String invalidPath = "non_existent_directory/test.txt";
     GitStats invalidStats = new GitStats(PATH_TO_LAST_COMMIT_HASH, invalidPath);
-    assertDoesNotThrow(() -> invalidStats.writeValue(123L));
+    assertDoesNotThrow(() -> invalidStats.write(123L));
   }
 
   @Test
-  @DisplayName("writeValue overwrites previous content with new value")
+  @DisplayName("write overwrites previous content with new value")
   void testDailyCommitsFileOverwrite() throws IOException {
     Long firstValue = 123L;
     Long secondValue = 1234L;
-    stats.writeValue(firstValue);
-    stats.writeValue(secondValue);
+    stats.write(firstValue);
+    stats.write(secondValue);
     Long content = Long.parseLong(Files.readString(Paths.get(PATH_TO_DAILY_COMMITS)));
     assertEquals(secondValue, content);
     assertNotEquals(firstValue, content);
   }
 
   @Test
-  @DisplayName("writeValue and readLongValue " + "write and read from the file correctly")
+  @DisplayName("write and readLongValue " + "write and read from the file correctly")
   void testWriteAndReadDailyCommits() throws IOException {
     Long testValue = 123L;
-    stats.writeValue(testValue);
+    stats.write(testValue);
     Long content = stats.readLongValue();
     assertEquals(testValue, content);
   }
@@ -355,7 +355,7 @@ public class GitStatsTest {
   @Test
   @DisplayName("isFileExists returns true for existent file")
   void testIsFileExistsWhenFileExists() throws IOException {
-    stats.writeValue("hash");
+    stats.write("hash");
     assertTrue(stats.isFileExists(PATH_TO_LAST_COMMIT_HASH));
   }
 
@@ -369,7 +369,7 @@ public class GitStatsTest {
   @Test
   @DisplayName("getFileDate return file creation data")
   void testGetFileDateWhenFileExists() throws IOException {
-    stats.writeValue("hash");
+    stats.write("hash");
     LocalDate expectedDate = LocalDate.now();
     LocalDate actualDate = stats.getFileDate(PATH_TO_LAST_COMMIT_HASH);
     assertEquals(expectedDate, actualDate);

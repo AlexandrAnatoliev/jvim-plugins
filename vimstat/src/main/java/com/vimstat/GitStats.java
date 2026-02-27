@@ -44,11 +44,11 @@ public class GitStats extends Stats {
   }
 
   /**
-   * Writes string value to a temporary file
+   * Writes hash value to a temporary file
    *
    * @param hash String to write to the file
    */
-  public void writeValue(String hash) {
+  public void write(String hash) {
     try {
       String content = (hash == null) ? "" : hash;
       Files.writeString(Paths.get(pathToStringValue), content);

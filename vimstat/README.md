@@ -147,7 +147,7 @@ classDiagram
     - ERROR: String 
     - LOGGER: Logger
     + Stats(pathToCounter: String)
-    + writeValue(value: Long )
+    + write(value: Long )
     + readLongValue() long 
     + getFileDate(pathToFile: String) LocalDate
     + isFileExists(pathToFile: String) boolean 
@@ -157,7 +157,7 @@ classDiagram
     - pathToStringValue: String 
     + GitStats(pathToStringValue: String, pathToCounter: String)
     + getLastCommitHash() String 
-    + writeValue(hash: String) 
+    + write(hash: String) 
     + readStringValue() String
     + getLastCommitLines(command: String) long
   }
@@ -395,7 +395,7 @@ classDiagram
     - ERROR: String 
     - LOGGER: Logger
     + Stats(pathToCounter: String)
-    + writeValue(value: Long )
+    + write(value: Long )
     + readLongValue() long 
     + getFileDate(pathToFile: String) LocalDate
     + isFileExists(pathToFile: String) boolean 
@@ -405,7 +405,7 @@ classDiagram
     - pathToStringValue: String 
     + GitStats(pathToStringValue: String, pathToCounter: String)
     + getLastCommitHash() String 
-    + writeValue(hash: String) 
+    + write(hash: String) 
     + readStringValue() String
     + getLastCommitLines(command: String) long
   }

@@ -29,11 +29,11 @@ public abstract class Stats {
   }
 
   /**
-   * Writes long value to temporary file
+   * Writes count value to temporary file
    *
    * @param value Long value to write to file
    */
-  public void writeValue(Long value) {
+  public void write(Long value) {
     try (FileWriter writer = new FileWriter(pathToCounter)) {
       writer.write(value.toString());
     } catch (Exception e) {
