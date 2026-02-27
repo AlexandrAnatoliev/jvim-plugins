@@ -11,16 +11,16 @@ import java.util.Scanner;
  * @author AlexandrAnatoliev
  */
 public class GitStats extends Stats {
-  protected String pathToStringValue;
+  protected String pathToHash;
 
   /**
    * GitStats class constructor
    *
-   * @param pathToStringValue Path to temporary file for String value storage
+   * @param pathToHash Path to temporary file for hash value storage
    */
-  public GitStats(String pathToStringValue, String pathToCounter) {
+  public GitStats(String pathToHash, String pathToCounter) {
     super(pathToCounter);
-    this.pathToStringValue = pathToStringValue;
+    this.pathToHash = pathToHash;
   }
 
   /**
@@ -46,12 +46,12 @@ public class GitStats extends Stats {
   /**
    * Writes hash value to a temporary file
    *
-   * @param hash String to write to the file
+   * @param hash to write to the file
    */
   public void write(String hash) {
     try {
       String content = (hash == null) ? "" : hash;
-      Files.writeString(Paths.get(pathToStringValue), content);
+      Files.writeString(Paths.get(pathToHash), content);
     } catch (Exception e) {
       LOGGER.error(ERROR + " Writing string: " + e.getMessage());
     }
@@ -64,7 +64,7 @@ public class GitStats extends Stats {
    */
   public String readStringValue() {
     try {
-      return Files.readString(Paths.get(this.pathToStringValue));
+      return Files.readString(Paths.get(this.pathToHash));
     } catch (Exception e) {
       LOGGER.error(ERROR + " Reading string: " + e.getMessage());
       return "";

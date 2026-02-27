@@ -45,7 +45,7 @@ public class GitStatsTest {
     GitStats testGitStats = new GitStats(lastCommitHash, dailyCommits);
     assertEquals(
         lastCommitHash,
-        testGitStats.pathToStringValue,
+        testGitStats.pathToHash,
         "Path to last commit hash file should be set correctly");
     assertEquals(
         dailyCommits,
@@ -57,7 +57,7 @@ public class GitStatsTest {
   @DisplayName("Constructor should work with null values")
   void testConstructorShouldHandleNull() {
     GitStats testStats = new GitStats(null, null);
-    assertNull(testStats.pathToStringValue);
+    assertNull(testStats.pathToHash);
     assertNull(testStats.pathToCounter);
   }
 
@@ -65,7 +65,7 @@ public class GitStatsTest {
   @DisplayName("Constructor should work with empty strings")
   void testConstructorShouldHandleEmptyStrings() {
     GitStats testStats = new GitStats("", "");
-    assertEquals("", testStats.pathToStringValue);
+    assertEquals("", testStats.pathToHash);
     assertEquals("", testStats.pathToCounter);
   }
 
@@ -73,7 +73,7 @@ public class GitStatsTest {
   @DisplayName("Constructor should handle strings with whitespace")
   void testConstructorShouldHandleWhitespaceStrings() {
     GitStats testStats = new GitStats(" ", " \t");
-    assertEquals(" ", testStats.pathToStringValue, "pathToStringValue should preserve whitespace");
+    assertEquals(" ", testStats.pathToHash, "pathToHash should preserve whitespace");
     assertEquals(
         " \t", testStats.pathToCounter, "pathToCounter should preserve whitespace and tabs");
   }
@@ -84,7 +84,7 @@ public class GitStatsTest {
     String relativePath1 = "./data/last_commit_hash.txt";
     String relativePath2 = "../commits/daily_commits.txt";
     GitStats testStats = new GitStats(relativePath1, relativePath2);
-    assertEquals(relativePath1, testStats.pathToStringValue);
+    assertEquals(relativePath1, testStats.pathToHash);
     assertEquals(relativePath2, testStats.pathToCounter);
   }
 
@@ -95,7 +95,7 @@ public class GitStatsTest {
     String absolutePath2 = "var/log/commits/daily_commits.txt";
     if (!System.getProperty("os.name").toLowerCase().contains("win")) {
       GitStats testStats = new GitStats(absolutePath1, absolutePath2);
-      assertEquals(absolutePath1, testStats.pathToStringValue);
+      assertEquals(absolutePath1, testStats.pathToHash);
       assertEquals(absolutePath2, testStats.pathToCounter);
     }
   }
@@ -107,11 +107,11 @@ public class GitStatsTest {
     String path2 = "file2.txt";
     GitStats testStats = new GitStats(path1, path2);
     assertNotSame(
-        testStats.pathToStringValue,
+        testStats.pathToHash,
         testStats.pathToCounter,
         "Paths should be different objects");
     assertNotEquals(
-        testStats.pathToStringValue, testStats.pathToCounter, "Paths should be different values");
+        testStats.pathToHash, testStats.pathToCounter, "Paths should be different values");
   }
 
   @Test
@@ -122,7 +122,7 @@ public class GitStatsTest {
     GitStats testStats = new GitStats(pathWithSpecialChars1, pathWithSpecialChars2);
     assertEquals(
         pathWithSpecialChars1,
-        testStats.pathToStringValue,
+        testStats.pathToHash,
         "Special characters in paths should be preserved");
     assertEquals(
         pathWithSpecialChars2,

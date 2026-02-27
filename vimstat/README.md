@@ -154,8 +154,8 @@ classDiagram
   }
 
   class GitStats {
-    - pathToStringValue: String 
-    + GitStats(pathToStringValue: String, pathToCounter: String)
+    - pathToHash: String 
+    + GitStats(pathToHash: String, pathToCounter: String)
     + getLastCommitHash() String 
     + write(hash: String) 
     + readStringValue() String
@@ -402,8 +402,8 @@ classDiagram
   }
 
   class GitStats {
-    - pathToStringValue: String 
-    + GitStats(pathToStringValue: String, pathToCounter: String)
+    - pathToHash: String 
+    + GitStats(pathToHash: String, pathToCounter: String)
     + getLastCommitHash() String 
     + write(hash: String) 
     + readStringValue() String

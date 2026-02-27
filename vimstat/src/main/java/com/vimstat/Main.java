@@ -102,7 +102,7 @@ public class Main {
     if (!instance.isFileExists(instance.pathToCounter)) {
       instance.write(0L);
     }
-    if (!instance.isFileExists(instance.pathToStringValue)) {
+    if (!instance.isFileExists(instance.pathToHash)) {
       instance.write("");
     }
   }

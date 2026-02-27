@@ -52,7 +52,7 @@ public abstract class Stats {
       return Long.parseLong(reader.readLine());
 
     } catch (IOException | NumberFormatException e) {
-      LOGGER.error(ERROR + " Reading long: " + e.getMessage());
+      LOGGER.error(ERROR + " Reading count: " + e.getMessage());
       return 0;
     }
   }
