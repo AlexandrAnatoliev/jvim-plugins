@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 /**
  * The class to get working stats
  *
- * @version 0.8.34
- * @since 34.02.2026
+ * @version 0.8.37
+ * @since 27.02.2026
  * @author AlexandrAnatoliev
  */
 public abstract class Stats {
@@ -33,7 +33,7 @@ public abstract class Stats {
    *
    * @param value Long value to write to file
    */
-  public void writeLongValue(Long value) {
+  public void writeValue(Long value) {
     try (FileWriter writer = new FileWriter(pathToLongValue)) {
       writer.write(value.toString());
     } catch (Exception e) {

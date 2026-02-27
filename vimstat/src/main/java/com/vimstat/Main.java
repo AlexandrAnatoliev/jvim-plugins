@@ -100,7 +100,7 @@ public class Main {
    */
   private static void initFileIsNotExist(GitStats instance) {
     if (!instance.isFileExists(instance.pathToLongValue)) {
-      instance.writeLongValue(0L);
+      instance.writeValue(0L);
     }
     if (!instance.isFileExists(instance.pathToStringValue)) {
       instance.writeStringValue("");
@@ -114,7 +114,7 @@ public class Main {
    */
   private static void initFileIsNotExist(TimeStats instance) {
     if (!instance.isFileExists(instance.pathToLongValue)) {
-      instance.writeLongValue(0L);
+      instance.writeValue(0L);
     }
   }
 
@@ -126,7 +126,7 @@ public class Main {
   private static void resetFileIfFirstSessionToday(GitStats instance) {
     LocalDate today = LocalDate.now();
     if (!today.equals(instance.getFileDate(instance.pathToLongValue))) {
-      instance.writeLongValue(0L);
+      instance.writeValue(0L);
     }
   }
 
@@ -138,7 +138,7 @@ public class Main {
   private static void resetFileIfFirstSessionToday(TimeStats instance) {
     LocalDate today = LocalDate.now();
     if (!today.equals(instance.getFileDate(instance.pathToLongValue))) {
-      instance.writeLongValue(0L);
+      instance.writeValue(0L);
     }
   }
 
@@ -155,7 +155,7 @@ public class Main {
       long noTodayValue = noTodayInstance.readLongValue();
 
       long emptyDays = ChronoUnit.DAYS.between(noToday, today);
-      averageInstance.writeLongValue(averageValue - (averageValue * emptyDays) / 30 + noTodayValue);
+      averageInstance.writeValue(averageValue - (averageValue * emptyDays) / 30 + noTodayValue);
     }
   }
 
@@ -185,20 +185,20 @@ public class Main {
     if (sessionTimeStats.isFileExists(TIME_SESSION_PATH)) {
       long pastDuration = sessionTimeStats.getSessionTime();
       long dayTime = dayTimeStats.readLongValue();
-      dayTimeStats.writeLongValue(dayTime + pastDuration);
+      dayTimeStats.writeValue(dayTime + pastDuration);
     }
-    sessionTimeStats.writeLongValue(System.currentTimeMillis() / 1000);
+    sessionTimeStats.writeValue(System.currentTimeMillis() / 1000);
 
     initFileIsNotExist(yesterdayTimeStats);
     initFileIsNotExist(monthTimeStats);
 
     if (!monthTimeStats.getFileDate(TIME_MONTH_PATH).equals(today)) {
       long yesterdayTime = monthTimeStats.readLongValue();
-      yesterdayTimeStats.writeLongValue(yesterdayTime);
+      yesterdayTimeStats.writeValue(yesterdayTime);
 
       long emptyDays = ChronoUnit.DAYS.between(monthTimeStats.getFileDate(TIME_MONTH_PATH), today);
       long monthTime = monthTimeStats.readLongValue() * (30 - emptyDays);
-      monthTimeStats.writeLongValue((monthTime + dayTimeStats.readLongValue()) / 30);
+      monthTimeStats.writeValue((monthTime + dayTimeStats.readLongValue()) / 30);
     }
 
     initFileIsNotExist(dayTimeStats);
@@ -218,13 +218,13 @@ public class Main {
 
     if (!lastHash.equals(savedHash)) {
       long savedDailyCommits = gitStats.readLongValue();
-      gitStats.writeLongValue(savedDailyCommits + 1L);
+      gitStats.writeValue(savedDailyCommits + 1L);
 
       long savedDailyCommitAddedLines = todayAddedLinesGitStats.readLongValue();
-      todayAddedLinesGitStats.writeLongValue(savedDailyCommitAddedLines + lastCommitAddedLines);
+      todayAddedLinesGitStats.writeValue(savedDailyCommitAddedLines + lastCommitAddedLines);
 
       long savedDailyCommitDeletedLines = todayDeletedLinesGitStats.readLongValue();
-      todayDeletedLinesGitStats.writeLongValue(
+      todayDeletedLinesGitStats.writeValue(
           savedDailyCommitDeletedLines + lastCommitDeletedLines);
     }
 
@@ -241,7 +241,7 @@ public class Main {
     long duration = sessionTimeStats.getSessionTime();
     long dayTime = dayTimeStats.readLongValue() + duration;
 
-    dayTimeStats.writeLongValue(dayTime);
+    dayTimeStats.writeValue(dayTime);
 
     long monthTime = monthTimeStats.readLongValue();
     long yesterdayTime = yesterdayTimeStats.readLongValue();

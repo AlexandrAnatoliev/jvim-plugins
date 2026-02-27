@@ -282,46 +282,46 @@ public class GitStatsTest {
   }
 
   @Test
-  @DisplayName("writeLongValue writes value to the file correctly")
+  @DisplayName("writeValue writes value to the file correctly")
   void testWriteDailyCommitsToFile() throws IOException {
     Long testValue = 123L;
-    stats.writeLongValue(testValue);
+    stats.writeValue(testValue);
     Long content = Long.parseLong(Files.readString(Paths.get(PATH_TO_DAILY_COMMITS)));
     assertEquals(testValue, content);
   }
 
   @Test
-  @DisplayName("writeLongValue error handling works for invalid paths")
+  @DisplayName("writeValue error handling works for invalid paths")
   void testWriteDailyCommitsToInvalidPath() {
     String invalidPath = "non_existent_directory/test.txt";
     GitStats invalidStats = new GitStats(PATH_TO_LAST_COMMIT_HASH, invalidPath);
-    assertDoesNotThrow(() -> invalidStats.writeLongValue(123L));
+    assertDoesNotThrow(() -> invalidStats.writeValue(123L));
   }
 
   @Test
-  @DisplayName("writeLongValue handles null values gracefully")
+  @DisplayName("writeValue handles null values gracefully")
   void testWriteNullToDailyCommitsFile() {
-    assertDoesNotThrow(() -> stats.writeLongValue(null));
+    assertDoesNotThrow(() -> stats.writeValue(null));
     assertTrue(Files.exists(Paths.get(PATH_TO_DAILY_COMMITS)));
   }
 
   @Test
-  @DisplayName("writeLongValue overwrites previous content with new value")
+  @DisplayName("writeValue overwrites previous content with new value")
   void testDailyCommitsFileOverwrite() throws IOException {
     Long firstValue = 123L;
     Long secondValue = 1234L;
-    stats.writeLongValue(firstValue);
-    stats.writeLongValue(secondValue);
+    stats.writeValue(firstValue);
+    stats.writeValue(secondValue);
     Long content = Long.parseLong(Files.readString(Paths.get(PATH_TO_DAILY_COMMITS)));
     assertEquals(secondValue, content);
     assertNotEquals(firstValue, content);
   }
 
   @Test
-  @DisplayName("writeLongValue and readLongValue " + "write and read from the file correctly")
+  @DisplayName("writeValue and readLongValue " + "write and read from the file correctly")
   void testWriteAndReadDailyCommits() throws IOException {
     Long testValue = 123L;
-    stats.writeLongValue(testValue);
+    stats.writeValue(testValue);
     Long content = stats.readLongValue();
     assertEquals(testValue, content);
   }
