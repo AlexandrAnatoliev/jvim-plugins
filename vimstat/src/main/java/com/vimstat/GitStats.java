@@ -53,7 +53,7 @@ public class GitStats extends Stats {
       String content = (hash == null) ? "" : hash;
       Files.writeString(Paths.get(pathToHash), content);
     } catch (Exception e) {
-      LOGGER.error(ERROR + " Writing string: " + e.getMessage());
+      LOGGER.error(ERROR + " Writing hash: " + e.getMessage());
     }
   }
 
@@ -66,7 +66,7 @@ public class GitStats extends Stats {
     try {
       return Files.readString(Paths.get(this.pathToHash));
     } catch (Exception e) {
-      LOGGER.error(ERROR + " Reading string: " + e.getMessage());
+      LOGGER.error(ERROR + " Reading hash: " + e.getMessage());
       return "";
     }
   }
