@@ -148,7 +148,7 @@ classDiagram
     - LOGGER: Logger
     + Stats(pathToCounter: String)
     + write(count: Long )
-    + readLongValue() long 
+    + readCount() long 
     + getFileDate(pathToFile: String) LocalDate
     + isFileExists(pathToFile: String) boolean 
   }
@@ -396,7 +396,7 @@ classDiagram
     - LOGGER: Logger
     + Stats(pathToCounter: String)
     + write(count: Long )
-    + readLongValue() long 
+    + readCount() long 
     + getFileDate(pathToFile: String) LocalDate
     + isFileExists(pathToFile: String) boolean 
   }

@@ -13,8 +13,8 @@ import org.junit.jupiter.api.*;
  * <p>Tests file operations, session time calculation, and edge cases Uses temporary file that is
  * cleaned up after each test
  *
- * @version 0.8.28
- * @since 15.02.2026
+ * @version 0.8.37
+ * @since 37.02.2026
  * @author AlexandrAnatoliev
  */
 public class TimeStatsTest {
@@ -73,7 +73,7 @@ public class TimeStatsTest {
   }
 
   /**
-   * Tests write() and readLongValue() methods Verifies that written value can be
+   * Tests write() and readCount() methods Verifies that written value can be
    * successfully read back
    */
   @Test
@@ -81,23 +81,23 @@ public class TimeStatsTest {
     long expectedValue = 123456789L;
     timeStats.write(expectedValue);
 
-    long actualValue = timeStats.readLongValue();
+    long actualValue = timeStats.readCount();
     assertEquals(expectedValue, actualValue);
   }
 
   /**
-   * Tests readLongValue() method when file does not exist Verifies that method returns 0 as default
+   * Tests readCount() method when file does not exist Verifies that method returns 0 as default
    * value
    */
   @Test
   void testReadFromFileWhenFileDoesNotExist() {
     timeStats.deleteFile();
-    long actualValue = timeStats.readLongValue();
+    long actualValue = timeStats.readCount();
     assertEquals(0L, actualValue);
   }
 
   /**
-   * Tests readLongValue() method with invalid data in file Verifies that non-numeric data is
+   * Tests readCount() method with invalid data in file Verifies that non-numeric data is
    * handled gracefully
    *
    * @throws IOException if file writing fails
@@ -106,7 +106,7 @@ public class TimeStatsTest {
   void testReadFromFileWithInvalidData() throws IOException {
     Files.write(Paths.get(TEST_FILE_PATH), "Invalid_data".getBytes());
 
-    long actualValue = timeStats.readLongValue();
+    long actualValue = timeStats.readCount();
     assertEquals(0L, actualValue);
   }
 
@@ -119,7 +119,7 @@ public class TimeStatsTest {
     timeStats.write(100L);
     timeStats.write(200L);
 
-    long actualValue = timeStats.readLongValue();
+    long actualValue = timeStats.readCount();
     assertEquals(200L, actualValue);
   }
 
@@ -131,7 +131,7 @@ public class TimeStatsTest {
   void testWriteToFileWithNull() {
     timeStats.write(null);
 
-    long actualValue = timeStats.readLongValue();
+    long actualValue = timeStats.readCount();
     assertNotNull(actualValue);
   }
 
@@ -166,7 +166,7 @@ public class TimeStatsTest {
 
     try {
       customTimeStats.write(999L);
-      long count = customTimeStats.readLongValue();
+      long count = customTimeStats.readCount();
       assertEquals(999L, count);
     } finally {
       new File(customPath).delete();

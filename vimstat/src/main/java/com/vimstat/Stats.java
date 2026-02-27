@@ -31,22 +31,22 @@ public abstract class Stats {
   /**
    * Writes count value to temporary file
    *
-   * @param count Long value to write to file
+   * @param count to write to file
    */
   public void write(Long count) {
     try (FileWriter writer = new FileWriter(pathToCounter)) {
       writer.write(count.toString());
     } catch (Exception e) {
-      LOGGER.error(ERROR + " Writing long: " + e.getMessage());
+      LOGGER.error(ERROR + " Writing count: " + e.getMessage());
     }
   }
 
   /**
    * Reads count value from temporary file
    *
-   * @return Long count value from file, Or 0 if file does not exist or contains invalid data
+   * @return count value from file, Or 0 if file does not exist or contains invalid data
    */
-  public long readLongValue() {
+  public long readCount() {
     try (BufferedReader reader = new BufferedReader(new FileReader(this.pathToCounter))) {
 
       return Long.parseLong(reader.readLine());

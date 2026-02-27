@@ -11,7 +11,7 @@ import java.time.temporal.ChronoUnit;
  * <p>Usage: java Main start - erases information from temporary files, and starts to calculate
  * stats java Main update - update stats java Main stop - print stats
  *
- * @version 0.8.36
+ * @version 0.8.37
  * @since 27.02.2026
  * @author AlexandrAnatoliev
  */
@@ -151,8 +151,8 @@ public class Main {
     LocalDate today = LocalDate.now();
     LocalDate noToday = noTodayInstance.getFileDate(noTodayInstance.pathToCounter);
     if (!noToday.equals(today)) {
-      long averageValue = averageInstance.readLongValue();
-      long noTodayValue = noTodayInstance.readLongValue();
+      long averageValue = averageInstance.readCount();
+      long noTodayValue = noTodayInstance.readCount();
 
       long emptyDays = ChronoUnit.DAYS.between(noToday, today);
       averageInstance.write(averageValue - (averageValue * emptyDays) / 30 + noTodayValue);
@@ -186,7 +186,7 @@ public class Main {
 
     if (sessionTimeStats.isFileExists(TIME_SESSION_PATH)) {
       long pastDuration = sessionTimeStats.getSessionTime();
-      long dayTime = dayTimeStats.readLongValue();
+      long dayTime = dayTimeStats.readCount();
       dayTimeStats.write(dayTime + pastDuration);
     }
     sessionTimeStats.write(System.currentTimeMillis() / 1000);
@@ -195,12 +195,12 @@ public class Main {
     initFileIsNotExist(monthTimeStats);
 
     if (!monthTimeStats.getFileDate(TIME_MONTH_PATH).equals(today)) {
-      long yesterdayTime = monthTimeStats.readLongValue();
+      long yesterdayTime = monthTimeStats.readCount();
       yesterdayTimeStats.write(yesterdayTime);
 
       long emptyDays = ChronoUnit.DAYS.between(monthTimeStats.getFileDate(TIME_MONTH_PATH), today);
-      long monthTime = monthTimeStats.readLongValue() * (30 - emptyDays);
-      monthTimeStats.write((monthTime + dayTimeStats.readLongValue()) / 30);
+      long monthTime = monthTimeStats.readCount() * (30 - emptyDays);
+      monthTimeStats.write((monthTime + dayTimeStats.readCount()) / 30);
     }
 
     initFileIsNotExist(dayTimeStats);
@@ -219,13 +219,13 @@ public class Main {
     long lastCommitDeletedLines = dayDeletedLinesGitStats.getLastCommitLines("deleted");
 
     if (!lastHash.equals(savedHash)) {
-      long savedDailyCommits = dayGitStats.readLongValue();
+      long savedDailyCommits = dayGitStats.readCount();
       dayGitStats.write(savedDailyCommits + 1L);
 
-      long savedDailyCommitAddedLines = dayAddedLinesGitStats.readLongValue();
+      long savedDailyCommitAddedLines = dayAddedLinesGitStats.readCount();
       dayAddedLinesGitStats.write(savedDailyCommitAddedLines + lastCommitAddedLines);
 
-      long savedDailyCommitDeletedLines = dayDeletedLinesGitStats.readLongValue();
+      long savedDailyCommitDeletedLines = dayDeletedLinesGitStats.readCount();
       dayDeletedLinesGitStats.write(
           savedDailyCommitDeletedLines + lastCommitDeletedLines);
     }
@@ -241,12 +241,12 @@ public class Main {
     initTimeStatsInstances();
 
     long duration = sessionTimeStats.getSessionTime();
-    long dayTime = dayTimeStats.readLongValue() + duration;
+    long dayTime = dayTimeStats.readCount() + duration;
 
     dayTimeStats.write(dayTime);
 
-    long monthTime = monthTimeStats.readLongValue();
-    long yesterdayTime = yesterdayTimeStats.readLongValue();
+    long monthTime = monthTimeStats.readCount();
+    long yesterdayTime = yesterdayTimeStats.readCount();
 
     long dayHours = dayTime / 3600;
     long dayMinutes = (dayTime % 3600) / 60;
@@ -282,13 +282,13 @@ public class Main {
 
     sessionTimeStats.deleteFile();
 
-    long savedDailyCommits = dayGitStats.readLongValue();
-    long savedDailyCommitAddedLines = dayAddedLinesGitStats.readLongValue();
-    long savedDailyCommitDeletedLines = dayDeletedLinesGitStats.readLongValue();
+    long savedDailyCommits = dayGitStats.readCount();
+    long savedDailyCommitAddedLines = dayAddedLinesGitStats.readCount();
+    long savedDailyCommitDeletedLines = dayDeletedLinesGitStats.readCount();
 
-    long averageCommits = averageCommitGitStats.readLongValue();
-    long averageAddedLines = averageAddedLinesGitStats.readLongValue();
-    long averageDeletedLines = averageDeletedLinesGitStats.readLongValue();
+    long averageCommits = averageCommitGitStats.readCount();
+    long averageAddedLines = averageAddedLinesGitStats.readCount();
+    long averageDeletedLines = averageDeletedLinesGitStats.readCount();
 
     String dailyFormat =
         "    - today:   %2d commits "

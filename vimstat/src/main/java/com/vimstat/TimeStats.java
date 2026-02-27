@@ -8,8 +8,8 @@ import java.io.*;
  * <p>The class provides methods for reading start time from temporary file, calculates running
  * duration, and managing the temporary file.
  *
- * @version 0.8.34
- * @since 22.02.2026
+ * @version 0.8.37
+ * @since 27.02.2026
  * @author AlexandrAnatoliev
  */
 public class TimeStats extends Stats {
@@ -30,7 +30,7 @@ public class TimeStats extends Stats {
    * @return Duration in seconds, or 0 if start time 0
    */
   public long getSessionTime() {
-    long startTime = readLongValue();
+    long startTime = readCount();
 
     if (startTime == 0) {
       return 0;
