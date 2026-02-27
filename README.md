@@ -7,7 +7,7 @@
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.8.35](https://img.shields.io/badge/Version-0.8.35-orange.svg)
+  ![Version 0.8.36](https://img.shields.io/badge/Version-0.8.36-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -136,11 +136,10 @@ Designed for self-monitoring and productivity.
     =======================================
                     Vim stats:
     ---------------------------------------
-    - session:           0 h  0 min  2 sec
-    - today:             1 h 45 min 15 sec
-    - average:           0 h 34 min 34 sec
-    - today:    0 commits   441++    192-- 
-    - average:  0 commits     0++      0-- 
+    - today:             0 h 23 min 31 sec
+    - average:           0 h 37 min 10 sec
+    - today:    1 commits   100++    105--
+    - average:  0 commits    23++     10--
     =======================================
 ```
 
@@ -345,7 +344,7 @@ or reach out to me at per-1986@list.ru.
 
   [![EN](https://img.shields.io/badge/English-🇬🇧-blue)](#english)
   [![RU](https://img.shields.io/badge/Русский-🇷🇺-red)](#russian)
-  ![Version 0.8.35](https://img.shields.io/badge/Version-0.8.35-orange.svg)
+  ![Version 0.8.36](https://img.shields.io/badge/Version-0.8.36-orange.svg)
   ![Stars](https://img.shields.io/github/stars/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![Forks](https://img.shields.io/github/forks/AlexandrAnatoliev/jvim-plugins.svg?style=flat)
   ![GitHub repo size](https://img.shields.io/github/repo-size/AlexandrAnatoliev/jvim-plugins)
@@ -465,11 +464,10 @@ jvim-plugins
     =======================================
                     Vim stats:
     ---------------------------------------
-    - session:           0 h  0 min  2 sec
-    - today:             1 h 45 min 15 sec
-    - average:           0 h 34 min 34 sec
-    - today:    0 commits   441++    192-- 
-    - average:  0 commits     0++      0-- 
+    - today:             0 h 23 min 31 sec
+    - average:           0 h 37 min 10 sec
+    - today:    1 commits   100++    105--
+    - average:  0 commits    23++     10--
     =======================================
 ```
 

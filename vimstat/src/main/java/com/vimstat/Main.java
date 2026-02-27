@@ -11,8 +11,8 @@ import java.time.temporal.ChronoUnit;
  * <p>Usage: java Main start - erases information from temporary files, and starts to calculate
  * stats java Main update - update stats java Main stop - print stats
  *
- * @version 0.8.35
- * @since 26.02.2026
+ * @version 0.8.36
+ * @since 27.02.2026
  * @author AlexandrAnatoliev
  */
 public class Main {
@@ -256,10 +256,6 @@ public class Main {
     long monthTime = monthTimeStats.readLongValue();
     long yesterdayTime = yesterdayTimeStats.readLongValue();
 
-    long sessionHours = duration / 3600;
-    long sessionMinutes = (duration % 3600) / 60;
-    long sessionSeconds = duration % 60;
-
     long dayHours = dayTime / 3600;
     long dayMinutes = (dayTime % 3600) / 60;
     long daySeconds = dayTime % 60;
@@ -274,10 +270,9 @@ public class Main {
                     =======================================
                                     Vim stats:
                     ---------------------------------------
-                    - session:          %2d h %2d min %2d sec
                     - today:            %2d h %2d min %2d sec
                 """,
-        sessionHours, sessionMinutes, sessionSeconds, dayHours, dayMinutes, daySeconds);
+        dayHours, dayMinutes, daySeconds);
 
     if (monthTime > yesterdayTime || dayTime > yesterdayTime) {
       System.out.printf(
@@ -287,7 +282,7 @@ public class Main {
           monthSeconds);
     } else {
       System.out.printf(
-          Colors.RED.apply("    - average:         %2d h %2d min %2d sec%n"),
+          Colors.RED.apply("    - average:          %2d h %2d min %2d sec%n"),
           monthHours,
           monthMinutes,
           monthSeconds);
@@ -316,7 +311,7 @@ public class Main {
     System.out.printf(
         dailyFormat, savedDailyCommits, savedDailyCommitAddedLines, savedDailyCommitDeletedLines);
     System.out.printf(
-        averageFormat, averageCommits / 30, averageAddedLines / 30, averageDeletedLines);
+        averageFormat, averageCommits / 30, averageAddedLines / 30, averageDeletedLines / 30);
     System.out.println("    =======================================");
   }
 }
