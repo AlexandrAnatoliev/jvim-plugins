@@ -136,11 +136,10 @@ Designed for self-monitoring and productivity.
     =======================================
                     Vim stats:
     ---------------------------------------
-    - session:           0 h  0 min  2 sec
-    - today:             1 h 45 min 15 sec
-    - average:           0 h 34 min 34 sec
-    - today:    0 commits   441++    192-- 
-    - average:  0 commits     0++      0-- 
+    - today:             0 h 23 min 31 sec
+    - average:           0 h 37 min 10 sec
+    - today:    1 commits   100++    105--
+    - average:  0 commits    23++     10--
     =======================================
 ```
 
@@ -465,11 +464,10 @@ jvim-plugins
     =======================================
                     Vim stats:
     ---------------------------------------
-    - session:           0 h  0 min  2 sec
-    - today:             1 h 45 min 15 sec
-    - average:           0 h 34 min 34 sec
-    - today:    0 commits   441++    192-- 
-    - average:  0 commits     0++      0-- 
+    - today:             0 h 23 min 31 sec
+    - average:           0 h 37 min 10 sec
+    - today:    1 commits   100++    105--
+    - average:  0 commits    23++     10--
     =======================================
 ```
 
