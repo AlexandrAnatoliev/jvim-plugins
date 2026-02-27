@@ -166,8 +166,8 @@ public class TimeStatsTest {
 
     try {
       customTimeStats.write(999L);
-      long value = customTimeStats.readLongValue();
-      assertEquals(999L, value);
+      long count = customTimeStats.readLongValue();
+      assertEquals(999L, count);
     } finally {
       new File(customPath).delete();
     }

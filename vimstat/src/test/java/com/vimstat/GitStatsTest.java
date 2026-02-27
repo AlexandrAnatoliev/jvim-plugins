@@ -275,7 +275,7 @@ public class GitStatsTest {
   }
 
   @Test
-  @DisplayName("write writes value to the file correctly")
+  @DisplayName("write writes count to the file correctly")
   void testWriteDailyCommitsToFile() throws IOException {
     Long testValue = 123L;
     stats.write(testValue);

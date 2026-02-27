@@ -31,20 +31,20 @@ public abstract class Stats {
   /**
    * Writes count value to temporary file
    *
-   * @param value Long value to write to file
+   * @param count Long value to write to file
    */
-  public void write(Long value) {
+  public void write(Long count) {
     try (FileWriter writer = new FileWriter(pathToCounter)) {
-      writer.write(value.toString());
+      writer.write(count.toString());
     } catch (Exception e) {
       LOGGER.error(ERROR + " Writing long: " + e.getMessage());
     }
   }
 
   /**
-   * Reads long value from temporary file
+   * Reads count value from temporary file
    *
-   * @return Long value from file, Or 0 if file does not exist or contains invalid data
+   * @return Long count value from file, Or 0 if file does not exist or contains invalid data
    */
   public long readLongValue() {
     try (BufferedReader reader = new BufferedReader(new FileReader(this.pathToCounter))) {
