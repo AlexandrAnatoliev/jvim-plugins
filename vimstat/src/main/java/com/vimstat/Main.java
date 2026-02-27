@@ -256,10 +256,6 @@ public class Main {
     long monthTime = monthTimeStats.readLongValue();
     long yesterdayTime = yesterdayTimeStats.readLongValue();
 
-    long sessionHours = duration / 3600;
-    long sessionMinutes = (duration % 3600) / 60;
-    long sessionSeconds = duration % 60;
-
     long dayHours = dayTime / 3600;
     long dayMinutes = (dayTime % 3600) / 60;
     long daySeconds = dayTime % 60;
@@ -274,10 +270,9 @@ public class Main {
                     =======================================
                                     Vim stats:
                     ---------------------------------------
-                    - session:          %2d h %2d min %2d sec
                     - today:            %2d h %2d min %2d sec
                 """,
-        sessionHours, sessionMinutes, sessionSeconds, dayHours, dayMinutes, daySeconds);
+        dayHours, dayMinutes, daySeconds);
 
     if (monthTime > yesterdayTime || dayTime > yesterdayTime) {
       System.out.printf(
@@ -287,7 +282,7 @@ public class Main {
           monthSeconds);
     } else {
       System.out.printf(
-          Colors.RED.apply("    - average:         %2d h %2d min %2d sec%n"),
+          Colors.RED.apply("    - average:          %2d h %2d min %2d sec%n"),
           monthHours,
           monthMinutes,
           monthSeconds);
