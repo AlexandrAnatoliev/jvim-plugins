@@ -99,7 +99,7 @@ public class Main {
    * @param GitStats instance
    */
   private static void initFileIsNotExist(GitStats instance) {
-    if (!instance.isFileExists(instance.pathToLongValue)) {
+    if (!instance.isFileExists(instance.pathToCounter)) {
       instance.writeValue(0L);
     }
     if (!instance.isFileExists(instance.pathToStringValue)) {
@@ -113,7 +113,7 @@ public class Main {
    * @param TimeStats instance
    */
   private static void initFileIsNotExist(TimeStats instance) {
-    if (!instance.isFileExists(instance.pathToLongValue)) {
+    if (!instance.isFileExists(instance.pathToCounter)) {
       instance.writeValue(0L);
     }
   }
@@ -125,7 +125,7 @@ public class Main {
    */
   private static void resetFileIfFirstSessionToday(GitStats instance) {
     LocalDate today = LocalDate.now();
-    if (!today.equals(instance.getFileDate(instance.pathToLongValue))) {
+    if (!today.equals(instance.getFileDate(instance.pathToCounter))) {
       instance.writeValue(0L);
     }
   }
@@ -137,7 +137,7 @@ public class Main {
    */
   private static void resetFileIfFirstSessionToday(TimeStats instance) {
     LocalDate today = LocalDate.now();
-    if (!today.equals(instance.getFileDate(instance.pathToLongValue))) {
+    if (!today.equals(instance.getFileDate(instance.pathToCounter))) {
       instance.writeValue(0L);
     }
   }
@@ -149,7 +149,7 @@ public class Main {
    */
   private static void updateAverageValue(GitStats noTodayInstance, GitStats averageInstance) {
     LocalDate today = LocalDate.now();
-    LocalDate noToday = noTodayInstance.getFileDate(noTodayInstance.pathToLongValue);
+    LocalDate noToday = noTodayInstance.getFileDate(noTodayInstance.pathToCounter);
     if (!noToday.equals(today)) {
       long averageValue = averageInstance.readLongValue();
       long noTodayValue = noTodayInstance.readLongValue();
@@ -163,7 +163,7 @@ public class Main {
   public static void start() {
     initTimeStatsInstances();
     initGitStatsInstances();
-    // TODO убрать?
+
     LocalDate today = LocalDate.now();
 
     initFileIsNotExist(dayGitStats);
@@ -174,10 +174,12 @@ public class Main {
     initFileIsNotExist(averageAddedLinesGitStats);
     initFileIsNotExist(averageDeletedLinesGitStats);
 
+// TODO if new day
     updateAverageValue(dayGitStats, averageCommitGitStats);
     updateAverageValue(dayAddedLinesGitStats, averageAddedLinesGitStats);
     updateAverageValue(dayDeletedLinesGitStats, averageDeletedLinesGitStats);
 
+// TODO if new day
     resetFileIfFirstSessionToday(dayGitStats);
     resetFileIfFirstSessionToday(dayAddedLinesGitStats);
     resetFileIfFirstSessionToday(dayDeletedLinesGitStats);

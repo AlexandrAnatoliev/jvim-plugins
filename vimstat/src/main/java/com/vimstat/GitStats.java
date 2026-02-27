@@ -6,8 +6,8 @@ import java.util.Scanner;
 /**
  * The class to get git stats
  *
- * @version 0.8.34
- * @since 24.02.2026
+ * @version 0.8.37
+ * @since 27.02.2026
  * @author AlexandrAnatoliev
  */
 public class GitStats extends Stats {
@@ -18,8 +18,8 @@ public class GitStats extends Stats {
    *
    * @param pathToStringValue Path to temporary file for String value storage
    */
-  public GitStats(String pathToStringValue, String pathToLongValue) {
-    super(pathToLongValue);
+  public GitStats(String pathToStringValue, String pathToCounter) {
+    super(pathToCounter);
     this.pathToStringValue = pathToStringValue;
   }
 

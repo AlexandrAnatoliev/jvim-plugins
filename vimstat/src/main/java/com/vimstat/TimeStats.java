@@ -17,10 +17,10 @@ public class TimeStats extends Stats {
   /**
    * TimeStats class constructor
    *
-   * @param pathToLongValue - path to temporary file for store of value
+   * @param pathToCounter - path to temporary file for store of count value
    */
-  public TimeStats(String pathToLongValue) {
-    super(pathToLongValue);
+  public TimeStats(String pathToCounter) {
+    super(pathToCounter);
   }
 
   /**
@@ -43,7 +43,7 @@ public class TimeStats extends Stats {
 
   /** Deletes temporary file */
   public void deleteFile() {
-    boolean result = new File(this.pathToLongValue).delete();
+    boolean result = new File(this.pathToCounter).delete();
     if (!result) {
       LOGGER.error(ERROR + " Deleting file");
     }

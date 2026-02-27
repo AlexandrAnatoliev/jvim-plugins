@@ -143,10 +143,10 @@ $ vim example.md
 classDiagram
 
   class Stats {
-    - pathToLongValue: String 
+    - pathToCounter: String 
     - ERROR: String 
     - LOGGER: Logger
-    + Stats(pathToLongValue: String)
+    + Stats(pathToCounter: String)
     + writeValue(value: Long )
     + readLongValue() long 
     + getFileDate(pathToFile: String) LocalDate
@@ -155,7 +155,7 @@ classDiagram
 
   class GitStats {
     - pathToStringValue: String 
-    + GitStats(pathToStringValue: String, pathToLongValue: String)
+    + GitStats(pathToStringValue: String, pathToCounter: String)
     + getLastCommitHash() String 
     + writeValue(hash: String) 
     + readStringValue() String
@@ -163,7 +163,7 @@ classDiagram
   }
 
   class TimeStats {
-    + TimeStats(pathToLongValue: String)
+    + TimeStats(pathToCounter: String)
     + getSessionTime(): long 
     + deleteFile() 
   }
@@ -391,10 +391,10 @@ $ vim example.md
 classDiagram
 
   class Stats {
-    - pathToLongValue: String 
+    - pathToCounter: String 
     - ERROR: String 
     - LOGGER: Logger
-    + Stats(pathToLongValue: String)
+    + Stats(pathToCounter: String)
     + writeValue(value: Long )
     + readLongValue() long 
     + getFileDate(pathToFile: String) LocalDate
@@ -403,7 +403,7 @@ classDiagram
 
   class GitStats {
     - pathToStringValue: String 
-    + GitStats(pathToStringValue: String, pathToLongValue: String)
+    + GitStats(pathToStringValue: String, pathToCounter: String)
     + getLastCommitHash() String 
     + writeValue(hash: String) 
     + readStringValue() String
@@ -411,7 +411,7 @@ classDiagram
   }
 
   class TimeStats {
-    + TimeStats(pathToLongValue: String)
+    + TimeStats(pathToCounter: String)
     + getSessionTime(): long 
     + deleteFile() 
   }
