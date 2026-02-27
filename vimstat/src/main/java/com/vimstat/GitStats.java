@@ -16,7 +16,7 @@ public class GitStats extends Stats {
   /**
    * GitStats class constructor
    *
-   * @param pathToHash Path to temporary file for hash value storage
+   * @param pathToHash Path to temporary file for hash storage
    */
   public GitStats(String pathToHash, String pathToCounter) {
     super(pathToCounter);
@@ -58,11 +58,11 @@ public class GitStats extends Stats {
   }
 
   /**
-   * Reads string value from temporary file
+   * Reads hash from temporary file
    *
-   * @return String value from file
+   * @return hash from file
    */
-  public String readStringValue() {
+  public String readHash() {
     try {
       return Files.readString(Paths.get(this.pathToHash));
     } catch (Exception e) {

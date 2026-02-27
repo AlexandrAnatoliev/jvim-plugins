@@ -228,49 +228,49 @@ public class GitStatsTest {
 
   @Test
   @DisplayName(
-      "write and readStringValue " + "write and read hash correctly from the file")
+      "write and readHash " + "write and read hash correctly from the file")
   void testWriteAndReadHash() throws IOException {
     String testHash = "0123456789abcdef";
     stats.write(testHash);
-    String content = stats.readStringValue();
+    String content = stats.readHash();
     assertEquals(testHash, content);
   }
 
   @Test
   @DisplayName(
-      "write and readStringValue "
+      "write and readHash "
           + " write and read empty string correctly from the file")
   void testWriteAndReadEmptyString() throws IOException {
     String emptyString = "";
     stats.write(emptyString);
-    String content = stats.readStringValue();
+    String content = stats.readHash();
     assertEquals(emptyString, content);
   }
 
   @Test
-  @DisplayName("readStringValue error handling works for invalid paths")
+  @DisplayName("readHash error handling works for invalid paths")
   void testReadHashFromInvalidPath() {
     String invalidPath = "non_existent_directory/test.txt";
     GitStats invalidStats = new GitStats(invalidPath, PATH_TO_DAILY_COMMITS);
-    assertDoesNotThrow(() -> invalidStats.readStringValue());
+    assertDoesNotThrow(() -> invalidStats.readHash());
   }
 
   @Test
-  @DisplayName("readStringValue empty file reading are handled gracefully")
+  @DisplayName("readHash empty file reading are handled gracefully")
   void testReadEmptyHashFile() {
     assertDoesNotThrow(
         () -> {
           new File(PATH_TO_LAST_COMMIT_HASH).createNewFile();
-          String result = stats.readStringValue();
+          String result = stats.readHash();
           assertEquals("", result);
         });
   }
 
   @Test
-  @DisplayName("Tests readStringValue() returns empty string " + "when file does not exist")
+  @DisplayName("Tests readHash() returns empty string " + "when file does not exist")
   void testReadHashFromFileWhenFileDoesNotExist() throws IOException {
     Files.deleteIfExists(Paths.get(PATH_TO_LAST_COMMIT_HASH));
-    String actualValue = stats.readStringValue();
+    String actualValue = stats.readHash();
     assertEquals("", actualValue);
   }
 

@@ -158,7 +158,7 @@ classDiagram
     + GitStats(pathToHash: String, pathToCounter: String)
     + getLastCommitHash() String 
     + write(hash: String) 
-    + readStringValue() String
+    + readHash() String
     + getLastCommitLines(command: String) long
   }
 
@@ -406,7 +406,7 @@ classDiagram
     + GitStats(pathToHash: String, pathToCounter: String)
     + getLastCommitHash() String 
     + write(hash: String) 
-    + readStringValue() String
+    + readHash() String
     + getLastCommitLines(command: String) long
   }
 

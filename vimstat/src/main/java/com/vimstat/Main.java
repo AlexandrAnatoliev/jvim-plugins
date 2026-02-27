@@ -213,7 +213,7 @@ public class Main {
   public static void update() {
     initGitStatsInstances();
 
-    String savedHash = dayGitStats.readStringValue();
+    String savedHash = dayGitStats.readHash();
     String lastHash = dayGitStats.getLastCommitHash();
     long lastCommitAddedLines = dayAddedLinesGitStats.getLastCommitLines("added");
     long lastCommitDeletedLines = dayDeletedLinesGitStats.getLastCommitLines("deleted");
