@@ -174,12 +174,12 @@ public class Main {
     initFileIsNotExist(averageAddedLinesGitStats);
     initFileIsNotExist(averageDeletedLinesGitStats);
 
-// TODO if new day
+    // TODO if new day
     updateAverageValue(dayGitStats, averageCommitGitStats);
     updateAverageValue(dayAddedLinesGitStats, averageAddedLinesGitStats);
     updateAverageValue(dayDeletedLinesGitStats, averageDeletedLinesGitStats);
 
-// TODO if new day
+    // TODO if new day
     resetFileIfFirstSessionToday(dayGitStats);
     resetFileIfFirstSessionToday(dayAddedLinesGitStats);
     resetFileIfFirstSessionToday(dayDeletedLinesGitStats);
@@ -226,8 +226,7 @@ public class Main {
       dayAddedLinesGitStats.write(savedDailyCommitAddedLines + lastCommitAddedLines);
 
       long savedDailyCommitDeletedLines = dayDeletedLinesGitStats.readCount();
-      dayDeletedLinesGitStats.write(
-          savedDailyCommitDeletedLines + lastCommitDeletedLines);
+      dayDeletedLinesGitStats.write(savedDailyCommitDeletedLines + lastCommitDeletedLines);
     }
 
     dayGitStats.write(lastHash);

@@ -107,9 +107,7 @@ public class GitStatsTest {
     String path2 = "file2.txt";
     GitStats testStats = new GitStats(path1, path2);
     assertNotSame(
-        testStats.pathToHash,
-        testStats.pathToCounter,
-        "Paths should be different objects");
+        testStats.pathToHash, testStats.pathToCounter, "Paths should be different objects");
     assertNotEquals(
         testStats.pathToHash, testStats.pathToCounter, "Paths should be different values");
   }
@@ -227,8 +225,7 @@ public class GitStatsTest {
   }
 
   @Test
-  @DisplayName(
-      "write and readHash " + "write and read hash correctly from the file")
+  @DisplayName("write and readHash " + "write and read hash correctly from the file")
   void testWriteAndReadHash() throws IOException {
     String testHash = "0123456789abcdef";
     stats.write(testHash);
@@ -237,9 +234,7 @@ public class GitStatsTest {
   }
 
   @Test
-  @DisplayName(
-      "write and readHash "
-          + " write and read empty string correctly from the file")
+  @DisplayName("write and readHash " + " write and read empty string correctly from the file")
   void testWriteAndReadEmptyString() throws IOException {
     String emptyString = "";
     stats.write(emptyString);

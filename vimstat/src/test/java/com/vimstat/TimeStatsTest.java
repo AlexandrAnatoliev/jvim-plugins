@@ -73,8 +73,7 @@ public class TimeStatsTest {
   }
 
   /**
-   * Tests write() and readCount() methods Verifies that written value can be
-   * successfully read back
+   * Tests write() and readCount() methods Verifies that written value can be successfully read back
    */
   @Test
   void testWriteToFileAndReadFromFile() {
@@ -97,8 +96,8 @@ public class TimeStatsTest {
   }
 
   /**
-   * Tests readCount() method with invalid data in file Verifies that non-numeric data is
-   * handled gracefully
+   * Tests readCount() method with invalid data in file Verifies that non-numeric data is handled
+   * gracefully
    *
    * @throws IOException if file writing fails
    */
@@ -111,8 +110,8 @@ public class TimeStatsTest {
   }
 
   /**
-   * Tests that write() method overwrites previous content Verifies that only the last
-   * written value is preserved
+   * Tests that write() method overwrites previous content Verifies that only the last written value
+   * is preserved
    */
   @Test
   void testWriteToFileOverwritesPreviousContent() {
@@ -123,10 +122,7 @@ public class TimeStatsTest {
     assertEquals(200L, actualValue);
   }
 
-  /**
-   * Tests write() method with null value Verifies that null input is handled without
-   * exceptions
-   */
+  /** Tests write() method with null value Verifies that null input is handled without exceptions */
   @Test
   void testWriteToFileWithNull() {
     timeStats.write(null);
