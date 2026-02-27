@@ -143,27 +143,27 @@ $ vim example.md
 classDiagram
 
   class Stats {
-    - pathToLongValue: String 
+    - pathToCounter: String 
     - ERROR: String 
     - LOGGER: Logger
-    + Stats(pathToLongValue: String)
-    + writeLongValue(value: Long )
-    + readLongValue() long 
+    + Stats(pathToCounter: String)
+    + write(count: Long )
+    + readCount() long 
     + getFileDate(pathToFile: String) LocalDate
     + isFileExists(pathToFile: String) boolean 
   }
 
   class GitStats {
-    - pathToStringValue: String 
-    + GitStats(pathToStringValue: String, pathToLongValue: String)
+    - pathToHash: String 
+    + GitStats(pathToHash: String, pathToCounter: String)
     + getLastCommitHash() String 
-    + writeStringValue(hash: String) 
-    + readStringValue() String
+    + write(hash: String) 
+    + readHash() String
     + getLastCommitLines(command: String) long
   }
 
   class TimeStats {
-    + TimeStats(pathToLongValue: String)
+    + TimeStats(pathToCounter: String)
     + getSessionTime(): long 
     + deleteFile() 
   }
@@ -391,27 +391,27 @@ $ vim example.md
 classDiagram
 
   class Stats {
-    - pathToLongValue: String 
+    - pathToCounter: String 
     - ERROR: String 
     - LOGGER: Logger
-    + Stats(pathToLongValue: String)
-    + writeLongValue(value: Long )
-    + readLongValue() long 
+    + Stats(pathToCounter: String)
+    + write(count: Long )
+    + readCount() long 
     + getFileDate(pathToFile: String) LocalDate
     + isFileExists(pathToFile: String) boolean 
   }
 
   class GitStats {
-    - pathToStringValue: String 
-    + GitStats(pathToStringValue: String, pathToLongValue: String)
+    - pathToHash: String 
+    + GitStats(pathToHash: String, pathToCounter: String)
     + getLastCommitHash() String 
-    + writeStringValue(hash: String) 
-    + readStringValue() String
+    + write(hash: String) 
+    + readHash() String
     + getLastCommitLines(command: String) long
   }
 
   class TimeStats {
-    + TimeStats(pathToLongValue: String)
+    + TimeStats(pathToCounter: String)
     + getSessionTime(): long 
     + deleteFile() 
   }

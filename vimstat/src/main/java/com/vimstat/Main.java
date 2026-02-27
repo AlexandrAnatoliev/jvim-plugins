@@ -11,7 +11,7 @@ import java.time.temporal.ChronoUnit;
  * <p>Usage: java Main start - erases information from temporary files, and starts to calculate
  * stats java Main update - update stats java Main stop - print stats
  *
- * @version 0.8.36
+ * @version 0.8.37
  * @since 27.02.2026
  * @author AlexandrAnatoliev
  */
@@ -48,9 +48,9 @@ public class Main {
   private static TimeStats monthTimeStats;
   private static TimeStats yesterdayTimeStats;
 
-  private static GitStats gitStats;
-  private static GitStats todayAddedLinesGitStats;
-  private static GitStats todayDeletedLinesGitStats;
+  private static GitStats dayGitStats;
+  private static GitStats dayAddedLinesGitStats;
+  private static GitStats dayDeletedLinesGitStats;
 
   private static GitStats averageCommitGitStats;
   private static GitStats averageAddedLinesGitStats;
@@ -76,9 +76,9 @@ public class Main {
 
   /** Creates and configures GitStats instances. */
   private static void initGitStatsInstances() {
-    gitStats = new GitStats(GIT_HASH_PATH, GIT_DAY_COMMIT_PATH);
-    todayAddedLinesGitStats = new GitStats(GIT_HASH_PATH, GIT_DAY_ADDED_LINES_PATH);
-    todayDeletedLinesGitStats = new GitStats(GIT_HASH_PATH, GIT_DAY_DELETED_LINES_PATH);
+    dayGitStats = new GitStats(GIT_HASH_PATH, GIT_DAY_COMMIT_PATH);
+    dayAddedLinesGitStats = new GitStats(GIT_HASH_PATH, GIT_DAY_ADDED_LINES_PATH);
+    dayDeletedLinesGitStats = new GitStats(GIT_HASH_PATH, GIT_DAY_DELETED_LINES_PATH);
 
     averageCommitGitStats = new GitStats(GIT_HASH_PATH, GIT_AVERAGE_COMMIT_PATH);
     averageAddedLinesGitStats = new GitStats(GIT_HASH_PATH, GIT_AVERAGE_ADDED_LINES_PATH);
@@ -99,11 +99,11 @@ public class Main {
    * @param GitStats instance
    */
   private static void initFileIsNotExist(GitStats instance) {
-    if (!instance.isFileExists(instance.pathToLongValue)) {
-      instance.writeLongValue(0L);
+    if (!instance.isFileExists(instance.pathToCounter)) {
+      instance.write(0L);
     }
-    if (!instance.isFileExists(instance.pathToStringValue)) {
-      instance.writeStringValue("");
+    if (!instance.isFileExists(instance.pathToHash)) {
+      instance.write("");
     }
   }
 
@@ -113,8 +113,8 @@ public class Main {
    * @param TimeStats instance
    */
   private static void initFileIsNotExist(TimeStats instance) {
-    if (!instance.isFileExists(instance.pathToLongValue)) {
-      instance.writeLongValue(0L);
+    if (!instance.isFileExists(instance.pathToCounter)) {
+      instance.write(0L);
     }
   }
 
@@ -125,8 +125,8 @@ public class Main {
    */
   private static void resetFileIfFirstSessionToday(GitStats instance) {
     LocalDate today = LocalDate.now();
-    if (!today.equals(instance.getFileDate(instance.pathToLongValue))) {
-      instance.writeLongValue(0L);
+    if (!today.equals(instance.getFileDate(instance.pathToCounter))) {
+      instance.write(0L);
     }
   }
 
@@ -137,8 +137,8 @@ public class Main {
    */
   private static void resetFileIfFirstSessionToday(TimeStats instance) {
     LocalDate today = LocalDate.now();
-    if (!today.equals(instance.getFileDate(instance.pathToLongValue))) {
-      instance.writeLongValue(0L);
+    if (!today.equals(instance.getFileDate(instance.pathToCounter))) {
+      instance.write(0L);
     }
   }
 
@@ -149,13 +149,13 @@ public class Main {
    */
   private static void updateAverageValue(GitStats noTodayInstance, GitStats averageInstance) {
     LocalDate today = LocalDate.now();
-    LocalDate noToday = noTodayInstance.getFileDate(noTodayInstance.pathToLongValue);
+    LocalDate noToday = noTodayInstance.getFileDate(noTodayInstance.pathToCounter);
     if (!noToday.equals(today)) {
-      long averageValue = averageInstance.readLongValue();
-      long noTodayValue = noTodayInstance.readLongValue();
+      long averageValue = averageInstance.readCount();
+      long noTodayValue = noTodayInstance.readCount();
 
       long emptyDays = ChronoUnit.DAYS.between(noToday, today);
-      averageInstance.writeLongValue(averageValue - (averageValue * emptyDays) / 30 + noTodayValue);
+      averageInstance.write(averageValue - (averageValue * emptyDays) / 30 + noTodayValue);
     }
   }
 
@@ -163,42 +163,44 @@ public class Main {
   public static void start() {
     initTimeStatsInstances();
     initGitStatsInstances();
-    // TODO убрать?
+
     LocalDate today = LocalDate.now();
 
-    initFileIsNotExist(gitStats);
-    initFileIsNotExist(todayAddedLinesGitStats);
-    initFileIsNotExist(todayDeletedLinesGitStats);
+    initFileIsNotExist(dayGitStats);
+    initFileIsNotExist(dayAddedLinesGitStats);
+    initFileIsNotExist(dayDeletedLinesGitStats);
 
     initFileIsNotExist(averageCommitGitStats);
     initFileIsNotExist(averageAddedLinesGitStats);
     initFileIsNotExist(averageDeletedLinesGitStats);
 
-    updateAverageValue(gitStats, averageCommitGitStats);
-    updateAverageValue(todayAddedLinesGitStats, averageAddedLinesGitStats);
-    updateAverageValue(todayDeletedLinesGitStats, averageDeletedLinesGitStats);
+    // TODO if new day
+    updateAverageValue(dayGitStats, averageCommitGitStats);
+    updateAverageValue(dayAddedLinesGitStats, averageAddedLinesGitStats);
+    updateAverageValue(dayDeletedLinesGitStats, averageDeletedLinesGitStats);
 
-    resetFileIfFirstSessionToday(gitStats);
-    resetFileIfFirstSessionToday(todayAddedLinesGitStats);
-    resetFileIfFirstSessionToday(todayDeletedLinesGitStats);
+    // TODO if new day
+    resetFileIfFirstSessionToday(dayGitStats);
+    resetFileIfFirstSessionToday(dayAddedLinesGitStats);
+    resetFileIfFirstSessionToday(dayDeletedLinesGitStats);
 
     if (sessionTimeStats.isFileExists(TIME_SESSION_PATH)) {
       long pastDuration = sessionTimeStats.getSessionTime();
-      long dayTime = dayTimeStats.readLongValue();
-      dayTimeStats.writeLongValue(dayTime + pastDuration);
+      long dayTime = dayTimeStats.readCount();
+      dayTimeStats.write(dayTime + pastDuration);
     }
-    sessionTimeStats.writeLongValue(System.currentTimeMillis() / 1000);
+    sessionTimeStats.write(System.currentTimeMillis() / 1000);
 
     initFileIsNotExist(yesterdayTimeStats);
     initFileIsNotExist(monthTimeStats);
 
     if (!monthTimeStats.getFileDate(TIME_MONTH_PATH).equals(today)) {
-      long yesterdayTime = monthTimeStats.readLongValue();
-      yesterdayTimeStats.writeLongValue(yesterdayTime);
+      long yesterdayTime = monthTimeStats.readCount();
+      yesterdayTimeStats.write(yesterdayTime);
 
       long emptyDays = ChronoUnit.DAYS.between(monthTimeStats.getFileDate(TIME_MONTH_PATH), today);
-      long monthTime = monthTimeStats.readLongValue() * (30 - emptyDays);
-      monthTimeStats.writeLongValue((monthTime + dayTimeStats.readLongValue()) / 30);
+      long monthTime = monthTimeStats.readCount() * (30 - emptyDays);
+      monthTimeStats.write((monthTime + dayTimeStats.readCount()) / 30);
     }
 
     initFileIsNotExist(dayTimeStats);
@@ -211,24 +213,23 @@ public class Main {
   public static void update() {
     initGitStatsInstances();
 
-    String savedHash = gitStats.readStringValue();
-    String lastHash = gitStats.getLastCommitHash();
-    long lastCommitAddedLines = todayAddedLinesGitStats.getLastCommitLines("added");
-    long lastCommitDeletedLines = todayDeletedLinesGitStats.getLastCommitLines("deleted");
+    String savedHash = dayGitStats.readHash();
+    String lastHash = dayGitStats.getLastCommitHash();
+    long lastCommitAddedLines = dayAddedLinesGitStats.getLastCommitLines("added");
+    long lastCommitDeletedLines = dayDeletedLinesGitStats.getLastCommitLines("deleted");
 
     if (!lastHash.equals(savedHash)) {
-      long savedDailyCommits = gitStats.readLongValue();
-      gitStats.writeLongValue(savedDailyCommits + 1L);
+      long savedDailyCommits = dayGitStats.readCount();
+      dayGitStats.write(savedDailyCommits + 1L);
 
-      long savedDailyCommitAddedLines = todayAddedLinesGitStats.readLongValue();
-      todayAddedLinesGitStats.writeLongValue(savedDailyCommitAddedLines + lastCommitAddedLines);
+      long savedDailyCommitAddedLines = dayAddedLinesGitStats.readCount();
+      dayAddedLinesGitStats.write(savedDailyCommitAddedLines + lastCommitAddedLines);
 
-      long savedDailyCommitDeletedLines = todayDeletedLinesGitStats.readLongValue();
-      todayDeletedLinesGitStats.writeLongValue(
-          savedDailyCommitDeletedLines + lastCommitDeletedLines);
+      long savedDailyCommitDeletedLines = dayDeletedLinesGitStats.readCount();
+      dayDeletedLinesGitStats.write(savedDailyCommitDeletedLines + lastCommitDeletedLines);
     }
 
-    gitStats.writeStringValue(lastHash);
+    dayGitStats.write(lastHash);
   }
 
   /*
@@ -239,22 +240,12 @@ public class Main {
     initTimeStatsInstances();
 
     long duration = sessionTimeStats.getSessionTime();
+    long dayTime = dayTimeStats.readCount() + duration;
 
-    // TODO лишняя проверка? проверялось при start()
-    if (!dayTimeStats.isFileExists(TIME_DAY_PATH)) {
-      dayTimeStats.writeLongValue(0L);
-    }
+    dayTimeStats.write(dayTime);
 
-    long dayTime = dayTimeStats.readLongValue() + duration;
-
-    dayTimeStats.writeLongValue(dayTime);
-    // TODO лишняя проверка? проверялось при start()
-    if (!monthTimeStats.isFileExists(TIME_MONTH_PATH)) {
-      monthTimeStats.writeLongValue(0L);
-    }
-
-    long monthTime = monthTimeStats.readLongValue();
-    long yesterdayTime = yesterdayTimeStats.readLongValue();
+    long monthTime = monthTimeStats.readCount();
+    long yesterdayTime = yesterdayTimeStats.readCount();
 
     long dayHours = dayTime / 3600;
     long dayMinutes = (dayTime % 3600) / 60;
@@ -290,13 +281,13 @@ public class Main {
 
     sessionTimeStats.deleteFile();
 
-    long savedDailyCommits = gitStats.readLongValue();
-    long savedDailyCommitAddedLines = todayAddedLinesGitStats.readLongValue();
-    long savedDailyCommitDeletedLines = todayDeletedLinesGitStats.readLongValue();
+    long savedDailyCommits = dayGitStats.readCount();
+    long savedDailyCommitAddedLines = dayAddedLinesGitStats.readCount();
+    long savedDailyCommitDeletedLines = dayDeletedLinesGitStats.readCount();
 
-    long averageCommits = averageCommitGitStats.readLongValue();
-    long averageAddedLines = averageAddedLinesGitStats.readLongValue();
-    long averageDeletedLines = averageDeletedLinesGitStats.readLongValue();
+    long averageCommits = averageCommitGitStats.readCount();
+    long averageAddedLines = averageAddedLinesGitStats.readCount();
+    long averageDeletedLines = averageDeletedLinesGitStats.readCount();
 
     String dailyFormat =
         "    - today:   %2d commits "
