@@ -239,19 +239,9 @@ public class Main {
     initTimeStatsInstances();
 
     long duration = sessionTimeStats.getSessionTime();
-
-    // TODO лишняя проверка? проверялось при start()
-    if (!dayTimeStats.isFileExists(TIME_DAY_PATH)) {
-      dayTimeStats.writeLongValue(0L);
-    }
-
     long dayTime = dayTimeStats.readLongValue() + duration;
 
     dayTimeStats.writeLongValue(dayTime);
-    // TODO лишняя проверка? проверялось при start()
-    if (!monthTimeStats.isFileExists(TIME_MONTH_PATH)) {
-      monthTimeStats.writeLongValue(0L);
-    }
 
     long monthTime = monthTimeStats.readLongValue();
     long yesterdayTime = yesterdayTimeStats.readLongValue();
