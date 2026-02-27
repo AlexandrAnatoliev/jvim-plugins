@@ -103,7 +103,7 @@ public class Main {
       instance.writeValue(0L);
     }
     if (!instance.isFileExists(instance.pathToStringValue)) {
-      instance.writeStringValue("");
+      instance.writeValue("");
     }
   }
 
@@ -228,7 +228,7 @@ public class Main {
           savedDailyCommitDeletedLines + lastCommitDeletedLines);
     }
 
-    gitStats.writeStringValue(lastHash);
+    gitStats.writeValue(lastHash);
   }
 
   /*

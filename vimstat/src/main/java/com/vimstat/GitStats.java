@@ -48,7 +48,7 @@ public class GitStats extends Stats {
    *
    * @param hash String to write to the file
    */
-  public void writeStringValue(String hash) {
+  public void writeValue(String hash) {
     try {
       String content = (hash == null) ? "" : hash;
       Files.writeString(Paths.get(pathToStringValue), content);
