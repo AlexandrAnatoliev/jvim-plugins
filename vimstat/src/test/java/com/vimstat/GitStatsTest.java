@@ -389,8 +389,8 @@ public class GitStatsTest {
   }
 
   /**
-   * Tests createFiles() method create new file if file does not exist, 
-   * and verifies that written value is default 0
+   * Tests createFiles() method create new file if file does not exist, and verifies that written
+   * value is default 0
    */
   @Test
   void testCreateFilesIsFileDoesNotExist() {
@@ -406,8 +406,8 @@ public class GitStatsTest {
   }
 
   /**
-   * Tests createFiles() method is not create new file if file exists, 
-   * and verifies that written value not change
+   * Tests createFiles() method is not create new file if file exists, and verifies that written
+   * value not change
    */
   @Test
   void testNotCreateFilesIfFileExists() {

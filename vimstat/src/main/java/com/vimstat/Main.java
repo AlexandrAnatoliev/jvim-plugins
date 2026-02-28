@@ -136,16 +136,16 @@ public class Main {
 
     LocalDate today = LocalDate.now();
     if (!today.equals(dayGitStats.getFileDate(GIT_DAY_COMMIT_PATH))) {
-        /* Update average counters if new day */
-        updateAverageValue(dayGitStats, averageCommitGitStats);
-        updateAverageValue(dayAddedLinesGitStats, averageAddedLinesGitStats);
-        updateAverageValue(dayDeletedLinesGitStats, averageDeletedLinesGitStats);
-        updateAverageValue(monthTimeStats, yesterdayTimeStats);
+      /* Update average counters if new day */
+      updateAverageValue(dayGitStats, averageCommitGitStats);
+      updateAverageValue(dayAddedLinesGitStats, averageAddedLinesGitStats);
+      updateAverageValue(dayDeletedLinesGitStats, averageDeletedLinesGitStats);
+      updateAverageValue(monthTimeStats, yesterdayTimeStats);
 
-        /* Reset counts if new day */
-        dayGitStats.write(0L);
-        dayAddedLinesGitStats.write(0L);
-        dayDeletedLinesGitStats.write(0L);
+      /* Reset counts if new day */
+      dayGitStats.write(0L);
+      dayAddedLinesGitStats.write(0L);
+      dayDeletedLinesGitStats.write(0L);
     }
   }
 

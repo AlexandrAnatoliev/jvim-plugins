@@ -103,9 +103,7 @@ public class GitStats extends Stats {
     }
   }
 
-  /**
-   * Create and initial files default values if is not exit
-   */
+  /** Create and initial files default values if is not exit */
   @Override
   public void createFiles() {
     if (!isFileExists(super.pathToCounter)) {

@@ -85,9 +85,7 @@ public abstract class Stats {
     return new File(pathToFile).exists();
   }
 
-  /**
-   * Create and initial file 0 value if is not exit
-   */
+  /** Create and initial file 0 value if is not exit */
   public void createFiles() {
     if (!isFileExists(this.pathToCounter)) {
       this.write(0L);
