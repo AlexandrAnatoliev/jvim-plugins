@@ -96,9 +96,9 @@ public class Main {
   /**
    * Update average value and write in file
    *
-   * @param GitStats instance
+   * @param Stats instance
    */
-  private static void updateAverageValue(GitStats noTodayInstance, GitStats averageInstance) {
+  private static void updateAverageValue(Stats noTodayInstance, Stats averageInstance) {
     LocalDate today = LocalDate.now();
     LocalDate noToday = noTodayInstance.getFileDate(noTodayInstance.pathToCounter);
     if (!noToday.equals(today)) {
@@ -115,25 +115,18 @@ public class Main {
     initTimeStatsInstances();
     initGitStatsInstances();
 
+    /* Create files if does not exist */
     dayGitStats.createFiles();
     dayAddedLinesGitStats.createFiles();
     dayDeletedLinesGitStats.createFiles();
-
     averageCommitGitStats.createFiles();
     averageAddedLinesGitStats.createFiles();
     averageDeletedLinesGitStats.createFiles();
-
     yesterdayTimeStats.createFiles();
     monthTimeStats.createFiles();
     dayTimeStats.createFiles();
 
-    LocalDate today = LocalDate.now();
-
-    // TODO if new day
-    updateAverageValue(dayGitStats, averageCommitGitStats);
-    updateAverageValue(dayAddedLinesGitStats, averageAddedLinesGitStats);
-    updateAverageValue(dayDeletedLinesGitStats, averageDeletedLinesGitStats);
-
+    /* Create session file */
     if (sessionTimeStats.isFileExists(TIME_SESSION_PATH)) {
       long pastDuration = sessionTimeStats.getSessionTime();
       long dayTime = dayTimeStats.readCount();
@@ -141,21 +134,18 @@ public class Main {
     }
     sessionTimeStats.write(System.currentTimeMillis() / 1000);
 
-    if (!monthTimeStats.getFileDate(TIME_MONTH_PATH).equals(today)) {
-      long yesterdayTime = monthTimeStats.readCount();
-      yesterdayTimeStats.write(yesterdayTime);
-
-      long emptyDays = ChronoUnit.DAYS.between(monthTimeStats.getFileDate(TIME_MONTH_PATH), today);
-      long monthTime = monthTimeStats.readCount() * (30 - emptyDays);
-      monthTimeStats.write((monthTime + dayTimeStats.readCount()) / 30);
-    }
-
-    /* Reset counts if new day */
+    LocalDate today = LocalDate.now();
     if (!today.equals(dayGitStats.getFileDate(GIT_DAY_COMMIT_PATH))) {
+        /* Update average counters if new day */
+        updateAverageValue(dayGitStats, averageCommitGitStats);
+        updateAverageValue(dayAddedLinesGitStats, averageAddedLinesGitStats);
+        updateAverageValue(dayDeletedLinesGitStats, averageDeletedLinesGitStats);
+        updateAverageValue(monthTimeStats, yesterdayTimeStats);
+
+        /* Reset counts if new day */
         dayGitStats.write(0L);
         dayAddedLinesGitStats.write(0L);
         dayDeletedLinesGitStats.write(0L);
-        dayGitStats.write(0L);
     }
   }
 
