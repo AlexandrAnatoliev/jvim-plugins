@@ -151,6 +151,7 @@ classDiagram
     + readCount() long 
     + getFileDate(pathToFile: String) LocalDate
     + isFileExists(pathToFile: String) boolean 
+    + createFiles()
   }
 
   class GitStats {
@@ -160,6 +161,7 @@ classDiagram
     + write(hash: String) 
     + readHash() String
     + getLastCommitLines(command: String) long
+    + createFiles()
   }
 
   class TimeStats {
@@ -399,6 +401,7 @@ classDiagram
     + readCount() long 
     + getFileDate(pathToFile: String) LocalDate
     + isFileExists(pathToFile: String) boolean 
+    + createFiles()
   }
 
   class GitStats {
@@ -408,6 +411,7 @@ classDiagram
     + write(hash: String) 
     + readHash() String
     + getLastCommitLines(command: String) long
+    + createFiles()
   }
 
   class TimeStats {
