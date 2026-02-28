@@ -238,4 +238,30 @@ public class TimeStatsTest {
 
     assertEquals(null, actualDate);
   }
+
+  /**
+   * Tests createFiles() method create new file if file is not exist, 
+   * and verifies that written value is default 0
+   */
+  @Test
+  void testCreateFilesIsFileIsNotExist() {
+    long expectedValue = 0L;
+    timeStats.createFiles();
+
+    long actualValue = timeStats.readCount();
+    assertEquals(expectedValue, actualValue);
+  }
+
+  /**
+   * Tests createFiles() method is not create new file if file is exist, 
+   * and verifies that written value not change
+   */
+  @Test
+  void testNotCreateFilesIsFileExist() {
+    long expectedValue = 123456789L;
+    timeStats.write(expectedValue);
+
+    long actualValue = timeStats.readCount();
+    assertEquals(expectedValue, actualValue);
+  }
 }

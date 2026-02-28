@@ -87,12 +87,10 @@ public abstract class Stats {
 
   /**
    * Create and initial file 0 value if is not exits
-   *
-   * @param Stats instance
    */
-  public void createFiles(Stats instance) {
-    if (!instance.isFileExists(instance.pathToCounter)) {
-      instance.write(0L);
+  public void createFiles() {
+    if (!isFileExists(this.pathToCounter)) {
+      write(0L);
     }
   }
 }
