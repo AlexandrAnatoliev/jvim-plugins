@@ -109,10 +109,10 @@ public class GitStats extends Stats {
   @Override
   public void createFiles() {
     if (!isFileExists(super.pathToCounter)) {
-      write(0L);
+      super.write(0L);
     }
     if (!isFileExists(this.pathToHash)) {
-      write("");
+      this.write("");
     }
   }
 }

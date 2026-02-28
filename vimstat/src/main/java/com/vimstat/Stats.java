@@ -90,7 +90,7 @@ public abstract class Stats {
    */
   public void createFiles() {
     if (!isFileExists(this.pathToCounter)) {
-      write(0L);
+      this.write(0L);
     }
   }
 }
