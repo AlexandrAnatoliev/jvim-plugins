@@ -13,8 +13,8 @@ import org.junit.jupiter.api.*;
  * <p>Tests file operations, session time calculation, and edge cases Uses temporary file that is
  * cleaned up after each test
  *
- * @version 0.8.37
- * @since 37.02.2026
+ * @version 0.8.38
+ * @since 28.02.2026
  * @author AlexandrAnatoliev
  */
 public class TimeStatsTest {

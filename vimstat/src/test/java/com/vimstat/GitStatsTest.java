@@ -10,8 +10,8 @@ import org.junit.jupiter.api.*;
 /**
  * Unit tests for GitStats class
  *
- * @version 0.8.37
- * @since 27.02.2026
+ * @version 0.8.38
+ * @since 28.02.2026
  * @author AlexandrAnatoliev
  */
 public class GitStatsTest {
@@ -386,5 +386,40 @@ public class GitStatsTest {
         assertDoesNotThrow(
             () -> stats.getLastCommitLines("deleted"), "Method should not throw any exceptions");
     assertNotNull(addedLines, "Returned value should not be null");
+  }
+
+  /**
+   * Tests createFiles() method create new file if file does not exist, 
+   * and verifies that written value is default 0
+   */
+  @Test
+  void testCreateFilesIsFileDoesNotExist() {
+    long expectedCount = 0L;
+    String expectedHash = "";
+    stats.createFiles();
+
+    long actualCount = stats.readCount();
+    String actualHash = stats.readHash();
+
+    assertEquals(expectedCount, actualCount);
+    assertEquals(expectedHash, actualHash);
+  }
+
+  /**
+   * Tests createFiles() method is not create new file if file exists, 
+   * and verifies that written value not change
+   */
+  @Test
+  void testNotCreateFilesIfFileExists() {
+    long expectedCount = 123456789L;
+    String expectedHash = "hash";
+    stats.write(expectedCount);
+    stats.write(expectedHash);
+
+    long actualCount = stats.readCount();
+    String actualHash = stats.readHash();
+
+    assertEquals(expectedCount, actualCount);
+    assertEquals(expectedHash, actualHash);
   }
 }
