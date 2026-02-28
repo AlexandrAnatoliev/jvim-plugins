@@ -166,13 +166,17 @@ public class Main {
 
     LocalDate today = LocalDate.now();
 
-    initFileIsNotExist(dayGitStats);
-    initFileIsNotExist(dayAddedLinesGitStats);
-    initFileIsNotExist(dayDeletedLinesGitStats);
+    dayGitStats.createFiles();
+    dayAddedLinesGitStats.createFiles();
+    dayDeletedLinesGitStats.createFiles();
 
-    initFileIsNotExist(averageCommitGitStats);
-    initFileIsNotExist(averageAddedLinesGitStats);
-    initFileIsNotExist(averageDeletedLinesGitStats);
+    averageCommitGitStats.createFiles();
+    averageAddedLinesGitStats.createFiles();
+    averageDeletedLinesGitStats.createFiles();
+
+    yesterdayTimeStats.createFiles();
+    monthTimeStats.createFiles();
+    dayTimeStats.createFiles();
 
     // TODO if new day
     updateAverageValue(dayGitStats, averageCommitGitStats);
@@ -191,9 +195,6 @@ public class Main {
     }
     sessionTimeStats.write(System.currentTimeMillis() / 1000);
 
-    initFileIsNotExist(yesterdayTimeStats);
-    initFileIsNotExist(monthTimeStats);
-
     if (!monthTimeStats.getFileDate(TIME_MONTH_PATH).equals(today)) {
       long yesterdayTime = monthTimeStats.readCount();
       yesterdayTimeStats.write(yesterdayTime);
@@ -203,7 +204,6 @@ public class Main {
       monthTimeStats.write((monthTime + dayTimeStats.readCount()) / 30);
     }
 
-    initFileIsNotExist(dayTimeStats);
     resetFileIfFirstSessionToday(dayTimeStats);
   }
 
