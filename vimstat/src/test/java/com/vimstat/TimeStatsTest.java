@@ -240,11 +240,11 @@ public class TimeStatsTest {
   }
 
   /**
-   * Tests createFiles() method create new file if file is not exist, 
+   * Tests createFiles() method create new file if file does not exist, 
    * and verifies that written value is default 0
    */
   @Test
-  void testCreateFilesIsFileIsNotExist() {
+  void testCreateFilesIsFileDoesNotExist() {
     long expectedValue = 0L;
     timeStats.createFiles();
 
@@ -253,11 +253,11 @@ public class TimeStatsTest {
   }
 
   /**
-   * Tests createFiles() method is not create new file if file is exist, 
+   * Tests createFiles() method is not create new file if file exists, 
    * and verifies that written value not change
    */
   @Test
-  void testNotCreateFilesIsFileExist() {
+  void testNotCreateFilesIfFileExists() {
     long expectedValue = 123456789L;
     timeStats.write(expectedValue);
 
