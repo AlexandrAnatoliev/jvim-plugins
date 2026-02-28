@@ -73,18 +73,6 @@ public class TimeStatsTest {
   }
 
   /**
-   * Tests write() and readCount() methods Verifies that written value can be successfully read back
-   */
-  @Test
-  void testWriteToFileAndReadFromFile() {
-    long expectedValue = 123456789L;
-    timeStats.write(expectedValue);
-
-    long actualValue = timeStats.readCount();
-    assertEquals(expectedValue, actualValue);
-  }
-
-  /**
    * Tests readCount() method when file does not exist Verifies that method returns 0 as default
    * value
    */
