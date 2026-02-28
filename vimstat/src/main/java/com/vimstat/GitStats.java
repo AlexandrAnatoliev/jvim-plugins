@@ -102,4 +102,15 @@ public class GitStats extends Stats {
       return 0;
     }
   }
+
+  /** Create and initial files default values if is not exit */
+  @Override
+  public void createFiles() {
+    if (!isFileExists(super.pathToCounter)) {
+      super.write(0L);
+    }
+    if (!isFileExists(this.pathToHash)) {
+      this.write("");
+    }
+  }
 }

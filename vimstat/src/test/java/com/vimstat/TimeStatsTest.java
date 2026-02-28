@@ -13,8 +13,8 @@ import org.junit.jupiter.api.*;
  * <p>Tests file operations, session time calculation, and edge cases Uses temporary file that is
  * cleaned up after each test
  *
- * @version 0.8.37
- * @since 37.02.2026
+ * @version 0.8.38
+ * @since 28.02.2026
  * @author AlexandrAnatoliev
  */
 public class TimeStatsTest {
@@ -237,5 +237,31 @@ public class TimeStatsTest {
     LocalDate actualDate = timeStats.getFileDate(TEST_FILE_PATH);
 
     assertEquals(null, actualDate);
+  }
+
+  /**
+   * Tests createFiles() method create new file if file does not exist, and verifies that written
+   * value is default 0
+   */
+  @Test
+  void testCreateFilesIsFileDoesNotExist() {
+    long expectedValue = 0L;
+    timeStats.createFiles();
+
+    long actualValue = timeStats.readCount();
+    assertEquals(expectedValue, actualValue);
+  }
+
+  /**
+   * Tests createFiles() method is not create new file if file exists, and verifies that written
+   * value not change
+   */
+  @Test
+  void testNotCreateFilesIfFileExists() {
+    long expectedValue = 123456789L;
+    timeStats.write(expectedValue);
+
+    long actualValue = timeStats.readCount();
+    assertEquals(expectedValue, actualValue);
   }
 }

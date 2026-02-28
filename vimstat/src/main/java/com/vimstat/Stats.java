@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 /**
  * The class to get working stats
  *
- * @version 0.8.37
- * @since 27.02.2026
+ * @version 0.8.38
+ * @since 28.02.2026
  * @author AlexandrAnatoliev
  */
 public abstract class Stats {
@@ -83,5 +83,12 @@ public abstract class Stats {
    */
   public boolean isFileExists(String pathToFile) {
     return new File(pathToFile).exists();
+  }
+
+  /** Create and initial file 0 value if is not exit */
+  public void createFiles() {
+    if (!isFileExists(this.pathToCounter)) {
+      this.write(0L);
+    }
   }
 }
