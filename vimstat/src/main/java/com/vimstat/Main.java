@@ -94,30 +94,6 @@ public class Main {
   }
 
   /**
-   * Set file 0 value if first session today
-   *
-   * @param GitStats instance
-   */
-  private static void resetFileIfFirstSessionToday(GitStats instance) {
-    LocalDate today = LocalDate.now();
-    if (!today.equals(instance.getFileDate(instance.pathToCounter))) {
-      instance.write(0L);
-    }
-  }
-
-  /**
-   * Set file 0 value if first session today
-   *
-   * @param TimeStats instance
-   */
-  private static void resetFileIfFirstSessionToday(TimeStats instance) {
-    LocalDate today = LocalDate.now();
-    if (!today.equals(instance.getFileDate(instance.pathToCounter))) {
-      instance.write(0L);
-    }
-  }
-
-  /**
    * Update average value and write in file
    *
    * @param GitStats instance
@@ -139,8 +115,6 @@ public class Main {
     initTimeStatsInstances();
     initGitStatsInstances();
 
-    LocalDate today = LocalDate.now();
-
     dayGitStats.createFiles();
     dayAddedLinesGitStats.createFiles();
     dayDeletedLinesGitStats.createFiles();
@@ -153,15 +127,12 @@ public class Main {
     monthTimeStats.createFiles();
     dayTimeStats.createFiles();
 
+    LocalDate today = LocalDate.now();
+
     // TODO if new day
     updateAverageValue(dayGitStats, averageCommitGitStats);
     updateAverageValue(dayAddedLinesGitStats, averageAddedLinesGitStats);
     updateAverageValue(dayDeletedLinesGitStats, averageDeletedLinesGitStats);
-
-    // TODO if new day
-    resetFileIfFirstSessionToday(dayGitStats);
-    resetFileIfFirstSessionToday(dayAddedLinesGitStats);
-    resetFileIfFirstSessionToday(dayDeletedLinesGitStats);
 
     if (sessionTimeStats.isFileExists(TIME_SESSION_PATH)) {
       long pastDuration = sessionTimeStats.getSessionTime();
@@ -179,7 +150,13 @@ public class Main {
       monthTimeStats.write((monthTime + dayTimeStats.readCount()) / 30);
     }
 
-    resetFileIfFirstSessionToday(dayTimeStats);
+    /* Reset counts if new day */
+    if (!today.equals(dayGitStats.getFileDate(GIT_DAY_COMMIT_PATH))) {
+        dayGitStats.write(0L);
+        dayAddedLinesGitStats.write(0L);
+        dayDeletedLinesGitStats.write(0L);
+        dayGitStats.write(0L);
+    }
   }
 
   /*
