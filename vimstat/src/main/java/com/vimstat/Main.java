@@ -94,31 +94,6 @@ public class Main {
   }
 
   /**
-   * Initial file 0 value if is not exits
-   *
-   * @param GitStats instance
-   */
-  private static void initFileIsNotExist(GitStats instance) {
-    if (!instance.isFileExists(instance.pathToCounter)) {
-      instance.write(0L);
-    }
-    if (!instance.isFileExists(instance.pathToHash)) {
-      instance.write("");
-    }
-  }
-
-  /**
-   * Initial file 0 value if is not exits
-   *
-   * @param TimeStats instance
-   */
-  private static void initFileIsNotExist(TimeStats instance) {
-    if (!instance.isFileExists(instance.pathToCounter)) {
-      instance.write(0L);
-    }
-  }
-
-  /**
    * Set file 0 value if first session today
    *
    * @param GitStats instance
