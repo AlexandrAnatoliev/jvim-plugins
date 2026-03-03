@@ -11,8 +11,8 @@ import java.time.temporal.ChronoUnit;
  * <p>Usage: java Main start - erases information from temporary files, and starts to calculate
  * stats java Main update - update stats java Main stop - print stats
  *
- * @version 0.8.38
- * @since 28.02.2026
+ * @version 0.8.39
+ * @since 03.03.2026
  * @author AlexandrAnatoliev
  */
 public class Main {
@@ -142,10 +142,13 @@ public class Main {
       updateAverageValue(dayDeletedLinesGitStats, averageDeletedLinesGitStats);
       updateAverageValue(monthTimeStats, yesterdayTimeStats);
 
+      yesterdayTimeStats.write(dayTimeStats.readCount());
+
       /* Reset counts if new day */
       dayGitStats.write(0L);
       dayAddedLinesGitStats.write(0L);
       dayDeletedLinesGitStats.write(0L);
+      dayTimeStats.write(0L);
     }
   }
 
