@@ -11,8 +11,8 @@ import java.time.temporal.ChronoUnit;
  * <p>Usage: java Main start - erases information from temporary files, and starts to calculate
  * stats java Main update - update stats java Main stop - print stats
  *
- * @version 0.8.39
- * @since 03.03.2026
+ * @version 0.8.40
+ * @since 04.03.2026
  * @author AlexandrAnatoliev
  */
 public class Main {
@@ -46,7 +46,7 @@ public class Main {
   private static TimeStats sessionTimeStats;
   private static TimeStats dayTimeStats;
   private static TimeStats monthTimeStats;
-  private static TimeStats yesterdayTimeStats;
+  private static TimeStats yesterdayMonthValueTimeStats;
 
   private static GitStats dayGitStats;
   private static GitStats dayAddedLinesGitStats;
@@ -90,7 +90,7 @@ public class Main {
     sessionTimeStats = new TimeStats(TIME_SESSION_PATH);
     dayTimeStats = new TimeStats(TIME_DAY_PATH);
     monthTimeStats = new TimeStats(TIME_MONTH_PATH);
-    yesterdayTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
+    yesterdayMonthValueTimeStats = new TimeStats(TIME_YESTERDAY_PATH);
   }
 
   /**
@@ -122,7 +122,7 @@ public class Main {
     averageCommitGitStats.createFiles();
     averageAddedLinesGitStats.createFiles();
     averageDeletedLinesGitStats.createFiles();
-    yesterdayTimeStats.createFiles();
+    yesterdayMonthValueTimeStats.createFiles();
     monthTimeStats.createFiles();
     dayTimeStats.createFiles();
 
@@ -140,9 +140,10 @@ public class Main {
       updateAverageValue(dayGitStats, averageCommitGitStats);
       updateAverageValue(dayAddedLinesGitStats, averageAddedLinesGitStats);
       updateAverageValue(dayDeletedLinesGitStats, averageDeletedLinesGitStats);
-      updateAverageValue(monthTimeStats, yesterdayTimeStats);
+      updateAverageValue(monthTimeStats, dayTimeStats);
 
-      yesterdayTimeStats.write(dayTimeStats.readCount());
+      /* Save yesterday month value */
+      yesterdayMonthValueTimeStats.write(monthTimeStats.readCount());
 
       /* Reset counts if new day */
       dayGitStats.write(0L);
@@ -190,7 +191,7 @@ public class Main {
     dayTimeStats.write(dayTime);
 
     long monthTime = monthTimeStats.readCount();
-    long yesterdayTime = yesterdayTimeStats.readCount();
+    long yesterdayMonthValueTime = yesterdayMonthValueTimeStats.readCount();
 
     long dayHours = dayTime / 3600;
     long dayMinutes = (dayTime % 3600) / 60;
@@ -210,7 +211,7 @@ public class Main {
                 """,
         dayHours, dayMinutes, daySeconds);
 
-    if (monthTime > yesterdayTime || dayTime > yesterdayTime) {
+    if (monthTime > yesterdayMonthValueTime || dayTime > yesterdayMonthValueTime) {
       System.out.printf(
           Colors.GREEN.apply("    - average:          %2d h %2d min %2d sec%n"),
           monthHours,
