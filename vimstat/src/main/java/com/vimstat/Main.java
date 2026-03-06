@@ -11,8 +11,8 @@ import java.time.temporal.ChronoUnit;
  * <p>Usage: java Main start - erases information from temporary files, and starts to calculate
  * stats java Main update - update stats java Main stop - print stats
  *
- * @version 0.8.41
- * @since 05.03.2026
+ * @version 0.8.42
+ * @since 06.03.2026
  * @author AlexandrAnatoliev
  */
 public class Main {
@@ -101,13 +101,12 @@ public class Main {
   private static void updateAverageValue(Stats noTodayInstance, Stats averageInstance) {
     LocalDate today = LocalDate.now();
     LocalDate noToday = noTodayInstance.getFileDate(noTodayInstance.pathToCounter);
-    if (!noToday.equals(today)) {
-      long averageValue = averageInstance.readCount();
-      long noTodayValue = noTodayInstance.readCount();
 
-      long emptyDays = ChronoUnit.DAYS.between(noToday, today);
-      averageInstance.write(averageValue - (averageValue * emptyDays) / 30 + noTodayValue);
-    }
+    long averageValue = averageInstance.readCount();
+    long noTodayValue = noTodayInstance.readCount();
+    long emptyDays = ChronoUnit.DAYS.between(noToday, today);
+
+    averageInstance.write(averageValue - (averageValue * emptyDays) / 30 + noTodayValue);
   }
 
   /** Starts a new stats session. */
