@@ -138,7 +138,6 @@ public class Main {
     if (!today.equals(dayGitStats.getFileDate(GIT_DAY_COMMIT_PATH))) {
       /* Save yesterday month value */
       yesterdayMonthValueTimeStats.write(monthTimeStats.readCount());
-      System.out.println("yesterdayMonthValueTimeStats.write(" + monthTimeStats.readCount() + ")");
 
       /* Update average counters */
       updateAverageValue(dayGitStats, averageCommitGitStats);
@@ -198,9 +197,9 @@ public class Main {
     long dayMinutes = (dayTime % 3600) / 60;
     long daySeconds = dayTime % 60;
 
-    long monthHours = monthTime / 3600;
-    long monthMinutes = (monthTime % 3600) / 60;
-    long monthSeconds = monthTime % 60;
+    long monthHours = (monthTime / 30) / 3600;
+    long monthMinutes = ((monthTime / 30) % 3600) / 60;
+    long monthSeconds = (monthTime / 30) % 60;
 
     System.out.printf(
         """
