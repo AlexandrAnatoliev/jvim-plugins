@@ -11,8 +11,8 @@ import java.time.temporal.ChronoUnit;
  * <p>Usage: java Main start - erases information from temporary files, and starts to calculate
  * stats java Main update - update stats java Main stop - print stats
  *
- * @version 0.8.43
- * @since 07.03.2026
+ * @version 0.8.45
+ * @since 11.04.2026
  * @author AlexandrAnatoliev
  */
 public class Main {
@@ -211,7 +211,7 @@ public class Main {
                 """,
         dayHours, dayMinutes, daySeconds);
 
-    if (monthTime > yesterdayMonthValueTime || dayTime > yesterdayMonthValueTime) {
+    if (monthTime > yesterdayMonthValueTime || dayTime > yesterdayMonthValueTime / 30) {
       System.out.printf(
           Colors.GREEN.apply("    - average:          %2d h %2d min %2d sec%n"),
           monthHours,
